@@ -1,0 +1,15 @@
+# Put Matrix driver device interface to diag grp
+/dev/matrix               0640   root       diag
+# USB devices
+/dev/ttyGS0               0660   root       mot_usb
+# SD device
+/dev/block/mmcblk1p1      0660   root       mot_tcmd
+# CID partition
+/dev/block/cid            0660   root       mot_tcmd
+# Intel Security Driver
+/dev/sep_sec_driver       0660   mot_tpapi  mot_tpapi
+# SGX graphics device
+/dev/dri/card*            0666   root       root
+# Bluetooth device
+/dev/ttyMFD0              0660   bluetooth  bluetooth
+/dev/watchdog             0660   system     system

@@ -1,0 +1,36 @@
+import init.sc1.rc
+import init.sdcard.rc
+import init.smi.usb.rc
+import init.wifi.rc
+import init.xmm.rc
+
+on property:sys.vpn.tun.enabled=1
+    write /proc/sys/net/tun/tun-status 1
+
+on property:sys.vpn.tun.enabled=0
+    write /proc/sys/net/tun/tun-status 0
+
+on property:persist.helsmon.enable=1
+    start helsmond
+
+on property:persist.helsmon.enable=0
+    stop helsmond
+
+on property:dev.bootcomplete=1
+    start loadpreinstalls
+
+service helsmond /system/bin/helsmond
+    class main
+    disabled
+
+service RescueStarter /system/bin/RescueStarter
+     class main
+     user graphics
+     group input graphics
+
+service loadpreinstalls /system/bin/logwrapper /system/bin/loadpreinstalls.sh
+    class main
+    user system
+    group system media_rw
+    disabled
+    oneshot

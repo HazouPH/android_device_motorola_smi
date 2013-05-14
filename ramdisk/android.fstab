@@ -1,0 +1,8 @@
+#mount point   fstype   device                    device2                   size hint                    flags and options...
+/reserved      hidden   /dev/block/mmcblk0_none   none                      size_hint=100
+/system        ext4     /dev/block/system         none                      size_hint=1224               ro noatime nodiratime
+/cache         ext4     /dev/block/cache          none                      size_hint=640                nosuid nodev noatime nodiratime fsck data=ordered,nodelalloc
+/panic         raw      /dev/block/panic          none                      size_hint=8
+/data          ext4     /dev/block/userdata       none                      size_hint=0,length=-16384    nosuid nodev noatime nodiratime fsck data=ordered,nodelalloc
+/pds           ext4     /dev/block/pds            none                      size_hint=8                  nosuid nodev noatime nodiratime fsck data=ordered,nodelalloc
+/mnt/sdcard    vfat     /dev/block/mmcblk1p1      /dev/block/mmcblk1        size_hint=-1

@@ -1,0 +1,2 @@
+#!/sbin/sh
+/sbin/watchdogd &

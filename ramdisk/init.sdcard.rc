@@ -1,0 +1,41 @@
+on init
+
+# partition map
+#
+# sdcard
+#	mmcblk0p1	/panic
+#	mmcblk0p2	/factory
+#	mmcblk0p3	/config
+#	mmcblk0p4	not assigned (extended)
+#	mmcblk0p5	/cache
+#	mmcblk0p6	/system
+#	mmcblk0p7	/logs
+#	mmcblk0p8	/media
+#	mmcblk0p9	/data
+#	mmcblk0p10	not assigned yet
+#
+
+# mount android base partitions
+    # since init.sdcard.rc was ran before init.rc
+    # we do need create mount points here
+    mkdir /system
+    mkdir /data 0771 system system
+    mkdir /cache 0770 system cache
+    mkdir /config
+    mkdir /pds 0770 system system
+
+    mount_fstab /android.fstab
+
+    mkdir /data/logs 0771 system system
+
+    chown system system /data
+    chmod 0771 /data
+
+    chown system cache /cache
+    chmod 0770 /cache
+
+    chown system system /cache/recovery
+    chmod 0770 /cache/recovery
+
+#on boot
+# See init.cdk-basic.rc
