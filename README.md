@@ -5,7 +5,7 @@ Motorola Razr i Intel-atom
 
 Repository is not yet a fully working tree. There are still some parts missing.
 
-What wil build and work:
+What will build and work:
 Build for recovery and AOSP
 
 What doenst work, but builds:
