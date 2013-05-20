@@ -1,0 +1,488 @@
+From 703d1a8434e3a2e03807f5fd6711bb4e5e7e4214 Mon Sep 17 00:00:00 2001
+From: Patrick Harbers <jgrharbers@gmail.com>
+Date: Mon, 20 May 2013 15:06:34 +0200
+Subject: [PATCH] Make kernel building work and stop building
+ recovery_from_boot.p
+
+---
+ core/Makefile                            |  63 +++++++---
+ core/tasks/kernel.mk                     | 191 +++++++++++++++++++++++++++++++
+ tools/releasetools/ota_from_target_files |  88 +-------------
+ 3 files changed, 242 insertions(+), 100 deletions(-)
+ create mode 100644 core/tasks/kernel.mk
+
+diff --git a/core/Makefile b/core/Makefile
+index a25d80f..f3a5f46 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -401,13 +401,13 @@ $(INSTALLED_BOOTIMAGE_TARGET): $(MKEXT2IMG) $(INTERNAL_BOOTIMAGE_FILES)
+ 	$(call pretty,"Target boot image: $@")
+ 	$(hide) $(MKEXT2BOOTIMG) $(INTERNAL_BOOTIMAGE_ARGS) --output $@
+ 
+-else # TARGET_BOOTIMAGE_USE_EXT2 != true
++else ifndef BOARD_CUSTOM_BOOTIMG_MK # TARGET_BOOTIMAGE_USE_EXT2 != true
+ 
+ $(INSTALLED_BOOTIMAGE_TARGET): $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES)
+ 	$(call pretty,"Target boot image: $@")
+ 	$(hide) $(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $@
+ 	$(hide) $(call assert-max-image-size,$@,$(BOARD_BOOTIMAGE_PARTITION_SIZE),raw)
+-endif # TARGET_BOOTIMAGE_USE_EXT2
++endif # ifndef BOARD_CUSTOM_BOOTIMG_MK
+ 
+ else	# TARGET_NO_KERNEL
+ # HACK: The top-level targets depend on the bootimage.  Not all targets
+@@ -584,6 +584,7 @@ INSTALLED_RECOVERYIMAGE_TARGET := $(PRODUCT_OUT)/recovery.img
+ 
+ recovery_initrc := $(call include-path-for, recovery)/etc/init.rc
+ recovery_kernel := $(INSTALLED_KERNEL_TARGET) # same as a non-recovery system
++recovery_uncompressed_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.cpio
+ recovery_ramdisk := $(PRODUCT_OUT)/ramdisk-recovery.img
+ recovery_build_prop := $(INSTALLED_BUILD_PROP_TARGET)
+ recovery_binary := $(call intermediates-dir-for,EXECUTABLES,recovery)/recovery
+@@ -638,38 +639,62 @@ $(RECOVERY_INSTALL_OTA_KEYS): $(OTA_PUBLIC_KEYS) $(DUMPKEY_JAR) $(extra_keys)
+ 	@mkdir -p $(dir $@)
+ 	java -jar $(DUMPKEY_JAR) $(PRIVATE_OTA_PUBLIC_KEYS) $(extra_keys) > $@
+ 
+-$(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTFS) $(MKBOOTIMG) $(MINIGZIP) \
++TARGET_RECOVERY_ROOT_TIMESTAMP := $(TARGET_RECOVERY_OUT)/root.ts
++
++$(TARGET_RECOVERY_ROOT_TIMESTAMP): $(INTERNAL_RECOVERY_FILES) \
+ 		$(INSTALLED_RAMDISK_TARGET) \
+-		$(INSTALLED_BOOTIMAGE_TARGET) \
++		$(MKBOOTIMG) $(INTERNAL_BOOTIMAGE_FILES) \
+ 		$(recovery_binary) \
+-		$(recovery_initrc) $(recovery_kernel) \
++		$(recovery_initrc) \
+ 		$(INSTALLED_2NDBOOTLOADER_TARGET) \
+ 		$(recovery_build_prop) $(recovery_resource_deps) \
+ 		$(recovery_fstab) \
+ 		$(RECOVERY_INSTALL_OTA_KEYS)
+-	@echo ----- Making recovery image ------
+-	$(hide) rm -rf $(TARGET_RECOVERY_OUT)
++	@echo -e ${CL_CYN}"----- Making recovery filesystem ------"${CL_RST}
+ 	$(hide) mkdir -p $(TARGET_RECOVERY_OUT)
+ 	$(hide) mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/etc $(TARGET_RECOVERY_ROOT_OUT)/tmp
+-	@echo Copying baseline ramdisk...
++	@echo -e ${CL_CYN}"Copying baseline ramdisk..."${CL_RST}
+ 	$(hide) cp -R $(TARGET_ROOT_OUT) $(TARGET_RECOVERY_OUT)
+-	@echo Modifying ramdisk contents...
++	@echo -e ${CL_CYN}"Modifying ramdisk contents..."${CL_RST}
+ 	$(hide) rm -f $(TARGET_RECOVERY_ROOT_OUT)/init*.rc
+-	$(hide) cp -f $(recovery_initrc) $(TARGET_RECOVERY_ROOT_OUT)/
++	$(hide) cp -f $(recovery_initrc) $(TARGET_RECOVERY_ROOT_OUT)/init.rc
++
+ 	$(hide) -cp $(TARGET_ROOT_OUT)/init.recovery.*.rc $(TARGET_RECOVERY_ROOT_OUT)/
+ 	$(hide) cp -f $(recovery_binary) $(TARGET_RECOVERY_ROOT_OUT)/sbin/
++	mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/system/bin
+ 	$(hide) cp -rf $(recovery_resources_common) $(TARGET_RECOVERY_ROOT_OUT)/
+ 	$(hide) $(foreach item,$(recovery_resources_private), \
+ 	  cp -rf $(item) $(TARGET_RECOVERY_ROOT_OUT)/)
++	$(foreach item,$(recovery_root_private), \
++	  cp -rf $(item) $(TARGET_RECOVERY_OUT)/)
+ 	$(hide) $(foreach item,$(recovery_fstab), \
+ 	  cp -f $(item) $(TARGET_RECOVERY_ROOT_OUT)/etc/recovery.fstab)
+ 	$(hide) cp $(RECOVERY_INSTALL_OTA_KEYS) $(TARGET_RECOVERY_ROOT_OUT)/res/keys
+ 	$(hide) cat $(INSTALLED_DEFAULT_PROP_TARGET) $(recovery_build_prop) \
+ 	        > $(TARGET_RECOVERY_ROOT_OUT)/default.prop
+-	$(hide) $(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) | $(MINIGZIP) > $(recovery_ramdisk)
++	@echo -e ${CL_CYN}"----- Made recovery filesystem --------"$(TARGET_RECOVERY_ROOT_OUT)${CL_RST}
++	@touch $(TARGET_RECOVERY_ROOT_TIMESTAMP)
++
++$(recovery_uncompressed_ramdisk): $(MINIGZIP) \
++	$(TARGET_RECOVERY_ROOT_TIMESTAMP)
++	@echo -e ${CL_CYN}"----- Making uncompressed recovery ramdisk ------"${CL_RST}
++	$(MKBOOTFS) $(TARGET_RECOVERY_ROOT_OUT) > $@
++
++$(recovery_ramdisk): $(MKBOOTFS) \
++	$(recovery_uncompressed_ramdisk)
++	@echo -e ${CL_CYN}"----- Making recovery ramdisk ------"${CL_RST}
++	$(MINIGZIP) < $(recovery_uncompressed_ramdisk) > $@
++
++ifndef BOARD_CUSTOM_BOOTIMG_MK
++$(INSTALLED_RECOVERYIMAGE_TARGET): $(MKBOOTIMG) \
++		$(recovery_ramdisk) \
++		$(recovery_kernel)
++	@echo -e ${CL_CYN}"----- Making recovery image ------"${CL_RST}
+ 	$(hide) $(MKBOOTIMG) $(INTERNAL_RECOVERYIMAGE_ARGS) $(BOARD_MKBOOTIMG_ARGS) --output $@
+ 	$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE),raw)
+-	@echo ----- Made recovery image: $@ --------
++	@echo -e ${CL_CYN}"Made recovery image: $@"${CL_RST}
++endif
++
+ 
+ $(RECOVERY_RESOURCE_ZIP): $(INSTALLED_RECOVERYIMAGE_TARGET)
+ 	$(hide) mkdir -p $(dir $@)
+@@ -696,6 +721,10 @@ else
+ BOARD_NAND_SPARE_SIZE := 64
+ endif
+ 
++ifdef BOARD_CUSTOM_BOOTIMG_MK
++include $(BOARD_CUSTOM_BOOTIMG_MK)
++endif
++
+ # -----------------------------------------------------------------
+ # system image
+ #
+@@ -770,12 +799,20 @@ SYSTEMIMAGE_SOURCE_DIR := $(TARGET_OUT)
+ # image size check calculation.
+ ifneq ($(INSTALLED_RECOVERYIMAGE_TARGET),)
+ intermediates := $(call intermediates-dir-for,PACKAGING,recovery_patch)
++ifndef BOARD_CUSTOM_BOOTIMG_MK
++ifeq ($(CM_BUILD),)
+ RECOVERY_FROM_BOOT_PATCH := $(intermediates)/recovery_from_boot.p
++else
++RECOVERY_FROM_BOOT_PATCH :=
++endif
++else
++RECOVERY_FROM_BOOT_PATCH :=
++endif
+ $(RECOVERY_FROM_BOOT_PATCH): $(INSTALLED_RECOVERYIMAGE_TARGET) \
+                              $(INSTALLED_BOOTIMAGE_TARGET) \
+ 			     $(HOST_OUT_EXECUTABLES)/imgdiff \
+ 	                     $(HOST_OUT_EXECUTABLES)/bsdiff
+-	@echo "Construct recovery from boot"
++	@echo -e ${CL_CYN}"Construct recovery from boot"${CL_RST}
+ 	mkdir -p $(dir $@)
+ 	PATH=$(HOST_OUT_EXECUTABLES):$$PATH $(HOST_OUT_EXECUTABLES)/imgdiff $(INSTALLED_BOOTIMAGE_TARGET) $(INSTALLED_RECOVERYIMAGE_TARGET) $@
+ endif
+diff --git a/core/tasks/kernel.mk b/core/tasks/kernel.mk
+new file mode 100644
+index 0000000..c7ff3f0
+--- /dev/null
++++ b/core/tasks/kernel.mk
+@@ -0,0 +1,191 @@
++# Copyright (C) 2012 The CyanogenMod Project
++#
++# Licensed under the Apache License, Version 2.0 (the "License");
++# you may not use this file except in compliance with the License.
++# You may obtain a copy of the License at
++#
++#      http://www.apache.org/licenses/LICENSE-2.0
++#
++# Unless required by applicable law or agreed to in writing, software
++# distributed under the License is distributed on an "AS IS" BASIS,
++# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++# See the License for the specific language governing permissions and
++# limitations under the License.
++
++# Android makefile to build kernel as a part of Android Build
++
++TARGET_AUTO_KDIR := $(shell echo $(TARGET_DEVICE_DIR) | sed -e 's/^device/kernel/g')
++
++## Externally influenced variables
++# kernel location - optional, defaults to kernel/<vendor>/<device>
++TARGET_KERNEL_SOURCE ?= $(TARGET_AUTO_KDIR)
++KERNEL_SRC := $(TARGET_KERNEL_SOURCE)
++# kernel configuration - mandatory
++KERNEL_DEFCONFIG := $(TARGET_KERNEL_CONFIG)
++
++## Internal variables
++KERNEL_OUT := $(PWD)/$(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ
++KERNEL_CONFIG := $(KERNEL_OUT)/.config
++
++ifeq ($(BOARD_USES_UBOOT),true)
++	TARGET_PREBUILT_INT_KERNEL := $(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/uImage
++	TARGET_PREBUILT_INT_KERNEL_TYPE := uImage
++else ifeq ($(BOARD_USES_UNCOMPRESSED_BOOT),true)
++	TARGET_PREBUILT_INT_KERNEL := $(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/Image
++	TARGET_PREBUILT_INT_KERNEL_TYPE := Image
++else ifeq ($(BOARD_USES_bzImage),true)
++	TARGET_PREBUILT_INT_KERNEL := $(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/bzImage
++	TARGET_PREBUILT_INT_KERNEL_TYPE := bzImage
++else
++	TARGET_PREBUILT_INT_KERNEL := $(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/zImage
++	TARGET_PREBUILT_INT_KERNEL_TYPE := zImage
++endif
++
++ifeq "$(wildcard $(KERNEL_SRC) )" ""
++    ifneq ($(TARGET_PREBUILT_KERNEL),)
++        HAS_PREBUILT_KERNEL := true
++        NEEDS_KERNEL_COPY := true
++    else
++        $(foreach cf,$(PRODUCT_COPY_FILES), \
++            $(eval _src := $(call word-colon,1,$(cf))) \
++            $(eval _dest := $(call word-colon,2,$(cf))) \
++            $(ifeq kernel,$(_dest), \
++                $(eval HAS_PREBUILT_KERNEL := true)))
++    endif
++
++    ifneq ($(HAS_PREBUILT_KERNEL),)
++        $(warning ***************************************************************)
++        $(warning * Using prebuilt kernel binary instead of source              *)
++        $(warning * THIS IS DEPRECATED, AND WILL BE DISCONTINUED                *)
++        $(warning * Please configure your device to download the kernel         *)
++        $(warning * source repository to $(KERNEL_SRC))
++        $(warning * See http://wiki.cyanogenmod.com/wiki/Integrated_kernel_building)
++        $(warning * for more information                                        *)
++        $(warning ***************************************************************)
++        FULL_KERNEL_BUILD := false
++        KERNEL_BIN := $(TARGET_PREBUILT_KERNEL)
++    else
++        $(warning ***************************************************************)
++        $(warning *                                                             *)
++        $(warning * No kernel source found, and no fallback prebuilt defined.   *)
++        $(warning * Please make sure your device is properly configured to      *)
++        $(warning * download the kernel repository to $(KERNEL_SRC))
++        $(warning * and add the TARGET_KERNEL_CONFIG variable to BoardConfig.mk *)
++        $(warning *                                                             *)
++        $(warning * As an alternative, define the TARGET_PREBUILT_KERNEL        *)
++        $(warning * variable with the path to the prebuilt binary kernel image  *)
++        $(warning * in your BoardConfig.mk file                                 *)
++        $(warning *                                                             *)
++        $(warning ***************************************************************)
++        $(error "NO KERNEL")
++    endif
++else
++    NEEDS_KERNEL_COPY := true
++    ifeq ($(TARGET_KERNEL_CONFIG),)
++        $(warning **********************************************************)
++        $(warning * Kernel source found, but no configuration was defined  *)
++        $(warning * Please add the TARGET_KERNEL_CONFIG variable to your   *)
++        $(warning * BoardConfig.mk file                                    *)
++        $(warning **********************************************************)
++        # $(error "NO KERNEL CONFIG")
++    else
++        #$(info Kernel source found, building it)
++        FULL_KERNEL_BUILD := true
++        ifeq ($(TARGET_USES_UNCOMPRESSED_KERNEL),true)
++        $(info Using uncompressed kernel)
++            KERNEL_BIN := $(KERNEL_OUT)/piggy
++        else
++            KERNEL_BIN := $(TARGET_PREBUILT_INT_KERNEL)
++        endif
++    endif
++endif
++
++ifeq ($(FULL_KERNEL_BUILD),true)
++
++KERNEL_HEADERS_INSTALL := $(KERNEL_OUT)/usr
++KERNEL_MODULES_INSTALL := $(PRODUCT_OUT)/kernel_modules
++KERNEL_MODULES_OUT := $(PRODUCT_OUT)/root/lib/modules
++
++define mv-modules
++    mdpath=`find $(KERNEL_MODULES_OUT) -type f -name modules.order`;\
++    if [ "$$mdpath" != "" ];then\
++        mpath=`dirname $$mdpath`;\
++        ko=`find $$mpath/kernel -type f -name *.ko`;\
++        for i in $$ko; do $(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $$i;\
++        mv $$i $(KERNEL_MODULES_OUT)/; done;\
++    fi
++endef
++
++define clean-module-folder
++    mdpath=`find $(KERNEL_MODULES_OUT) -type f -name modules.order`;\
++    if [ "$$mdpath" != "" ];then\
++        mpath=`dirname $$mdpath`; rm -rf $$mpath;\
++    fi
++endef
++
++ifeq ($(TARGET_ARCH),arm)
++    ifneq ($(USE_CCACHE),)
++     # search executable
++      ccache =
++      ifneq ($(strip $(wildcard $(ANDROID_BUILD_TOP)/prebuilts/misc/$(HOST_PREBUILT_EXTRA_TAG)/ccache/ccache)),)
++        ccache := $(ANDROID_BUILD_TOP)/prebuilts/misc/$(HOST_PREBUILT_EXTRA_TAG)/ccache/ccache
++      else
++        ifneq ($(strip $(wildcard $(ANDROID_BUILD_TOP)/prebuilts/misc/$(HOST_PREBUILT_TAG)/ccache/ccache)),)
++          ccache := $(ANDROID_BUILD_TOP)/prebuilts/misc/$(HOST_PREBUILT_TAG)/ccache/ccache
++        endif
++      endif
++    endif
++    ifneq ($(TARGET_KERNEL_CUSTOM_TOOLCHAIN),)
++        ifeq ($(HOST_OS),darwin)
++            ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(ANDROID_BUILD_TOP)/prebuilt/darwin-x86/toolchain/$(TARGET_KERNEL_CUSTOM_TOOLCHAIN)/bin/arm-eabi-"
++        else
++            ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(ANDROID_BUILD_TOP)/prebuilt/linux-x86/toolchain/$(TARGET_KERNEL_CUSTOM_TOOLCHAIN)/bin/arm-eabi-"
++        endif
++    else
++        ARM_CROSS_COMPILE:=CROSS_COMPILE="$(ccache) $(ARM_EABI_TOOLCHAIN)/arm-eabi-"
++    endif
++    ccache = 
++endif
++
++ifeq ($(TARGET_KERNEL_MODULES),)
++    TARGET_KERNEL_MODULES := no-external-modules
++endif
++
++$(KERNEL_OUT):
++	mkdir -p $(KERNEL_OUT)
++	mkdir -p $(KERNEL_MODULES_OUT)
++
++$(KERNEL_CONFIG): $(KERNEL_OUT)
++	$(MAKE) -C $(KERNEL_SRC) O=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(ARM_CROSS_COMPILE) $(KERNEL_DEFCONFIG)
++
++$(KERNEL_OUT)/piggy : $(TARGET_PREBUILT_INT_KERNEL)
++	$(hide) gunzip -c $(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/compressed/piggy.gzip > $(KERNEL_OUT)/piggy
++
++TARGET_KERNEL_BINARIES: $(KERNEL_OUT) $(KERNEL_CONFIG) $(KERNEL_HEADERS_INSTALL)
++	$(MAKE) -C $(KERNEL_SRC) O=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(ARM_CROSS_COMPILE) $(TARGET_PREBUILT_INT_KERNEL_TYPE)
++	-$(MAKE) -C $(KERNEL_SRC) O=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(ARM_CROSS_COMPILE) modules
++	-$(MAKE) -C $(KERNEL_SRC) O=$(KERNEL_OUT) INSTALL_MOD_PATH=../../$(KERNEL_MODULES_INSTALL) ARCH=$(TARGET_ARCH) $(ARM_CROSS_COMPILE) modules_install
++	$(mv-modules)
++	$(clean-module-folder)
++
++$(TARGET_KERNEL_MODULES): TARGET_KERNEL_BINARIES
++
++$(TARGET_PREBUILT_INT_KERNEL): $(TARGET_KERNEL_MODULES)
++	$(mv-modules)
++	$(clean-module-folder)
++
++$(KERNEL_HEADERS_INSTALL): $(KERNEL_OUT) $(KERNEL_CONFIG)
++	$(MAKE) -C $(KERNEL_SRC) O=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(ARM_CROSS_COMPILE) headers_install
++
++endif # FULL_KERNEL_BUILD
++
++## Install it
++
++ifeq ($(NEEDS_KERNEL_COPY),true)
++file := $(INSTALLED_KERNEL_TARGET)
++ALL_PREBUILT += $(file)
++$(file) : $(KERNEL_BIN) | $(ACP)
++	$(transform-prebuilt-to-target)
++
++ALL_PREBUILT += $(INSTALLED_KERNEL_TARGET)
++endif
+diff --git a/tools/releasetools/ota_from_target_files b/tools/releasetools/ota_from_target_files
+index 170f5b3..6aa40a6 100755
+--- a/tools/releasetools/ota_from_target_files
++++ b/tools/releasetools/ota_from_target_files
+@@ -175,12 +175,6 @@ class Item:
+         if i.dir:
+           i.children.sort(key=lambda i: i.name)
+ 
+-    # set metadata for the files generated by this script.
+-    i = cls.ITEMS.get("system/recovery-from-boot.p", None)
+-    if i: i.uid, i.gid, i.mode = 0, 0, 0644
+-    i = cls.ITEMS.get("system/etc/install-recovery.sh", None)
+-    if i: i.uid, i.gid, i.mode = 0, 0, 0544
+-
+   def CountChildMetadata(self):
+     """Count up the (uid, gid, mode) tuples for all children and
+     determine the best strategy for using set_perm_recursive and
+@@ -307,61 +301,6 @@ def AppendAssertions(script, info_dict):
+   device = GetBuildProp("ro.product.device", info_dict)
+   script.AssertDevice(device)
+ 
+-
+-def MakeRecoveryPatch(input_tmp, output_zip, recovery_img, boot_img):
+-  """Generate a binary patch that creates the recovery image starting
+-  with the boot image.  (Most of the space in these images is just the
+-  kernel, which is identical for the two, so the resulting patch
+-  should be efficient.)  Add it to the output zip, along with a shell
+-  script that is run from init.rc on first boot to actually do the
+-  patching and install the new recovery image.
+-
+-  recovery_img and boot_img should be File objects for the
+-  corresponding images.  info should be the dictionary returned by
+-  common.LoadInfoDict() on the input target_files.
+-
+-  Returns an Item for the shell script, which must be made
+-  executable.
+-  """
+-
+-  diff_program = ["imgdiff"]
+-  path = os.path.join(input_tmp, "SYSTEM", "etc", "recovery-resource.dat")
+-  if os.path.exists(path):
+-    diff_program.append("-b")
+-    diff_program.append(path)
+-    bonus_args = "-b /system/etc/recovery-resource.dat"
+-  else:
+-    bonus_args = ""
+-
+-  d = common.Difference(recovery_img, boot_img, diff_program=diff_program)
+-  _, _, patch = d.ComputePatch()
+-  common.ZipWriteStr(output_zip, "recovery/recovery-from-boot.p", patch)
+-  Item.Get("system/recovery-from-boot.p", dir=False)
+-
+-  boot_type, boot_device = common.GetTypeAndDevice("/boot", OPTIONS.info_dict)
+-  recovery_type, recovery_device = common.GetTypeAndDevice("/recovery", OPTIONS.info_dict)
+-
+-  sh = """#!/system/bin/sh
+-if ! applypatch -c %(recovery_type)s:%(recovery_device)s:%(recovery_size)d:%(recovery_sha1)s; then
+-  log -t recovery "Installing new recovery image"
+-  applypatch %(bonus_args)s %(boot_type)s:%(boot_device)s:%(boot_size)d:%(boot_sha1)s %(recovery_type)s:%(recovery_device)s %(recovery_sha1)s %(recovery_size)d %(boot_sha1)s:/system/recovery-from-boot.p
+-else
+-  log -t recovery "Recovery image already installed"
+-fi
+-""" % { 'boot_size': boot_img.size,
+-        'boot_sha1': boot_img.sha1,
+-        'recovery_size': recovery_img.size,
+-        'recovery_sha1': recovery_img.sha1,
+-        'boot_type': boot_type,
+-        'boot_device': boot_device,
+-        'recovery_type': recovery_type,
+-        'recovery_device': recovery_device,
+-        'bonus_args': bonus_args,
+-        }
+-  common.ZipWriteStr(output_zip, "recovery/etc/install-recovery.sh", sh)
+-  return Item.Get("system/etc/install-recovery.sh", dir=False)
+-
+-
+ def WriteFullOTAPackage(input_zip, output_zip):
+   # TODO: how to determine this?  We don't know what version it will
+   # be installed on top of.  For now, we expect the API just won't
+@@ -413,8 +352,6 @@ def WriteFullOTAPackage(input_zip, output_zip):
+                                      OPTIONS.input_tmp, "BOOT")
+   recovery_img = common.GetBootableImage("recovery.img", "recovery.img",
+                                          OPTIONS.input_tmp, "RECOVERY")
+-  MakeRecoveryPatch(OPTIONS.input_tmp, output_zip, recovery_img, boot_img)
+-
+   Item.GetMetadata(input_zip)
+   Item.Get("system").SetPermissions(script)
+ 
+@@ -554,7 +491,6 @@ def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
+       OPTIONS.source_info_dict)
+   target_recovery = common.GetBootableImage(
+       "/tmp/recovery.img", "recovery.img", OPTIONS.target_tmp, "RECOVERY")
+-  updating_recovery = (source_recovery.data != target_recovery.data)
+ 
+   # Here's how we divide up the progress bar:
+   #  0.1 for verifying the start state (PatchCheck calls)
+@@ -597,7 +533,7 @@ def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
+     so_far += source_boot.size
+     script.SetProgress(so_far / total_verify_size)
+ 
+-  if patch_list or updating_recovery or updating_boot:
++  if patch_list or updating_boot:
+     script.CacheFreeSpaceCheck(largest_source_size)
+ 
+   device_specific.IncrementalOTA_VerifyEnd()
+@@ -651,24 +587,6 @@ def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
+   else:
+     print "boot image unchanged; skipping."
+ 
+-  if updating_recovery:
+-    # Recovery is generated as a patch using both the boot image
+-    # (which contains the same linux kernel as recovery) and the file
+-    # /system/etc/recovery-resource.dat (which contains all the images
+-    # used in the recovery UI) as sources.  This lets us minimize the
+-    # size of the patch, which must be included in every OTA package.
+-    #
+-    # For older builds where recovery-resource.dat is not present, we
+-    # use only the boot image as the source.
+-
+-    MakeRecoveryPatch(OPTIONS.target_tmp, output_zip,
+-                      target_recovery, target_boot)
+-    script.DeleteFiles(["/system/recovery-from-boot.p",
+-                        "/system/etc/install-recovery.sh"])
+-    print "recovery image changed; including as patch from boot."
+-  else:
+-    print "recovery image unchanged; skipping."
+-
+   script.ShowProgress(0.1, 10)
+ 
+   target_symlinks = CopySystemFiles(target_zip, None)
+@@ -696,10 +614,6 @@ def WriteIncrementalOTAPackage(target_zip, source_zip, output_zip):
+     script.Print("Unpacking new files...")
+     script.UnpackPackageDir("system", "/system")
+ 
+-  if updating_recovery:
+-    script.Print("Unpacking new recovery...")
+-    script.UnpackPackageDir("recovery", "/system")
+-
+   script.Print("Symlinks and permissions...")
+ 
+   # Create all the symlinks that don't already exist, or point to
+-- 
+1.8.1.2
+
