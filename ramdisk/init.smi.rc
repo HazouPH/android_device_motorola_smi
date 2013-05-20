@@ -1,9 +1,3 @@
-import init.sc1.rc
-import init.sdcard.rc
-import init.smi.usb.rc
-import init.wifi.rc
-import init.xmm.rc
-
 on property:sys.vpn.tun.enabled=1
     write /proc/sys/net/tun/tun-status 1
 

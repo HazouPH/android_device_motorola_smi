@@ -1,6 +1,8 @@
-
-# include usb rc file
-import init.moto.usb.rc
+import init.smi.rc
+import init.sdcard.rc
+import init.smi.usb.rc
+import init.wifi.rc
+import init.xmm.rc
 
 on init
     export PATH /system/sbin:/system/bin:/system/xbin:/sbin:/vendor/bin

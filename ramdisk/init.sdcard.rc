@@ -24,7 +24,7 @@ on init
     mkdir /config
     mkdir /pds 0770 system system
 
-    mount_fstab /android.fstab
+    mount_all /android.fstab
 
     mkdir /data/logs 0771 system system
 
