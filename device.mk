@@ -73,8 +73,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     apache-harmony-tests \
     bd_prov \
-    bthelp \
-    btcmd \
     depmod \
     dhcp6c \
     jcifs-1.3.16 \
@@ -94,6 +92,8 @@ PRODUCT_PACKAGES += \
     libproperty \
     libevent-listener \
     libext4_utils
+#    bthelp \
+#    btcmd \
 #    libdrm
 
 # Audio
