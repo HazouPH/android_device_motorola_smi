@@ -1,4 +1,3 @@
-import init.smi.rc
 import init.sdcard.rc
 import init.smi.usb.rc
 import init.wifi.rc
