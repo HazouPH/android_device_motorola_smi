@@ -6,9 +6,6 @@ import init.xmm.rc
 on init
     export PATH /system/sbin:/system/bin:/system/xbin:/sbin:/vendor/bin
 
-    # Load FIPS kernel module
-    exec /system/bin/fips_loader /system/lib/modules
-
     write /sys/class/graphics/fbcon/cursor_blink 0
     mkdir /data/system/ 0770 system system
     mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
@@ -20,8 +17,6 @@ on init
 
     chown system system /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    insmod /lib/modules/sdio.ko
-    insmod /lib/modules/st_drv.ko
     insmod /lib/modules/btwilink.ko
     insmod /lib/modules/gps_drv.ko
     chown root radio /dev/ttyGTM*
@@ -31,10 +26,9 @@ on init
     setprop alsa.mixer.defaultCard medfieldaudio
     setprop alsa.mixer.defaultGain 1.0
 
-    # Defer camera, sensor modules
-    insmod /lib/modules/videobuf-core.ko
-    insmod /lib/modules/videobuf-dma-contig.ko
-    insmod /lib/modules/videobuf-vmalloc.ko
+    # Loading camera, sensor modules
+    insmod /lib/modules/videobuf2-core.ko
+    insmod /lib/modules/videobuf2-memops.ko
     insmod /lib/modules/mt9e013.ko
     insmod /lib/modules/lc898211.ko
     insmod /lib/modules/ov7736.ko
@@ -109,21 +103,6 @@ on init
     write /proc/sys/net/bridge/bridge-nf-call-iptables  0
     write /proc/sys/net/bridge/bridge-nf-call-ip6tables 0
 
-# Moto bug2go bugreport
-service bug2go-bugreport /system/bin/bug2go-bugreport
-    class main
-    disabled
-    user root
-    oneshot
-    keycodes 115 116 # Vol up + Power key
-
-# Hardware Revisions
-service hw_rev /system/bin/logwrapper /system/bin/sh /system/bin/hardware_revisions.sh
-    class main
-    user system
-    group system
-    oneshot
-
 # Watchdog
     chown system system /dev/watchdog
     chmod 0660 /dev/watchdog
@@ -134,14 +113,6 @@ service atvc /system/bin/dbvc_atvc_property_set
     user system
     group system mot_tpapi
     oneshot
-
-on property:sys.boot_completed=1
-    insmod /lib/modules/ipv6.ko
-    setprop ril.coredumpwarning.enable 1
-
-    # Insert matrix for PnP measurements
-    insmod /lib/modules/matrix.ko
-    chmod 0640 /dev/matrix
 
 on early-boot
 
@@ -169,32 +140,6 @@ on early-boot
 # Need to launch enc_mgt_tool to create device key and signature for vold to set up sd card
     start enc_tool
 
-# aplogd on at boot in emulator
-on property:ro.kernel.qemu=1
-    start aplogd
-
-on property:persist.log.aplogd.enable=1
-    start aplogd
-
-on property:persist.log.aplogd.enable=0
-    stop aplogd
-
-# aplogd start/stop is controlled by the persist.log.aplogd.enable system
-# property.  Don't set the property directly, because it's controlled by the
-# com.motorola.android.settings.aplogd Java Service and ContentProvider.  To
-# change the default behavior of aplogd on bootup, you should update the
-# defaults for the com.motorola.android.settings.aplogd Java Service and
-# ContentProvider which control it.
-service aplogd /system/bin/aplogd
-    class main
-    #user log
-    #group log system sdcard_rw mount
-    # The user and group definitions above are intentionally disabled and left
-    # only as documentation.  It actually starts as root and immediately drops
-    # to log plus those groups after preserving CAP_SYS_ADMIN, which is required
-    # for kernel logging.
-    disabled
-
 service modemlog /system/bin/modemlog
     class core
     user system
@@ -207,7 +152,6 @@ on boot
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    chown bluetooth bluetooth /system/bin/uim
 
 # uim interfaces
     chmod 0660 /sys/devices/platform/kim/install
@@ -223,7 +167,6 @@ on boot
 
     chmod 0770 /dev/audience_es305
     chown audio audio /dev/audience_es305
-    chmod 0777 /system/etc/vpimg.bin
     chown media media /dev/intel_sst_ctrl
 
 #  Permissions for Thermal Management
@@ -268,38 +211,11 @@ on post-fs-data
 #    mkdir /data/media 0775 media_rw media_rw
 #    chown media_rw media_rw /data/media
 
-    # Change permission here due to no log group at droidboot phase
-    chown root log /data/dontpanic
-    chmod 0770 /data/dontpanic
-
-    copy /proc/emmc_ipanic_app_threads /data/dontpanic/apanic_app_threads
-    chown root log /data/dontpanic/apanic_app_threads
-    chmod 0640 /data/dontpanic/apanic_app_threads
-
     #you must enable next line when you don`t use crashlogd
     write /proc/emmc_ipanic_console 1
 
-    # Create folder for native & kernel to write to DropBox. See NativeDropBoxAgent.java for
-    # an explanation of why these permissions are chosen.
-    mkdir /data/system/dropbox-add 0730 system diag
-
-    # Backup droidboot kmsg
-    copy /proc/last_kmsg /data/dontpanic/droidboot_kmsg
-    chown root log /data/dontpanic/droidboot_kmsg
-    chmod 0640 /data/dontpanic/droidboot_kmsg
-    # Change droidboot manifest permission
-    chown root log /data/dontpanic/droidboot_manifest.txt
-    chmod 0640 /data/dontpanic/droidboot_manifest.txt
-
-    # Backup ramconsole on abnormal reboot
-    chown root log /data/dontpanic/last_kmsg
-    chmod 0640 /data/dontpanic/last_kmsg
-
     mkdir /data/misc/firmware 0770 system system
     mkdir /data/misc/dhcp 0770 dhcp wifi
-    mkdir /data/misc/thermal 0770 system system
-
-    symlink /system/etc/MID_thermal.conf /data/misc/thermal/MID_thermal.conf
  
     #mount /data/logs to emmc0p9
     mount ext4 /dev/block/mmcblk0p9 /data/logs nosuid nodev barrier=1,data=ordered
@@ -497,20 +413,11 @@ service stmd  /system/bin/stmd
 
 # Load Intrinsyc RapidRIL
 service ril-daemon /system/bin/rild -l /system/lib/librapid-ril-core.so -- -a /dev/gsmtty12 -n /dev/gsmtty2 -m /dev/gsmtty6 -c /dev/gsmtty8 -u /dev/gsmtty1 -o /dev/gsmtty9 -d /dev/gsmtty3 -d /dev/gsmtty4 -d /dev/gsmtty15
-#service ril-daemon /system/bin/rild -l /system/lib/librapid-ril-core.so -- -a /dev/gsmtty12 -n /dev/gsmtty2 -m /dev/gsmtty6 -c /dev/gsmtty8 -u /dev/gsmtty1 -o /dev/gsmtty9 -d /dev/gsmtty3
     socket rild stream 660 root radio
     socket rild-debug stream 660 radio system
     class main
     user root
     group radio cache inet misc audio mot_tpapi
-
-#service ril-daemon /system/bin/logwrapper /system/bin/rild \
-#    -l /system/lib/libxgold-ril.so -- -d /dev/ttyGSM1
-#    socket rild stream 660 root radio
-#    socket rild-debug stream 660 radio system
-#    user root
-#    group system dhcp radio cache inet misc
-#    oneshot
 
 # AT proxy service
 service proxy /system/bin/proxy -d /dev/gsmtty1 -m /dev/gsmtty10
@@ -526,12 +433,12 @@ service proxy-tunneling /system/bin/proxy -d /dev/gsmtty1 -m /dev/gsmtty10 -t on
     group radio cache inet misc
     disabled
 
-service ad_proxy /system/xbin/ad_proxy
-    class core
-    user root
-    group system cache misc audio
-    disabled
-    oneshot
+#service ad_proxy /system/xbin/ad_proxy
+#    class core
+#    user root
+#    group system cache misc audio
+#    disabled
+#    oneshot
 
 # MTS: Modem Trace Server (three services)
 service mtsfs /system/bin/mts -t /dev/gsmtty18 -f /data/logs/bplog -n 5 -r 20000
@@ -557,30 +464,6 @@ service mtsextsd /system/bin/mts -t /dev/gsmtty18 -f /mnt/sdcard/data/logs/bplog
 service mtsusb /system/bin/mts -t /dev/gsmtty18 -p 6700
     user radio
     group radio 
-    disabled
-
-service profile_svc_init /system/bin/pytimechart-record start_on_crashlog
-    disabled
-    oneshot
-
-service profile_svc_rest /system/bin/pytimechart-record restart_on_crashlog
-    disabled
-    oneshot
-
-# usbswitch (three services)
-# APE to modem
-service usb_to_modem /system/bin/usbswitch_modem
-    oneshot
-    disabled
-
-# modem to APE
-service usb_to_ape /system/bin/usbswitch_ape
-    oneshot
-    disabled
-
-# usbswitch status
-service usbswitch_status /system/bin/usbswitch_status
-    oneshot
     disabled
 
 # for bluetooth
@@ -676,11 +559,6 @@ service locDrv /system/bin/gps_driver
     user radio
     group radio inet sdcard_rw
 
-service locEe /system/bin/ee_driver
-    class main
-    user radio
-    group radio inet sdcard_rw
-
 service pcsc /system/bin/pcscd --auto-exit
     class main
     user wifi
@@ -759,15 +637,15 @@ on property:persist.service.usbmodem.enable=1
 on property:persist.service.usbmodem.enable=0
     start usb_to_ape
 
-on property:service.ad_proxy.enable=0
-    stop ad_proxy
-    setprop system.at-proxy.mode $persist.system.at-proxy.mode
+#on property:service.ad_proxy.enable=0
+#    stop ad_proxy
+#    setprop system.at-proxy.mode $persist.system.at-proxy.mode
 
-on property:service.ad_proxy.enable=1
-    stop proxy
-    stop proxy-tunneling
-    setprop sys.usb.config rndis,acm,adb
-    start ad_proxy
+#on property:service.ad_proxy.enable=1
+#    stop proxy
+#    stop proxy-tunneling
+#    setprop sys.usb.config rndis,acm,adb
+#    start ad_proxy
 
 on property:persist.service.profile.enable=1
     start profile_svc_init
@@ -787,17 +665,17 @@ on property:system.at-proxy.mode=0
     stop proxy
     stop proxy-tunneling
 
-on property:system.at-proxy.mode=1
-    stop ad_proxy
-    stop proxy-tunneling
-    setprop sys.usb.config rndis,acm,adb
-    start proxy
+#on property:system.at-proxy.mode=1
+#    stop ad_proxy
+#    stop proxy-tunneling
+#    setprop sys.usb.config rndis,acm,adb
+#   start proxy
 
-on property:system.at-proxy.mode=2
-    stop ad_proxy
-    stop proxy
-    setprop sys.usb.config rndis,acm,adb
-    start proxy-tunneling
+#on property:system.at-proxy.mode=2
+#    stop ad_proxy
+#    stop proxy
+#   setprop sys.usb.config rndis,acm,adb
+#   start proxy-tunneling
 
 service tcmdhelp /system/bin/tcmdhelp
     class main
@@ -833,10 +711,6 @@ service enc_tool /system/bin/enc_mgt_tool
 on property:vold.decrypt=trigger_restart_framework
     start enc_tool
 
-# Cleanup removable SD card from obsolete encrypted files
-on property:sys.mot.encrypt.cleanup=1
-    exec /system/bin/enc_sd_cleanup /mnt/external1
-
 # Check available storage space to execute device encryption or decryption
 on property:sys.mot.encrypt.test=1
     exec /system/bin/enc_mgt_tool --test
@@ -848,8 +722,3 @@ on property:sys.mot.encrypt.pass.prot=1
     setprop sys.mot.encrypt.pass.prot ""
 # Enable production security key check for 3LM
     setprop ro.3lm.production 1
-
-#Run multiconfig script to check if config is updated
-service start_mc_service /system/bin/sh /system/bin/multiconfig_boot_script.sh
-    class main
-    oneshot
