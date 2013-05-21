@@ -13,10 +13,6 @@ on property:persist.helsmon.enable=0
 on property:dev.bootcomplete=1
     start loadpreinstalls
 
-service helsmond /system/bin/helsmond
-    class main
-    disabled
-
 service RescueStarter /system/bin/RescueStarter
      class main
      user graphics
