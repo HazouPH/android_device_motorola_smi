@@ -12,7 +12,6 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # Files needed for boot image
 PRODUCT_COPY_FILES += \
-    $(DEVICE_FOLDER)/ramdisk/init.smi.rc:root/init.smi.rc \
     $(DEVICE_FOLDER)/ramdisk/init.smi.usb.rc:root/init.smi.usb.rc \
     $(DEVICE_FOLDER)/ramdisk/init.sc1.rc:root/init.sc1.rc \
     $(DEVICE_FOLDER)/ramdisk/init.sdcard.rc:root/init.sdcard.rc \
