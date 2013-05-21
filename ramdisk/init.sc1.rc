@@ -125,11 +125,7 @@ service hw_rev /system/bin/logwrapper /system/bin/sh /system/bin/hardware_revisi
     group system
     oneshot
 
-# Root Detect
-service qe /xbin/qe /system
-    class main
-    oneshot
-
+# Watchdog
     chown system system /dev/watchdog
     chmod 0660 /dev/watchdog
 

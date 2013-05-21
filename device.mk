@@ -19,10 +19,7 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/ramdisk/init.wifi.rc:root/init.wifi.rc \
     $(DEVICE_FOLDER)/ramdisk/init.xmm.rc:root/init.xmm.rc \
     $(DEVICE_FOLDER)/ramdisk/ueventd.smi.rc:root/ueventd.smi.rc \
-    $(DEVICE_FOLDER)/ramdisk/android.fstab:root/android.fstab \
-    $(DEVICE_FOLDER)/ramdisk/xbin/qe:root/xbin/qe \
-    $(DEVICE_FOLDER)/ramdisk/xbin/qee.dat:root/xbin/qee.dat \
-    $(DEVICE_FOLDER)/ramdisk/xbin/qem.dat:root/xbin/qem.dat
+    $(DEVICE_FOLDER)/ramdisk/android.fstab:root/android.fstab
 
 # Lib modules needed for boot
 PRODUCT_COPY_FILES += \
