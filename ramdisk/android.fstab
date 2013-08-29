@@ -1,6 +1,0 @@
-#Android fstab file:
-# <src>			<mnt_point>	<Type>	<mnt_flags and options> 				<fs_mgr_flags>
-/dev/block/system 	/system 	ext4 	ro,noatime wait
-/dev/block/cache 	/cache 		ext4 	nosuid,nodev,noatime,nodelalloc,barrier=1,data=ordered 	wait,check
-/dev/block/userdata 	/data 		ext4 	nosuid,nodev,noatime,nodelalloc,barrier=1,data=ordered 	wait,check,encryptable=footer
-/dev/block/pds 		/pds 		ext4 	nosuid,nodev,noatime,nodelalloc,barrier=1,data=ordered 	wait,check

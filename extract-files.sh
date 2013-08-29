@@ -1,6 +1,6 @@
 #!/bin/sh
 
-BASE=/home/patrick/AOSP4.2.2/vendor/motorola/smi/proprietary
+BASE=/home/patrick/Bureaublad/CM10/vendor/motorola/smi/proprietary
 rm -rf $BASE/*
 
 for FILE in `cat proprietary-files.txt`; do

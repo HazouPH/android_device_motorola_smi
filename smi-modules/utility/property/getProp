@@ -1,3 +1,0 @@
-#!/bin/sh
-cat /tmp/properties/$1
-echo "\n"

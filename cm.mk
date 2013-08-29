@@ -1,4 +1,8 @@
+# Inherit from smi device
+$(call inherit-product, device/motorola/smi/full_smi.mk)
+
 # Boot animation
+TARGET_BOOTANIMATION_NAME := vertical-540x960
 TARGET_SCREEN_HEIGHT := 960
 TARGET_SCREEN_WIDTH := 540
 
@@ -11,39 +15,47 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 # Inherit enhanced nfc config 
 $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 
-# Inherit device configuration for Moto Razr i
-$(call inherit-product, device/motorola/smi/full_smi.mk)
-
 DEVICE_PACKAGE_OVERLAYS += device/motorola/smi/overlay
 
 # For userdebug builds
-#ADDITIONAL_DEFAULT_PROPERTIES += \
-    telephony.sms.shift_table=1 \
-    persist.sys.timezone=Europe/London \
-    keyguard.no_require_sim=false \
-    ro.sf.lcd_density=240 \
-    panel.physicalWidthmm=52 \
-    panel.physicalHeightmm=89 \
-    gsm.net.interface=rmnet0 \
-    ro.secure=0 \
-    ro.allow.mock.location=1 \
-    ro.debuggable=1 \
-    ro.bootmode=factory \
-    persist.factory.allow_adb=1 \
-    persist.sys.usb.config=mtp,adb \
-    wifi.interface=wlan0:0 \
-    persist.ril-daemon.disable=0
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    	keyguard.no_require_sim=false \
+    	ro.sf.lcd_density=240 \
+   	panel.physicalWidthmm=52 \
+    	panel.physicalHeightmm=89 \
+    	ro.opengles.version=131072 \
+    	gsm.net.interface=rmnet0 \
+    	persist.system.at-proxy.mode=0
+    	ro.secure=0 \
+    	ro.allow.mock.location=0 \
+    	ro.debuggable=1 \
+    	persist.sys.usb.config=adb \
+    	persist.ril-daemon.disable=0
+
+ADDITIONAL_DEFAULT_PROPERTIES  += wifi.interface=wlan0:0
 
 #
 # Setup device specific product configuration.
 #
-#PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-#PRODUCT_DEVICE := smi
-#PRODUCT_NAME := smi
-#PRODUCT_BRAND := Motorola
-#PRODUCT_MODEL := XT890
-#PRODUCT_MANUFACTURER := Motorola
-#PRODUCT_RELEASE_NAME := Razr i
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+PRODUCT_DEVICE := smi
+PRODUCT_NAME := cm_smi
+PRODUCT_BRAND := Motorola
+PRODUCT_MODEL := XT890
+PRODUCT_MANUFACTURER := Motorola
+PRODUCT_RELEASE_NAME := Razr i
+
+UTC_DATE := $(shell date +%s)
+DATE := $(shell date +%Y%m%d) 
 
 #Set build fingerprint / ID / Product Name etc.
-PRODUCT_BUILD_PROP_OVERRIDES += PRODUCT_NAME=XT890 BUILD_FINGERPRINT="motorola/XT890_rtgb/smi:4.0.4/8.7.1I-110_IFW-31/1348340390:user/release-keys" PRIVATE_BUILD_DESC="smi-user 4.0.4 8.7.1I-110_IFW-31 1348340390 release-keys"
+PRODUCT_BUILD_PROP_OVERRIDES += \
+   PRODUCT_NAME=${PRODUCT_DEVICE}_${PRODUCT_SFX} \
+   BUILD_NUMBER=${DATE} \
+   TARGET_DEVICE=${PRODUCT_DEVICE_PREFIX}_${PRODUCT_DEVICE} \
+   BUILD_FINGERPRINT=${PRODUCT_BRAND}/${PRODUCT_DEVICE}_${PRODUCT_SFX}/${PRODUCT_DEVICE_PREFIX}_${PRODUCT_DEVICE}:${PLATFORM_VERSION}/${BUILD_ID}/${DATE} \
+   PRIVATE_BUILD_DESC="${PRODUCT_DEVICE_PREFIX}_${PRODUCT_DEVICE}-user ${PLATFORM_VERSION} ${BUILD_ID} ${DATE}" \
+   PRODUCT_BRAND=${PRODUCT_BRAND} \
+   BUILD_UTC_DATE= \
+   PRODUCT_DEFAULT_LANGUAGE=en \
+   PRODUCT_DEFAULT_REGION=GB \

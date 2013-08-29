@@ -14,5 +14,4 @@
 # limitations under the License.
 #
 
-PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/smi.mk
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/full_smi.mk
