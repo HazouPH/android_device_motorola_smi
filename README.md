@@ -8,7 +8,7 @@ Repository is not yet a fully working tree. There are still some parts missing.
 What will build and work:
 - Recovery
 
-What doenst work, but builds and boots:
+What doenst work, but builds and boot(loops):
 - CM
 - AOSP
 
