@@ -1,9 +1,9 @@
 DEVICE_FOLDER := device/motorola/smi
 
 # Get smi-plus files if available for full build
-$(call inherit-product-if-exists, device/motorola/smi-plus)
+$(include inherit-product-if-exists, device/motorola/smi-plus/device.mk)
 
-## (2) Also get non-open-source specific aspects if available
+# (2) Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/motorola/smi/smi-vendor.mk)
 
 ## overlays

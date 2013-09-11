@@ -54,7 +54,7 @@ ADDITIONAL_DEFAULT_PROPERTIES  += wifi.interface=wlan0:0
 $(call inherit-product, device/motorola/smi/device.mk)
 
 # Set those variables here to overwrite the inherited values.
-PRODUCT_NAME := smi
+PRODUCT_NAME := full_smi
 PRODUCT_DEVICE := smi
 PRODUCT_BRAND := Motorola
 PRODUCT_MODEL := XT890
