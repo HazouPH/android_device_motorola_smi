@@ -30,10 +30,6 @@
       name="Team-Win-Recovery-Project"
              remote="twrp"
              revision="twrp2.5"/>
-    <project path="bootable/recovery"
-      name="CyanogenMod/android_bootable_recovery"
-             remote="cyanogenmod"
-             revision="cm-10.1"/>
      <remove-project name="CyanogenMod/android_bootable_recovery" />
      <remove-project name="Team-Win-Recovery-Project" />
 
