@@ -1,0 +1,27 @@
+From fe595e7b084f79d6482f1ec364ec50f955a278f3 Mon Sep 17 00:00:00 2001
+From: patrick <jgrgames@gmail.com>
+Date: Wed, 13 Mar 2013 14:48:23 +0100
+Subject: [PATCH] Fix kernel build for x86 bzImage
+
+Change-Id: I7b0c0695b7ad5c7605e0ac9ec887338480815bfe
+---
+ core/tasks/kernel.mk |    3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/core/tasks/kernel.mk b/core/tasks/kernel.mk
+index 7b68726..a052efc 100644
+--- a/core/tasks/kernel.mk
++++ b/core/tasks/kernel.mk
+@@ -33,6 +33,9 @@ ifeq ($(BOARD_USES_UBOOT),true)
+ else ifeq ($(BOARD_USES_UNCOMPRESSED_BOOT),true)
+ 	TARGET_PREBUILT_INT_KERNEL := $(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/Image
+ 	TARGET_PREBUILT_INT_KERNEL_TYPE := Image
++else ifeq ($(TARGET_ARCH),x86)
++	TARGET_PREBUILT_INT_KERNEL := $(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/bzImage
++	TARGET_PREBUILT_INT_KERNEL_TYPE := bzImage
+ else
+ 	TARGET_PREBUILT_INT_KERNEL := $(KERNEL_OUT)/arch/$(TARGET_ARCH)/boot/zImage
+ 	TARGET_PREBUILT_INT_KERNEL_TYPE := zImage
+-- 
+1.7.9.5
+

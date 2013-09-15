@@ -1,0 +1,31 @@
+From c33f3fe2ad704580f9292be208c2c494ca4885f2 Mon Sep 17 00:00:00 2001
+From: Patrick Harbers <jgrharbers@gmail.com>
+Date: Sun, 14 Apr 2013 20:44:33 +0200
+Subject: [PATCH 2/2] Another update
+
+---
+ vm/Dvm.mk | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/vm/Dvm.mk b/vm/Dvm.mk
+index 2f53391..7388fd3 100644
+--- a/vm/Dvm.mk
++++ b/vm/Dvm.mk
+@@ -288,10 +288,10 @@ ifeq ($(dvm_arch),x86)
+     LOCAL_CFLAGS += -DDVM_JMP_TABLE_MTERP=1 \
+                     -DMTERP_STUB
+     LOCAL_SRC_FILES += \
+-		arch/$(dvm_arch_variant)/Call386ABI.S \
+-		arch/$(dvm_arch_variant)/Hints386ABI.cpp \
+-		mterp/out/InterpC-$(dvm_arch_variant).cpp \
+-		mterp/out/InterpAsm-$(dvm_arch_variant).S
++		arch/$(dvm_arch)/Call386ABI.S \
++		arch/$(dvm_arch)/Hints386ABI.cpp \
++		mterp/out/InterpC-$(dvm_arch).cpp \
++		mterp/out/InterpAsm-$(dvm_arch).S
+     ifeq ($(WITH_JIT),true)
+       LOCAL_CFLAGS += -DARCH_IA32
+       LOCAL_SRC_FILES += \
+-- 
+1.8.1.2
+
