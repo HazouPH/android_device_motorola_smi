@@ -22,8 +22,8 @@ To use ths repository for building recovery's (Only on CM10.1!!! September 2013 
 - Git init the CM10.1 repository
 - Add/copy the patch/local_manifest.xml to (source)/.repo/local_manifests/localmanifest.xml
 - Delete one of the 2 following lines in local_manifest.xml
-For TWRP:<remove-project name="CyanogenMod/android_bootable_recovery" />
-For CWM:<remove-project name="Team-Win-Recovery-Project" />
+- - For TWRP: remove-project name="CyanogenMod/android_bootable_recovery" /
+- - For CWM: remove-project name="Team-Win-Recovery-Project" /
 - Synchronise your repository
 - Apply all patches with the ApplyPatches.sh
 - After every 'Repo sync' u need to repatch the repository.
