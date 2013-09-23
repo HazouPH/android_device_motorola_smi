@@ -91,28 +91,21 @@ BOARD_CUSTOM_BOOTIMG_MK := device/motorola/smi/boottools/boot.mk
 BOARD_KERNEL_BASE := 0x1200000
 BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
-TARGET_PREBUILT_KERNEL := device/motorola/smi/blobs/kernel
-TARGET_KERNEL_CONFIG := i386_mfld_oxavelar_defconfig
-TARGET_KERNEL_SOURCE := kernel/XT809-Gamma/kernel/linux-3.0
+#TARGET_PREBUILT_KERNEL := device/motorola/smi/blobs/kernel
+TARGET_KERNEL_CONFIG := i386_mfld_hazou_defconfig
+#TARGET_KERNEL_SOURCE := kernel/XT809-Gamma/kernel/linux-3.0
 BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=272M earlyprintk=nologger hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 emmc_ipanic.ipanic_part_number=6 loglevel=4
 
 WLAN_MODULES:
 	make clean -C hardware/ti/wlan/mac80211/compat_wl12xx
-	make -j8 -C hardware/ti/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=x86 CROSS_COMPILE=/home/patrick/AOSP4.2.2/prebuilts/gcc/linux-x86/x86/i686-linux-android-4.6/bin/i686-linux-android-
+	make -j8 -C hardware/ti/wlan/mac80211/compat_wl12xx KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=i386
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/compat/compat.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
-	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_spi.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/compat.ko
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/mac80211.ko
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/cfg80211.ko
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx.ko
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx_spi.ko
-	$(ARM_EABI_TOOLCHAIN)/arm-eabi-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
 
-TARGET_KERNEL_MODULES += WLAN_MODULES
+#TARGET_KERNEL_MODULES += WLAN_MODULES
 
 # Partition information
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -125,7 +118,7 @@ BOARD_FLASH_BLOCK_SIZE := 2048
 ADDITIONAL_BUILD_PROPERTIES += ro.product.cpu.abi2=armeabi-v7a
 
 # Ramdisk
-TARGET_PROVIDES_INIT_RC := false
+TARGET_PROVIDES_INIT_RC := true
 
 # Customize the malloced address to be 16-byte aligned
 BOARD_MALLOC_ALIGNMENT := 16

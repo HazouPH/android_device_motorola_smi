@@ -1,0 +1,18 @@
+on boot
+#Optimize TCP parameters for Intel baseband to meet CAT14 HSDPA throughput
+#   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
+    setprop net.tcp.buffersize.default 131072,262144,655360,4096,16384,147456
+    setprop net.tcp.buffersize.wifi 131072,262144,524288,4096,16384,131072
+    setprop net.tcp.buffersize.umts 131072,262144,726016,4096,16384,199680
+    setprop net.tcp.buffersize.edge 16384,32768,65536,4096,16384,32768
+    setprop net.tcp.buffersize.gprs 4096,8192,12288,4096,8192,12288
+    setprop net.tcp.buffersize.hsupa 131072,262144,726016,4096,16384,199680
+    setprop net.tcp.buffersize.hsdpa 131072,262144,726016,4096,16384,199680
+    setprop net.tcp.buffersize.hspa 131072,262144,726016,4096,16384,199680
+    setprop net.tcp.buffersize.2ghotspot     4096,16384,32768,16384,32768,65536
+    setprop net.tcp.buffersize.3ghotspot     4096,16384,199680,131072,262144,726016
+
+# Assign TCP buffer thresholds to be ceiling value of technology maximums
+# Increased technology maximums should be reflected here.
+    write /proc/sys/net/core/rmem_max  726016
+    write /proc/sys/net/core/wmem_max  199680

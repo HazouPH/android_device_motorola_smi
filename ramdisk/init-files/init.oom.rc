@@ -1,0 +1,17 @@
+#
+# Tweaks for the OOM killer for mfld platforms (oxavelar)
+#
+on boot
+# Write value must be consistent with the above properties.
+# Note that the driver only supports 6 slots, so we have combined some of
+# the classes into the same memory level; the associated processes of higher
+# classes will still be killed first
+    write /sys/module/lowmemorykiller/parameters/adj 0,1,2,4,7,15
+    write /sys/module/lowmemorykiller/parameters/minfree 1536,2048,4096,6144,7168,8192
+    write /sys/module/lowmemorykiller/parameters/debug_level 0
+    write /sys/module/lowmemorykiller/parameters/cost 64
+
+# The following impacts memory transactions too and can speed up or
+# slow down the system
+    write /proc/sys/vm/overcommit_ratio 100
+    write /proc/sys/vm/oom_dump_tasks 1

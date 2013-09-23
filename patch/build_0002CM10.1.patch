@@ -1,0 +1,25 @@
+From 4248559ad05dff3a1e224b1fd7d8e79f883bd22d Mon Sep 17 00:00:00 2001
+From: Patrick Harbers <jgrharbers@gmail.com>
+Date: Sun, 22 Sep 2013 23:57:42 +0200
+Subject: [PATCH] Changes Kernel module out directory temporary
+
+---
+ core/tasks/kernel.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/tasks/kernel.mk b/core/tasks/kernel.mk
+index 4a37f4c..dff39e1 100644
+--- a/core/tasks/kernel.mk
++++ b/core/tasks/kernel.mk
+@@ -106,7 +106,7 @@ ifeq ($(FULL_KERNEL_BUILD),true)
+ 
+ KERNEL_HEADERS_INSTALL := $(KERNEL_OUT)/usr
+ KERNEL_MODULES_INSTALL := system
+-KERNEL_MODULES_OUT := $(TARGET_OUT)/lib/modules
++KERNEL_MODULES_OUT := $(TARGET_ROOT_OUT)/lib/modules
+ 
+ define mv-modules
+     mdpath=`find $(KERNEL_MODULES_OUT) -type f -name modules.order`;\
+-- 
+1.8.1.2
+

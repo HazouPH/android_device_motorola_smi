@@ -15,14 +15,14 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # Prebuilt files required
 INR_X86_FILES := $(wildcard $(DEVICE_FOLDER)/ramdisk/Init-files/*)
-MDR_X86_FILES := $(wildcard $(DEVICE_FOLDER)/ramdisk/lib/modules/*.ko)
+#MDR_X86_FILES := $(wildcard $(DEVICE_FOLDER)/ramdisk/lib/modules/*.ko)
 PMS_MOT_FILES := $(wildcard $(DEVICE_FOLDER)/prebuilt/permissions/*.xml)
 
 # Copying grouped files
 PRODUCT_COPY_FILES += \
 	$(foreach i, $(INR_X86_FILES), $(i):root/$(notdir $(i))) \
-	$(foreach i, $(MDR_X86_FILES), $(i):root/lib/modules/$(notdir $(i))) \
 	$(foreach i, $(PMS_MOT_FILES), $(i):system/etc/permissions/$(notdir $(i))) \
+#	$(foreach i, $(MDR_X86_FILES), $(i):root/lib/modules/$(notdir $(i))) \
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
