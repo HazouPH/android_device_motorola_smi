@@ -1,7 +1,7 @@
 From dbd819534e6b2c3185b698a90744df31d10083e6 Mon Sep 17 00:00:00 2001
 From: Patrick Harbers <jgrharbers@gmail.com>
 Date: Sun, 22 Sep 2013 19:11:11 +0200
-Subject: [PATCH] Added missing ssse3 for x86 in bionic
+Subject: [PATCH] Added ssse3 wrapper for x86 in bionic
 
 ---
  libc/Android.mk                           |   71 +-
@@ -14919,7 +14919,7 @@ index 0000000..c6edb7a
 +#ifdef USE_SSSE3
 +# define MEMCMP  wmemcmp
 +# define USE_AS_WMEMCMP 1
-+# include "ssse3-memcmp-atom.S"
++# include "ssse3-memcmp3-new.S"
 +
 +#endif
 diff --git a/libc/arch-x86/string/wmemcmp_wrapper_c.c b/libc/arch-x86/string/wmemcmp_wrapper_c.c
