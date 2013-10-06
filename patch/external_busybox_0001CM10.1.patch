@@ -1,17 +1,26 @@
-From 87153c5fe739ad8cc06b4e097bab1d187bbde260 Mon Sep 17 00:00:00 2001
+From 6e2c83c029a500178641ca2fe7301ee683b8bed9 Mon Sep 17 00:00:00 2001
 From: Patrick Harbers <jgrharbers@gmail.com>
-Date: Sun, 14 Apr 2013 20:52:22 +0200
-Subject: [PATCH] Busybox x86 files
+Date: Sun, 6 Oct 2013 15:00:34 +0200
+Subject: [PATCH] Add files required to buil x86
 
+Change-Id: I70c549fd1eb08a41744e356801a2cc5d6615395e
 ---
- Android.mk                                | 35 +++++++++++++------------------
- android/libc/arch-x86/syscalls/adjtimex.S | 24 +++++++++++++++++++++
- android/libc/arch-x86/syscalls/getsid.S   | 24 +++++++++++++++++++++
- android/libc/arch-x86/syscalls/stime.S    | 25 ++++++++++++++++++++++
- android/libc/arch-x86/syscalls/swapoff.S  | 24 +++++++++++++++++++++
- android/libc/arch-x86/syscalls/swapon.S   | 27 ++++++++++++++++++++++++
- android/libc/arch-x86/syscalls/sysinfo.S  | 24 +++++++++++++++++++++
- 7 files changed, 162 insertions(+), 21 deletions(-)
+ .config-full                              |  2 +-
+ .config-minimal                           |  2 +-
+ Android.mk                                | 27 ++++++++-------------------
+ android/libc/arch-x86/syscalls/adjtimex.S | 26 ++++++++++++++++++++++++++
+ android/libc/arch-x86/syscalls/getsid.S   | 25 +++++++++++++++++++++++++
+ android/libc/arch-x86/syscalls/stime.S    | 26 ++++++++++++++++++++++++++
+ android/libc/arch-x86/syscalls/swapoff.S  | 25 +++++++++++++++++++++++++
+ android/libc/arch-x86/syscalls/swapon.S   | 28 ++++++++++++++++++++++++++++
+ android/libc/arch-x86/syscalls/sysinfo.S  | 25 +++++++++++++++++++++++++
+ configs/android_defconfig                 |  2 +-
+ include-full/autoconf.h                   |  1 -
+ include-full/bbconfigopts.h               |  1 -
+ include-minimal/autoconf.h                |  1 -
+ include-minimal/bbconfigopts.h            |  1 -
+ include/platform.h                        |  1 -
+ 15 files changed, 166 insertions(+), 27 deletions(-)
  create mode 100644 android/libc/arch-x86/syscalls/adjtimex.S
  create mode 100644 android/libc/arch-x86/syscalls/getsid.S
  create mode 100644 android/libc/arch-x86/syscalls/stime.S
@@ -19,34 +28,37 @@ Subject: [PATCH] Busybox x86 files
  create mode 100644 android/libc/arch-x86/syscalls/swapon.S
  create mode 100644 android/libc/arch-x86/syscalls/sysinfo.S
 
+diff --git a/.config-full b/.config-full
+index 039eadc..29d8c03 100644
+--- a/.config-full
++++ b/.config-full
+@@ -62,7 +62,7 @@ CONFIG_FEATURE_HAVE_RPC=y
+ # CONFIG_FEATURE_INDIVIDUAL is not set
+ # CONFIG_FEATURE_SHARED_BUSYBOX is not set
+ # CONFIG_LFS is not set
+-CONFIG_CROSS_COMPILER_PREFIX="arm-eabi-"
++# CONFIG_CROSS_COMPILER_PREFIX is not set
+ CONFIG_SYSROOT=""
+ CONFIG_EXTRA_CFLAGS="-Os -fno-short-enums -fgcse-after-reload -frerun-cse-after-loop -frename-registers"
+ CONFIG_EXTRA_LDFLAGS=""
+diff --git a/.config-minimal b/.config-minimal
+index 7f860b6..81e92d6 100644
+--- a/.config-minimal
++++ b/.config-minimal
+@@ -62,7 +62,7 @@ CONFIG_BUSYBOX_EXEC_PATH="/proc/self/exe"
+ # CONFIG_FEATURE_INDIVIDUAL is not set
+ # CONFIG_FEATURE_SHARED_BUSYBOX is not set
+ # CONFIG_LFS is not set
+-CONFIG_CROSS_COMPILER_PREFIX="arm-eabi-"
++# CONFIG_CROSS_COMPILER_PREFIX= is not set
+ CONFIG_SYSROOT=""
+ CONFIG_EXTRA_CFLAGS="-Os"
+ CONFIG_EXTRA_LDFLAGS=""
 diff --git a/Android.mk b/Android.mk
-index 9df85da..459e890 100644
+index 9df85da..6ac08ee 100644
 --- a/Android.mk
 +++ b/Android.mk
-@@ -35,15 +35,20 @@ include $(CLEAR_VARS)
- 
- # Execute make clean, make prepare and copy profiles required for normal & static lib (recovery)
- 
-+# Required to change arm-eabi- in .config, but keep the alias on arm (not arm-linux-androideabi-)
-+BB_CROSS_COMPILE := $(shell basename $(TARGET_TOOLS_PREFIX))
-+ifeq ($(TARGET_ARCH),arm)
-+    BB_CROSS_COMPILE = arm-eabi-
-+endif
-+
- KERNEL_MODULES_DIR ?= /system/lib/modules
- BUSYBOX_CONFIG := minimal full
- $(BUSYBOX_CONFIG):
- 	@echo -e ${CL_PFX}"prepare config for busybox $@ profile"${CL_RST}
- 	@cd $(BB_PATH) && make clean
- 	@cd $(BB_PATH) && git clean -f -- ./include-$@/
--	cp $(BB_PATH)/.config-$@ $(BB_PATH)/.config
-+	@sed 's/arm-eabi-/$(BB_CROSS_COMPILE)/g' $(BB_PATH)/.config-$@ > $(BB_PATH)/.config
- 	cd $(BB_PATH) && make prepare
--	@#cp $(BB_PATH)/.config $(BB_PATH)/.config-$@
- 	@mkdir -p $(BB_PATH)/include-$@
- 	cp $(BB_PATH)/include/*.h $(BB_PATH)/include-$@/
- 	@rm $(BB_PATH)/include/usage_compressed.h
-@@ -66,25 +71,13 @@ SUBMAKE := make -s -C $(BB_PATH) CC=$(CC)
+@@ -66,25 +66,13 @@ SUBMAKE := make -s -C $(BB_PATH) CC=$(CC)
  BUSYBOX_SRC_FILES = $(shell cat $(BB_PATH)/busybox-$(BUSYBOX_CONFIG).sources) \
  	libbb/android.c
  
@@ -79,27 +91,36 @@ index 9df85da..459e890 100644
  
  BUSYBOX_C_INCLUDES = \
  	$(BB_PATH)/include-$(BUSYBOX_CONFIG) \
+@@ -101,6 +89,7 @@ BUSYBOX_CFLAGS = \
+ 	-DNDEBUG \
+ 	-DANDROID \
+ 	-fno-strict-aliasing \
++	-fno-builtin-stpcpy \
+ 	-include include-$(BUSYBOX_CONFIG)/autoconf.h \
+ 	-D'CONFIG_DEFAULT_MODULES_DIR="$(KERNEL_MODULES_DIR)"' \
+ 	-D'BB_VER="$(strip $(shell $(SUBMAKE) kernelversion)) $(BUSYBOX_SUFFIX)"' -DBB_BT=AUTOCONF_TIMESTAMP
 diff --git a/android/libc/arch-x86/syscalls/adjtimex.S b/android/libc/arch-x86/syscalls/adjtimex.S
 new file mode 100644
-index 0000000..4b24afc
+index 0000000..869baf0
 --- /dev/null
 +++ b/android/libc/arch-x86/syscalls/adjtimex.S
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,26 @@
 +/* autogenerated by gensyscalls.py */
++#include <linux/err.h>
 +#include <asm/unistd.h>
-+#include <sys/linux-syscalls.h>
 +
 +    .text
 +    .type adjtimex, @function
 +    .globl adjtimex
 +    .align 4
 +
++
 +adjtimex:
 +    pushl   %ebx
 +    mov     8(%esp), %ebx
 +    movl    $__NR_adjtimex, %eax
 +    int     $0x80
-+    cmpl    $-129, %eax
++    cmpl    $-MAX_ERRNO, %eax
 +    jb      1f
 +    negl    %eax
 +    pushl   %eax
@@ -109,15 +130,16 @@ index 0000000..4b24afc
 +1:
 +    popl    %ebx
 +    ret
++
 diff --git a/android/libc/arch-x86/syscalls/getsid.S b/android/libc/arch-x86/syscalls/getsid.S
 new file mode 100644
-index 0000000..5ed6074
+index 0000000..6fe39eb
 --- /dev/null
 +++ b/android/libc/arch-x86/syscalls/getsid.S
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,25 @@
 +/* autogenerated by gensyscalls.py */
++#include <linux/err.h>
 +#include <asm/unistd.h>
-+#include <sys/linux-syscalls.h>
 +
 +    .text
 +    .type getsid, @function
@@ -129,7 +151,7 @@ index 0000000..5ed6074
 +    mov     8(%esp), %ebx
 +    movl    $__NR_getsid, %eax
 +    int     $0x80
-+    cmpl    $-129, %eax
++    cmpl    $-MAX_ERRNO, %eax
 +    jb      1f
 +    negl    %eax
 +    pushl   %eax
@@ -139,28 +161,29 @@ index 0000000..5ed6074
 +1:
 +    popl    %ebx
 +    ret
++
 diff --git a/android/libc/arch-x86/syscalls/stime.S b/android/libc/arch-x86/syscalls/stime.S
 new file mode 100644
-index 0000000..384df77
+index 0000000..185e26f
 --- /dev/null
 +++ b/android/libc/arch-x86/syscalls/stime.S
-@@ -0,0 +1,25 @@
+@@ -0,0 +1,26 @@
 +/* autogenerated by gensyscalls.py */
-+#define __KERNEL__
++#include <linux/err.h>
 +#include <asm/unistd.h>
-+#include <sys/linux-syscalls.h>
 +
 +    .text
 +    .type stime, @function
 +    .globl stime
 +    .align 4
 +
++
 +stime:
 +    pushl   %ebx
 +    mov     8(%esp), %ebx
 +    movl    $__NR_stime, %eax
 +    int     $0x80
-+    cmpl    $-129, %eax
++    cmpl    $-MAX_ERRNO, %eax
 +    jb      1f
 +    negl    %eax
 +    pushl   %eax
@@ -170,15 +193,16 @@ index 0000000..384df77
 +1:
 +    popl    %ebx
 +    ret
++    
 diff --git a/android/libc/arch-x86/syscalls/swapoff.S b/android/libc/arch-x86/syscalls/swapoff.S
 new file mode 100644
-index 0000000..510290f
+index 0000000..f13833c
 --- /dev/null
 +++ b/android/libc/arch-x86/syscalls/swapoff.S
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,25 @@
 +/* autogenerated by gensyscalls.py */
++#include <linux/err.h>
 +#include <asm/unistd.h>
-+#include <sys/linux-syscalls.h>
 +
 +    .text
 +    .type swapoff, @function
@@ -190,7 +214,7 @@ index 0000000..510290f
 +    mov     8(%esp), %ebx
 +    movl    $__NR_swapoff, %eax
 +    int     $0x80
-+    cmpl    $-129, %eax
++    cmpl    $-MAX_ERRNO, %eax
 +    jb      1f
 +    negl    %eax
 +    pushl   %eax
@@ -200,21 +224,22 @@ index 0000000..510290f
 +1:
 +    popl    %ebx
 +    ret
++    
 diff --git a/android/libc/arch-x86/syscalls/swapon.S b/android/libc/arch-x86/syscalls/swapon.S
 new file mode 100644
-index 0000000..2913661
+index 0000000..fe554a6
 --- /dev/null
 +++ b/android/libc/arch-x86/syscalls/swapon.S
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,28 @@
 +/* autogenerated by gensyscalls.py */
++#include <linux/err.h>
 +#include <asm/unistd.h>
-+#include <sys/linux-syscalls.h>
 +
 +    .text
 +    .type swapon, @function
 +    .globl swapon
 +    .align 4
-+
++   
 +swapon:
 +    pushl   %ebx
 +    pushl   %ecx
@@ -222,7 +247,7 @@ index 0000000..2913661
 +    mov     16(%esp), %ecx
 +    movl    $__NR_swapon, %eax
 +    int     $0x80
-+    cmpl    $-129, %eax
++    cmpl    $-MAX_ERRNO, %eax
 +    jb      1f
 +    negl    %eax
 +    pushl   %eax
@@ -233,15 +258,16 @@ index 0000000..2913661
 +    popl    %ecx
 +    popl    %ebx
 +    ret
++
 diff --git a/android/libc/arch-x86/syscalls/sysinfo.S b/android/libc/arch-x86/syscalls/sysinfo.S
 new file mode 100644
-index 0000000..e4bffe5
+index 0000000..bafe20d
 --- /dev/null
 +++ b/android/libc/arch-x86/syscalls/sysinfo.S
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,25 @@
 +/* autogenerated by gensyscalls.py */
++#include <linux/err.h>
 +#include <asm/unistd.h>
-+#include <sys/linux-syscalls.h>
 +
 +    .text
 +    .type sysinfo, @function
@@ -253,7 +279,7 @@ index 0000000..e4bffe5
 +    mov     8(%esp), %ebx
 +    movl    $__NR_sysinfo, %eax
 +    int     $0x80
-+    cmpl    $-129, %eax
++    cmpl    $-MAX_ERRNO, %eax
 +    jb      1f
 +    negl    %eax
 +    pushl   %eax
@@ -263,6 +289,80 @@ index 0000000..e4bffe5
 +1:
 +    popl    %ebx
 +    ret
++
+diff --git a/configs/android_defconfig b/configs/android_defconfig
+index e35830e..8488ec3 100644
+--- a/configs/android_defconfig
++++ b/configs/android_defconfig
+@@ -61,7 +61,7 @@ CONFIG_FEATURE_SYSLOG=y
+ # CONFIG_FEATURE_INDIVIDUAL is not set
+ # CONFIG_FEATURE_SHARED_BUSYBOX is not set
+ # CONFIG_LFS is not set
+-CONFIG_CROSS_COMPILER_PREFIX="arm-eabi-"
++# CONFIG_CROSS_COMPILER_PREFIX is not set
+ #
+ # Removed:
+ # warning flags:
+diff --git a/include-full/autoconf.h b/include-full/autoconf.h
+index 79c5339..d5b3ce4 100644
+--- a/include-full/autoconf.h
++++ b/include-full/autoconf.h
+@@ -204,7 +204,6 @@
+ #define ENABLE_LFS 0
+ #define IF_LFS(...)
+ #define IF_NOT_LFS(...) __VA_ARGS__
+-#define CONFIG_CROSS_COMPILER_PREFIX "arm-eabi-"
+ #define ENABLE_CROSS_COMPILER_PREFIX 1
+ #define IF_CROSS_COMPILER_PREFIX(...) __VA_ARGS__
+ #define IF_NOT_CROSS_COMPILER_PREFIX(...)
+diff --git a/include-full/bbconfigopts.h b/include-full/bbconfigopts.h
+index a879f55..207628f 100644
+--- a/include-full/bbconfigopts.h
++++ b/include-full/bbconfigopts.h
+@@ -56,7 +56,6 @@ static const char bbconfig_config[] ALIGN1 =
+ "# CONFIG_FEATURE_INDIVIDUAL is not set\n"
+ "# CONFIG_FEATURE_SHARED_BUSYBOX is not set\n"
+ "# CONFIG_LFS is not set\n"
+-"CONFIG_CROSS_COMPILER_PREFIX=\"arm-eabi-\"\n"
+ "CONFIG_SYSROOT=\"\"\n"
+ "CONFIG_EXTRA_CFLAGS=\"-Os -fno-short-enums -fgcse-after-reload -frerun-cse-after-loop -frename-registers\"\n"
+ "CONFIG_EXTRA_LDFLAGS=\"\"\n"
+diff --git a/include-minimal/autoconf.h b/include-minimal/autoconf.h
+index 7c61662..3648166 100644
+--- a/include-minimal/autoconf.h
++++ b/include-minimal/autoconf.h
+@@ -204,7 +204,6 @@
+ #define ENABLE_LFS 0
+ #define IF_LFS(...)
+ #define IF_NOT_LFS(...) __VA_ARGS__
+-#define CONFIG_CROSS_COMPILER_PREFIX "arm-eabi-"
+ #define ENABLE_CROSS_COMPILER_PREFIX 1
+ #define IF_CROSS_COMPILER_PREFIX(...) __VA_ARGS__
+ #define IF_NOT_CROSS_COMPILER_PREFIX(...)
+diff --git a/include-minimal/bbconfigopts.h b/include-minimal/bbconfigopts.h
+index 859e5b0..1b4f34e 100644
+--- a/include-minimal/bbconfigopts.h
++++ b/include-minimal/bbconfigopts.h
+@@ -56,7 +56,6 @@ static const char bbconfig_config[] ALIGN1 =
+ "# CONFIG_FEATURE_INDIVIDUAL is not set\n"
+ "# CONFIG_FEATURE_SHARED_BUSYBOX is not set\n"
+ "# CONFIG_LFS is not set\n"
+-"CONFIG_CROSS_COMPILER_PREFIX=\"arm-eabi-\"\n"
+ "CONFIG_SYSROOT=\"\"\n"
+ "CONFIG_EXTRA_CFLAGS=\"-Os\"\n"
+ "CONFIG_EXTRA_LDFLAGS=\"\"\n"
+diff --git a/include/platform.h b/include/platform.h
+index 1bbbfe7..8a5cde4 100644
+--- a/include/platform.h
++++ b/include/platform.h
+@@ -452,7 +452,6 @@ typedef unsigned smalluint;
+ #if defined(ANDROID) || defined(__ANDROID__)
+ # undef HAVE_DPRINTF
+ # undef HAVE_FDPRINTF
+-# undef HAVE_GETLINE
+ # undef HAVE_STPCPY
+ # undef HAVE_STRCHRNUL
+ # undef HAVE_STRVERSCMP
 -- 
 1.8.1.2
 

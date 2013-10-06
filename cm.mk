@@ -17,23 +17,6 @@ $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/motorola/smi/overlay
 
-# For userdebug builds
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    	keyguard.no_require_sim=false \
-    	ro.sf.lcd_density=240 \
-   	panel.physicalWidthmm=52 \
-    	panel.physicalHeightmm=89 \
-    	ro.opengles.version=131072 \
-    	gsm.net.interface=rmnet0 \
-    	persist.system.at-proxy.mode=0
-    	ro.secure=0 \
-    	ro.allow.mock.location=0 \
-    	ro.debuggable=1 \
-    	persist.sys.usb.config=adb \
-    	persist.ril-daemon.disable=0
-
-ADDITIONAL_DEFAULT_PROPERTIES  += wifi.interface=wlan0:0
-
 #
 # Setup device specific product configuration.
 #

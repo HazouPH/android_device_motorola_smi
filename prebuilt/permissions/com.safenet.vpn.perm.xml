@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2009-2012 Motorola, Inc.
+ * All Rights Reserved
+ *
+ * The contents of this file are Motorola Confidential Restricted (MCR).
+-->
+<permissions>
+    <feature name="com.motorola.vpn.safenet" />
+</permissions>
+
+<permission name="com.authentec.permission.SAFENET_VPN_ACCESS_JB" >
+    <group gid="vpn" />
+</permission>

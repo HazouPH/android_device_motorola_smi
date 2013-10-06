@@ -94,6 +94,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 TARGET_PREBUILT_KERNEL := device/motorola/smi/blobs/kernel
 #TARGET_KERNEL_CONFIG := i386_mfld_hazou_defconfig
 #TARGET_KERNEL_SOURCE := kernel/XT809-Gamma/kernel/linux-3.0
+KERNEL_MODULES_IN_ROOT := true
 BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=272M earlyprintk=nologger hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 emmc_ipanic.ipanic_part_number=6 loglevel=4
 
 WLAN_MODULES:

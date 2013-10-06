@@ -14,15 +14,15 @@ PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # Prebuilt files required
-INR_X86_FILES := $(wildcard $(DEVICE_FOLDER)/ramdisk/Init-files/*)
-#MDR_X86_FILES := $(wildcard $(DEVICE_FOLDER)/ramdisk/lib/modules/*.ko)
+INR_X86_FILES := $(wildcard $(DEVICE_FOLDER)/ramdisk/init-files/*.*)
+MDR_X86_FILES := $(wildcard $(DEVICE_FOLDER)/ramdisk/lib/modules/*.ko)
 PMS_MOT_FILES := $(wildcard $(DEVICE_FOLDER)/prebuilt/permissions/*.xml)
 
 # Copying grouped files
 PRODUCT_COPY_FILES += \
 	$(foreach i, $(INR_X86_FILES), $(i):root/$(notdir $(i))) \
 	$(foreach i, $(PMS_MOT_FILES), $(i):system/etc/permissions/$(notdir $(i))) \
-#	$(foreach i, $(MDR_X86_FILES), $(i):root/lib/modules/$(notdir $(i))) \
+	$(foreach i, $(MDR_X86_FILES), $(i):root/lib/modules/$(notdir $(i))) \
 
 # Touchscreen
 PRODUCT_COPY_FILES += \
@@ -87,6 +87,7 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip \
 	$(LOCAL_PATH)/blobs/atmxt-r2.tdat:recovery/root/vendor/firmware/atmxt-r2.tdat \
 	$(LOCAL_PATH)/blobs/watchdogd:recovery/root/watchdogd \
+	$(LOCAL_PATH)/blobs/watchdogd:root/watchdogd \
 	$(LOCAL_PATH)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
 # Inherit dalvik configuration and the rest of the platform

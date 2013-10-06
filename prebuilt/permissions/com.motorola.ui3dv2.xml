@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2011 Motorola Mobility, Inc.
+ * All Rights Reserved
+ *
+ * The contents of this file are Motorola Confidential Restricted (MCR).
+-->
+<permissions>
+    <library name="com.motorola.ui3dv2"
+             file="/system/framework/com.motorola.ui3dv2.jar"/>
+</permissions>

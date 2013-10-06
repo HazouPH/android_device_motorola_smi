@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Copyright (C) 2011 Motorola Inc.
+	All Rights Reserved.
+	Motorola Confidential Restricted.
+-->
+<!-- Feature for devices with fingerprint reader. -->
+<permissions>
+    <feature name="com.motorola.lmi.rescue" />
+</permissions>

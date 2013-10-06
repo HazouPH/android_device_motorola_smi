@@ -43,12 +43,12 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     	gsm.net.interface=rmnet0 \
     	persist.system.at-proxy.mode=0
     	ro.secure=0 \
-    	ro.allow.mock.location=0 \
+	ro.adb.secure=0 \
+    	ro.allow.mock.location=1 \
     	ro.debuggable=1 \
-    	persist.sys.usb.config=adb \
-    	persist.ril-daemon.disable=0
-
-ADDITIONAL_DEFAULT_PROPERTIES  += wifi.interface=wlan0:0
+    	persist.sys.usb.config=mtp,adb \
+    	persist.ril-daemon.disable=0 \
+	wifi.interface=wlan0=0
 
 # Inherit from smi device
 $(call inherit-product, device/motorola/smi/device.mk)
