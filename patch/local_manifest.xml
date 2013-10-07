@@ -16,6 +16,18 @@
     <remote  name="android-ia"
            fetch="https://android-review.01.org/"/>
 
+    <remote  name="android-x86"
+           fetch="http://git.android-x86.org/"/>
+
+    <remote  name="01org"
+           fetch="git://github.com/01org/"/>
+
+    <remote  name="freedesktop"
+           fetch="git://anongit.freedesktop.org/"/>
+
+    <remote  name="freexperia"
+           fetch="git://github.com/freexperia"/>
+
     <project path="device/motorola/smi"
       name="android_device_motorola_smi"
              remote="hazouph"
@@ -48,6 +60,36 @@
              remote="android-ia"
              revision="release/android-4.2.2_r1-ia0"/>
      <remove-project name="CyanogenMod/android_external_powertop" />
+
+    <project path="hardware/intel/wrs_omxil_core/"
+      name="omxil_core"
+             remote="01org"
+             revision="master"/>
+
+    <project path="vendor/intel"
+      name="platform/vendor/intel"
+             remote="android-x86"
+             revision="jb-x86"/>
+
+    <project path="hardware/intel/libva"
+      name="libva"
+             remote="freedesktop"
+             revision="master"/>
+
+    <project path="external/alsa-lib"
+      name="android_external_alsa-lib"
+             remote="cyanogenmod"
+             revision="gingerbread"/>
+
+    <project path="hardware/alsa_sound"
+      name="android_hardware_alsa_sound"
+             remote="cyanogenmod"
+             revision="gingerbread"/>
+
+    <project path="vendor/intel/fmradio"
+      name="vendor_ti_fmradio"
+             remote="freexperia"
+             revision="master"/>
 
   </manifest>
 

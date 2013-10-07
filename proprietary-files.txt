@@ -29,17 +29,12 @@ lib/parameter-framework-plugins/Audio/libalsactl-subsystem.so
 lib/modules/vpnclient.ko
 lib/libxmlserializer.so
 lib/libwsbm.so
-lib/libwrs_omxil_core_pvwrapped.so
-lib/libwrs_omxil_common.so
 lib/libWifiAPHardware.so
 lib/libwatchdogd_devel.so
 lib/libvsuite_mot_vs45_embedded.so
 lib/libvpnclient_jni.so
 lib/libVdlFaceDetection.so
 lib/libva_videoencoder.so
-lib/libva-tpi.so
-lib/libva.so
-lib/libva-android.so
 lib/libtpa.so
 lib/libtpa_core.so
 lib/libtinyxml_stl.so
@@ -146,7 +141,6 @@ lib/hw/audio.primary.default.so
 lib/hw/audio_policy.smi.so
 lib/hw/audio_policy.default.so
 lib/hw/audio.a2dp.default.so
-lib/hw/alsa.smi.so
 lib/drm/libmotdrmplugin.so
 etc/wifi/wl1271-nvs.bin
 etc/vold.fstab
@@ -224,7 +218,6 @@ bin/gps_driver
 bin/gkisystem
 bin/fmradioserver
 bin/enc_mgt_tool
-bin/enable_houdini
 bin/dlnasrv
 bin/disp_util
 bin/disable_houdini

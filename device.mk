@@ -1,7 +1,7 @@
 DEVICE_FOLDER := device/motorola/smi
 
 # Get smi-plus files if available for full build
-$(include inherit-product-if-exists, device/motorola/smi-plus/device.mk)
+$(call inherit-product-if-exists, device/motorola/smi-plus/device.mk)
 
 # (2) Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/motorola/smi/smi-vendor.mk)
@@ -31,6 +31,7 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
+    libasound \
     audio.usb.default \
     libaudioutils \
 
@@ -76,6 +77,14 @@ PRODUCT_PACKAGES += \
     pack_intel \
     unpack_intel \
 
+# Video
+PRODUCT_PACKAGES += \
+    libwrs_omxil_core_pvwrapped \
+    libwrs_omxil_common \
+    libva \
+    libva-tpi \
+    libva-android
+
 # Misc Packages
 PRODUCT_PACKAGES += \
     busybox \
@@ -94,3 +103,6 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product,$(SRC_TARGET_DIR)/product/generic_x86.mk)
 $(call inherit-product, build/target/product/full_base_telephony.mk)
+
+# Get Arm translator
+$(call inherit-product-if-exists,vendor/intel/houdini.mk)
