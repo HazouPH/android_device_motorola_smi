@@ -29,6 +29,9 @@ lib/parameter-framework-plugins/Audio/libalsactl-subsystem.so
 lib/modules/vpnclient.ko
 lib/libxmlserializer.so
 lib/libwsbm.so
+lib/libbluetooth-audio
+lib/libasound_module_pcm_voice
+lib/libasound_module_ctl_voice
 lib/libWifiAPHardware.so
 lib/libwatchdogd_devel.so
 lib/libvsuite_mot_vs45_embedded.so
@@ -131,16 +134,10 @@ lib/hw/vpc.smi.so
 lib/hw/vibrator.smi.so
 lib/hw/sensors.smi.so
 lib/hw/power.smi.so
-lib/hw/nfc.smi.so
 lib/hw/lights.mrst.so
 lib/hw/hwcomposer.smi.so
 lib/hw/gps.smi.so
 lib/hw/camera.sc1.so
-lib/hw/audio.primary.smi.so
-lib/hw/audio.primary.default.so
-lib/hw/audio_policy.smi.so
-lib/hw/audio_policy.default.so
-lib/hw/audio.a2dp.default.so
 lib/drm/libmotdrmplugin.so
 etc/wifi/wl1271-nvs.bin
 etc/vold.fstab
