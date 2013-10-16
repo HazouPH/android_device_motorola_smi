@@ -10,6 +10,8 @@ $(call inherit-product-if-exists, vendor/motorola/smi/smi-vendor.mk)
 DEVICE_PACKAGE_OVERLAYS += $(DEVICE_FOLDER)/overlay
 
 # Device uses high-density artwork where available
+PRODUCT_LOCALES := en_US
+PRODUCT_LOCALES += hdpi
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
@@ -29,6 +31,11 @@ PRODUCT_COPY_FILES += \
     $(DEVICE_FOLDER)/prebuilt/idc/atmxt-i2c.idc:system/usr/idc/atmxt-i2c.idc \
     $(DEVICE_FOLDER)/prebuilt/idc/mxt224_touchscreen_0.idc:system/usr/idc/mxt224_touchscreen_0.idc
 
+# APN List, Telephony permissions
+PRODUCT_COPY_FILES += \
+    device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
+
 # Audio
 PRODUCT_PACKAGES += \
     libasound \
@@ -45,14 +52,6 @@ PRODUCT_PACKAGES += \
 
 # Charger
 PRODUCT_PACKAGES += charger charger_res_images
-
-# NFC Support
-PRODUCT_PACKAGES += \
-    libnfc \
-    libnfc_jni \
-    Nfc \
-    Tag \
-    com.android.nfc_extras
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -85,6 +84,21 @@ PRODUCT_PACKAGES += \
     libva-tpi \
     libva-android
 
+# Ramdisk
+PRODUCT_PACKAGES += \
+    fstab.sc1 \
+    init.avc.rc \
+    init.debug.rc \
+    init.duag.rc \
+    init.oom.rc \
+    init.sc1.rc \
+    init.smi.usb.rc \
+    init.smi.usb.sh \
+    init.tcmd.rc \
+    init.wifi.rc \
+    init.wireless.rc \
+    ueventd.sc1.rc
+
 # Misc Packages
 PRODUCT_PACKAGES += \
     busybox \
@@ -99,10 +113,30 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/blobs/watchdogd:root/watchdogd \
 	$(LOCAL_PATH)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
+# For userdebug builds
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    	keyguard.no_require_sim=false \
+    	ro.sf.lcd_density=240 \
+   	panel.physicalWidthmm=52 \
+    	panel.physicalHeightmm=89 \
+    	ro.opengles.version=131072 \
+    	gsm.net.interface=rmnet0 \
+    	persist.system.at-proxy.mode=0
+    	ro.secure=0 \
+	ro.adb.secure=0 \
+    	ro.allow.mock.location=1 \
+    	ro.debuggable=1 \
+    	persist.sys.usb.config=mtp,adb \
+    	persist.ril-daemon.disable=0 \
+	wifi.interface=wlan0=0
+
 # Inherit dalvik configuration and the rest of the platform
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 $(call inherit-product,$(SRC_TARGET_DIR)/product/generic_x86.mk)
-$(call inherit-product, build/target/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Get Arm translator
-$(call inherit-product-if-exists,vendor/intel/houdini.mk)
+$(call inherit-product-if-exists, vendor/intel/houdini/houdini.mk)
+
+# FM Radio Support TI
+$(call inherit-product-if-exists, vendor/intel/fmradio/fmradio.mk)

@@ -22,41 +22,15 @@
 # lines, full and maserati, hence its name.
 #
 
-PRODUCT_PACKAGES := \
-    Camera \
-    Gallery2
-
-PRODUCT_COPY_FILES += \
-    device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
-
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-
-# For userdebug builds
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    	keyguard.no_require_sim=false \
-    	ro.sf.lcd_density=240 \
-   	panel.physicalWidthmm=52 \
-    	panel.physicalHeightmm=89 \
-    	ro.opengles.version=131072 \
-    	gsm.net.interface=rmnet0 \
-    	persist.system.at-proxy.mode=0
-    	ro.secure=0 \
-	ro.adb.secure=0 \
-    	ro.allow.mock.location=1 \
-    	ro.debuggable=1 \
-    	persist.sys.usb.config=mtp,adb \
-    	persist.ril-daemon.disable=0 \
-	wifi.interface=wlan0=0
 
 # Inherit from smi device
 $(call inherit-product, device/motorola/smi/device.mk)
 
 # Set those variables here to overwrite the inherited values.
-PRODUCT_NAME := full_smi
 PRODUCT_DEVICE := smi
+PRODUCT_NAME := full_xt890
 PRODUCT_BRAND := Motorola
 PRODUCT_MODEL := XT890
 PRODUCT_MANUFACTURER := Motorola
-PRODUCT_RELEASE_NAME := Razr i
