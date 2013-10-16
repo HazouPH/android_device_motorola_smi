@@ -23,7 +23,6 @@ on init
     chown system system /sys/devices/pci0000:00/0000:00:05.1/power/control
 
 on property:sys.boot_completed=1
-    insmod /lib/modules/ipv6.ko
     setprop ril.coredumpwarning.enable 1
 
 on boot
@@ -122,18 +121,6 @@ service proxy-tunneling /system/bin/proxy -d /dev/gsmtty1 -m /dev/gsmtty10 -t on
     group radio system radio cache inet misc
     disabled
 
-# AT proxy USB reset utility service
-service atproxy_usbreset /system/bin/atproxy_usbreset
-    oneshot
-    user radio
-    disabled
-
-service ad_proxy /system/xbin/ad_proxy
-    class core
-    user root
-    group system cache misc audio
-    disabled
-
 service uim /system/bin/uim-sysfs
     class core
     user bluetooth
@@ -210,38 +197,8 @@ service pcsc /system/bin/pcscd --auto-exit
 #    group system inet radio
 #    user system
 
-on property:service.ad_proxy.enable=0
-    stop ad_proxy
-    setprop system.at-proxy.mode ${persist.system.at-proxy.mode}
-
-on property:service.ad_proxy.enable=1
-    stop proxy
-    stop proxy-tunneling
-    setprop sys.usb.config rndis,acm,adb
-    start ad_proxy
-
 on property:persist.ril-daemon.disable=0
     start ril-daemon
 
 on property:persist.ril-daemon.disable=1
     stop ril-daemon
-
-on property:persist.system.at-proxy.mode=*
-setprop system.at-proxy.mode ${persist.system.at-proxy.mode}
-
-on property:system.at-proxy.mode=0
-    stop proxy
-    stop proxy-tunneling
-    start atproxy_usbreset
-
-on property:system.at-proxy.mode=1
-    stop ad_proxy
-    stop proxy-tunneling
-    setprop sys.usb.config rndis,acm,adb
-    start proxy
-
-on property:system.at-proxy.mode=2
-    stop ad_proxy
-    stop proxy
-    setprop sys.usb.config rndis,acm,adb
-    start proxy-tunneling

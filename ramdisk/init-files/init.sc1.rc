@@ -1,20 +1,34 @@
-import init.common.rc
 import init.debug.rc
 import init.oom.rc
 import init.diag.rc
 import init.avc.rc
 import init.wireless.rc
-import init.smi.rc
 import init.wifi.rc
 import init.tcmd.rc
-
-# Include usb rc file
 import init.smi.usb.rc
 
-# No emmc file systems mounted at this point (system, data, pds, etc.)
-# runs after "on early-init" and before "on early-fs"
-# runs in charge-only-mode
+on early-init
+    # Create the env for the filesystem mounting (FUSE and Vold)
+    export EXTERNAL_STORAGE /storage/sdcard0
+    mkdir /storage/sdcard0 0000 system system
+    symlink /storage/sdcard0 /mnt/sdcard
+    symlink /storage/sdcard0 /sdcard
+
+    # Set permission for charger-mode
+    chmod 0770 /charger
+
 on init
+# setup the global environment
+    export LD_LIBRARY_PATH /system/lib/arm
+
+    mkdir /factory 0770 system system
+    # mount ext4 /dev/block/mmcblk0p2 /factory
+    mkdir /factory/wifi
+    chown system wifi /factory/wifi
+    chmod 0770 /factory/wifi
+    chown system system /dev/watchdog
+    chmod 0660 /dev/watchdog
+
     export PATH /system/sbin:/system/bin:/system/xbin:/sbin:/vendor/bin
 
     write /sys/class/graphics/fbcon/cursor_blink 0
@@ -27,16 +41,6 @@ on init
     chown system system /sys/class/gpio/gpio157/value
     chmod 0660 /sys/class/gpio/gpio50/value
     chown system system /sys/class/gpio/gpio50/value
-
-    # See vendor/intel/common/init.mfld.usb.rc
-    #write /sys/class/android_usb/android0/enable 0
-    #write /sys/class/android_usb/android0/functions adb
-    #write /sys/class/android_usb/android0/iManufacturer "HTC"
-    #write /sys/class/android_usb/android0/iProduct "Android-Phone"
-    #write /sys/class/android_usb/android0/iSerial "Medfield12345678"
-    #write /sys/class/android_usb/android0/idProduct 0x0c01
-    #write /sys/class/android_usb/android0/idVendor 0x0bb4
-    #write /sys/class/android_usb/android0/enable 1
 
     # For Authentec VPN: route packets over bridge interface before processing
     write /proc/sys/net/bridge/bridge-nf-call-arptables 0
@@ -64,9 +68,26 @@ on charger
     start watchdogd
     start charge_only_mode
 
+    # /system is not already mounted under COS
+    mount ext4 /dev/block/system /system ro noatime
+    start pvrsrvctl
+    # Reduce backlight
+    write /sys/class/backlight/psb-bl/brightness 40
+    # Default setting to enable charging in COS
+    setprop sys.usb.config charging
+
+    # Reset counter watchdog at the end of system boot
+    write /sys/devices/virtual/misc/watchdog/counter 0
+
 # Runs after "on init" and before "on fs"; doesn't run in charge-only-mode
 on early-fs
     mkdir /pds 0755 root root
+
+on fs
+    mkdir /factory 0775 system system
+    mkdir /config 0775 system system
+    mkdir /media 0775 media media
+    mount_all /fstab.${ro.hardware}
 
 # Runs after "on fs" and before "on post-fs-data"
 # /system, /cache, and /pds should be mounted at this point
@@ -225,6 +246,11 @@ on post-fs-data
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
+    mkdir /data/system/ 0770 system system
+
+    # Set indication (checked by vold) that we have finished this action
+    setprop vold.post_fs_data_done 1
+
 # Run after "on post-fs-data", before "on boot"
 # may not be run in charge-only-mode
 on early-boot
@@ -252,134 +278,154 @@ on early-boot
     # Need to launch enc_mgt_tool to create device key and signature for vold to set up sd card
     start enc_tool
 
-# Run after "on early-boot"; does not run in charge-only-mode
 on boot
-    chmod 0777 /system/etc/vpimg.bin
+    chown system system /dev/card0
+    chmod 0666 /dev/card0
+    mkdir /dev/dri
+    symlink /dev/card0 /dev/dri/card0
 
-    #  Permissions for Thermal Management
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chown system system /sys/devices/ipc/msic_battery/charge_enable
-    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
-    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
-    chown system system /sys/module/intel_mid_osip/parameters/force_shutdown_occured
+    # IMG Graphics specific setup. See also "service pvrsrvctl"
+    # The permissions below should be tighter.
+    chown system system /dev/card0
+    chown system system /sys/class/backlight/psb-bl/brightness
+    chown system system /sys/class/backlight/psb-bl/max_brightness
+    chown system system /sys/class/backlight/psb-bl/actual_brightness
+    chmod 0666 /dev/card0
+    chmod 0664 /sys/class/backlight/psb-bl/brightness
+    chmod 0664 /sys/class/backlight/psb-bl/max_brightness
+    chmod 0664 /sys/class/backlight/psb-bl/actual_brightness
 
-    chmod 0664 /sys/devices/ipc/msic_battery/charge_enable
-    chown root mot_tcmd /sys/devices/ipc/msic_adc/mid_gpadc/alloc_channel
-    chown root mot_tcmd /sys/devices/ipc/msic_adc/mid_gpadc/free_channel
-    chown root mot_tcmd /sys/devices/ipc/msic_adc/mid_gpadc/sample
-    chmod 220 /sys/devices/ipc/msic_adc/mid_gpadc/alloc_channel
-    chmod 220 /sys/devices/ipc/msic_adc/mid_gpadc/free_channel
-    chmod 664 /sys/devices/ipc/msic_adc/mid_gpadc/sample
+    # Reduce backlight prior booting
+    write /sys/class/backlight/psb-bl/brightness 40
 
+    # Changing the boot governor, SMP uses shared policies
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor smartassV2
 
-    chmod 0660 /sys/devices/pci0000:00/0000:00:02.0/acl_mode
-    chown system system /sys/devices/pci0000:00/0000:00:02.0/acl_mode
-    chmod 0660 /sys/devices/pci0000:00/0000:00:02.0/elvss_tth_status
-    chown system system /sys/devices/pci0000:00/0000:00:02.0/elvss_tth_status
+    # Reducing write latencies, and mixing it around
+    write /sys/block/mmcblk0/queue/nr_requests 32
+    write /sys/block/mmcblk1/queue/nr_requests 256
 
-# Access Token
-service atvc_core /system/bin/dbvc_atvc_property_set
+    # Memory and caching boosts
+    write /proc/sys/vm/dirty_expire_centisecs 400
+    write /proc/sys/vm/dirty_writeback_centisecs 2000
+    write /proc/sys/vm/dirty_ratio 5
+    write /proc/sys/vm/dirty_background_ratio 40
+    write /proc/sys/vm/vfs_cache_pressure 20
+    write /proc/sys/vm/dirty_bytes 0
+    write /proc/sys/vm/dirty_background_bytes 8388608
+
+    # Default Read Ahead value for sdcards
+    write /sys/block/mmcblk0/queue/read_ahead_kb 2048
+    write /sys/block/mmcblk1/queue/read_ahead_kb 3072
+    # Tag as non rotational devices
+    write /sys/block/mmcblk0/queue/rotational 0
+    write /sys/block/mmcblk1/queue/rotational 0
+    # Disable iostats to reduce overhead
+    write /sys/block/mmcblk0/queue/iostats 0
+    write /sys/block/mmcblk1/queue/iostats 0
+    # Extra performance boost on the IO settings
+    write /sys/block/mmcblk0/queue/iosched/low_latency 1
+    write /sys/block/mmcblk1/queue/iosched/low_latency 1
+    write /sys/block/mmcblk0/queue/iosched/back_seek_penalty 1
+    write /sys/block/mmcblk1/queue/iosched/back_seek_penalty 1
+    write /sys/block/mmcblk0/queue/iosched/quantum 16
+    write /sys/block/mmcblk1/queue/iosched/quantum 16
+    write /sys/block/mmcblk0/queue/nomerges 1
+    write /sys/block/mmcblk1/queue/nomerges 1
+
+    # The scheduler tries to schedule processes on the least number H-Threads
+    write /sys/devices/system/cpu/sched_smt_power_savings 1
+
+    # Change TCP Net-Core buffers sizes to improve cellular data throughput
+     write /proc/sys/net/core/rmem_default 1048576
+     write /proc/sys/net/core/wmem_default 524288
+     write /proc/sys/net/core/rmem_max 2097152
+     write /proc/sys/net/core/wmem_max 1048576
+     write /proc/sys/net/ipv4/tcp_mem  "83520 111360 2097152"
+
+service pvrsrvctl /system/vendor/bin/pvrsrvctl --no-module --start
+    class core
+    oneshot
+    user root
+
+service watchdogd sbin/watchdogd
+    class core
+    user system
+    group system
+    oneshot
+
+service charger_app /charger
+    class charger
+    user root
+
+# Enable Houdini for execuable
+service enable_houdini /system/bin/enable_houdini
     class main
-    user mot_atvc
-    group mot_tpapi
     oneshot
 
-# Access Token
-service atvc /system/bin/dbvc_atvc_property_set
-    class late_start
-    user mot_atvc
-    group mot_tpapi
-    oneshot
+# This property trigger has added to imitiate the previous behavior of "adb root".
+# The adb gadget driver used to reset the USB bus when the adbd daemon exited,
+# and the host side adb relied on this behavior to force it to reconnect with the
+# new adbd instance after init relaunches it. So now we force the USB bus to reset
+# here when adbd sets the service.adb.root property to 1.  We also restart adbd here
+# rather than waiting for init to notice its death and restarting it so the timing
+# of USB resetting and adb restarting more closely matches the previous behavior.
+on property:service.adb.root=1
+    write /sys/class/android_usb/android0/enable 0
+    restart adbd
+    write /sys/class/android_usb/android0/enable 1
 
+on property:sys.property_forcedshutdown=1
+    write /sys/module/intel_mid_osip/parameters/force_shutdown_occured 1
+
+on property:sys.shutdown.requested=0
+    write /sys/devices/virtual/misc/watchdog/shutdown_ongoing 1
+
+on property:sys.shutdown.requested=1
+    write /sys/devices/virtual/misc/watchdog/reboot_ongoing 1
+
+on property:sys.shutdown.requested=1recovery
+    write /sys/devices/virtual/misc/watchdog/reboot_ongoing 1
+
+on property:sys.shutdown.requested=1bootloader
+    write /sys/devices/virtual/misc/watchdog/reboot_ongoing 1
+
+# Clear counter watchdog when boot is completed
 on property:sys.boot_completed=1
-    # Insert matrix for PnP measurements
-    insmod /lib/modules/matrix.ko
-    chmod 0640 /dev/matrix
+    write /sys/devices/virtual/misc/watchdog/counter 0
 
-# For LBS
-service gkisystem /system/bin/gkisystem
-    class main
-    socket location_shim stream 660 radio system
-    socket gpshal_socket stream 660 radio system
-    group radio mot_accy mot_secclkd
+on property:sys.vpn.tun.enabled=1
+    write /proc/sys/net/tun/tun-status 1
 
-service locDrv /system/bin/gps_driver
-    class main
-    user radio
-    group radio inet sdcard_rw
+on property:sys.vpn.tun.enabled=0
+    write /proc/sys/net/tun/tun-status 0
 
-service locEe /system/bin/ee_driver
-    class main
-    user radio
-    group radio inet sdcard_rw
+on property:dev.bootcomplete=1
+    start loadpreinstalls
 
-# Magnetometer
-service akmd8963 /system/bin/akmd8963
-    class main
-    user compass
-    group compass misc input
+on property:ro.build.type=eng
+    chmod 0777 /data/anr
+    chmod 0777 /data/misc
 
-# FM radio
+on property:ro.build.type=userdebug
+    chmod 0777 /data/anr
+    chmod 0777 /data/misc
+
+on property:ro.build.type=user
+    chmod 0771 /data/anr
+    chmod 01771 /data/misc
+
 service fmradio /system/bin/fmradioserver
     class main
+    group bluetooth net_bt_admin
+
+service loadpreinstalls /system/bin/logwrapper /system/bin/loadpreinstalls.sh
+    class main
     user system
-    group bluetooth net_bt_admin net_raw net_admin misc
+    group system media_rw
     disabled
-
-# Authentec VPN
-service vpnclientpm /system/bin/vpnclientpm
-    class main
-    disabled
-    user root
-
-# Properties, events trigging service
-
-# DLNA native service can be launched on demand
-service dlnasrv /system/bin/dlnasrv
-    class main
-    user mot_dlna
-    group net_admin sdcard_rw new_raw inet mount misc
-    oneshot
-    disabled
-
-# Create virtual SD card at /mnt/sdcard, based on the /data/media directory
-# daemon will drop to user/group system/media_rw after initializing
-# underlying files in /data/media will be created with user and group media_rw (1023)
-service sdcard /system/bin/sdcard /data/media 1023 1023
-    class late_start
-
-# Define the enc_mgt_tool as a service here instead of using exec commands
-service enc_tool /system/bin/enc_mgt_tool
-    disabled
-    user root
     oneshot
 
-# Start the enc_mgt_tool to set the keysig when decrypted userdata partition is mounted
-on property:vold.decrypt=trigger_restart_framework
-    start enc_tool
-
-# Cleanup removable SD card from obsolete encrypted files
-on property:sys.mot.encrypt.cleanup=1
-    exec /system/bin/enc_sd_cleanup /storage/sdcard1
-
-# Check available storage space to execute device encryption or decryption
-on property:sys.mot.encrypt.test=1
-    exec /system/bin/enc_mgt_tool --test
-    setprop sys.mot.encrypt.test ""
-
-# Handle device encryption key protection request
-on property:sys.mot.encrypt.pass.prot=1
-    exec /system/bin/enc_mgt_tool --password_prot
-    setprop sys.mot.encrypt.pass.prot ""
-# Enable production security key check for 3LM
-    setprop ro.3lm.production 1
-
-# Run multiconfig script to check if config is updated
-service start_mc_service /system/bin/sh /system/bin/multiconfig_boot_script.sh
-    class main
-    oneshot
-
-service batt_health /system/bin/batt_health
-    class main
-    group mot_pwric
-    oneshot
+service charge_only_mode /system/bin/charge_only_mode
+    class charger
+    disabled

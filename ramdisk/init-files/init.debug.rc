@@ -80,50 +80,12 @@ on property:ro.debuggable=1
     # Allow unprivileged users to read the kernel log
     write /proc/sys/kernel/dmesg_restrict 0
 
-on property:persist.service.profile.enable=1
-    start profile1_init
-
-on property:persist.service.profile.enable=2
-    start profile2_init
-
 # crash and log services
 service crashlogd /system/bin/crashlogd -modem
     class late_start
     user log
     group radio log sdcard_rw
     oneshot
-
-service profile1_init /system/bin/pytimechart-record start_profile1
-    disabled
-    oneshot
-
-service profile1_rest /system/bin/pytimechart-record restart_profile1
-    disabled
-    oneshot
-
-service profile2_init /system/bin/pytimechart-record start_profile2
-    disabled
-    oneshot
-
-service profile2_rest /system/bin/pytimechart-record restart_profile2
-    disabled
-    oneshot
-
-# usbswitch (three services)
-# APE to modem
-service usb_to_modem /system/bin/usbswitch_modem
-    oneshot
-    disabled
-
-# Modem to APE
-service usb_to_ape /system/bin/usbswitch_ape
-    oneshot
-    disabled
-
-# USB switch status
-service usbswitch_status /system/bin/usbswitch_status
-    oneshot
-    disabled
 
 service mtsfs /system/bin/mts -i /dev/gsmtty18 -t f -o /data/logs/bplog -n 5 -r 20000
     user radio
@@ -181,11 +143,4 @@ on property:persist.service.usbmodem.enable=1
 
 on property:persist.service.usbmodem.enable=0
     start usb_to_ape
-
-# LogConfig service
-service logconfig /system/bin/logconfig
-    class main
-    socket logconfig stream 0660 root system
-    disabled
-    oneshot
 
