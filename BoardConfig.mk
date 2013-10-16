@@ -1,5 +1,7 @@
 include $(GENERIC_X86_CONFIG_MK)
 
+LOCAL_PATH := device/motorola/smi
+
 # Board configuration
 TARGET_BOOTLOADER_BOARD_NAME := smi
 TARGET_CPU_ABI := x86
@@ -82,17 +84,17 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 # Use boot tools to make Intel-formatted images
-DEVICE_BASE_BOOT_IMAGE := device/motorola/smi/blobs/boot.image
-DEVICE_BASE_RECOVERY_IMAGE := device/motorola/smi/blobs/recovery.image
-BOARD_CUSTOM_BOOTIMG_MK := device/motorola/smi/boottools/boot.mk
+DEVICE_BASE_BOOT_IMAGE := $(LOCAL_PATH)/blobs/boot.image
+DEVICE_BASE_RECOVERY_IMAGE := $(LOCAL_PATH)/smi/blobs/recovery.image
+BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/boottools/boot.mk
 
 # Kernel build (source:github.com/oxavelar)
 BOARD_KERNEL_BASE := 0x1200000
 BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
-TARGET_PREBUILT_KERNEL := device/motorola/smi/blobs/kernel
-#TARGET_KERNEL_CONFIG := i386_mfld_hazou_defconfig
-#TARGET_KERNEL_SOURCE := kernel/XT809-Gamma/kernel/linux-3.0
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/blobs/kernel
+TARGET_KERNEL_CONFIG := i386_mfld_oxavelar_defconfig
+TARGET_KERNEL_SOURCE := kernel/linux-3.0
 KERNEL_MODULES_IN_ROOT := true
 BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=272M earlyprintk=nologger hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 emmc_ipanic.ipanic_part_number=6 loglevel=4
 
@@ -122,18 +124,19 @@ BOARD_MALLOC_ALIGNMENT := 16
 
 # Blutetooth
 BOARD_HAVE_BLUETOOTH := true
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/motorola/smi/Bluetooth
+# BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/Bluetooth
 
 # NFC
 BOARD_HAVE_NFC := true
 
 # Audio
 BOARD_USES_ALSA_AUDIO := true
-BUILD_WITH_ALSA_UTILS := true
+BOARD_USES_FLUENCE_INCALL := true
 BOARD_USES_SEPERATED_AUDIO_INPUT := true
+BOARD_USES_MOTOROLA_EMU_AUDIO := true
 
 # Security
-BUILD_WITH_CHAABI_SUPPORT := true
+# BUILD_WITH_CHAABI_SUPPORT := true
 BUILD_WITH_WATCHDOG_DAEMON_SUPPORT := true
 
 # Graphics
@@ -143,7 +146,7 @@ BOARD_USE_LIBVA_INTEL_DRIVER := true
 BOARD_USE_LIBVA := true
 BOARD_USE_LIBMIX := true
 BOARD_USES_WRS_OMXIL_CORE := true
-USE_INTEL_OMX_COMPONENTS := true
+# USE_INTEL_OMX_COMPONENTS := true
 
 # Enable WEBGL in WebKit
 ENABLE_WEBGL := true
