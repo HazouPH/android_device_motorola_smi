@@ -11,6 +11,7 @@ TARGET_ARCH_VARIANT := x86-atom
 TARGET_ARCH_VARIANT_FPU := sse
 TARGET_BOARD_PLATFORM := sc1
 TARGET_CPU_SMP := true
+TARGET_BUILD_VARIANT := eng
 
 # Atom optimizations specified (source:oxavelar)
 TARGET_GLOBAL_CFLAGS += \
@@ -84,8 +85,10 @@ TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 # Use boot tools to make Intel-formatted images
+USE_PREBUILT_RAMDISK := true
+DEVICE_RAMDISK_CONTENT := $(LOCAL_PATH)/ramdisk/prebuilt-ramdisk
 DEVICE_BASE_BOOT_IMAGE := $(LOCAL_PATH)/blobs/boot.image
-DEVICE_BASE_RECOVERY_IMAGE := $(LOCAL_PATH)/smi/blobs/recovery.image
+DEVICE_BASE_RECOVERY_IMAGE := $(LOCAL_PATH)/blobs/recovery.image
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/boottools/boot.mk
 
 # Kernel build (source:github.com/oxavelar)
@@ -93,8 +96,9 @@ BOARD_KERNEL_BASE := 0x1200000
 BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/blobs/kernel
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := i686-linux-android-4.6
 TARGET_KERNEL_CONFIG := i386_mfld_oxavelar_defconfig
-TARGET_KERNEL_SOURCE := kernel/linux-3.0
+#TARGET_KERNEL_SOURCE := kernel/kernel/linux-3.0
 KERNEL_MODULES_IN_ROOT := true
 BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=272M earlyprintk=nologger hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 emmc_ipanic.ipanic_part_number=6 loglevel=4
 
@@ -117,7 +121,7 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 536870912 # 0x20000000
 BOARD_FLASH_BLOCK_SIZE := 2048
 
 # Ramdisk
-TARGET_PROVIDES_INIT_RC := true
+# TARGET_PROVIDES_INIT_RC := true
 
 # Customize the malloced address to be 16-byte aligned
 BOARD_MALLOC_ALIGNMENT := 16
