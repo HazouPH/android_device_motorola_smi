@@ -1,0 +1,38 @@
+on init
+    setprop alsa.mixer.defaultCard medfieldaudio
+    setprop alsa.mixer.defaultGain 1.0
+    # DualSim Property
+    setprop audiocomms.atm.isDualSimModem false
+    # DLCI used for Primary Audio AT Manager
+    setprop audiocomms.atm.primaryChannel "/dev/gsmtty20"
+    # DLCI used for Control Audio AT Manager
+    setprop audiocomms.atm.controlChannel "/dev/gsmtty13"
+    setprop Audiocomms.Audience.IsPresent "true"
+
+on charger
+    # Loading camera, sensor modules
+    insmod /lib/modules/videobuf2-core.ko
+    insmod /lib/modules/videobuf2-memops.ko
+    insmod /lib/modules/mt9e013.ko
+    insmod /lib/modules/ov7736.ko
+    insmod /lib/modules/lm3554.ko
+    insmod /lib/modules/atomisp.ko
+
+on post-fs
+    # Loading camera, sensor modules
+    insmod /lib/modules/videobuf2-core.ko
+    insmod /lib/modules/videobuf2-memops.ko
+    insmod /lib/modules/mt9e013.ko
+    insmod /lib/modules/lc898211.ko
+    insmod /lib/modules/ov7736.ko
+    insmod /lib/modules/lm3556.ko
+    insmod /lib/modules/atomisp.ko
+
+    # Audio timeout to do a DAPM powerdown after a stream is closed(). It is used to eliminate pops between different playback streams.
+    chown media system /sys/devices/ipc/msic_audio/Medfield\ Headset/pmdown_time
+    chown media system /sys/devices/ipc/msic_audio/Medfield\ Speaker/pmdown_time
+    chown media system /sys/devices/ipc/msic_audio/Medfield\ Voice/pmdown_time
+
+    # change gpio attribute after loading lm3556.ko
+    chmod 0660 /sys/class/gpio/gpio161/value
+    chown system system /sys/class/gpio/gpio161/value

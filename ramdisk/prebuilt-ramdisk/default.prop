@@ -1,0 +1,14 @@
+#
+# ADDITIONAL_DEFAULT_PROPERTIES
+#
+panel.physicalWidthmm=52
+panel.physicalHeightmm=89
+ro.opengles.version=131072
+gsm.net.interface=rmnet0
+persist.system.at-proxy.mode=0
+ro.allow.mock.location=0
+ro.secure=0
+ro.debuggable=1
+wifi.interface=wlan0:0
+persist.ril-daemon.disable=0
+persist.sys.usb.config=adb
