@@ -114,7 +114,7 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
 # For userdebug builds
-ADDITIONAL_DEFAULT_PROPERTIES += \
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     	keyguard.no_require_sim=false \
     	ro.sf.lcd_density=240 \
    	panel.physicalWidthmm=52 \
@@ -132,11 +132,10 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 
 # Inherit dalvik configuration and the rest of the platform
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
-$(call inherit-product,$(SRC_TARGET_DIR)/product/generic_x86.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Get Arm translator
-$(call inherit-product-if-exists, vendor/intel/houdini/houdini.mk)
+$(call inherit-product-if-exists, vendor/intel/houdini.mk)
 
 # FM Radio Support TI
-$(call inherit-product-if-exists, vendor/intel/fmradio/fmradio.mk)
+$(call inherit-product-if-exists, vendor/ti/fmradio/fmradio.mk)
