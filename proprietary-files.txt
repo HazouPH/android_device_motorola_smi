@@ -29,9 +29,6 @@ lib/parameter-framework-plugins/Audio/libalsactl-subsystem.so
 lib/modules/vpnclient.ko
 lib/libxmlserializer.so
 lib/libwsbm.so
-lib/libbluetooth-audio
-lib/libasound_module_pcm_voice
-lib/libasound_module_ctl_voice
 lib/libWifiAPHardware.so
 lib/libwatchdogd_devel.so
 lib/libvsuite_mot_vs45_embedded.so
@@ -44,7 +41,6 @@ lib/libtinyxml_stl.so
 lib/libtexture_mem.so
 lib/libstagefright_soft_gsmdec.so
 lib/libstagefrighthw.so
-lib/libsoundpool.so
 lib/libsharedbuffer.so
 lib/libSh3aParamsSemcoLc898211.so
 lib/libSh3aParamsLiteOn8M.so
@@ -93,7 +89,6 @@ lib/libI420colorconvert.so
 lib/libhoudini.so
 lib/libgpsTI.so
 lib/libglib.so
-lib/libGLES_trace.so
 lib/libgki.so
 lib/libfm_stack.so
 lib/libfmchr.so
@@ -112,7 +107,6 @@ lib/libchromeview.so
 lib/libbtio.so
 lib/libbluetooth.so
 lib/libbluetoothd.so
-lib/libbcc.so.sha1
 lib/libbcbmsg.so
 lib/libbabysit.so
 lib/libaudioresample.so
@@ -127,7 +121,6 @@ lib/lib_ARC_Omx_Plugin.so
 lib/libarcomx_omxcore_sharedlibrary.so
 lib/libarcomx_evrcdec_sharedlibrary.so
 lib/libarcaudiogetinfo.so
-lib/libandroid_servers.so
 lib/libamc.so
 lib/libaah_rtp.so
 lib/hw/vpc.smi.so
@@ -140,7 +133,6 @@ lib/hw/gps.smi.so
 lib/hw/camera.sc1.so
 lib/drm/libmotdrmplugin.so
 etc/wifi/wl1271-nvs.bin
-etc/vold.fstab
 etc/thermal_throttle_config.xml
 etc/thermal_sensor_config.xml
 etc/rril/stmd.conf
@@ -180,7 +172,6 @@ etc/firmware/aac_v2_dec_1.bin
 etc/firmware/aac_v1_dec_1.bin
 etc/firmware/aac_enc_1.bin
 etc/firmware/aac_dec_1.bin
-etc/audio_effects.conf
 etc/atomisp/YGamma_DIS5MP.bin
 etc/atomisp/Video_UserParameter_SemcoLc898211.prm
 etc/atomisp/Video_UserParameter_LiteOn8M.prm
@@ -223,5 +214,6 @@ bin/crashlogd
 bin/cpdd
 bin/cmfwdl-app
 bin/bluetoothd
+bin/batt_health
 bin/batch
 bin/akmd8963

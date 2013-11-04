@@ -1,37 +1,33 @@
+# STOP!
+# DO NOT ADD TO THIS FILE
+#
+# This is the base system "init.rc" file. This file is largely rewritten by Google with each major
+# release. We don't want to add to it - instead, we add to our own init.<whatever>.rc files. We catenate
+# our init.*.rc files to this one via use of the Android.mk PRODUCT_INIT_RC_FILES variable. See AndroidBoard
+#
+# Even though we don't want to add to or modify lines of this file, we DO often need to change lines
+# that Google has placed there. To accomplish this, we comment the lines out in this file and ADD the correc
+# lines to init.<whatever>.rc. A good example is the init.mfld.rc file in this directory.
+
 # Copyright (C) 2012 The Android Open Source Project
 #
 # IMPORTANT: Do not create world writable files or directories.
 # This is a common source of Android security bugs.
 #
 
-# import /init.usb.rc
 import /init.${ro.hardware}.rc
-import /init.trace.rc
-import /init.carrier.rc
+# import /init.usb.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
     write /proc/1/oom_adj -16
 
-    # Set the security context for the init process.
-    # This should occur before anything else (e.g. ueventd) is started.
-    setcon u:r:init:s0
-
     start ueventd
 
 # create mountpoints
     mkdir /mnt 0775 root system
-    mkdir /storage 0050 root sdcard_r
-    # Create mountpoint so Dalvik can mark as slave in zygotes.
-    mount tmpfs tmpfs /storage mode=0050,uid=0,gid=1028
-
-    # Allow system UID to setenforce and set booleans.
-    chown system system /selinux/enforce
-    chown system system /sys/fs/selinux/enforce
-    chown -R system system /selinux/booleans
-    chown -R system system /sys/fs/selinux/booleans
-    chown system system /selinux/commit_pending_bools
-    chown system system /sys/fs/selinux/commit_pending_bools
+# Google create a new mountpoints
+    mkdir /storage 0775 root system
 
 on init
     # Sets the data roaming setting by default to false
@@ -48,7 +44,6 @@ loglevel 3
     export ANDROID_ROOT /system
     export ANDROID_ASSETS /system/app
     export ANDROID_DATA /data
-    export ANDROID_STORAGE /storage
     export ASEC_MOUNTPOINT /mnt/asec
     export LOOP_MOUNTPOINT /mnt/obb
 # move definition into init.common.rc
@@ -69,18 +64,11 @@ loglevel 3
 
     mkdir /system
     mkdir /data 0771 system system
-    mkdir /cache 0771 system cache
+    mkdir /cache 0770 system cache
     mkdir /config 0500 root root
-
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/shell 0700 shell shell
-    # Ensure permissions are set appropriately after device early-init.
-    mkdir /storage 0050 root sdcard_r
 
     # Directory for putting things only root should see.
     mkdir /mnt/secure 0700 root root
-    # Create private mountpoint so we can MS_MOVE from staging
-    mount tmpfs tmpfs /mnt/secure mode=0700,uid=0,gid=0
 
     # Directory for staging bindmounts
     mkdir /mnt/secure/staging 0700 root root
@@ -96,10 +84,6 @@ loglevel 3
     # Filesystem image public mount points.
     mkdir /mnt/obb 0700 root system
     mount tmpfs tmpfs /mnt/obb mode=0755,gid=1000
-
-    # Fuse public mount points.
-    mkdir /mnt/fuse 0700 root system
-    mount tmpfs tmpfs /mnt/fuse mode=0775,gid=1000
 
     write /proc/sys/kernel/panic_on_oops 1
     write /proc/sys/kernel/hung_task_timeout_secs 0
@@ -140,12 +124,6 @@ loglevel 3
     write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_runtime_us 700000
     write /dev/cpuctl/apps/bg_non_interactive/cpu.rt_period_us 1000000
 
-# qtaguid will limit access to specific data based on group memberships.
-#   net_bw_acct grants impersonation of socket owners.
-#   net_bw_stats grants access to other apps' detailed tagged-socket stats.
-    chown root net_bw_acct /proc/net/xt_qtaguid/ctrl
-    chown root net_bw_stats /proc/net/xt_qtaguid/stats
-
 # Allow everybody to read the xt_qtaguid resource tracking misc dev.
 # This is needed by any process that uses socket tagging.
     chmod 0644 /dev/xt_qtaguid
@@ -161,36 +139,24 @@ on fs
 on post-fs
     # once everything is setup, no need to modify /
     mount rootfs rootfs / ro remount
-    # mount shared so changes propagate into child namespaces
-    mount rootfs rootfs / shared rec
-    mount tmpfs tmpfs /mnt/secure private rec
 
     # We chown/chmod /cache again so because mount is run as root + defaults
     chown system cache /cache
-    chmod 0771 /cache
-    # We restorecon /cache in case the cache partition has been reset.
-    restorecon /cache
+    chmod 0770 /cache
 
     # This may have been created by the recovery system with odd permissions
     chown system cache /cache/recovery
     chmod 0770 /cache/recovery
-    # This may have been created by the recovery system with the wrong context.
-    restorecon /cache/recovery
 
     #change permissions on vmallocinfo so we can grab it from bugreports
     chown root log /proc/vmallocinfo
     chmod 0440 /proc/vmallocinfo
-
-    chown root log /proc/slabinfo
-    chmod 0440 /proc/slabinfo
 
     #change permissions on kmsg & sysrq-trigger so bugreports can grab kthread stacks
     chown root system /proc/kmsg
     chmod 0440 /proc/kmsg
     chown root system /proc/sysrq-trigger
     chmod 0220 /proc/sysrq-trigger
-    chown system log /proc/last_kmsg
-    chmod 0440 /proc/last_kmsg
 
     # create the lost+found directories, so as to enforce our permissions
     mkdir /cache/lost+found 0770 root root
@@ -199,13 +165,11 @@ on post-fs-data
     # We chown/chmod /data again so because mount is run as root + defaults
     chown system system /data
     chmod 0771 /data
-    # We restorecon /data in case the userdata partition has been reset.
-    restorecon /data
 
     # Create dump dir and collect dumps.
     # Do this before we mount cache so eventually we can use cache for
     # storing dumps on platforms which do not have a dedicated dump partition.
-    mkdir /data/dontpanic 0750 root log
+    mkdir /data/dontpanic 0770 root log
 
     # Collect apanic data, free resources and re-arm trigger
     #copy /proc/apanic_console /data/dontpanic/apanic_console
@@ -220,13 +184,10 @@ on post-fs-data
 
     # create basic filesystem structure
     mkdir /data/misc 01771 system misc
-    mkdir /data/misc/adb 02750 system shell
-    mkdir /data/misc/audit 02750 audit system
-    mkdir /data/misc/bluedroid 0770 bluetooth net_bt_stack
+    mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
     mkdir /data/misc/bluetooth 0770 system system
     mkdir /data/misc/keystore 0700 keystore keystore
     mkdir /data/misc/keychain 0771 system system
-    mkdir /data/misc/sms 0770 system radio
     mkdir /data/misc/vpn 0770 system vpn
     mkdir /data/misc/systemkeys 0700 system system
     # give system access to wpa_supplicant.conf for backup and restore
@@ -240,17 +201,13 @@ on post-fs-data
     mkdir /data/data 0771 system system
     mkdir /data/app-private 0771 system system
     mkdir /data/app-asec 0700 root root
-    mkdir /data/app-lib 0771 system system
     mkdir /data/app 0771 system system
     mkdir /data/property 0700 root root
     mkdir /data/ssh 0750 root shell
     mkdir /data/ssh/empty 0700 root root
-    mkdir /data/radio 0770 radio radio
 
-    # create dalvik-cache and double-check the perms, so as to enforce our permissions
+    # create dalvik-cache, so as to enforce our permissions
     mkdir /data/dalvik-cache 0771 system system
-    chown system system /data/dalvik-cache
-    chmod 0771 /data/dalvik-cache
 
     # create resource-cache and double-check the perms
     mkdir /data/resource-cache 0771 system system
@@ -263,9 +220,6 @@ on post-fs-data
     # create directory for DRM plug-ins - give drm the read/write access to
     # the following directory.
     mkdir /data/drm 0770 drm drm
-
-    # Separate location for storing security policy files on data
-    mkdir /data/security 0711 system system
 
     # If there is no fs-post-data action in the init.<device>.rc file, you
     # must uncomment this line, otherwise encrypted filesystems
@@ -296,13 +250,12 @@ on boot
     write /proc/sys/vm/dirty_expire_centisecs 200
     write /proc/sys/vm/dirty_background_ratio  5
 
-    # Permissions for System Server and daemons.
+    # Permissions for System Server and daemons
     chown radio system /sys/android_power/state
     chown radio system /sys/android_power/request_state
     chown radio system /sys/android_power/acquire_full_wake_lock
     chown radio system /sys/android_power/acquire_partial_wake_lock
     chown radio system /sys/android_power/release_wake_lock
-    chown system system /sys/power/autosleep
     chown system system /sys/power/state
     chown system system /sys/power/wakeup_count
     chown radio system /sys/power/wake_lock
@@ -344,18 +297,16 @@ on boot
 
 # Define TCP buffer sizes for various networks
 #   ReadMin, ReadInitial, ReadMax, WriteMin, WriteInitial, WriteMax,
-    setprop net.tcp.buffersize.default 4096,87380,704512,4096,16384,110208
+    setprop net.tcp.buffersize.default 4096,87380,110208,4096,16384,110208
     setprop net.tcp.buffersize.wifi    524288,1048576,2097152,262144,524288,1048576
-    setprop net.tcp.buffersize.lte     4096,87380,1220608,4096,16384,563200
-    setprop net.tcp.buffersize.umts    4096,87380,563200,4096,16384,110208
-    setprop net.tcp.buffersize.hspa    4096,87380,704512,4096,16384,110208
-    setprop net.tcp.buffersize.hsupa   4096,87380,704512,4096,16384,262144
-    setprop net.tcp.buffersize.hsdpa   4096,87380,704512,4096,16384,262144
-    setprop net.tcp.buffersize.hspap   4096,87380,1220608,4096,16384,393216
-    setprop net.tcp.buffersize.edge    4096,26280,35040,4096,16384,35040
-    setprop net.tcp.buffersize.gprs    4096,8760,11680,4096,8760,11680
-    setprop net.tcp.buffersize.evdo    4096,87380,563200,4096,16384,262144
-    setprop net.tcp.buffersize.evdo_b  4096,87380,704512,4096,16384,262144
+    setprop net.tcp.buffersize.lte     524288,1048576,2097152,262144,524288,1048576
+    setprop net.tcp.buffersize.hspap   32768,262144,1048576,4096,16384,262144
+    setprop net.tcp.buffersize.hspa    16384,87380,262144,4096,16384,262144
+    setprop net.tcp.buffersize.hsupa   16384,87380,262144,4096,16384,110208
+    setprop net.tcp.buffersize.hsdpa   16384,87380,262144,4096,16384,110208
+    setprop net.tcp.buffersize.umts    4094,87380,110208,4096,16384,110208
+    setprop net.tcp.buffersize.edge    4093,26280,110208,4096,16384,110208
+    setprop net.tcp.buffersize.gprs    4092,8760,65536,4096,8760,65536
 
 # Set this property so surfaceflinger is not started by system_init
     setprop system_init.startsurfaceflinger 1
@@ -394,13 +345,6 @@ on property:vold.decrypt=trigger_shutdown_framework
 service ueventd /sbin/ueventd
     class core
     critical
-    seclabel u:r:ueventd:s0
-
-on property:selinux.reload_policy=1
-    restart ueventd
-    restart installd
-    chown -R system system /selinux/booleans
-    chown -R system system /sys/fs/selinux/booleans
 
 service console /system/bin/sh
     class core
@@ -409,18 +353,13 @@ service console /system/bin/sh
     user shell
     group log
 
-service auditd /system/bin/auditd -k
-    class main
-
 on property:ro.debuggable=1
     start console
 
 # adbd is controlled via property triggers in init.<platform>.usb.rc
 service adbd /sbin/adbd
     class core
-    socket adbd stream 660 system system
     disabled
-    seclabel u:r:adbd:s0
 
 # adbd on at boot in emulator
 on property:ro.kernel.qemu=1

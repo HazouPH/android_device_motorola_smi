@@ -107,7 +107,6 @@ PRODUCT_PACKAGES += \
 # Misc Prebuilt
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/vold.fstab:system/etc/vold.fstab \
-	$(LOCAL_PATH)/bootanimation.zip:system/media/bootanimation.zip \
 	$(LOCAL_PATH)/blobs/atmxt-r2.tdat:recovery/root/vendor/firmware/atmxt-r2.tdat \
 	$(LOCAL_PATH)/blobs/watchdogd:recovery/root/watchdogd \
 	$(LOCAL_PATH)/blobs/watchdogd:root/watchdogd \
