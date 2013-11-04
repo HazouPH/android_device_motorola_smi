@@ -5,7 +5,7 @@ import init.wireless.rc
 import init.smi.rc
 import init.wifi.rc
 import init.tcmd.rc
-# import init.cm.rc
+import init.cm.rc
 
 # Include usb rc file
 import init.smi.usb.rc
@@ -261,11 +261,11 @@ on boot
     chown system system /sys/devices/pci0000:00/0000:00:02.0/elvss_tth_status
 
 # For LBS
-service gkisystem /system/bin/gkisystem
-    class main
-    socket location_shim stream 660 radio system
-    socket gpshal_socket stream 660 radio system
-    group radio mot_accy mot_secclkd
+#service gkisystem /system/bin/gkisystem
+#    class main
+#    socket location_shim stream 660 radio system
+#    socket gpshal_socket stream 660 radio system
+#    group radio mot_accy mot_secclkd
 
 service locDrv /system/bin/gps_driver
     class main
