@@ -1,0 +1,25 @@
+From 43337c640a35a7d8ec309d40be83ed5d6b7f708f Mon Sep 17 00:00:00 2001
+From: Patrick Harbers <jgrharbers@gmail.com>
+Date: Thu, 31 Oct 2013 15:01:28 +0100
+Subject: [PATCH] Change path for missing file
+
+---
+ va/va_android.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/va/va_android.h b/va/va_android.h
+index 796ab63..70677d2 100644
+--- a/va/va_android.h
++++ b/va/va_android.h
+@@ -48,7 +48,7 @@ VADisplay vaGetDisplay (
+ 
+ #ifdef __cplusplus
+ #ifdef ANDROID
+-#include <surfaceflinger/ISurface.h>
++#include <gui/ISurface.h>
+ using namespace android;
+ 
+ /*
+-- 
+1.8.1.2
+
