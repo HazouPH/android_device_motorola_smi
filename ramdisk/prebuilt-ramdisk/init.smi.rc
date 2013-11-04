@@ -1,0 +1,31 @@
+on property:sys.vpn.tun.enabled=1
+    write /proc/sys/net/tun/tun-status 1
+
+on property:sys.vpn.tun.enabled=0
+    write /proc/sys/net/tun/tun-status 0
+
+on property:ro.build.type=eng
+    chmod 0777 /data/anr
+    chmod 0777 /data/misc
+
+on property:ro.build.type=userdebug
+    chmod 0777 /data/anr
+    chmod 0777 /data/misc
+
+on property:ro.build.type=user
+    chmod 0771 /data/anr
+    chmod 01771 /data/misc
+
+service fmradio /system/bin/fmradioserver
+    class main
+    user system
+    group bluetooth net_bt_admin net_raw net_admin misc
+    disabled
+
+service charge_only_mode /system/bin/charge_only_mode
+    class charger
+    disabled
+
+service sysinit /system/bin/logwrapper /system/xbin/busybox run-parts /system/etc/init.d
+    class main
+    oneshot

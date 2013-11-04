@@ -1,0 +1,31 @@
+service rild_tcmd /system/bin/rild_tcmd
+    class core
+    socket rild_tcmd stream 0660 radio mot_tcmd
+    user radio
+    group radio
+
+on property:ro.bootmode=cidtcmd
+    setprop tcmd.suspend 1
+
+on property:tcmd.suspend=1
+    stop zygote
+
+service tcmdhelp /system/bin/tcmdhelp
+    class main
+    socket tcmdhelp stream 0600 mot_tcmd mot_tcmd
+    oneshot
+    disabled
+
+# Execute tcmdhelp
+on property:tcmd.start_tcmdhelp=1
+    start tcmdhelp
+
+on property:tcmd.suspend=2
+    stop zygote
+
+# Add tcmd service
+service tcmd /system/bin/tcmd
+    class core
+    group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass net_bt_admin mot_tombstone mot_tpapi mount net_raw net_admin mot_whisper media shell mot_usb drmrpc nfc
+    socket local_tcmd stream 0660 mot_tcmd mot_tcmd
+    socket batch_socket stream 0600 mot_tcmd mot_tcmd
