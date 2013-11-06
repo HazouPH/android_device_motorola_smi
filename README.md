@@ -17,14 +17,15 @@ What doenst work, but builds and boot(loops):
 Source from Turl, Oxavelar, motorola and HazouPH
 
 Still to do for fully working tree:
-- Ramdisk build working correctly
+- Ramdisk build working correctly (using prebuilt for now)
+- More...
 
-To use ths repository for building recovery's (Only on CM10.1!!! September 2013 repo). 
+To use ths repository for building recovery's or trying to get CM, AOSP working(Only on CM10.1!!! nov 2013 repo). 
 
-- Git init the CM10.1 repository
+- Setup building enviroment for CM10 (needs 64 bits OS)
+- Git init my android manifest: repo init -u git://github.com/HazouPH/android.git -b cm-10.1
 - Repo sync
-- Git clone https://github.com/hazouph/android_device_motorola_smi to device/motorola/smi
-- Add/copy the device/motorola/smi/patch/local_manifest.xml to (source)/.repo/local_manifests/local_manifest.xml
-- Synchronise your repository (repo sync) again
-- Apply all patches by executing ApplyPatches.sh
-- After every 'Repo sync' u need to repatch the repository.
+- Apply all patches by executing ApplyPatches.sh in device/motorola/smi/patch
+- After every new 'Repo sync' u need to repatch the repository with ApplyPatches.sh.
+
+Good luck!
