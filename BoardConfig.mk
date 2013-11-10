@@ -11,7 +11,6 @@ TARGET_ARCH_VARIANT := x86-atom
 TARGET_ARCH_VARIANT_FPU := sse
 TARGET_BOARD_PLATFORM := sc1
 TARGET_CPU_SMP := true
-TARGET_BUILD_VARIANT := eng
 
 # Atom optimizations specified (source:oxavelar)
 TARGET_GLOBAL_CFLAGS += \
