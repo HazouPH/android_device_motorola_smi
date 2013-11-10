@@ -1,10 +1,13 @@
 # Android fstab file.
-#<src> <mnt_point> <type> <mnt_flags and options> <fs_mgr_flags>
 # The filesystem that contains the filesystem checker binary (typically /system) cannot
 # specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+#<src>                                              <mnt_point>      <type>  <mnt_flags and options>                                                              <fs_mgr_flags>
 
-/dev/block/system   /system ext4 ro,noatime,nodiratime wait
-/dev/block/cache    /cache  ext4 nosuid,nodev,noatime,nodiratime,nodelalloc,barrier=0,data=ordered wait,check
-/dev/block/userdata /data   ext4 nosuid,nodev,noatime,nodiratime,nodelalloc,barrier=0,data=ordered,noauto_da_alloc wait,check,encryptable=footer
-/dev/block/pds      /pds    ext4 nosuid,nodev,noatime,nodiratime,nodelalloc,barrier=0,data=ordered wait,check
-#/dev/block/panic    /panic raw defaults wait
+/dev/block/system       /system          ext4    rw,noatime,nodiratime,noauto_da_alloc,barrier=1                                      wait
+/dev/block/userdata     /data            ext4    rw,nosuid,nodev,noatime,nodiratime,data=writeback,noauto_da_alloc,barrier=1          wait,check
+/dev/block/cache        /cache           ext4    rw,nosuid,nodev,noatime,nodiratime,data=writeback,noauto_da_alloc,barrier=1          wait,check
+/dev/block/boot         /boot            emmc    defaults                                                                             defaults
+/dev/block/recovery     /recovery        emmc    defaults                                                                             defaults
+/dev/block/misc         /misc            emmc    defaults                                                                             defaults
+/devices/pci0000:00/0000:00:04.0/mmc_host/mmc1               /storage/sdcard1 auto    defaults                                                                             voldmanaged=sdcard:auto
+
