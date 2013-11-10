@@ -9,7 +9,6 @@ vendor/lib/libpvrANDROID_WSEGL.so
 vendor/lib/libpvr2d.so
 vendor/lib/libIMGegl.so
 vendor/lib/libglslcompiler.so
-vendor/lib/hw/gralloc.mrst.so
 vendor/lib/egl/libGLESv2_POWERVR_SGX540_121.so
 vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_121.so
 vendor/lib/egl/libEGL_POWERVR_SGX540_121.so
@@ -127,7 +126,6 @@ lib/hw/vpc.smi.so
 lib/hw/vibrator.smi.so
 lib/hw/sensors.smi.so
 lib/hw/power.smi.so
-lib/hw/lights.mrst.so
 lib/hw/hwcomposer.smi.so
 lib/hw/gps.smi.so
 lib/hw/camera.sc1.so
