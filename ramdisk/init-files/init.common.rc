@@ -16,8 +16,8 @@ on init
     chmod 0770 /factory/wifi
     chown system system /dev/watchdog
     chmod 0660 /dev/watchdog
-    chown system system /watchdogd
-    chmod 0500 /watchdogd
+    chown system system /sbin/watchdogd
+    chmod 0500 /sbin/watchdogd
 
 on boot
     chown system system /dev/card0
@@ -148,7 +148,7 @@ service pvrsrvctl /system/vendor/bin/pvrsrvctl --no-module --start
     oneshot
     user root
 
-service watchdogd /watchdogd
+service watchdogd /sbin/watchdogd
     class core
     user system
     group system

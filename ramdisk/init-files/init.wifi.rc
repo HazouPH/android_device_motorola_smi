@@ -1,14 +1,9 @@
-
-########################################################
-# "INIT.WIFI.RC" - COMMON PART
-########################################################
-
 on post-fs-data
     mkdir /data/misc/wifi 0770 wifi wifi
 
 on boot
     setprop net.tcp.buffersize.wifi    524288,1048576,2097152,262144,524288,1048576
-    setprop wifi.scan.interval 10000
+    setprop wifi.scan.interval 20000
     # Load wifi drivers
     insmod /lib/modules/compat.ko
     insmod /lib/modules/cfg80211.ko
@@ -70,14 +65,4 @@ service iprenew_wlan0 /system/bin/logwrapper /system/bin/dhcpcd -nBK
     group system dhcp
     disabled
     oneshot
-
-
-########################################################
-# "INIT.WIFI.RC" - MEDFIELD PART
-########################################################
-
-
-########################################################
-# "INIT.WIFI.RC" - MFLD_PR2 PART
-########################################################
 

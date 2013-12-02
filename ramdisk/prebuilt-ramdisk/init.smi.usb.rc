@@ -92,11 +92,12 @@ on property:sys.usb.config=mtp
     stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 0x22b8
-    write /sys/class/android_usb/android0/idProduct ${usb.mtp.pid}
+    write /sys/class/android_usb/android0/idProduct 2d01
     write /sys/class/android_usb/android0/f_mass_storage/cdrom ${usb.mtp.cdrom}
-    write /sys/class/android_usb/android0/functions ${usb.mtp.config}
+    write /sys/class/android_usb/android0/functions ${usb.mtp.config},adb
     write /sys/class/android_usb/android0/enable 1
-    setprop sys.usb.state ${sys.usb.config}
+    start adbd
+    setprop sys.usb.state ${sys.usb.config},adb
     setprop sys.mot.usb.action none
 
 # USB MTP configuration, with adb

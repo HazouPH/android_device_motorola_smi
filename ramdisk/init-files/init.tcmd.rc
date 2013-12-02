@@ -16,14 +16,14 @@ service tcmdhelp /system/bin/tcmdhelp
     oneshot
     disabled
 
-#execute tcmdhelp
+# Execute tcmdhelp
 on property:tcmd.start_tcmdhelp=1
     start tcmdhelp
 
 on property:tcmd.suspend=2
     stop zygote
 
-# add tcmd service
+# Add tcmd service
 service tcmd /system/bin/tcmd
     class core
     group mot_tcmd radio mot_pwric input system log camera graphics mot_accy sdcard_rw audio inet bluetooth wifi compass net_bt_admin mot_tombstone mot_tpapi mount net_raw net_admin mot_whisper media shell mot_usb drmrpc nfc

@@ -14,11 +14,32 @@ import init.smi.usb.rc
 # runs after "on early-init" and before "on early-fs"
 # runs in charge-only-mode
 on init
+    # See storage config details at http://source.android.com/tech/storage/
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage 0550 system sdcard_r
+    mkdir /storage/emulated 0555 root root
+
+    #External storage directories
+    mkdir /storage/sdcard1 0000 system system
+    export SECONDARY_STORAGE /storage/sdcard1
+
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+
+    # for backwards compatibility
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    symlink /storage/sdcard1 /external_sd
+    symlink /storage/sdcard1 /mnt/external_sd
+
+    setprop ro.crypto.fuse_sdcard true
+
     export PATH /system/sbin:/system/bin:/system/xbin:/sbin:/vendor/bin
 
     write /sys/class/graphics/fbcon/cursor_blink 0
-    mkdir /storage/sdcard1 0000 system system
-    export SECONDARY_STORAGE /storage/sdcard1
 
     insmod /lib/modules/st_drv.ko
     insmod /lib/modules/fm_drv.ko
@@ -165,14 +186,6 @@ on post-fs
     # Create pds/public/locale to store current language selected
     mkdir /pds/public/locale 0700 system system
 
-# Run after "on post-fs" and before "on early-boot"
-# /data should always be mounted by this point
-on post-fs-data
-    # we will remap this as /storage/sdcard0 with the sdcard fuse tool
-    mkdir /data/media 0775 media_rw media_rw
-    chown media_rw media_rw /data/media
-    setprop ro.crypto.fuse_sdcard true
-
     mkdir /data/system/ 0770 system system
 
     # Create directory used by power_supply logger
@@ -211,6 +224,11 @@ on post-fs-data
 
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
+
+on post-fs-data
+    # we will remap this as /mnt/sdcard with the sdcard fuse tool
+    mkdir /data/media 0775 media_rw media_rw
+    chown media_rw media_rw /data/media
 
 # Run after "on post-fs-data", before "on boot"
 # may not be run in charge-only-mode
@@ -299,12 +317,6 @@ service dlnasrv /system/bin/dlnasrv
     oneshot
     disabled
 
-# Create virtual SD card at /mnt/sdcard, based on the /data/media directory
-# daemon will drop to user/group system/media_rw after initializing
-# underlying files in /data/media will be created with user and group media_rw (1023)
-service sdcard /system/bin/sdcard /data/media 1023 1023
-    class late_start
-
 # Define the enc_mgt_tool as a service here instead of using exec commands
 service enc_tool /system/bin/enc_mgt_tool
     disabled
@@ -335,3 +347,8 @@ service batt_health /system/bin/batt_health
     class main
     group mot_pwric
     oneshot
+
+# daemon will drop to user/group system/media_rw after initializing
+# underlying files in /data/media will be created with user and group media_rw (1023)
+service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
+    class late_start

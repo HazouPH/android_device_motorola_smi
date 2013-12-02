@@ -4,7 +4,6 @@ on init
 
     chown system system /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    insmod /lib/modules/sdio.ko
     insmod /lib/modules/st_drv.ko
     chown root radio /dev/ttyGTM*
     chmod 0660 /dev/ttyGTM*
@@ -21,9 +20,6 @@ on init
     chown system radio /sys/module/hsi_ffl_tty/parameters/cold_reset_modem
     chown system system /sys/module/intel_mid/parameters/force_cold_boot
     chown system system /sys/devices/pci0000:00/0000:00:05.1/power/control
-
-on property:sys.boot_completed=1
-    setprop ril.coredumpwarning.enable 1
 
 on boot
     chmod 0660 /dev/rfkill
@@ -80,7 +76,7 @@ on post-fs
     chown system system /sys/class/gpio/gpio172/value
     chown system system /sys/devices/pci0000:00/0000:00:05.2/power/control
 
-# adding Telephony
+# Adding Telephony
 service stmd  /system/bin/stmd
     class core
     socket modem-status stream 660 system radio
@@ -149,9 +145,6 @@ service iprenew_bnep0 /system/bin/dhcpcd -nBK
 service hciattach /system/xbin/hciconfig hci0 up
     class main
     user bluetooth
-# changing user to root from bluetooth is a potential security issue
-# service hciattach_legacy is used instead of hciattach because, we dont
-# have nodes named ttyHS0
     group bluetooth net_bt_admin misc
     disabled
     oneshot
@@ -191,7 +184,7 @@ service pcsc /system/bin/pcscd --auto-exit
     disabled
     oneshot
 
-# launch CP deamon
+# Launch CP deamon
 #service cpdd /system/bin/cpdd
 #    class core
 #    group system inet radio
