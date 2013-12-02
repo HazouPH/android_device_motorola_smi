@@ -112,22 +112,24 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/blobs/watchdogd:root/watchdogd \
 	$(LOCAL_PATH)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
-# For userdebug builds
+# For userdebug/eng builds
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     	keyguard.no_require_sim=false \
-    	ro.sf.lcd_density=240 \
    	panel.physicalWidthmm=52 \
     	panel.physicalHeightmm=89 \
     	ro.opengles.version=131072 \
     	gsm.net.interface=rmnet0 \
-    	persist.system.at-proxy.mode=0
+    	persist.system.at-proxy.mode=0 \
     	ro.secure=0 \
 	ro.adb.secure=0 \
     	ro.allow.mock.location=1 \
     	ro.debuggable=1 \
-    	persist.sys.usb.config=mtp,adb \
     	persist.ril-daemon.disable=0 \
-	wifi.interface=wlan0=0
+	wifi.interface=wlan0:0
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	qemu.hw.mainkeys=0 \
+	ro.sf.lcd_density=240
 
 # Inherit dalvik configuration and the rest of the platform
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)

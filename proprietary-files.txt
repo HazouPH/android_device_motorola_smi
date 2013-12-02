@@ -194,6 +194,7 @@ bin/vpnclientpm
 bin/topaz_bin
 bin/TIDrv
 bin/tcmdhelp
+bin/tcmd
 bin/stmd
 bin/sdptool
 bin/rild_tcmd
@@ -212,6 +213,7 @@ bin/crashlogd
 bin/cpdd
 bin/cmfwdl-app
 bin/bluetoothd
+bin/charge_only_mode
 bin/batt_health
 bin/batch
 bin/akmd8963
