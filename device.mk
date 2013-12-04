@@ -114,17 +114,16 @@ PRODUCT_COPY_FILES += \
 
 # For userdebug/eng builds
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    	keyguard.no_require_sim=false \
-   	panel.physicalWidthmm=52 \
-    	panel.physicalHeightmm=89 \
-    	ro.opengles.version=131072 \
-    	gsm.net.interface=rmnet0 \
-    	persist.system.at-proxy.mode=0 \
-    	ro.secure=0 \
+	panel.physicalWidthmm=52 \
+	panel.physicalHeightmm=89 \
+	ro.opengles.version=131072 \
+	gsm.net.interface=rmnet0 \
+	persist.system.at-proxy.mode=0 \
+	persist.ril-daemon.disable=0 \
+	ro.secure=0 \
 	ro.adb.secure=0 \
-    	ro.allow.mock.location=1 \
-    	ro.debuggable=1 \
-    	persist.ril-daemon.disable=0 \
+	ro.allow.mock.location=1 \
+	ro.debuggable=1 \
 	wifi.interface=wlan0:0
 
 PRODUCT_PROPERTY_OVERRIDES += \
