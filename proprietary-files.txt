@@ -51,6 +51,7 @@ lib/librapid-ril-util.so
 lib/librapid-ril-core.so
 lib/libquicksec.so
 lib/libprovlib.so
+lib/libproperty.so
 lib/libpkip.so
 lib/libpcsclite.so
 lib/libparse_stack.so
@@ -91,6 +92,7 @@ lib/libglib.so
 lib/libgki.so
 lib/libfm_stack.so
 lib/libfmchr.so
+lib/libevent-listener.so
 lib/libdmjavaplugin.so
 lib/libdmengine.so
 lib/libdlnasysjni.so
@@ -116,6 +118,7 @@ lib/libasfparser.so
 lib/libarcplatform.so
 lib/libarcomx_wmadec_sharedlibrary.so
 lib/libarcomx_qcelpenc_sharedlibrary.so
+lib/libarcomx_qcelpdec_sharedlibrary.so
 lib/lib_ARC_Omx_Plugin.so
 lib/libarcomx_omxcore_sharedlibrary.so
 lib/libarcomx_evrcdec_sharedlibrary.so
