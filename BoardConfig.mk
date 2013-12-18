@@ -105,7 +105,7 @@ BOARD_KERNEL_PAGESIZE := 4096
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/blobs/bzImage
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := i686-linux-android-4.6
 TARGET_KERNEL_CONFIG := i386_mfld_oxavelar_defconfig
-TARGET_KERNEL_SOURCE := linux-3.0
+#TARGET_KERNEL_SOURCE := linux-3.0
 KERNEL_MODULES_IN_ROOT := false
 BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=256M earlyprintk=nologger hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 emmc_ipanic.ipanic_part_number=6 loglevel=4
 
