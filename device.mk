@@ -38,9 +38,13 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    libasound \
     audio.usb.default \
+    audio.a2sp.default \
     libaudioutils \
+    libasound \
+    alsa_aplay \
+    alsa_ctl \
+    alsa_amixer
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -63,6 +67,9 @@ PRODUCT_PACKAGES += \
     regulatory.bin \
     calibrator \
     wlan_prov
+
+# Wifi symlink
+$(shell ln -fsbS $(OUT_DIR)/target/product/smi/system/system/etc/firmware/ti-connectivity/wl12xx-fac-nvs.bin /pds/wifi/nvs_map_mac80211.bin)
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -113,7 +120,7 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
 
 # For userdebug/eng builds
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+ADDITIONAL_DEFAULT_PROPERTIES += \
 	panel.physicalWidthmm=52 \
 	panel.physicalHeightmm=89 \
 	ro.opengles.version=131072 \
@@ -124,7 +131,8 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	ro.adb.secure=0 \
 	ro.allow.mock.location=1 \
 	ro.debuggable=1 \
-	wifi.interface=wlan0:0
+	wifi.interface=wlan0:0 \
+	persist.sys.usb.config=mass_storage
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	qemu.hw.mainkeys=0 \

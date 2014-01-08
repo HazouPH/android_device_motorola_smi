@@ -1,5 +1,3 @@
-include $(GENERIC_X86_CONFIG_MK)
-
 LOCAL_PATH := device/motorola/smi
 
 # Make settings
@@ -97,6 +95,7 @@ TARGET_USES_MOTOROLA_LOG := true
 DEVICE_BASE_BOOT_IMAGE := $(LOCAL_PATH)/blobs/boot.image
 DEVICE_BASE_RECOVERY_IMAGE := $(LOCAL_PATH)/blobs/recovery.image
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/boottools/boot.mk
+RAZRI_IMAGE := true
 
 # Kernel build (source:github.com/oxavelar)
 BOARD_KERNEL_BASE := 0x1200000
@@ -132,8 +131,9 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_NFC := true
 
 # Audio
-BOARD_USES_ALSA_AUDIO := true
 COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
+BUILD_WITH_ALSA_UTILS := true
+BUILD_WITH_ALSA_AUDIO := true
 
 # Graphics
 USE_OPENGL_RENDERER := true
@@ -156,7 +156,8 @@ BOARD_SKIP_ANDROID_DOC_BUILD := true
 
 # Recovery configuration global
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
-BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/motorola/smi/recovery_keys.c
+#BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/motorola/smi/recovery_keys.c
+TARGET_RECOVERY_INITRC := device/motorola/smi/recovery.init.rc
 BOARD_HAS_NO_SELECT_BUTTON := true
 #BOARD_TOUCH_RECOVERY := true
 # Recovery options TWRP
@@ -164,7 +165,8 @@ DEVICE_RESOLUTION := 540x960
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/max170xx_battery
 RECOVERY_SDCARD_ON_DATA := true
-BOARD_HAS_NO_REAL_SDCARD := true
+#BOARD_HAS_NO_REAL_SDCARD := true
+TW_NO_USB_STORAGE := true
 TW_INTERNAL_STORAGE_PATH := "/data/media"
 TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
 TW_EXTERNAL_STORAGE_PATH := "/external_sd"
