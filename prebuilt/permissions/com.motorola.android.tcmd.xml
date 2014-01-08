@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<permissions>
-<!-- RW permissions to local tcmd socket owned by group 'mot_tcmd'  -->
-    <permission name="com.motorola.android.permission.TCMD_LOCAL" >
-        <group gid="mot_tcmd" />
-    </permission>
-
-</permissions>
