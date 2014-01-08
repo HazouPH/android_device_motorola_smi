@@ -15,7 +15,7 @@ Still to do for fully working tree:
 - Wifi/gps
 - More...?
 
-(Only for CM10.1!!! dec 2013 repo). 
+(Only for CM10.1) 
 
 See for information about compiling and setting up a build environment the 'Small tutorial' for more information.
 
