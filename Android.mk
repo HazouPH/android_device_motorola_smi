@@ -8,5 +8,4 @@ include $(TOP)/dalvik/vm/compiler/codegen/x86/libenc/Android.mk
 endif
 
 # create symlink compiled source directory in root folder
-$(shell cd ../../../)
-$(shell ln -s out/target/product/smi/ compiled-source)
+$(shell ln -sf out/target/product/smi/ compiled-source)

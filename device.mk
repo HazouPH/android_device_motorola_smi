@@ -69,10 +69,10 @@ PRODUCT_PACKAGES += \
     wlan_prov
 
 # Wifi symlink
-$(shell ln -fsbS $(OUT_DIR)/target/product/smi/system/system/etc/firmware/ti-connectivity/wl12xx-fac-nvs.bin /pds/wifi/nvs_map_mac80211.bin)
+$(shell ln -sf /pds/wifi/nvs_map_mac80211.bin out/target/product/smi/system/etc/firmware/ti-connectivity/wl12xx-fac-nvs.bin)
 
 # Filesystem management tools
-PRODUCT_PACKAGES += \
+PRODUCT_PACKAGES +=\
     make_ext4fs \
     e2fsck \
     setup_fs \
