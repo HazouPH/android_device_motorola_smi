@@ -7,7 +7,7 @@ Repository is not yet a fully working tree. There are still some parts missing o
 
 'SMI-Plus' is only needed for rom building! (to free up space)
 
-Source from Turl, Oxavelar, Motorola Intel and HazouPH
+Source from Turl, Oxavelar, Motorola, Intel and HazouPH
 
 Still to do for fully working tree:
 - Ramdisk build working correctly (using prebuilt for now)
