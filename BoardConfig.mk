@@ -131,9 +131,9 @@ BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_NFC := true
 
 # Audio
-COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
-BUILD_WITH_ALSA_UTILS := true
-BUILD_WITH_ALSA_AUDIO := true
+#COMMON_GLOBAL_CFLAGS += -DICS_AUDIO_BLOB
+BOARD_USES_ALSA_AUDIO := true
+#BUILD_WITH_ALSA_UTILS := true
 
 # Graphics
 USE_OPENGL_RENDERER := true
@@ -160,7 +160,7 @@ BOARD_SKIP_ANDROID_DOC_BUILD := true
 # Recovery configuration global
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 #BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/motorola/smi/recovery_keys.c
-TARGET_RECOVERY_INITRC := device/motorola/smi/recovery.init.rc
+TARGET_RECOVERY_INITRC := device/motorola/smi/init.recovery.smi.rc
 BOARD_HAS_NO_SELECT_BUTTON := true
 #BOARD_TOUCH_RECOVERY := true
 # Recovery options TWRP

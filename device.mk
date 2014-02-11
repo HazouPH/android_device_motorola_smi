@@ -38,21 +38,22 @@ PRODUCT_COPY_FILES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio.usb.default \
-    audio.a2sp.default \
+    audio.primary.smi \
+    alsa.smi \
+    audio.a2dp.default \
     libaudioutils \
     libasound \
     alsa_aplay \
     alsa_ctl \
-    alsa_amixer
+    alsa_amixer \
+    libasound_module_pcm_voice \
+    libasound_module_ctl_voice
+#    audio.hdmi.smi \
+#    audio.usb.default \
 
 # GPS
 PRODUCT_PACKAGES += \
 #    gps.smi
-
-# Tiny Utils
-PRODUCT_PACKAGES += \
-    libtinyalsa
 
 # Charger
 PRODUCT_PACKAGES += charger charger_res_images
@@ -67,9 +68,6 @@ PRODUCT_PACKAGES += \
     regulatory.bin \
     calibrator \
     wlan_prov
-
-# Wifi symlink
-$(shell ln -sf /pds/wifi/nvs_map_mac80211.bin out/target/product/smi/system/etc/firmware/ti-connectivity/wl12xx-fac-nvs.bin)
 
 # Filesystem management tools
 PRODUCT_PACKAGES +=\
