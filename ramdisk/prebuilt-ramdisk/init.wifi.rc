@@ -23,6 +23,8 @@ on post-fs-data
    chmod 0660 /system/etc/wifi/hostapd.conf
    chown wifi wifi /system/etc/wifi/hostapd.conf
 
+   symlink /pds/wifi/nvs_map_mac80211.bin /system/etc/firmware/ti-connectivity/wl12xx-fac-nvs.bin
+
 on property:dev.bootcomplete=1
    start wlan_prov
 

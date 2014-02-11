@@ -70,7 +70,6 @@ lib/libnative_renderer.so
 lib/libnativedrm1.so
 lib/libmoto_netutil.so
 lib/libmotodbgutils.so
-lib/libmotocare.so
 lib/libmotdrm1.so
 lib/libmot_atcmd.so
 lib/libmodem-audio-manager.so
@@ -138,7 +137,6 @@ etc/thermal_throttle_config.xml
 etc/thermal_sensor_config.xml
 etc/rril/stmd.conf
 etc/rril/repository.txt
-etc/powervr.ini
 etc/gps/ti/pathconfigfile.txt
 etc/gps/ti/patch-X.0.ce
 etc/gps/ti/GPSCConfigFile.cfg
@@ -190,9 +188,6 @@ etc/atomisp/noise.fpn
 etc/atomisp/Mor_8MP_8BQ.txt
 etc/atomisp/Mor_14MP_8BQ.txt
 etc/atomisp/CGamma_DIS5MP.bin
-etc/asound_p3.conf
-etc/asound_p1.conf
-etc/asound.conf
 bin/vpnclientpm
 bin/topaz_bin
 bin/TIDrv
