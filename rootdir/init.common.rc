@@ -1,0 +1,140 @@
+on early-init
+    # Create the env for the filesystem mounting(FUSE and Vold)
+    #export EXTERNAL_STORAGE /storage/sdcard0
+    #mkdir /storage/sdcard0 0000 system system
+    #symlink /storage/sdcard0 /mnt/sdcard
+    #symlink /storage/sdcard0 /sdcard
+
+    # set permission for charger-mode
+    chmod 0770 /charger
+    chown system system /dev/dri/card0
+    chmod 0666 /dev/dri/card0
+    symlink /dev/dri/card0 /dev/card0
+
+on init
+# setup the global environment
+    mkdir /factory 0770 system system
+    # mount ext4 /dev/block/mmcblk0p2 /factory
+    mkdir /factory/wifi
+    chown system wifi /factory/wifi
+    chmod 0770 /factory/wifi
+    chown system system /watchdogd
+    chmod 0500 /watchdogd
+
+on boot
+    chown system system /dev/pvr_sync
+    chmod 666 /dev/pvr_sync
+
+    chown system system /dev/dri/card0
+    chmod 0666 /dev/dri/card0
+    symlink /dev/dri/card0 /dev/card0
+    chmod 0666 /dev/card0
+    chown system system /dev/card0
+
+
+    # IMG Graphics specific setup. See also "service pvrsrvctl"
+    # The permissions below should be tighter.
+    chown system system /dev/card0
+    chown system system /sys/class/backlight/psb-bl/brightness
+    chown system system /sys/class/backlight/psb-bl/max_brightness
+    chown system system /sys/class/backlight/psb-bl/actual_brightness
+    chmod 0666 /dev/card0
+    chmod 0664 /sys/class/backlight/psb-bl/brightness
+    chmod 0664 /sys/class/backlight/psb-bl/max_brightness
+    chmod 0664 /sys/class/backlight/psb-bl/actual_brightness
+
+    #Change mmc queue nr_requests from 128 to 32 to reduce write latencies
+    write /sys/block/mmcblk0/queue/nr_requests 32
+
+    #reduce dirty memory size
+    write /proc/sys/vm/dirty_background_bytes  5242880
+
+# Change TCP Net-Core buffers sizes to improve cellular data throughput
+     write /proc/sys/net/core/rmem_default 1048576
+     write /proc/sys/net/core/wmem_default 524288
+     write /proc/sys/net/core/rmem_max 2097152
+     write /proc/sys/net/core/wmem_max 1048576
+     write /proc/sys/net/ipv4/tcp_mem  "83520 111360 2097152"
+
+on fs
+    mkdir /factory 0775 system system
+    mkdir /config 0775 system system
+    mkdir /media 0775 media media
+    mount_all /fstab.sc1
+
+on post-fs-data
+    mkdir /data/system/ 0770 system system
+    write /proc/sys/kernel/ctrl-alt-del 0
+
+    # Set indication (checked by vold) that we have finished this action
+    setprop vold.post_fs_data_done 1
+
+on charger
+    # /system is not already mounted under COS
+    mount ext4 /dev/block/system /system ro noatime
+    start pvrsrvctl
+    # reduce backlight
+    write /sys/class/backlight/psb-bl/brightness 50
+    #default setting to enable charging in COS
+    setprop sys.usb.config charging
+
+    # reset counter watchdog at the end of system boot
+    write /sys/devices/virtual/misc/watchdog/counter "0"
+
+service pvrsrvctl /system/vendor/bin/pvrsrvctl --no-module --start
+    class core
+    oneshot
+    user root
+
+service watchdogd /watchdogd
+    class core
+    user system
+    group system
+    oneshot
+
+service drm /system/bin/drmserver
+    class main
+    user drm
+    group drm inet drmrpc sdcard_r security mot_tpapi mot_drm
+
+service media /system/bin/mediaserver
+    class main
+    user media
+    group system audio camera media_rw sdcard_rw inet net_bt net_bt_admin net_bw_acct drmrpc net_raw security mot_tpapi radio mot_drm
+    ioprio rt 4
+
+#Enable Houdini for execuable
+service enable_houdini /system/bin/enable_houdini
+    class main
+    oneshot
+
+# This property trigger has added to imitiate the previous behavior of "adb root".
+# The adb gadget driver used to reset the USB bus when the adbd daemon exited,
+# and the host side adb relied on this behavior to force it to reconnect with the
+# new adbd instance after init relaunches it. So now we force the USB bus to reset
+# here when adbd sets the service.adb.root property to 1.  We also restart adbd here
+# rather than waiting for init to notice its death and restarting it so the timing
+# of USB resetting and adb restarting more closely matches the previous behavior.
+on property:service.adb.root=1
+    write /sys/class/android_usb/android0/enable 0
+    restart adbd
+    write /sys/class/android_usb/android0/enable 1
+
+on property:sys.property_forcedshutdown=1
+    write /sys/module/intel_mid_osip/parameters/force_shutdown_occured 1
+
+on property:sys.shutdown.requested=0
+    write /sys/devices/virtual/misc/watchdog/shutdown_ongoing 1
+
+on property:sys.shutdown.requested=1
+    write /sys/devices/virtual/misc/watchdog/reboot_ongoing 1
+
+on property:sys.shutdown.requested=1recovery
+    write /sys/devices/virtual/misc/watchdog/reboot_ongoing 1
+
+on property:sys.shutdown.requested=1bootloader
+    write /sys/devices/virtual/misc/watchdog/reboot_ongoing 1
+
+# Clear counter watchdog when boot is completed
+on property:sys.boot_completed=1
+    write /sys/devices/virtual/misc/watchdog/counter "0"

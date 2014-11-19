@@ -1,1 +1,2 @@
 add_lunch_combo cm_smi-userdebug
+add_lunch_combo cm_smi-eng

@@ -1,0 +1,470 @@
+import init.common.rc
+import init.debug.rc
+import init.oom.rc
+import init.diag.rc
+import init.avc.rc
+import init.wireless.rc
+import init.moto.rc
+import init.wifi.rc
+import init.tcmd.rc
+
+# include usb rc file
+import init.moto.usb.rc
+
+# no emmc file systems mounted at this point (system, data, pds, etc.)
+# runs after "on early-init" and before "on early-fs"
+# runs in charge-only-mode
+on init
+    write /sys/class/graphics/fbcon/cursor_blink 0
+    mkdir /mnt/shell/emulated 0700 shell shell
+    mkdir /storage/emulated 0555 root root
+    mkdir /mnt/media_rw 0777 media_rw media_rw
+    mkdir /mnt/media_rw/sdcard1 0777 media_rw media_rw
+    mkdir /storage/sdcard1 0775 root root
+    export EXTERNAL_STORAGE /storage/emulated/legacy
+    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    export EMULATED_STORAGE_TARGET /storage/emulated
+    export SECONDARY_STORAGE /storage/sdcard1
+    export LD_LIBRARY_PATH /vendor/lib:/system/lib:/system/lib/arm/
+    symlink /storage/emulated/legacy /sdcard
+    symlink /storage/emulated/legacy /mnt/sdcard
+    symlink /storage/emulated/legacy /storage/sdcard0
+    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    symlink /storage/sdcard1 /mnt/sdcard
+    symlink /storage/sdcard1 /sdcard
+    symlink /storage/sdcard1 /external_sd
+    symlink /storage/sdcard1 /mnt/external_sd
+
+    insmod /lib/modules/gps_drv.ko
+
+    chmod 0660 /sys/class/gpio/gpio157/value
+    chown system system /sys/class/gpio/gpio157/value
+    chmod 0660 /sys/class/gpio/gpio50/value
+    chown system system /sys/class/gpio/gpio50/value
+
+    # See vendor/intel/common/init.mfld.usb.rc
+    #write /sys/class/android_usb/android0/enable 0
+    #write /sys/class/android_usb/android0/functions adb
+    #write /sys/class/android_usb/android0/iManufacturer "HTC"
+    #write /sys/class/android_usb/android0/iProduct "Android-Phone"
+    #write /sys/class/android_usb/android0/iSerial "Medfield12345678"
+    #write /sys/class/android_usb/android0/idProduct 0x0c01
+    #write /sys/class/android_usb/android0/idVendor 0x0bb4
+    #write /sys/class/android_usb/android0/enable 1
+
+    # For Authentec VPN: route packets over bridge interface before processing
+    write /proc/sys/net/bridge/bridge-nf-call-arptables 0
+    write /proc/sys/net/bridge/bridge-nf-call-iptables  0
+    write /proc/sys/net/bridge/bridge-nf-call-ip6tables 0
+
+    # set auto_suspend delay to 10ms for camera which is on bus i2c-4
+    write /sys/bus/pci/devices/0000:00:03.3/power/autosuspend_delay_ms 10
+
+# run after "on init" in charge-only-mode
+# init does not automatically run "on early-fs", "on fs", "on post-fs",
+#   "on post-fs-data", "on early-boot", and "on boot" in charge-only-mode
+on charger
+    mount ext4 /dev/block/system /system ro noatime
+    mount ext4 /dev/block/userdata /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc
+
+    setprop persist.service.aplogfs.enable ${persist.service.aplogfs.enable}
+    setprop persist.service.apklogfs.enable ${persist.service.apklogfs.enable}
+    setprop persist.service.apklogsd.enable ${persist.service.apklogsd.enable}
+    setprop persist.service.aplogsd.enable ${persist.service.aplogsd.enable}
+    setprop persist.service.aplogpti.enable ${persist.service.aplogpti.enable}
+    setprop persist.service.aklogpti.enable ${persist.service.aklogpti.enable}
+
+    start console
+    start watchdogd
+    start charge_only_mode
+
+# runs after "on init" and before "on fs"; doesn't run in charge-only-mode
+on early-fs
+    mkdir /pds 0755 root root
+
+# runs after "on fs" and before "on post-fs-data"
+# /system, /cache, and /pds should be mounted at this point
+# does not usually run charge-only-mode
+on post-fs
+    # Volume keys wakeup capability
+    chmod 0664 /sys/devices/platform/gpio-keys/enabled_wakeup
+    chmod 0664 /sys/devices/platform/gpio-keys/disabled_wakeup
+    chown media system /sys/devices/platform/gpio-keys/enabled_wakeup
+    chown media system /sys/devices/platform/gpio-keys/disabled_wakeup
+
+    #  Permissions for Sensors
+    # accelerometer lis3dh
+    chown system system /sys/bus/i2c/devices/5-0018/lis3dh/poll
+    chown system system /sys/bus/i2c/devices/5-0018/lis3dh/enable
+
+    #barometer ms5607
+    chown system system /sys/bus/i2c/devices/5-0077/enable
+    chown system system /sys/bus/i2c/devices/5-0077/poll
+
+    # compass hmc5883
+    chown system system /sys/bus/i2c/devices/5-001e/hmc5883/enable
+    chown system system /sys/bus/i2c/devices/5-001e/hmc5883/poll
+
+    #Gyroscope
+    chown system system /sys/bus/i2c/devices/5-0068/enable
+    chown system system /sys/bus/i2c/devices/5-0068/poll
+
+    # Magnetometer
+    chown compass compass /sys/class/compass/akm8963/enable_acc
+    chown compass compass /sys/class/compass/akm8963/enable_mag
+    chown compass compass /sys/class/compass/akm8963/enable_ori
+    chown compass compass /sys/class/compass/akm8963/delay_acc
+    chown compass compass /sys/class/compass/akm8963/delay_mag
+    chown compass compass /sys/class/compass/akm8963/delay_ori
+    chown compass compass /sys/class/compass/akm8963/accel
+
+    # Magnetometer
+    chown compass compass /sys/class/compass/akm8975/enable_acc
+    chown compass compass /sys/class/compass/akm8975/enable_mag
+    chown compass compass /sys/class/compass/akm8975/enable_ori
+    chown compass compass /sys/class/compass/akm8975/delay_acc
+    chown compass compass /sys/class/compass/akm8975/delay_mag
+    chown compass compass /sys/class/compass/akm8975/delay_ori
+    chown compass compass /sys/class/compass/akm8975/accel
+
+    # CT406 Light sensor and proximity
+    chown system system /sys/module/ct406/parameters/als_enable
+    chmod 0660 /sys/module/ct406/parameters/als_enable
+    chown system system /sys/module/ct406/parameters/prox_enable
+    chmod 0660 /sys/module/ct406/parameters/prox_enable
+    chown system system /sys/module/ct406/parameters/ip_enable
+    chmod 0660 /sys/module/ct406/parameters/ip_enable
+    chown system system /sys/module/ct406/parameters/als_delay
+    chmod 0660 /sys/module/ct406/parameters/als_delay
+
+    # Permissions for LED
+    chown system system /sys/class/leds/intel_keypad_led/brightness
+
+    # Permissions for RGB and charging LEDs
+    chown system system /sys/class/leds/rgb/control
+    chmod 0664 /sys/class/leds/rgb/control
+    chown system system /sys/class/leds/rgb/max_level
+    chmod 0664 /sys/class/leds/rgb/max_level
+    chown system system /sys/class/leds/rgb/clock
+    chmod 0664 /sys/class/leds/rgb/clock
+    chown system system /sys/class/leds/rgb/registers
+    chmod 0664 /sys/class/leds/rgb/registers
+
+    chown system system /sys/class/leds/red/brightness
+    chmod 0664 /sys/class/leds/red/brightness
+    chown system system /sys/class/leds/blue/brightness
+    chmod 0664 /sys/class/leds/blue/brightness
+    chown system system /sys/class/leds/green/brightness
+    chmod 0664 /sys/class/leds/green/brightness
+
+    chown system system /sys/class/leds/charging/brightness
+    chmod 0664 /sys/class/leds/charging/brightness
+
+    # Permissions for BCU Driver for "K2.6.35" and "K3.0"
+    chown system system /sys/devices/platform/msic_ocd/msic_current/batt_level
+    chown system system /sys/devices/platform/intel_msic/msic_ocd/msic_current/batt_level
+    chown system system /sys/devices/ipc/msic_ocd/msic_current/batt_level
+
+    # Permissions for Powertool app
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+    chown system system /sys/devices/system/cpu/cpu1/online
+    chown system system /sys/module/intel_soc_pmu/parameters/s0ix
+
+    #Permissions for Touch Screen
+    chown root mot_tcmd /sys/bus/i2c/drivers/atmxt-i2c/0-004a/drv_irq
+    chmod 0660 /sys/bus/i2c/drivers/atmxt-i2c/0-004a/drv_irq
+
+    # create pds/public
+    mkdir /pds/public 0775 system shell
+
+    # create pds/factory
+    mkdir /pds/factory 0750 mot_tcmd shell
+
+    # create pds/wifi
+    mkdir /pds/wifi 0750 mot_tcmd shell
+
+    # create pds/bp_nvm
+    mkdir /pds/bp_nvm 0770 radio radio
+
+    # create the necessary pds dirs for tpapi with proper permission
+    mkdir /pds/security 0770  mot_tpapi mot_tpapi
+    chown mot_tpapi mot_tpapi /pds/security/counter.bin
+    chown mot_tpapi mot_tpapi /pds/security/system.bin
+    chown mot_tpapi mot_tpapi /pds/security/storage.bin
+    chown mot_tpapi mot_tpapi /pds/security/keymaptable.dat
+
+    # make modem fuse status readable for everyone
+    chmod 0644 /pds/modem_fuse.fus
+
+    # create pds/public/locale to store current language selected
+    mkdir /pds/public/locale 0700 system system
+
+# run after "on post-fs" and before "on early-boot"
+# /data should always be mounted by this point
+on post-fs-data
+    # we will remap this as /storage/sdcard0 with the sdcard fuse tool
+    mkdir /data/media 0770 media_rw media_rw
+    chown media_rw media_rw /data/media
+    setprop ro.crypto.fuse_sdcard true
+
+    mkdir /data/system/ 0770 system system
+
+    # create directory for loading asound.conf
+    mkdir /data/alsa system system
+    chmod 0755 /data/alsa
+    exec /system/bin/alsa_cfg_smi.sh
+
+    # Create directory used by power_supply logger
+    mkdir /data/power_supply_logger 0755 mot_pwric mot_pwric
+
+    # LBS init
+    mkdir /data/location 0771 radio radio
+    mkdir /data/gki 0770 radio radio
+    mkdir /tmp/commdrv 0770 radio radio
+    setprop ro.sys.atvc_allow_gki_log 0
+
+    # Create folder for native & kernel to write to DropBox. See NativeDropBoxAgent.java for
+    # an explanation of why these permissions are chosen.
+    mkdir /data/system/dropbox-add 0730 system diag
+
+    mkdir /data/misc/firmware 0770 system system
+    mkdir /data/misc/thermal 0770 system system
+
+    symlink /system/etc/MID_thermal.conf /data/misc/thermal/MID_thermal.conf
+
+    setprop persist.service.aplogfs.enable ${persist.service.aplogfs.enable}
+    setprop persist.service.apklogfs.enable ${persist.service.apklogfs.enable}
+    setprop persist.service.apklogsd.enable ${persist.service.apklogsd.enable}
+    setprop persist.service.aplogsd.enable ${persist.service.aplogsd.enable}
+    setprop persist.service.aplogpti.enable ${persist.service.aplogpti.enable}
+    setprop persist.service.aklogpti.enable ${persist.service.aklogpti.enable}
+
+    #NVM CONFIG temporary tool - Bug 735
+    mkdir /system/etc/carrier_variants 0775 system system
+
+    # directory for encryption management tool, enc_mgt_tool
+    mkdir /data/emt 0770 root system
+
+    # Create 12m directory that TCMD can write to
+    mkdir /data/local/12m 0755 mot_tcmd shell
+
+    # create moto specific dirs for factory
+    mkdir /data/local/dbvc 0770 mot_tcmd shell
+    mkdir /pds/public/atvc 0775 mot_tcmd shell
+
+    # Set indication (checked by vold) that we have finished this action
+    setprop vold.post_fs_data_done 1
+
+# run after "on post-fs-data", before "on boot"
+# may not be run in charge-only-mode
+on early-boot
+    # Define Motorola DBVC ATVC Property defaults (failsafe properties)
+    setprop ro.sys.atvc_allow_netmon_usb 0
+    setprop ro.sys.atvc_allow_netmon_ih 0
+    setprop ro.sys.atvc_allow_res_core 0
+    setprop ro.sys.atvc_allow_res_panic 0
+    setprop ro.sys.atvc_allow_all_adb 0
+    setprop ro.sys.atvc_allow_all_core 0
+    setprop ro.sys.atvc_allow_efem 0
+    setprop ro.sys.atvc_allow_bp_log 0
+    setprop ro.sys.atvc_allow_ap_mot_log 0
+    setprop ro.sys.atvc_allow_simswap 0
+
+    # create the necessary data dirs for tpapi with proper permission
+    mkdir /dev/tpapi 2770  mot_tpapi mot_tpapi
+    mkdir /data/tpapi 2770 mot_tpapi mot_tpapi
+    mkdir /data/tpapi/etc 2770 mot_tpapi mot_tpapi
+    mkdir /data/tpapi/etc/tpa 2770 mot_tpapi mot_tpapi
+    mkdir /data/tpapi/etc/tpa/persistent 2770 mot_tpapi mot_tpapi
+    # create logger folder
+    mkdir /data/logger 0750 log log
+
+    # Need to launch enc_mgt_tool to create device key and signature for vold to set up sd card
+    start enc_tool
+
+# run after "on early-boot"; does not run in charge-only-mode
+on boot
+    chmod 0777 /system/etc/vpimg.bin
+
+    #  Permissions for Thermal Management
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/ipc/msic_battery/charge_enable
+    chown system system /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+    chown system system /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+    chown system system /sys/module/intel_mid_osip/parameters/force_shutdown_occured
+
+    chmod 0664 /sys/devices/ipc/msic_battery/charge_enable
+    chown root mot_tcmd /sys/devices/ipc/msic_adc/mid_gpadc/alloc_channel
+    chown root mot_tcmd /sys/devices/ipc/msic_adc/mid_gpadc/free_channel
+    chown root mot_tcmd /sys/devices/ipc/msic_adc/mid_gpadc/sample
+    chmod 220 /sys/devices/ipc/msic_adc/mid_gpadc/alloc_channel
+    chmod 220 /sys/devices/ipc/msic_adc/mid_gpadc/free_channel
+    chmod 664 /sys/devices/ipc/msic_adc/mid_gpadc/sample
+
+
+    chmod 0660 /sys/devices/pci0000:00/0000:00:02.0/acl_mode
+    chown system system /sys/devices/pci0000:00/0000:00:02.0/acl_mode
+    chmod 0660 /sys/devices/pci0000:00/0000:00:02.0/elvss_tth_status
+    chown system system /sys/devices/pci0000:00/0000:00:02.0/elvss_tth_status
+
+    # permission for graphics device ControlD64
+    chmod 0660 /dev/dri/controlD64
+
+    # Setup folder for aplogd
+    mkdir /data/aplogd 0750 log log
+
+on fs
+    setprop ro.crypto.fuse_sdcard true
+
+# Moto bug2go bugreport
+service bugreport /system/bin/bug2go-bugreport
+    class main
+    disabled
+    oneshot
+    keycodes 115 116 # Vol up + Power key
+
+# Let init manage the bug2go-native wakelock, so that we guarantee its
+# lifecycle exactly matches that of bug2go-bugreport.  Since init sends
+# SIGKILL when stopping a service, we could not guarantee the wakelock would
+# get cleaned up if it were managed by bug2go-bugreport itself.
+on property:init.svc.bug2go-bugreport=running
+    write /sys/power/wake_lock bug2go-native
+
+on property:init.svc.bug2go-bugreport=stopping
+    write /sys/power/wake_unlock bug2go-native
+
+on property:init.svc.bug2go-bugreport=stopped
+    write /sys/power/wake_unlock bug2go-native
+
+service qe /xbin/qe /system
+    class main
+    oneshot
+
+# Access Token
+service atvc_core /system/bin/dbvc_atvc_property_set
+    class main
+    user mot_atvc
+    group mot_tpapi
+    oneshot
+
+# Access Token
+service atvc /system/bin/dbvc_atvc_property_set
+    class late_start
+    user mot_atvc
+    group mot_tpapi
+    oneshot
+
+on property:sys.boot_completed=1
+    # Insert matrix for PnP measurements
+    insmod /system/lib/modules/matrix.ko
+    chmod 0640 /dev/matrix
+
+# aplogd on at boot in emulator
+on property:ro.kernel.qemu=1
+    start aplogd
+
+on property:persist.log.aplogd.enable=1
+    start aplogd
+
+on property:persist.log.aplogd.enable=0
+    stop aplogd
+
+# aplogd start/stop is controlled by the persist.log.aplogd.enable system
+# property.  Don't set the property directly, because it's controlled by the
+# com.motorola.android.settings.aplogd Java Service and ContentProvider.  To
+# change the default behavior of aplogd on bootup, you should update the
+# defaults for the com.motorola.android.settings.aplogd Java Service and
+# ContentProvider which control it.
+service aplogd /system/bin/aplogd
+    class main
+    #user log
+    #group log system sdcard_rw mount
+    # The user and group definitions above are intentionally disabled and left
+    # only as documentation.  It actually starts as root and immediately drops
+    # to log plus those groups after preserving CAP_SYS_ADMIN, which is required
+    # for kernel logging.
+    disabled
+
+service modemlog /system/bin/modemlog
+    class core
+    user system
+    group system log
+    oneshot
+
+# For LBS
+service gkisystem /system/bin/gkisystem
+    class main
+    socket location_shim stream 660 radio system
+    socket gpshal_socket stream 660 radio system
+    group radio mot_accy mot_secclkd
+
+service locDrv /system/bin/gps_driver
+    class main
+    user radio
+    group radio inet sdcard_rw
+
+# Magnetometer
+service akmd8963 /system/bin/akmd8963
+    class main
+    user compass
+    group compass misc input
+
+# FM radio
+service fmradio /system/bin/fmradioserver
+    class main
+    user system
+    group bluetooth net_bt_admin net_raw net_admin misc
+    disabled
+
+# Authentec VPN
+service vpnclientpm /system/bin/vpnclientpm
+    class main
+    disabled
+    user root
+
+# Properties, events trigging service
+
+# create virtual SD card at /mnt/sdcard, based on the /data/media directory
+# daemon will drop to user/group system/media_rw after initializing
+# underlying files in /data/media will be created with user and group media_rw (1023)
+service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
+    class late_start
+
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
+    class late_start
+    disabled
+
+# Define the enc_mgt_tool as a service here instead of using exec commands
+service enc_tool /system/bin/enc_mgt_tool
+    disabled
+    user root
+    oneshot
+
+# start the enc_mgt_tool to set the keysig when decrypted userdata partition is mounted
+on property:vold.decrypt=trigger_restart_framework
+    start enc_tool
+
+# Cleanup removable SD card from obsolete encrypted files
+on property:sys.mot.encrypt.cleanup=1
+    exec /system/bin/enc_sd_cleanup /storage/sdcard1
+
+# Check available storage space to execute device encryption or decryption
+on property:sys.mot.encrypt.test=1
+    exec /system/bin/enc_mgt_tool --test
+    setprop sys.mot.encrypt.test ""
+
+# Handle device encryption key protection request
+on property:sys.mot.encrypt.pass.prot=1
+    exec /system/bin/enc_mgt_tool --password_prot
+    setprop sys.mot.encrypt.pass.prot ""
+# Enable production security key check for 3LM
+    setprop ro.3lm.production 1
+
+service batt_health /system/bin/batt_health
+    class main
+    group mot_pwric
+    oneshot

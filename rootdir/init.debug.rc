@@ -1,0 +1,145 @@
+on early-boot
+    # enable core dump function when application crash
+    write /proc/sys/kernel/core_pattern "|/system/bin/coredump %e %p %t"
+    write /proc/sys/fs/suid_dumpable 0
+    write /proc/self/coredump_filter "0x7f"
+
+    mount debugfs /sys/kernel/debug /sys/kernel/debug
+    chown system system /sys/kernel/debug
+    chmod 0770 /sys/kernel/debug
+
+on post-fs-data
+    mkdir /data/tombstones 02775 system mot_tombstone
+    mkdir /data/thor_modem_panics 0770 system radio
+    mkdir /data/system/    0755 system system
+    mkdir /data/system/dropbox 0700 system system
+    # intel puts /data/logs on a different partition, we don't
+    mkdir /data/logs 0770 system log
+    mkdir /data/logs/core 0770 root log
+    mkdir /data/logs/modemcrash 0775 system log
+    mkdir /data/logs/stats 0775 system system
+    mkdir /data/logs/gps 0775 system system
+    mkdir /data/logs/aplogs 0775 system log
+
+    # Change permission here due to no log group at droidboot phase
+    chown root log /data/dontpanic
+    chmod 0750 /data/dontpanic
+
+    # Collect emmc ipanic data, free resources and re-arm trigger
+    copy /proc/emmc_ipanic_console /data/dontpanic/apanic_console
+    chown root log /data/dontpanic/apanic_console
+    chmod 0640 /data/dontpanic/apanic_console
+
+    copy /proc/emmc_ipanic_threads /data/dontpanic/apanic_threads
+    chown root log /data/dontpanic/apanic_threads
+    chmod 0640 /data/dontpanic/apanic_threads
+
+    copy /proc/emmc_ipanic_app_threads /data/dontpanic/apanic_app_threads
+    chown root log /data/dontpanic/apanic_app_threads
+    chmod 0640 /data/dontpanic/apanic_app_threads
+
+    # Collect fabric error data, free resources and re-arm trigger
+    copy /proc/ipanic_fabric_err /data/dontpanic/ipanic_fabric_err
+    chown root log /data/dontpanic/ipanic_fabric_err
+    chmod 0640 /data/dontpanic/ipanic_fabric_err
+
+    #you must enable next line when you don`t use crashlogd
+    write /proc/emmc_ipanic_console 1
+
+    # Change droidboot manifest permission
+    chown root log /data/dontpanic/droidboot_manifest.txt
+    chmod 0640 /data/dontpanic/droidboot_manifest.txt
+
+    # Backup ramconsole on abnormal reboot
+    copy /proc/last_kmsg /data/dontpanic/last_kmsg
+    chown root log /data/dontpanic/last_kmsg
+    chmod 0640 /data/dontpanic/last_kmsg
+
+on charger
+    # basic networking for "adb root"
+    ifup lo
+    hostname localhost
+    domainname localdomain
+    mount ext4 /dev/block/system /system ro noatime
+    mount ext4 /dev/block/userdata /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc
+    # intel puts /data/logs on a different partition, we don't
+    mkdir /data/logs 0770 system log
+    mkdir /data/logs/modemcrash 0775 system log
+    mkdir /data/logs/stats 0775 system system
+    mkdir /data/logs/gps 0775 system system
+    mkdir /data/logs/aplogs 0775 system log
+    setprop persist.service.apklogfs.enable 1
+    setprop sys.usb.config adb
+    setprop ro.debuggable 1
+
+on property:ro.secure=0
+    # Allow dumping of setuid tasks
+    write /proc/sys/fs/suid_dumpable 2
+
+on property:ro.debuggable=1
+    # Allow unprivileged users to read the kernel log
+    write /proc/sys/kernel/dmesg_restrict 0
+
+# crash and log services
+service crashlogd /system/bin/crashlogd -modem
+    class late_start
+    user log
+    group radio log sdcard_rw
+    oneshot
+
+service mtsfs /system/bin/mts -i /dev/gsmtty18 -t f -o /data/logs/bplog -n 5 -r 20000
+    user radio
+    group radio log
+    disabled
+
+service mtsextfs /system/bin/mts -i /dev/gsmtty18 -t f -o /data/logs/bplog -n 3 -r 200000
+    user radio
+    group radio log
+    disabled
+
+service mtssd /system/bin/mts -i /dev/gsmtty18 -t f -o /mnt/sdcard/data/logs/bplog -n 5 -r 20000
+    user radio
+    group radio media_rw sdcard_rw
+    disabled
+
+service mtsextsd /system/bin/mts -i /dev/gsmtty18 -t f -o /mnt/sdcard/data/logs/bplog -n 3 -r 200000
+    user radio
+    group radio media_rw sdcard_rw
+    disabled
+
+service mtsusb /system/bin/mts -i /dev/gsmtty18 -t p -o 6700
+    user radio
+    group radio
+    disabled
+
+# MTS Properties, events trigging service
+
+on property:persist.service.mtsfs.enable=1
+    start mtsfs
+
+on property:persist.service.mtsfs.enable=0
+    stop mtsfs
+
+on property:persist.service.mtsextfs.enable=1
+    start mtsextfs
+
+on property:persist.service.mtsextfs.enable=0
+    stop mtsextfs
+
+on property:persist.service.mtssd.enable=1
+    start mtssd
+
+on property:persist.service.mtssd.enable=0
+    stop mtssd
+
+on property:persist.service.mtsextsd.enable=1
+    start mtsextsd
+
+on property:persist.service.mtsextsd.enable=0
+    stop mtsextsd
+
+# started by device/intel/log_capture/crashlog
+service logsystemstate /system/bin/dumpstate_dropbox.sh -v
+    class main
+    disabled
+    oneshot

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<permissions>
+<!-- RW permissions to usb related device nodes by group 'mot_usb' -->
+    <permission name="com.motorola.android.permission.MOT_USB">
+	    <group gid="mot_usb"/>
+    </permission>
+</permissions>

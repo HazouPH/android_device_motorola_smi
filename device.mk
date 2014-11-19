@@ -1,13 +1,25 @@
-DEVICE_FOLDER := device/motorola/smi
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 
-# Get smi-plus files if available for full build
-$(call inherit-product-if-exists, device/motorola/smi-plus/device.mk)
+LOCAL_PATH := device/motorola/smi
 
-# (2) Also get non-open-source specific aspects if available
-$(call inherit-product-if-exists, vendor/motorola/smi/smi-vendor.mk)
+$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
-## overlays
-DEVICE_PACKAGE_OVERLAYS += $(DEVICE_FOLDER)/overlay
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+
+# xt890 specific overlay
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Device uses high-density artwork where available
 PRODUCT_LOCALES := en_US
@@ -15,133 +27,219 @@ PRODUCT_LOCALES += hdpi
 PRODUCT_AAPT_CONFIG := normal hdpi xhdpi
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
-# Prebuilt files required
-INR_X86_FILES := $(wildcard $(DEVICE_FOLDER)/ramdisk/init-files/*.*)
-MDR_X86_FILES := $(wildcard $(DEVICE_FOLDER)/ramdisk/lib/modules/*.ko)
-PMS_MOT_FILES := $(wildcard $(DEVICE_FOLDER)/prebuilt/permissions/*.xml)
-
-# Copying grouped files
-PRODUCT_COPY_FILES += \
-	$(foreach i, $(INR_X86_FILES), $(i):root/$(notdir $(i))) \
-	$(foreach i, $(PMS_MOT_FILES), $(i):system/etc/permissions/$(notdir $(i))) \
-	$(foreach i, $(MDR_X86_FILES), $(i):root/lib/modules/$(notdir $(i))) \
-
-# Touchscreen
-PRODUCT_COPY_FILES += \
-    $(DEVICE_FOLDER)/prebuilt/idc/atmxt-i2c.idc:system/usr/idc/atmxt-i2c.idc \
-    $(DEVICE_FOLDER)/prebuilt/idc/mxt224_touchscreen_0.idc:system/usr/idc/mxt224_touchscreen_0.idc
-
-# APN List, Telephony permissions
-PRODUCT_COPY_FILES += \
-    device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
-
 # Audio
 PRODUCT_PACKAGES += \
-    audio.primary.smi \
-    alsa.smi \
     audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
     libaudioutils \
-    libasound \
-    alsa_aplay \
-    alsa_ctl \
-    alsa_amixer \
-    libasound_module_pcm_voice \
-    libasound_module_ctl_voice
-#    audio.hdmi.smi \
-#    audio.usb.default \
+    libdashplayer
 
-# GPS
+# Stk
 PRODUCT_PACKAGES += \
-#    gps.smi
+    Stk
 
-# Charger
-PRODUCT_PACKAGES += charger charger_res_images
+# Intel Display
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sf.lcd_density=240
 
-# Wifi
-PRODUCT_PACKAGES += \
-    lib_driver_cmd_wl12xx \
-    dhcpcd.conf \
-    hostapd.conf \
-    wpa_supplicant.conf \
-    crda \
-    regulatory.bin \
-    calibrator \
-    wlan_prov
-
-# Filesystem management tools
-PRODUCT_PACKAGES +=\
-    make_ext4fs \
-    e2fsck \
-    setup_fs \
-    libext4_utils
-
-# Build tools
+# Intel Bootimage Tools
 PRODUCT_PACKAGES += \
     pack_intel \
     unpack_intel \
 
-# Video
-PRODUCT_PACKAGES += \
-    libwrs_omxil_core_pvwrapped \
-    libwrs_omxil_common \
-    libva \
-    libva-tpi \
-    libva-android
-
 # Ramdisk
-PRODUCT_PACKAGES += \
-    fstab.sc1 \
-    init.avc.rc \
-    init.debug.rc \
-    init.duag.rc \
-    init.oom.rc \
-    init.sc1.rc \
-    init.smi.usb.rc \
-    init.smi.usb.sh \
-    init.tcmd.rc \
-    init.wifi.rc \
-    init.wireless.rc \
-    ueventd.sc1.rc
-
-# Misc Packages
-PRODUCT_PACKAGES += \
-    busybox \
-    perf
-
-# Misc Prebuilt
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/vold.fstab:system/etc/vold.fstab \
-	$(LOCAL_PATH)/blobs/atmxt-r2.tdat:recovery/root/vendor/firmware/atmxt-r2.tdat \
-	$(LOCAL_PATH)/blobs/watchdogd:recovery/root/watchdogd \
-	$(LOCAL_PATH)/blobs/watchdogd:root/watchdogd \
-	$(LOCAL_PATH)/postrecoveryboot.sh:recovery/root/sbin/postrecoveryboot.sh
+        $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir,root)
 
-# For userdebug/eng builds
-ADDITIONAL_DEFAULT_PROPERTIES += \
-	panel.physicalWidthmm=52 \
-	panel.physicalHeightmm=89 \
-	ro.opengles.version=131072 \
-	gsm.net.interface=rmnet0 \
-	persist.system.at-proxy.mode=0 \
-	persist.ril-daemon.disable=0 \
-	ro.secure=0 \
-	ro.adb.secure=0 \
-	ro.allow.mock.location=1 \
-	ro.debuggable=1 \
-	wifi.interface=wlan0:0 \
-	persist.sys.usb.config=mass_storage
+# Init scripts
+PRODUCT_PACKAGES += \
+    init.moto.usb.sh
+
+# Motorola
+#PRODUCT_PACKAGES += \
+#    aplogd
+
+# Misc
+PRODUCT_PACKAGES += \
+    curl \
+    libcurl \
+    tcpdump \
+    Torch \
+    com.android.future.usb.accessory
+
+# Charger
+PRODUCT_PACKAGES += charger charger_res_images
+
+# Crda
+PRODUCT_PACKAGES += \
+    crda \
+    linville.key.pub.pem \
+    regdbdump \
+    regulatory.bin
+
+# Live Wallpapers
+PRODUCT_PACKAGES += \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    MagicSmokeWallpapers \
+    HoloSpiralWallpaper \
+    VisualizationWallpapers \
+    librs_jni
+
+# Enable location
+PRODUCT_PACKAGES := NetworkLocation
+
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+    make_ext4fs \
+    e2fsck \
+    resize2fs \
+    setup_fs
+
+# NFC packages
+PRODUCT_PACKAGES += \
+    nfc.default \
+    libnfc \
+    libnfc_jni \
+    Nfc
+
+# Houdini
+PRODUCT_COPY_FILES += \
+        $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
+
+PRODUCT_PACKAGES += \
+   libhoudini_hook \
+   houdini_hook
+
+# Wifi
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/modules/prebuilt/etc/wifi/wl1271-nvs.bin:system/etc/wifi/wl1271-nvs.bin
+#    $(LOCAL_PATH)/modules/prebuilt/bin/wifical.sh:system/bin/wifical.sh \
+#    $(LOCAL_PATH)/modules/prebuilt/bin/wificalcheck.sh:system/bin/wificalcheck.sh \
+#    $(LOCAL_PATH)/modules/prebuilt/etc/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
+PRODUCT_PACKAGES += \
+    lib_driver_cmd_wl12xx \
+    dhcpcd.conf \
+    hostapd
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	qemu.hw.mainkeys=0 \
-	ro.sf.lcd_density=240
+    ro.mot.deep.sleep.supported=true \
+    persist.mot.nfc.ce=50 \
+    ro.com.google.clientid=android-motorola \
+    ro.mot.proximity.delay=450 \
+    mot.proximity.distance=60 \
+    ro.mot.NfcEnabled=false \
+    ro.product.drm.sd.enable=1 \
+    ro.product.drm.cd.enable=1 \
+    keyguard.no_require_sim=true \
+    persist.radio.apn_delay=5000 \
+    ro.mot.cambtntime=400 \
+    ro.ril.status.polling.enable=0 \
+    ro.config.personality=compat_layout \
+    qemu.hw.mainkeys=0
 
-# Inherit dalvik configuration and the rest of the platform
-$(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# Get Arm translator
-$(call inherit-product-if-exists, vendor/intel/houdini.mk)
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    ro.sf.lcd_density=240 \
+    panel.physicalWidthmm=52 \
+    panel.physicalHeightmm=89 \
+    ro.opengles.version=131072 \
+    gsm.net.interface=rmnet0 \
+    persist.service.crashlog.enable=1 \
+    persist.system.at-proxy.mode=0 \
+    wlan.driver.vendor=ti \
+    persist.ril-daemon.disable=0 \
+    persist.sys.usb.config=mtp \
+    persist.radio.ril_modem_state=1 \
+    ro.secure=0 \
+    ro.adb.secure=0 \
+    ro.allow.mock.location=1 \
+    ro.debuggable=1
 
-# FM Radio Support TI
-$(call inherit-product-if-exists, vendor/ti/fmradio/fmradio.mk)
+# SGX540 is slower with the scissor optimization enabled
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.hwui.disable_scissor_opt=true
+
+# Wifi
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0 \
+    persist.wlan.ti.calibrated=0
+
+# IDC
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/idc/atmxt-i2c.idc:system/usr/idc/atmxt-i2c.idc \
+    $(LOCAL_PATH)/idc/mxt224_touchscreen_0.idc:system/usr/idc/mxt224_touchscreen_0.idc \
+    $(LOCAL_PATH)/idc/atmxt-i2c.idc:recovery/root/vendor/firmware/atmxt-i2c.idc \
+    $(LOCAL_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab \
+    vendor/motorola/smi/proprietary/etc/firmware/atmxt-r2.tdat:recovery/root/vendor/firmware/atmxt-r2.tdat \
+
+# MediaProfile for xt890
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
+
+# Permissions
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml \
+    frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
+    frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
+    frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
+    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
+    frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
+    frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
+    frameworks/native/data/etc/android.hardware.touchscreen.multitouch.jazzhand.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.jazzhand.xml \
+    frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
+    frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
+    frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml \
+    frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
+    frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
+    frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+#    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
+
+# Device specific permissions
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.intel.internal.telephony.OemTelephony.xml:system/etc/permissions/com.intel.internal.telephony.OemTelephony.xml \
+    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.dm.service.xml:system/etc/permissions/com.motorola.android.dm.service.xml \
+    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.drmcommonconfig.xml:system/etc/permissions/com.motorola.android.drmcommonconfig.xml \
+    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.tcmd.xml:system/etc/permissions/com.motorola.android.tcmd.xml \
+    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.telephony.xml:system/etc/permissions/com.motorola.android.telephony.xml \
+    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.usbpermission.xml:system/etc/permissions/com.motorola.android.usbpermission.xml \
+    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.atcmd_library.xml:system/etc/permissions/com.motorola.atcmd_library.xml
+
+# Device specific frameworks
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/modules/prebuilt/framework/com.intel.internal.telephony.OemTelephony.jar:system/framework/com.intel.internal.telephony.OemTelephony.jar \
+    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.android.telephony.jar:system/framework/com.motorola.android.telephony.jar \
+    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.atcmd.base.jar:system/framework/com.motorola.atcmd.base.jar \
+    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.atcmd.pluginMgr.jar:system/framework/com.motorola.atcmd.pluginMgr.jar
+
+PRODUCT_GMS_CLIENTID_BASE ?= android-motorola
+
+$(call inherit-product, vendor/motorola/smi/smi-vendor.mk)
+
+# Prebuilt
+PRODUCT_PACKAGES += \
+    libtinyalsa2 \
+
+# FM Radio
+#PRODUCT_PACKAGES += \
+        kfmapp \
+        FmRxApp \
+        FmTxApp \
+        FmService \
+        libfmradio \
+        fmradioif \
+        com.ti.fm.fmradioif.xml
+
+# Wifi Configuration Files
+$(call inherit-product, hardware/ti/wlan/mac80211/wl128x-wlan-products.mk)
+
+# Shared Transport (BLUETOOTH,FM,GPS)
+#$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
+
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0

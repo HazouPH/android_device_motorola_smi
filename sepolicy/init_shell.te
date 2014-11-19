@@ -1,0 +1,9 @@
+# wifi calibrator
+allow init_shell kernel:system module_request;
+allow init_shell labeledfs:filesystem remount;
+allow init_shell radio_data_file:file { read getattr open };
+allow init_shell self:capability { sys_module net_raw net_admin };
+allow init_shell self:netlink_socket { write getattr setopt read bind create };
+allow init_shell self:udp_socket { create ioctl };
+allow init_shell system_file:dir { write add_name };
+allow init_shell system_file:file { write create };

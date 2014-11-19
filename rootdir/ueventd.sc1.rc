@@ -1,0 +1,70 @@
+# SD device
+/dev/block/mmcblk1p1      0660   root       mot_tcmd
+# CID partition
+/dev/block/mmcblk0p7      0660   root       mot_tcmd
+# Intel Security Driver
+/dev/sep_sec_driver       0660   system     system
+# SGX graphics device
+/dev/dri/card*            0666   root       root
+# Bluetooth device
+/dev/hci_tty              0666   bluetooth  bluetooth
+/dev/ttyMFD0              0660   bluetooth  bluetooth
+/dev/tigps                0666   root       radio
+/dev/tifm                 0660   bluetooth  bluetooth
+/dev/rfkill               0666   bluetooth  bluetooth
+/dev/pn544                0660   nfc        nfc
+/dev/watchdog             0660   system     system
+/dev/ttyGTM*              0660   root       radio
+/dev/audience_es305       0777   audio      audio
+/dev/intel_sst_ctrl       0600   media      media
+/dev/ttyMFD2              0660   system     system
+/dev/akm8963              0660   compass    compass
+/dev/akm8963_dev          0660   compass    compass
+/dev/akm8975              0660   compass    compass
+# Multimedia
+/dev/v4l-subdev*          0666   root       camera
+/dev/media*               0666   root       camera
+
+/dev/rtc0                 0660   system     system
+/dev/i2c-0                0660   system     system
+/dev/i2c-1                0660   system     system
+/dev/i2c-2                0660   system     system
+/dev/i2c-3                0660   system     system
+/dev/i2c-4                0660   system     system
+/dev/i2c-5                0660   system     system
+/dev/i2c-8                0660   system     system
+/dev/assd                 0660   smartcard  smartcard
+
+#kernel logs
+/dev/log/kernel           0600   root       log
+
+# the Intel camera device node is world writable/readable.
+#/dev/video*               0666   media      camera
+/dev/video*               0666   root       camera
+
+# modem tty node change to radio user can read and write
+/dev/gsmtty*              0660   radio      system
+/dev/gsmtty13             0666   radio      system
+/dev/ttyGS0               0660   radio      radio
+/dev/ttyACM*              0660   root       radio
+/dev/ttyPTI1              0660   root       radio
+/dev/ttyMFD*              0660   root       radio
+/dev/mdmTrace             0660   root       radio
+/dev/mdm_ctrl             0660   root       radio
+/dev/ttyIFX0              0660   root       radio
+/dev/ttyIFX1              0660   root       radio
+
+#Motorola Sensor Inteface
+/dev/lis3dh               0660   compass    system
+/dev/akm8975_dev          0660   compass    system
+/dev/akm8975_aot          0660   compass    system
+/dev/ct405                0660   compass    system
+/dev/l3g4200d             0660   compass    system
+
+# Sound devices, needs fix in permissions
+/dev/snd/*                0666   system      audio
+
+# sysfs properties
+/sys/devices/system/cpu/cpu1/cpufreq scaling_governor 0644 system system
+/sys/devices/system/cpu/cpu1/cpufreq scaling_max_freq 0664 system system
+/sys/devices/system/cpu/cpu1/cpufreq scaling_min_freq 0644 system system
