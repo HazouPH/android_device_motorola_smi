@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <remove-project name="CyanogenMod/android_external_tinyalsa" />
+  <remove-project name="CyanogenMod/android_external_ffmpeg" />
+
+  <project path="patches" name="HazouPH/smi_cm11_patches" revision="cm-11.0"/>
+
+  <project path="device/motorola/smi" name="HazouPH/android_device_motorola_smi" revision="cm-11.0"/>
+
+  <project path="hardware/intel/img/psb_video" name="Cyanogenmod/android_hardware_intel_img_psb_video" revision="staging/cm-12.0"/>
+
+  <project path="hardware/intel/img/libdrm" name="Cyanogenmod/android_hardware_intel_img_libdrm" revision="staging/cm-12.0"/>
+
+  <project path="hardware/intel/img/psb_headers" name="Cyanogenmod/android_hardware_intel_img_psb_headers" revision="staging/cm-12.0"/>
+
+  <project path="hardware/intel/common/omx-components" name="Cyanogenmod/android_hardware_intel_common_omx-components" revision="staging/cm-12.0"/>
+
+  <project path="hardware/intel/common/wrs_omxil_core" name="Cyanogenmod/android_hardware_intel_common_wrs_omxil_core" revision="staging/cm-12.0"/>
+
+  <project path="hardware/intel/common/libstagefrighthw" name="Cyanogenmod/android_hardware_intel_common_libstagefrighthw" revision="staging/cm-12.0"/>
+
+  <project path="hardware/intel/common/libva" name="Cyanogenmod/android_hardware_intel_common_libva" revision="staging/cm-12.0"/>
+
+  <project path="hardware/intel/common/libmix" name="Cyanogenmod/android_hardware_intel_common_libmix" revision="staging/cm-12.0"/>
+
+  <project path="hardware/intel/audio/media" name="Cyanogenmod/android_hardware_intel_audio_media" revision="staging/cm-12.0"/>
+
+</manifest>
