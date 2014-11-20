@@ -32,6 +32,7 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
+    audio.hdmi.smi \
     libaudioutils \
     libdashplayer
 
@@ -59,6 +60,55 @@ PRODUCT_PACKAGES += \
 # Motorola
 #PRODUCT_PACKAGES += \
 #    aplogd
+
+#############################open-source
+# psb video
+PRODUCT_PACKAGES += \
+    pvr_drv_video
+
+# libva
+PRODUCT_PACKAGES += \
+    libva \
+    libva-android \
+    libva-tpi \
+    vainfo
+
+#libstagefrighthw
+PRODUCT_PACKAGES += \
+    libstagefrighthw
+
+# libmix
+PRODUCT_PACKAGES += \
+    libmixvbp_mpeg4 \
+    libmixvbp_h264 \
+    libmixvbp_h264secure \
+    libmixvbp_vc1 \
+    libmixvbp_vp8 \
+    libmixvbp \
+    libva_videodecoder \
+    libva_videoencoder
+
+PRODUCT_PACKAGES += \
+    libwrs_omxil_common \
+    libwrs_omxil_core_pvwrapped \
+    libOMXVideoDecoderAVC \
+    libOMXVideoDecoderH263 \
+    libOMXVideoDecoderMPEG4 \
+    libOMXVideoDecoderWMV \
+    libOMXVideoDecoderVP8 \
+    libOMXVideoDecoderVP9HWR \
+    libOMXVideoDecoderVP9Hybrid \
+    libOMXVideoEncoderAVC \
+    libOMXVideoEncoderH263 \
+    libOMXVideoEncoderMPEG4 \
+    libOMXVideoEncoderVP8
+
+# libdrm
+PRODUCT_PACKAGES += \
+    libdrm \
+    dristat \
+    drmstat
+#############################open-source
 
 # Misc
 PRODUCT_PACKAGES += \
