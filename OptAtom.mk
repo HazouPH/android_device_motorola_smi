@@ -59,6 +59,6 @@ BOARD_MALLOC_ALIGNMENT := 16
 
 ifdef INTEL_HOUDINI
 ADDITIONAL_BUILD_PROPERTIES += ro.product.cpu.abi2=armeabi-v7a
-ADDITIONAL_BUILD_PROPERTIES += ro.product.cpu.upgradeabi=armeabi-v7a
+ADDITIONAL_BUILD_PROPERTIES += ro.product.cpu.upgradeabi=armeabi
 ADDITIONAL_BUILD_PROPERTIES += dalvik.vm.houdini=on
 endif
