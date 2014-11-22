@@ -136,10 +136,6 @@ BOARD_HAVE_GPS := true
 # skip doc from building
 BOARD_SKIP_ANDROID_DOC_BUILD := true
 
-# Turn on GR_STATIC_RECT_VB flag in skia to boost performance
-TARGET_USE_GR_STATIC_RECT_VB := true
-BOARD_USE_SKIA_LCDTEXT := true
-
 # Recovery configuration global
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 BOARD_HAS_NO_SELECT_BUTTON := true
