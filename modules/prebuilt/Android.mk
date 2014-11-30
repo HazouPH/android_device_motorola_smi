@@ -1,6 +1,6 @@
 LOCAL_PATH := $(call my-dir)
 
-PREBUILT_DIR := vendor/motorola/smi/proprietary
+PREBUILT_DIR := ../../../../../vendor/motorola/smi/proprietary
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libtinyalsa

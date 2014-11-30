@@ -264,10 +264,6 @@ PRODUCT_GMS_CLIENTID_BASE ?= android-motorola
 
 $(call inherit-product, vendor/motorola/smi/smi-vendor.mk)
 
-# Prebuilt
-PRODUCT_PACKAGES += \
-    libtinyalsa2
-
 # FM Radio
 #PRODUCT_PACKAGES += \
         kfmapp \
