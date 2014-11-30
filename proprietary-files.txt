@@ -10,7 +10,7 @@ bin/vibrator
 bin/wlan_prov
 
 # Sound
-#lib/libtinyalsa.so
+lib/libtinyalsa.so
 bin/alsa_cfg_smi.sh
 bin/isP12
 etc/asound.conf
@@ -139,10 +139,6 @@ etc/firmware/wma9_dec_1.bin
 lib/drm/libmotdrmplugin.so
 lib/hw/hwcomposer.smi.so
 lib/libdrm.so
-lib/libdrm1.so
-lib/libdrm1_jni.so
-lib/libmotdrm1.so
-lib/libnativedrm1.so
 lib/libpvr2d.so
 lib/libsepdrm.so
 lib/libsrv_um.so
