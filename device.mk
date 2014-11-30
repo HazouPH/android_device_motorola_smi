@@ -29,12 +29,11 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # Audio
 PRODUCT_PACKAGES += \
-    audio.a2dp.default \
-    audio.usb.default \
-    audio.r_submix.default \
-    audio.hdmi.smi \
-    libaudioutils \
-    libdashplayer
+	audio.a2dp.default \
+	audio.usb.default \
+	audio.r_submix.default \
+	libaudioutils \
+	libdashplayer
 
 # Stk
 PRODUCT_PACKAGES += \
@@ -47,15 +46,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Intel Bootimage Tools
 PRODUCT_PACKAGES += \
     pack_intel \
-    unpack_intel \
+    unpack_intel
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
         $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir,root)
-
-# Init scripts
-PRODUCT_PACKAGES += \
-    init.moto.usb.sh
 
 # Motorola
 #PRODUCT_PACKAGES += \
@@ -63,56 +58,57 @@ PRODUCT_PACKAGES += \
 
 #############################open-source
 # psb video
-PRODUCT_PACKAGES += \
-    pvr_drv_video
+#PRODUCT_PACKAGES += \
+#    pvr_drv_video
 
 # libva
-PRODUCT_PACKAGES += \
-    libva \
-    libva-android \
-    libva-tpi \
-    vainfo
+#PRODUCT_PACKAGES += \
+#    libva \
+#    libva-android \
+#    libva-tpi \
+#    vainfo
 
 #libstagefrighthw
-PRODUCT_PACKAGES += \
-    libstagefrighthw
+#PRODUCT_PACKAGES += \
+#    libstagefrighthw
 
 # libmix
-PRODUCT_PACKAGES += \
-    libmixvbp_mpeg4 \
-    libmixvbp_h264 \
-    libmixvbp_h264secure \
-    libmixvbp_vc1 \
-    libmixvbp_vp8 \
-    libmixvbp \
-    libva_videodecoder \
-    libva_videoencoder
+#PRODUCT_PACKAGES += \
+#    libmixvbp_mpeg4 \
+#    libmixvbp_h264 \
+#    libmixvbp_h264secure \
+#    libmixvbp_vc1 \
+#    libmixvbp_vp8 \
+#    libmixvbp \
+#    libva_videodecoder \
+#    libva_videoencoder
 
-PRODUCT_PACKAGES += \
-    libwrs_omxil_common \
-    libwrs_omxil_core_pvwrapped \
-    libOMXVideoDecoderAVC \
-    libOMXVideoDecoderH263 \
-    libOMXVideoDecoderMPEG4 \
-    libOMXVideoDecoderWMV \
-    libOMXVideoDecoderVP8 \
-    libOMXVideoDecoderVP9HWR \
-    libOMXVideoDecoderVP9Hybrid \
-    libOMXVideoEncoderAVC \
-    libOMXVideoEncoderH263 \
-    libOMXVideoEncoderMPEG4 \
-    libOMXVideoEncoderVP8
+#PRODUCT_PACKAGES += \
+#    libwrs_omxil_common \
+#    libwrs_omxil_core_pvwrapped \
+#    libOMXVideoDecoderAVC \
+#    libOMXVideoDecoderH263 \
+#    libOMXVideoDecoderMPEG4 \
+#   libOMXVideoDecoderWMV \
+#    libOMXVideoDecoderVP8 \
+#    libOMXVideoDecoderVP9HWR \
+#    libOMXVideoDecoderVP9Hybrid \
+#    libOMXVideoEncoderAVC \
+#   libOMXVideoEncoderH263 \
+#    libOMXVideoEncoderMPEG4 \
+#    libOMXVideoEncoderVP8
 
 # libdrm
-PRODUCT_PACKAGES += \
-    libdrm \
-    dristat \
-    drmstat
+#PRODUCT_PACKAGES += \
+#    libdrm \
+#    dristat \
+#    drmstat
 #############################open-source
 
 # Misc
 PRODUCT_PACKAGES += \
     curl \
+    libbson \
     libcurl \
     tcpdump \
     Torch \
@@ -137,9 +133,6 @@ PRODUCT_PACKAGES += \
     VisualizationWallpapers \
     librs_jni
 
-# Enable location
-PRODUCT_PACKAGES := NetworkLocation
-
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
@@ -149,7 +142,6 @@ PRODUCT_PACKAGES += \
 
 # NFC packages
 PRODUCT_PACKAGES += \
-    nfc.default \
     libnfc \
     libnfc_jni \
     Nfc
@@ -167,11 +159,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/modules/prebuilt/etc/wifi/wl1271-nvs.bin:system/etc/wifi/wl1271-nvs.bin
 #    $(LOCAL_PATH)/modules/prebuilt/bin/wifical.sh:system/bin/wifical.sh \
 #    $(LOCAL_PATH)/modules/prebuilt/bin/wificalcheck.sh:system/bin/wificalcheck.sh \
-#    $(LOCAL_PATH)/modules/prebuilt/etc/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 PRODUCT_PACKAGES += \
     lib_driver_cmd_wl12xx \
     dhcpcd.conf \
     hostapd
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0 \
+    persist.wlan.ti.calibrated=0
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.mot.deep.sleep.supported=true \
@@ -211,10 +205,8 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.disable_scissor_opt=true
 
-# Wifi
-PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
-    persist.wlan.ti.calibrated=0
+# We have enough storage space to hold precise GC data
+PRODUCT_TAGS += dalvik.gc.type-precise
 
 # IDC
 PRODUCT_COPY_FILES += \
@@ -222,7 +214,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/mxt224_touchscreen_0.idc:system/usr/idc/mxt224_touchscreen_0.idc \
     $(LOCAL_PATH)/idc/atmxt-i2c.idc:recovery/root/vendor/firmware/atmxt-i2c.idc \
     $(LOCAL_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab \
-    vendor/motorola/smi/proprietary/etc/firmware/atmxt-r2.tdat:recovery/root/vendor/firmware/atmxt-r2.tdat \
+    vendor/motorola/smi/proprietary/etc/firmware/atmxt-r2.tdat:recovery/root/vendor/firmware/atmxt-r2.tdat
 
 # MediaProfile for xt890
 PRODUCT_COPY_FILES += \
@@ -274,7 +266,7 @@ $(call inherit-product, vendor/motorola/smi/smi-vendor.mk)
 
 # Prebuilt
 PRODUCT_PACKAGES += \
-    libtinyalsa2 \
+    libtinyalsa2
 
 # FM Radio
 #PRODUCT_PACKAGES += \
