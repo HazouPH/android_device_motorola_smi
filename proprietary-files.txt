@@ -296,9 +296,6 @@ lib/hw/vibrator.smi.so
 etc/firmware/TIInit_10.5.20.bts
 etc/firmware/TIInit_10.6.15.bts
 etc/wifi/TQS.ini
-etc/wifi/hostapd.conf
-etc/wifi/p2p_supplicant.conf
-etc/wifi/wpa_supplicant.conf
 
 # Touchscreen
 etc/firmware/atmxt-r1.tdat
