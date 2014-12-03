@@ -7,7 +7,6 @@ bin/pcscd
 bin/proxy
 bin/uim
 bin/vibrator
-bin/wlan_prov
 
 # Sound
 lib/libtinyalsa.so

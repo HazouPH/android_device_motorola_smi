@@ -11,7 +11,6 @@
 /dev/ttyMFD0              0660   bluetooth  bluetooth
 /dev/tigps                0666   root       radio
 /dev/tifm                 0660   bluetooth  bluetooth
-/dev/rfkill               0666   bluetooth  bluetooth
 /dev/pn544                0660   nfc        nfc
 /dev/watchdog             0660   system     system
 /dev/ttyGTM*              0660   root       radio

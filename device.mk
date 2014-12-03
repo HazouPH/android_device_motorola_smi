@@ -50,7 +50,8 @@ PRODUCT_PACKAGES += \
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
-        $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir,root)
+        $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir,root) \
+        $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/lib/modules,system/lib/modules)
 
 # Motorola
 #PRODUCT_PACKAGES += \
@@ -120,8 +121,6 @@ PRODUCT_PACKAGES += charger charger_res_images
 # Crda
 PRODUCT_PACKAGES += \
     crda \
-    linville.key.pub.pem \
-    regdbdump \
     regulatory.bin
 
 # Live Wallpapers
@@ -156,16 +155,17 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/modules/prebuilt/etc/wifi/wl1271-nvs.bin:system/etc/wifi/wl1271-nvs.bin
-#    $(LOCAL_PATH)/modules/prebuilt/bin/wifical.sh:system/bin/wifical.sh \
-#    $(LOCAL_PATH)/modules/prebuilt/bin/wificalcheck.sh:system/bin/wificalcheck.sh \
+    $(LOCAL_PATH)/config/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/modules/prebuilt/bin/fix-mac.sh:system/bin/fix-mac.sh
 PRODUCT_PACKAGES += \
     lib_driver_cmd_wl12xx \
     dhcpcd.conf \
-    hostapd
+    hostapd.conf \
+    calibrator \
+    crda \
+    regulatory.bin
 PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0 \
-    persist.wlan.ti.calibrated=0
+    wifi.interface=wlan0
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.mot.deep.sleep.supported=true \
