@@ -245,19 +245,17 @@ PRODUCT_COPY_FILES += \
 # Device specific permissions
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.intel.internal.telephony.OemTelephony.xml:system/etc/permissions/com.intel.internal.telephony.OemTelephony.xml \
-    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.dm.service.xml:system/etc/permissions/com.motorola.android.dm.service.xml \
     $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.drmcommonconfig.xml:system/etc/permissions/com.motorola.android.drmcommonconfig.xml \
     $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.tcmd.xml:system/etc/permissions/com.motorola.android.tcmd.xml \
-    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.telephony.xml:system/etc/permissions/com.motorola.android.telephony.xml \
     $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.usbpermission.xml:system/etc/permissions/com.motorola.android.usbpermission.xml \
-    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.atcmd_library.xml:system/etc/permissions/com.motorola.atcmd_library.xml
+#    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.dm.service.xml:system/etc/permissions/com.motorola.android.dm.service.xml \
 
 # Device specific frameworks
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/modules/prebuilt/framework/com.intel.internal.telephony.OemTelephony.jar:system/framework/com.intel.internal.telephony.OemTelephony.jar \
-    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.android.telephony.jar:system/framework/com.motorola.android.telephony.jar \
-    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.atcmd.base.jar:system/framework/com.motorola.atcmd.base.jar \
-    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.atcmd.pluginMgr.jar:system/framework/com.motorola.atcmd.pluginMgr.jar
+#    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.android.telephony.jar:system/framework/com.motorola.android.telephony.jar \
+#    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.atcmd.base.jar:system/framework/com.motorola.atcmd.base.jar \
+#    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.atcmd.pluginMgr.jar:system/framework/com.motorola.atcmd.pluginMgr.jar
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-motorola
 
