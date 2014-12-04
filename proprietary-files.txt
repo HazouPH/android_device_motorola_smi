@@ -1,20 +1,17 @@
-# Executable files
+# Sensor
 bin/akmd8963
+
+# Batt Health app, source available
 bin/batt_health
+
+# Bluetooth, gps, fm
 bin/bd_prov
-bin/parameter
-bin/pcscd
-bin/proxy
 bin/uim
-bin/vibrator
+vendor/lib/libbt-vendor.so
 
 # Sound
+bin/remote-process
 lib/libtinyalsa.so
-bin/alsa_cfg_smi.sh
-bin/isP12
-etc/asound.conf
-etc/asound_p1.conf
-etc/asound_p3.conf
 etc/firmware/vpimg_es305b-BB.bin
 etc/firmware/vpimg_es305b-NH.bin
 etc/firmware/vpimg_es305b.bin
@@ -70,7 +67,6 @@ etc/phonecall_es305b_speaker_far_talk_voip_nb.bin
 etc/phonecall_es305b_speaker_far_talk_voip_wb.bin
 lib/hw/audio.primary.smi.so
 lib/hw/audio_policy.smi.so
-lib/libasound.so
 lib/libaudience-manager.so
 lib/libaudiohalutils.so
 lib/libaudioresample.so
@@ -86,13 +82,9 @@ lib/parameter-framework-plugins/Audio/liblpe-subsystem.so
 lib/parameter-framework-plugins/Audio/libtinyalsactl-subsystem.so
 lib/parameter-framework-plugins/Audio/libtinyamixer-subsystem.so
 lib/parameter-framework-plugins/System/libproperty-subsystem.so
-usr/lib/alsa-lib/libasound_module_ctl_voice.so
-usr/lib/alsa-lib/libasound_module_pcm_voice.so
-usr/share/alsa/alsa.conf
 vendor/etc/audio_policy.conf
 
 # MultiMedia
-bin/remote-process
 etc/firmware/aac_dec_1.bin
 etc/firmware/aac_enc_1.bin
 etc/firmware/aac_v1_dec_1.bin
@@ -235,39 +227,17 @@ lib/libmotodbgutils.so
 lib/libtinyxml_stl.so
 
 # Modem (Telephony)
-bin/bttest_mot
-bin/dbvc_atvc_property_set
 bin/mmgr
-bin/mts
-bin/rild_tcmd
-bin/tcmd
-bin/tcmdhelp
 etc/firmware/fw_sst_082f.bin
 etc/firmware/fw_sst_08e7.bin
-etc/firmware/modem/radio_firmware-signed.bin
-etc/motorola/tcmd/cid_template.dat
 etc/rril/repository.txt
-etc/rril/stmd.conf
-etc/single_bp_nvm/bp_nvm.bin
-etc/single_bp_nvm/bp_nvm_unsecure.bin
-etc/single_bp_nvm/md5
-etc/single_bp_nvm/md5_unsecure
 etc/telephony/mmgr.conf
-lib/libbluedroid.so
-lib/libdbvc_shared.so
-lib/libdbvc_shwi_shared.so
-lib/libfm_stack.so
-lib/libfmchr.so
 lib/libglib-2.0.so
 lib/libmmgrcli.so
-lib/libmot_atcmd.so
-lib/libpkip.so
 lib/libpn544_fw.so
 lib/librapid-ril-core.so
 lib/librapid-ril-util.so
 lib/libsecurity_api.so
-lib/libtpa.so
-lib/libtpa_core.so
 
 # FS
 lib/parameter-framework-plugins/Fs/libfs-subsystem.so
@@ -327,22 +297,10 @@ etc/firmware/isp_acc_warp_deghost.bin
 etc/firmware/isp_acc_warping.bin
 etc/firmware/shisp.bin
 
-# Misc
+# Misc, source available
 bin/charge_only_mode
 bin/mot_boot_mode
-bin/aplogd
-bin/cpdd
-bin/disp_util
-bin/getconfig
-bin/motobox
-bin/rdnssd
-bin/sendevent2
-bin/setconfig
 etc/firmware/fa_extension.bin
-lib/libasfparser.so
+
+# Viedeoeditor
 lib/libI420colorconvert.so
-lib/libmoto_netutil.so
-lib/libprovlib.so
-vendor/lib/libbt-vendor.so
-vendor/lib/libnmsp_speex.so
-vendor/lib/libSwypeCore.so

@@ -597,12 +597,6 @@ service racoon /system/bin/racoon
     disabled
     oneshot
 
-service alsa_amixer /system/bin/alsa_amixer -c 3 cset numid=3 1
-    class main
-    user root
-    group audio
-    oneshot
-
 service mtpd /system/bin/mtpd
     class main
     socket mtpd stream 600 system system

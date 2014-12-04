@@ -1,9 +1,4 @@
 on early-init
-    # Create the env for the filesystem mounting(FUSE and Vold)
-    #export EXTERNAL_STORAGE /storage/sdcard0
-    #mkdir /storage/sdcard0 0000 system system
-    #symlink /storage/sdcard0 /mnt/sdcard
-    #symlink /storage/sdcard0 /sdcard
 
     # set permission for charger-mode
     chmod 0770 /charger
@@ -14,7 +9,6 @@ on early-init
 on init
 # setup the global environment
     mkdir /factory 0770 system system
-    # mount ext4 /dev/block/mmcblk0p2 /factory
     mkdir /factory/wifi
     chown system wifi /factory/wifi
     chmod 0770 /factory/wifi

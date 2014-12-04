@@ -1,12 +1,9 @@
 import init.common.rc
 import init.debug.rc
 import init.oom.rc
-import init.diag.rc
 import init.avc.rc
 import init.wireless.rc
-import init.moto.rc
 import init.wifi.rc
-import init.tcmd.rc
 
 # include usb rc file
 import init.moto.usb.rc
@@ -35,22 +32,12 @@ on init
     symlink /storage/sdcard1 /external_sd
     symlink /storage/sdcard1 /mnt/external_sd
 
-    insmod /lib/modules/gps_drv.ko
+    insmod /system/lib/modules/gps_drv.ko
 
     chmod 0660 /sys/class/gpio/gpio157/value
     chown system system /sys/class/gpio/gpio157/value
     chmod 0660 /sys/class/gpio/gpio50/value
     chown system system /sys/class/gpio/gpio50/value
-
-    # See vendor/intel/common/init.mfld.usb.rc
-    #write /sys/class/android_usb/android0/enable 0
-    #write /sys/class/android_usb/android0/functions adb
-    #write /sys/class/android_usb/android0/iManufacturer "HTC"
-    #write /sys/class/android_usb/android0/iProduct "Android-Phone"
-    #write /sys/class/android_usb/android0/iSerial "Medfield12345678"
-    #write /sys/class/android_usb/android0/idProduct 0x0c01
-    #write /sys/class/android_usb/android0/idVendor 0x0bb4
-    #write /sys/class/android_usb/android0/enable 1
 
     # For Authentec VPN: route packets over bridge interface before processing
     write /proc/sys/net/bridge/bridge-nf-call-arptables 0
@@ -66,13 +53,6 @@ on init
 on charger
     mount ext4 /dev/block/system /system ro noatime
     mount ext4 /dev/block/userdata /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc
-
-    setprop persist.service.aplogfs.enable ${persist.service.aplogfs.enable}
-    setprop persist.service.apklogfs.enable ${persist.service.apklogfs.enable}
-    setprop persist.service.apklogsd.enable ${persist.service.apklogsd.enable}
-    setprop persist.service.aplogsd.enable ${persist.service.aplogsd.enable}
-    setprop persist.service.aplogpti.enable ${persist.service.aplogpti.enable}
-    setprop persist.service.aklogpti.enable ${persist.service.aklogpti.enable}
 
     start console
     start watchdogd
@@ -213,11 +193,6 @@ on post-fs-data
 
     mkdir /data/system/ 0770 system system
 
-    # create directory for loading asound.conf
-    mkdir /data/alsa system system
-    chmod 0755 /data/alsa
-    exec /system/bin/alsa_cfg_smi.sh
-
     # Create directory used by power_supply logger
     mkdir /data/power_supply_logger 0755 mot_pwric mot_pwric
 
@@ -227,30 +202,14 @@ on post-fs-data
     mkdir /tmp/commdrv 0770 radio radio
     setprop ro.sys.atvc_allow_gki_log 0
 
-    # Create folder for native & kernel to write to DropBox. See NativeDropBoxAgent.java for
-    # an explanation of why these permissions are chosen.
-    mkdir /data/system/dropbox-add 0730 system diag
-
     mkdir /data/misc/firmware 0770 system system
     mkdir /data/misc/thermal 0770 system system
 
     symlink /system/etc/MID_thermal.conf /data/misc/thermal/MID_thermal.conf
 
-    setprop persist.service.aplogfs.enable ${persist.service.aplogfs.enable}
-    setprop persist.service.apklogfs.enable ${persist.service.apklogfs.enable}
-    setprop persist.service.apklogsd.enable ${persist.service.apklogsd.enable}
-    setprop persist.service.aplogsd.enable ${persist.service.aplogsd.enable}
-    setprop persist.service.aplogpti.enable ${persist.service.aplogpti.enable}
-    setprop persist.service.aklogpti.enable ${persist.service.aklogpti.enable}
-
-    #NVM CONFIG temporary tool - Bug 735
-    mkdir /system/etc/carrier_variants 0775 system system
-
     # directory for encryption management tool, enc_mgt_tool
     mkdir /data/emt 0770 root system
 
-    # Create 12m directory that TCMD can write to
-    mkdir /data/local/12m 0755 mot_tcmd shell
 
     # create moto specific dirs for factory
     mkdir /data/local/dbvc 0770 mot_tcmd shell
@@ -262,18 +221,6 @@ on post-fs-data
 # run after "on post-fs-data", before "on boot"
 # may not be run in charge-only-mode
 on early-boot
-    # Define Motorola DBVC ATVC Property defaults (failsafe properties)
-    setprop ro.sys.atvc_allow_netmon_usb 0
-    setprop ro.sys.atvc_allow_netmon_ih 0
-    setprop ro.sys.atvc_allow_res_core 0
-    setprop ro.sys.atvc_allow_res_panic 0
-    setprop ro.sys.atvc_allow_all_adb 0
-    setprop ro.sys.atvc_allow_all_core 0
-    setprop ro.sys.atvc_allow_efem 0
-    setprop ro.sys.atvc_allow_bp_log 0
-    setprop ro.sys.atvc_allow_ap_mot_log 0
-    setprop ro.sys.atvc_allow_simswap 0
-
     # create the necessary data dirs for tpapi with proper permission
     mkdir /dev/tpapi 2770  mot_tpapi mot_tpapi
     mkdir /data/tpapi 2770 mot_tpapi mot_tpapi
@@ -320,30 +267,6 @@ on boot
 on fs
     setprop ro.crypto.fuse_sdcard true
 
-# Moto bug2go bugreport
-service bugreport /system/bin/bug2go-bugreport
-    class main
-    disabled
-    oneshot
-    keycodes 115 116 # Vol up + Power key
-
-# Let init manage the bug2go-native wakelock, so that we guarantee its
-# lifecycle exactly matches that of bug2go-bugreport.  Since init sends
-# SIGKILL when stopping a service, we could not guarantee the wakelock would
-# get cleaned up if it were managed by bug2go-bugreport itself.
-on property:init.svc.bug2go-bugreport=running
-    write /sys/power/wake_lock bug2go-native
-
-on property:init.svc.bug2go-bugreport=stopping
-    write /sys/power/wake_unlock bug2go-native
-
-on property:init.svc.bug2go-bugreport=stopped
-    write /sys/power/wake_unlock bug2go-native
-
-service qe /xbin/qe /system
-    class main
-    oneshot
-
 # Access Token
 service atvc_core /system/bin/dbvc_atvc_property_set
     class main
@@ -363,38 +286,6 @@ on property:sys.boot_completed=1
     insmod /system/lib/modules/matrix.ko
     chmod 0640 /dev/matrix
 
-# aplogd on at boot in emulator
-on property:ro.kernel.qemu=1
-    start aplogd
-
-on property:persist.log.aplogd.enable=1
-    start aplogd
-
-on property:persist.log.aplogd.enable=0
-    stop aplogd
-
-# aplogd start/stop is controlled by the persist.log.aplogd.enable system
-# property.  Don't set the property directly, because it's controlled by the
-# com.motorola.android.settings.aplogd Java Service and ContentProvider.  To
-# change the default behavior of aplogd on bootup, you should update the
-# defaults for the com.motorola.android.settings.aplogd Java Service and
-# ContentProvider which control it.
-service aplogd /system/bin/aplogd
-    class main
-    #user log
-    #group log system sdcard_rw mount
-    # The user and group definitions above are intentionally disabled and left
-    # only as documentation.  It actually starts as root and immediately drops
-    # to log plus those groups after preserving CAP_SYS_ADMIN, which is required
-    # for kernel logging.
-    disabled
-
-service modemlog /system/bin/modemlog
-    class core
-    user system
-    group system log
-    oneshot
-
 # For LBS
 service gkisystem /system/bin/gkisystem
     class main
@@ -412,19 +303,6 @@ service akmd8963 /system/bin/akmd8963
     class main
     user compass
     group compass misc input
-
-# FM radio
-service fmradio /system/bin/fmradioserver
-    class main
-    user system
-    group bluetooth net_bt_admin net_raw net_admin misc
-    disabled
-
-# Authentec VPN
-service vpnclientpm /system/bin/vpnclientpm
-    class main
-    disabled
-    user root
 
 # Properties, events trigging service
 
@@ -468,3 +346,7 @@ service batt_health /system/bin/batt_health
     class main
     group mot_pwric
     oneshot
+
+service charge_only_mode /system/bin/charge_only_mode
+    class charger
+    disabled

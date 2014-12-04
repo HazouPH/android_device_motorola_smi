@@ -51,7 +51,7 @@ PRODUCT_PACKAGES += \
 # Ramdisk
 PRODUCT_COPY_FILES += \
         $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir,root) \
-        $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir/lib/modules,system/lib/modules)
+        $(call find-copy-subdir-files,*,$(LOCAL_PATH)/modules/prebuilt/lib/modules,system/lib/modules)
 
 # Motorola
 #PRODUCT_PACKAGES += \
@@ -192,7 +192,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     gsm.net.interface=rmnet0 \
     persist.service.crashlog.enable=1 \
     persist.system.at-proxy.mode=0 \
-    wlan.driver.vendor=ti \
     persist.ril-daemon.disable=0 \
     persist.sys.usb.config=mtp \
     persist.radio.ril_modem_state=1 \

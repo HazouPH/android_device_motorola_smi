@@ -32,7 +32,6 @@
 /dev/i2c-4                0660   system     system
 /dev/i2c-5                0660   system     system
 /dev/i2c-8                0660   system     system
-/dev/assd                 0660   smartcard  smartcard
 
 #kernel logs
 /dev/log/kernel           0600   root       log

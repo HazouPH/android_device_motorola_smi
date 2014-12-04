@@ -9,10 +9,8 @@ on early-boot
     chmod 0770 /sys/kernel/debug
 
 on post-fs-data
-    mkdir /data/tombstones 02775 system mot_tombstone
-    mkdir /data/thor_modem_panics 0770 system radio
+    mkdir /data/tombstones 0771 system system
     mkdir /data/system/    0755 system system
-    mkdir /data/system/dropbox 0700 system system
     # intel puts /data/logs on a different partition, we don't
     mkdir /data/logs 0770 system log
     mkdir /data/logs/core 0770 root log
@@ -79,67 +77,3 @@ on property:ro.secure=0
 on property:ro.debuggable=1
     # Allow unprivileged users to read the kernel log
     write /proc/sys/kernel/dmesg_restrict 0
-
-# crash and log services
-service crashlogd /system/bin/crashlogd -modem
-    class late_start
-    user log
-    group radio log sdcard_rw
-    oneshot
-
-service mtsfs /system/bin/mts -i /dev/gsmtty18 -t f -o /data/logs/bplog -n 5 -r 20000
-    user radio
-    group radio log
-    disabled
-
-service mtsextfs /system/bin/mts -i /dev/gsmtty18 -t f -o /data/logs/bplog -n 3 -r 200000
-    user radio
-    group radio log
-    disabled
-
-service mtssd /system/bin/mts -i /dev/gsmtty18 -t f -o /mnt/sdcard/data/logs/bplog -n 5 -r 20000
-    user radio
-    group radio media_rw sdcard_rw
-    disabled
-
-service mtsextsd /system/bin/mts -i /dev/gsmtty18 -t f -o /mnt/sdcard/data/logs/bplog -n 3 -r 200000
-    user radio
-    group radio media_rw sdcard_rw
-    disabled
-
-service mtsusb /system/bin/mts -i /dev/gsmtty18 -t p -o 6700
-    user radio
-    group radio
-    disabled
-
-# MTS Properties, events trigging service
-
-on property:persist.service.mtsfs.enable=1
-    start mtsfs
-
-on property:persist.service.mtsfs.enable=0
-    stop mtsfs
-
-on property:persist.service.mtsextfs.enable=1
-    start mtsextfs
-
-on property:persist.service.mtsextfs.enable=0
-    stop mtsextfs
-
-on property:persist.service.mtssd.enable=1
-    start mtssd
-
-on property:persist.service.mtssd.enable=0
-    stop mtssd
-
-on property:persist.service.mtsextsd.enable=1
-    start mtsextsd
-
-on property:persist.service.mtsextsd.enable=0
-    stop mtsextsd
-
-# started by device/intel/log_capture/crashlog
-service logsystemstate /system/bin/dumpstate_dropbox.sh -v
-    class main
-    disabled
-    oneshot
