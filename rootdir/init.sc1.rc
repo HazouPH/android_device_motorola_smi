@@ -32,8 +32,6 @@ on init
     symlink /storage/sdcard1 /external_sd
     symlink /storage/sdcard1 /mnt/external_sd
 
-    insmod /system/lib/modules/gps_drv.ko
-
     chmod 0660 /sys/class/gpio/gpio157/value
     chown system system /sys/class/gpio/gpio157/value
     chmod 0660 /sys/class/gpio/gpio50/value
@@ -287,6 +285,8 @@ on property:sys.boot_completed=1
     chmod 0640 /dev/matrix
 
 # For LBS
+    insmod /system/lib/modules/gps_drv.ko
+
 service gkisystem /system/bin/gkisystem
     class main
     socket location_shim stream 660 radio system
