@@ -49,12 +49,12 @@ on init
 # init does not automatically run "on early-fs", "on fs", "on post-fs",
 #   "on post-fs-data", "on early-boot", and "on boot" in charge-only-mode
 on charger
-    mount ext4 /dev/block/system /system ro noatime
-    mount ext4 /dev/block/userdata /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc
+    mount ext4 /dev/block/mmcblk0p16 /system ro noatime
+    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc
 
     start console
     start watchdogd
-    start charge_only_mode
+    exec /system/bin/charge_only_mode
 
 # runs after "on init" and before "on fs"; doesn't run in charge-only-mode
 on early-fs
@@ -346,7 +346,3 @@ service batt_health /system/bin/batt_health
     class main
     group mot_pwric
     oneshot
-
-service charge_only_mode /system/bin/charge_only_mode
-    class charger
-    disabled
