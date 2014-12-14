@@ -115,9 +115,6 @@ PRODUCT_PACKAGES += \
     Torch \
     com.android.future.usb.accessory
 
-# Charger
-PRODUCT_PACKAGES += charger charger_res_images
-
 # Crda
 PRODUCT_PACKAGES += \
     crda \
@@ -138,12 +135,6 @@ PRODUCT_PACKAGES += \
     e2fsck \
     resize2fs \
     setup_fs
-
-# NFC packages
-PRODUCT_PACKAGES += \
-    libnfc \
-    libnfc_jni \
-    Nfc
 
 # Houdini
 PRODUCT_COPY_FILES += \
@@ -180,8 +171,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apn_delay=5000 \
     ro.mot.cambtntime=400 \
     ro.ril.status.polling.enable=0 \
-    ro.config.personality=compat_layout \
-    qemu.hw.mainkeys=0
+    ro.config.personality=compat_layout
 
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
@@ -190,14 +180,11 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     panel.physicalHeightmm=89 \
     ro.opengles.version=131072 \
     gsm.net.interface=rmnet0 \
-    persist.service.crashlog.enable=1 \
-    persist.system.at-proxy.mode=0 \
     persist.ril-daemon.disable=0 \
     persist.sys.usb.config=mtp \
     persist.radio.ril_modem_state=1 \
     ro.secure=0 \
     ro.adb.secure=0 \
-    ro.allow.mock.location=1 \
     ro.debuggable=1
 
 # SGX540 is slower with the scissor optimization enabled
@@ -217,7 +204,8 @@ PRODUCT_COPY_FILES += \
 
 # MediaProfile for xt890
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml
+    $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml \
+    $(LOCAL_PATH)/config/media_codecs.xml:system/etc/media_codecs.xml
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -226,8 +214,6 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.flash-autofocus.xml:system/etc/permissions/android.hardware.camera.flash-autofocus.xml \
     frameworks/native/data/etc/android.hardware.camera.front.xml:system/etc/permissions/android.hardware.camera.front.xml \
     frameworks/native/data/etc/android.hardware.location.gps.xml:system/etc/permissions/android.hardware.location.gps.xml \
-    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/android.hardware.sensor.proximity.xml:system/etc/permissions/android.hardware.sensor.proximity.xml \
     frameworks/native/data/etc/android.hardware.sensor.light.xml:system/etc/permissions/android.hardware.sensor.light.xml \
@@ -239,23 +225,17 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 #    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
 
 # Device specific permissions
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.intel.internal.telephony.OemTelephony.xml:system/etc/permissions/com.intel.internal.telephony.OemTelephony.xml \
-    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.drmcommonconfig.xml:system/etc/permissions/com.motorola.android.drmcommonconfig.xml \
-    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.tcmd.xml:system/etc/permissions/com.motorola.android.tcmd.xml \
-    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.usbpermission.xml:system/etc/permissions/com.motorola.android.usbpermission.xml \
-#    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.dm.service.xml:system/etc/permissions/com.motorola.android.dm.service.xml \
+    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.drmcommonconfig.xml:system/etc/permissions/com.motorola.android.drmcommonconfig.xml
 
 # Device specific frameworks
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/modules/prebuilt/framework/com.intel.internal.telephony.OemTelephony.jar:system/framework/com.intel.internal.telephony.OemTelephony.jar \
-#    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.android.telephony.jar:system/framework/com.motorola.android.telephony.jar \
-#    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.atcmd.base.jar:system/framework/com.motorola.atcmd.base.jar \
-#    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.atcmd.pluginMgr.jar:system/framework/com.motorola.atcmd.pluginMgr.jar
+    $(LOCAL_PATH)/modules/prebuilt/framework/com.intel.internal.telephony.OemTelephony.jar:system/framework/com.intel.internal.telephony.OemTelephony.jar
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-motorola
 
@@ -273,6 +253,9 @@ $(call inherit-product, vendor/motorola/smi/smi-vendor.mk)
 
 # Wifi Configuration Files
 $(call inherit-product, hardware/ti/wlan/mac80211/wl128x-wlan-products.mk)
+
+# Nfc
+$(call inherit-product, $(LOCAL_PATH)/modules/nfc/nfc.mk)
 
 # Shared Transport (BLUETOOTH,FM,GPS)
 #$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
