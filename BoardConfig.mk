@@ -133,7 +133,7 @@ TARGET_RECOVERY_INITRC := $(LOCAL_PATH)/rootdir/init.recovery.sc1.rc
 BOARD_RECOVERY_SWIPE := true
 BOARD_UMS_LUNFILE := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun%d/file"
 TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/boottools/image/bzImage
-#BOARD_SUPPRESS_EMMC_WIPE := true
+BOARD_SUPPRESS_EMMC_WIPE := true
 
 # Recovery options TWRP
 DEVICE_RESOLUTION := 540x960
