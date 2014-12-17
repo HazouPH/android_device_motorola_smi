@@ -18,6 +18,7 @@ on post-fs
     insmod /system/lib/modules/wl12xx.ko
 
     # Fix wlan MAC addr and load module
+    chmod 0755 /system/bin/fix-mac.sh
     exec /system/bin/fix-mac.sh
 
 on post-fs-data
