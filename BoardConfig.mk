@@ -60,10 +60,12 @@ BOARD_KERNEL_BASE := 0x1200000
 BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/boottools/image/bzImage
-TARGET_KERNEL_CONFIG := i386_mfld_oxavelar_defconfig
-#TARGET_KERNEL_SOURCE := linux-3.0.34
+TARGET_KERNEL_CONFIG := i386_mfld_test_defconfig
+#TARGET_KERNEL_SOURCE := linux/kernel
 BOARD_KERNEL_IMAGE_NAME := bzImage
-BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=260046848 earlyprintk=nologger hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 emmc_ipanic.ipanic_part_number=6 loglevel=4 console=null androidboot.mode=main androidboot.wakesrc=0x00004000 androidboot.bootloader=0x2025 cid=0x7 androidboot.serialno=TA23703D03 androidboot.baseband=xmm androidboot.carrier=
+BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=260046848 earlyprintk=nologger \
+                        hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 \
+                        emmc_ipanic.ipanic_part_number=6 slub_max_order=2 loglevel=4
 
 # Storage information
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
