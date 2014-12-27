@@ -200,7 +200,8 @@ PRODUCT_COPY_FILES += \
 # MediaProfile for xt890
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/config/media_profiles.xml:system/etc/media_profiles.xml \
-    $(LOCAL_PATH)/config/media_codecs.xml:system/etc/media_codecs.xml
+    $(LOCAL_PATH)/config/media_codecs.xml:system/etc/media_codecs.xml \
+    $(LOCAL_PATH)/config/wrs_omxil_components.list:system/etc/wrs_omxil_components.list
 
 # Permissions
 PRODUCT_COPY_FILES += \
