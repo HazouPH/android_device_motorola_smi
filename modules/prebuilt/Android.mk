@@ -11,8 +11,8 @@ LOCAL_MODULE_SUFFIX := .so
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := libintelmetadatabuffer
-LOCAL_SRC_FILES := $(PREBUILT_DIR)/lib/libintelmetadatabuffer.so
+LOCAL_MODULE := libpvr2d
+LOCAL_SRC_FILES := $(PREBUILT_DIR)/lib/libpvr2d.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_SUFFIX := .so
