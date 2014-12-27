@@ -53,58 +53,53 @@ PRODUCT_COPY_FILES += \
         $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir,root) \
         $(call find-copy-subdir-files,*,$(LOCAL_PATH)/modules/prebuilt/lib/modules,system/lib/modules)
 
-# Motorola
-#PRODUCT_PACKAGES += \
-#    aplogd
-
-#############################open-source
 # psb video
-#PRODUCT_PACKAGES += \
-#    pvr_drv_video
+PRODUCT_PACKAGES += \
+    pvr_drv_video \
+    msvdx_bin \
+    topaz_bin
 
 # libva
-#PRODUCT_PACKAGES += \
-#    libva \
-#    libva-android \
-#    libva-tpi \
-#    vainfo
+PRODUCT_PACKAGES += \
+    libva \
+    libva-android \
+    libva-tpi
 
-#libstagefrighthw
-#PRODUCT_PACKAGES += \
-#    libstagefrighthw
+# libstagefrighthw
+PRODUCT_PACKAGES += \
+    libstagefrighthw
 
 # libmix
-#PRODUCT_PACKAGES += \
-#    libmixvbp_mpeg4 \
-#    libmixvbp_h264 \
-#    libmixvbp_h264secure \
-#    libmixvbp_vc1 \
-#    libmixvbp_vp8 \
-#    libmixvbp \
-#    libva_videodecoder \
-#    libva_videoencoder
+PRODUCT_PACKAGES += \
+    libmixvbp_mpeg4 \
+    libmixvbp_h264 \
+    libmixvbp_h264secure \
+    libmixvbp_vc1 \
+    libmixvbp \
+    libva_videodecoder \
+    libva_videoencoder
 
-#PRODUCT_PACKAGES += \
-#    libwrs_omxil_common \
-#    libwrs_omxil_core_pvwrapped \
-#    libOMXVideoDecoderAVC \
-#    libOMXVideoDecoderH263 \
-#    libOMXVideoDecoderMPEG4 \
-#   libOMXVideoDecoderWMV \
-#    libOMXVideoDecoderVP8 \
-#    libOMXVideoDecoderVP9HWR \
-#    libOMXVideoDecoderVP9Hybrid \
-#    libOMXVideoEncoderAVC \
-#   libOMXVideoEncoderH263 \
-#    libOMXVideoEncoderMPEG4 \
-#    libOMXVideoEncoderVP8
+# HW acceleration
+PRODUCT_PACKAGES += \
+    libwrs_omxil_common \
+    libwrs_omxil_core_pvwrapped \
+    libOMXVideoDecoderAVC \
+    libOMXVideoDecoderAVCSecure \
+    libOMXVideoDecoderH263 \
+    libOMXVideoDecoderMPEG4 \
+    libOMXVideoDecoderPAVC \
+    libOMXVideoDecoderWMV \
+    libOMXVideoEncoderAVC \
+    libOMXVideoEncoderH263 \
+    libOMXVideoEncoderMPEG4
+
+# libwsbm
+PRODUCT_PACKAGES += \
+    libwsbm
 
 # libdrm
-#PRODUCT_PACKAGES += \
-#    libdrm \
-#    dristat \
-#    drmstat
-#############################open-source
+PRODUCT_PACKAGES += \
+    libdrm
 
 # Misc
 PRODUCT_PACKAGES += \
