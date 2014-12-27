@@ -80,6 +80,10 @@ service pvrsrvctl /system/vendor/bin/pvrsrvctl --no-module --start
     oneshot
     user root
 
+# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
+service watchdogd /sbin/watchdogd 10 20
+    class core
+
 service watchdogd /watchdogd
     class core
     user system
