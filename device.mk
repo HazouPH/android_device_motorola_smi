@@ -53,6 +53,11 @@ PRODUCT_COPY_FILES += \
         $(call find-copy-subdir-files,*,$(LOCAL_PATH)/rootdir,root) \
         $(call find-copy-subdir-files,*,$(LOCAL_PATH)/modules/prebuilt/lib/modules,system/lib/modules)
 
+# Camera
+PRODUCT_PACKAGES += \
+    camera.sc1 \
+    libintelmetadatabuffer
+
 # psb video
 PRODUCT_PACKAGES += \
     pvr_drv_video \
