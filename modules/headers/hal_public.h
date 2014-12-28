@@ -256,6 +256,10 @@ typedef struct IMG_gralloc_module_public_t
 				 int transform,
 				 int async);
 
+	int (*Blit2)(struct IMG_gralloc_module_public_t const *module,
+				 buffer_handle_t src, buffer_handle_t dest,
+				 int w, int h, int x, int y);
+
 	int (*Blit3)(struct IMG_gralloc_module_public_t const *module,
 				 unsigned long long ui64SrcStamp, int iSrcWidth,
 				 int iSrcHeight, int iSrcFormat, int eSrcRotation,
