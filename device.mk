@@ -60,9 +60,9 @@ PRODUCT_PACKAGES += \
 
 # psb video
 PRODUCT_PACKAGES += \
-    pvr_drv_video \
     msvdx_bin \
-    topaz_bin
+    topaz_bin #\
+#    pvr_drv_video
 
 # libva
 PRODUCT_PACKAGES += \
@@ -81,8 +81,8 @@ PRODUCT_PACKAGES += \
     libmixvbp_h264secure \
     libmixvbp_vc1 \
     libmixvbp \
-    libva_videodecoder \
-    libva_videoencoder
+    libva_videodecoder #\
+#    libva_videoencoder
 
 # HW acceleration
 PRODUCT_PACKAGES += \
@@ -93,10 +93,10 @@ PRODUCT_PACKAGES += \
     libOMXVideoDecoderH263 \
     libOMXVideoDecoderMPEG4 \
     libOMXVideoDecoderPAVC \
-    libOMXVideoDecoderWMV \
-    libOMXVideoEncoderAVC \
-    libOMXVideoEncoderH263 \
-    libOMXVideoEncoderMPEG4
+    libOMXVideoDecoderWMV #\
+#    libOMXVideoEncoderAVC \
+#    libOMXVideoEncoderH263 \
+#    libOMXVideoEncoderMPEG4
 
 # libwsbm
 PRODUCT_PACKAGES += \
