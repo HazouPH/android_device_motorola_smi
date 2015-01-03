@@ -108,7 +108,7 @@ static char * camera_fixup_getparams(const char * settings)
      */
     const char *motHdrModeValues = params.get("mot-hdr-mode-values");
     const char *supportedSceneModes =
-                params.get(android::CameCameraraParameters::KEY_SUPPORTED_SCENE_MODES);
+                params.get(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES);
     if (motHdrModeValues && *motHdrModeValues && strstr(motHdrModeValues, "on") &&
             supportedSceneModes && *supportedSceneModes && !strstr(supportedSceneModes, "hdr")) {
         char tmp2[strlen(supportedSceneModes) + 5];
