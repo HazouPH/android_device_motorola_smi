@@ -116,5 +116,6 @@ on property:sys.storage.ums_enabled=0
     write /sys/class/android_usb/android0/functions adb
     write /sys/class/android_usb/android0/enable ${service.adb.root}
 
-service watchdogd /sbin/watchdogd
-    oneshot
+# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
+service watchdogd /sbin/watchdogd 10 20
+    class core

@@ -84,12 +84,6 @@ service pvrsrvctl /system/vendor/bin/pvrsrvctl --no-module --start
 service watchdogd /sbin/watchdogd 10 20
     class core
 
-#service watchdogd /watchdogd
-#    class core
-#    user system
-#    group system
-#    oneshot
-
 service drm /system/bin/drmserver
     class main
     user drm
