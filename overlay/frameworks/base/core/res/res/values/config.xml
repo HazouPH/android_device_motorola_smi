@@ -79,7 +79,7 @@
 
     <!-- Minimum screen brightness setting allowed by the power manager.
          The user is forbidden from setting the brightness below this level. -->
-    <integer name="config_screenBrightnessSettingMinimum">10</integer>
+    <integer name="config_screenBrightnessSettingMinimum">0</integer>
 
     <!-- Array of light sensor LUX values to define our levels for auto backlight brightness support.
          The N entries of this array define N + 1 zones as follows:
@@ -93,10 +93,16 @@
          Must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLevels">
         <item>5</item>
+        <item>20</item>
         <item>50</item>
         <item>100</item>
+        <item>400</item>
+        <item>800</item>
+        <item>1500</item>
         <item>3000</item>
-        <item>8000</item>
+        <item>6000</item>
+        <item>9000</item>
+        <item>15000</item>
     </integer-array>
 
     <!-- Vibrator pattern for feedback about a long screen/key press -->
@@ -105,23 +111,34 @@
         <item>20</item>
     </integer-array>
 
+    <!-- Screen brightness used to dim the screen when the user activity
+         timeout expires.  May be less than the minimum allowed brightness setting
+         that can be set by the user. -->
+    <integer name="config_screenBrightnessDim">2</integer>
+
     <!-- Array of output values for LCD backlight corresponding to the LUX values
          in the config_autoBrightnessLevels array.  This array should have size one greater
          than the size of the config_autoBrightnessLevels array.
          This must be overridden in platform specific overlays -->
     <integer-array name="config_autoBrightnessLcdBacklightValues">
-        <item>25</item>
-        <item>42</item>
-        <item>68</item>
-        <item>127</item>
-        <item>178</item>
+        <item>3</item>
+        <item>3</item>
+        <item>7</item>
+        <item>13</item>
+        <item>23</item>
+        <item>63</item>
+        <item>93</item>
+        <item>131</item>
+        <item>191</item>
+        <item>241</item>
+        <item>255</item>
         <item>255</item>
     </integer-array>
 
     <!-- Amount of time it takes for the light sensor to warm up in milliseconds.
          For this time after the screen turns on, the Power Manager
          will not debounce light sensor readings -->
-    <integer name="config_lightSensorWarmupTime">2000</integer>
+    <integer name="config_lightSensorWarmupTime">0</integer>
 
     <!-- Package name(s) containing location provider support.
          These packages can contain services implementing location providers,
@@ -219,21 +236,26 @@
     <!-- The VoiceMail default value is displayed to my own number if it is true -->
     <bool name="config_telephony_use_own_number_for_voicemail">true</bool>
 
-    <!-- Hardware 'face' keys present on the device, stored as a bit field.
-        This integer should equal the sum of the corresponding value for each
-        of the following keys present:
-            1 - Home
-            2 - Back
-            4 - Menu
-            8 - Assistant (search)
-            16 - App switch
-            32 - Camera
-        For example, a device with Home, Back and Menu keys would set this
-        config to 7. -->
-    <integer name="config_deviceHardwareKeys">0</integer>
-
     <!-- Device supports LED flashlight -->
     <bool name="config_enableTorch">true</bool>
+
+    <!-- Hardware 'face' keys present on the device, stored as a bit field.
+         This integer should equal the sum of the corresponding value for each
+         of the following keys present:
+             1 - Home
+             2 - Back
+             4 - Menu
+             8 - Assistant (search)
+            16 - App switch
+            32 - Camera
+         For example, a device with Home, Back and Menu keys would set this
+         config to 7. -->
+    <integer name="config_deviceHardwareKeys">32</integer>
+
+    <!-- Indicates that the device has Single-stage Camera key
+         (without "Focus" state) instead of Dual-stage. -->
+    <bool name="config_singleStageCameraKey">false</bool>
+
 
     <!-- Set to true to add links to Cell Broadcast app from Settings and MMS app. -->
     <bool name="config_cellBroadcastAppLinks">true</bool>
