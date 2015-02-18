@@ -5,9 +5,10 @@
 #
 
 import /init.environ.rc
-import /init.sc1.rc
 # import /init.usb.rc
+import /init.${ro.hardware}.rc
 import /init.trace.rc
+import /init.carrier.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -34,8 +35,6 @@ on early-init
     chown system system /sys/fs/selinux/commit_pending_bools
 
 on init
-    # Sets the data roaming setting by default to false
-    setprop ro.com.android.dataroaming false
 
 sysclktz 0
 
@@ -378,12 +377,6 @@ on boot
     chown system system /sys/class/leds/red/device/grpfreq
     chown system system /sys/class/leds/red/device/grppwm
     chown system system /sys/class/leds/red/device/blink
-    chown system system /sys/class/leds/red/brightness
-    chown system system /sys/class/leds/green/brightness
-    chown system system /sys/class/leds/blue/brightness
-    chown system system /sys/class/leds/red/device/grpfreq
-    chown system system /sys/class/leds/red/device/grppwm
-    chown system system /sys/class/leds/red/device/blink
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/module/sco/parameters/disable_esco
     chown system system /sys/kernel/ipv4/tcp_wmem_min
@@ -566,16 +559,6 @@ service bootanim /system/bin/bootanimation
     disabled
     oneshot
 
-
-#service bluetoothd /system/bin/bluetoothd -n
-#    class main
-#    socket bluetooth stream 660 bluetooth bluetooth
-#    socket dbus_bluetooth stream 660 bluetooth bluetooth
-    # init.rc does not yet support applying capabilities, so run as root and
-    # let bluetoothd drop uid to bluetooth with the right linux capabilities
-#    group bluetooth net_bt_admin misc
-#    disabled
-
 service installd /system/bin/installd
     class main
     socket installd stream 600 system system
@@ -608,8 +591,7 @@ service mtpd /system/bin/mtpd
 service keystore /system/bin/keystore /data/misc/keystore
     class main
     user keystore
-    group keystore drmrpc
-    socket keystore stream 666
+    group keystore drmrpc system
 
 service dumpstate /system/bin/dumpstate -s
     class main
@@ -629,3 +611,7 @@ service mdnsd /system/bin/mdnsd
     disabled
     oneshot
 
+service pre-recovery /system/bin/uncrypt
+    class main
+    disabled
+    oneshot
