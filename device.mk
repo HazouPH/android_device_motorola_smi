@@ -173,9 +173,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.status.polling.enable=0 \
     ro.config.personality=compat_layout
 
-
 ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.sf.lcd_density=240 \
     panel.physicalWidthmm=52 \
     panel.physicalHeightmm=89 \
     ro.opengles.version=131072 \
