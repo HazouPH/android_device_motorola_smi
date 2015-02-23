@@ -9,8 +9,8 @@ on init
 on boot
     write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
-    write /sys/class/android_usb/android0/idProduct 0x710B
-    write /sys/class/android_usb/android0/functions rndis
+    write /sys/class/android_usb/android0/f_mass_storage/vendor ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/f_mass_storage/product ${ro.product.model}
     setprop usb.mtp.pid 0x710F
     setprop usb.mtp.cdrom 1
     setprop usb.mtp.config mass_storage
@@ -18,8 +18,8 @@ on boot
 on charger
     write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
-    write /sys/class/android_usb/android0/idProduct 0x710C
-    write /sys/class/android_usb/android0/functions rndis,adb
+    write /sys/class/android_usb/android0/f_mass_storage/vendor ${ro.product.manufacturer}
+    write /sys/class/android_usb/android0/f_mass_storage/product ${ro.product.model}
     setprop sys.usb.config charger
 
 # Perms
@@ -123,8 +123,8 @@ on property:sys.usb.config=rndis
     stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 0x22b8
-    write /sys/class/android_usb/android0/idProduct ${ro.usb.rndis.pid}
-    write /sys/class/android_usb/android0/functions ${ro.usb.rndis.config}
+    write /sys/class/android_usb/android0/idProduct 0x710B
+    write /sys/class/android_usb/android0/functions rndis
     write /sys/class/android_usb/android0/enable 1
     setprop sys.usb.state ${sys.usb.config}
 
@@ -133,8 +133,8 @@ on property:sys.usb.config=rndis,adb
     stop adbd
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 0x22b8
-    write /sys/class/android_usb/android0/idProduct ${ro.usb.rndis-adb.pid}
-    write /sys/class/android_usb/android0/functions ${ro.usb.rndis-adb.config}
+    write /sys/class/android_usb/android0/idProduct 0x710C
+    write /sys/class/android_usb/android0/functions rndis,adb
     write /sys/class/android_usb/android0/enable 1
     start adbd
     setprop sys.usb.state ${sys.usb.config}
