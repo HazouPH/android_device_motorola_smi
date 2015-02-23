@@ -9,8 +9,8 @@ on init
 on boot
     write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
-    write /sys/class/android_usb/android0/f_mass_storage/vendor ${ro.product.manufacturer}
-    write /sys/class/android_usb/android0/f_mass_storage/product ${ro.product.model}
+    write /sys/class/android_usb/android0/idProduct 0x710B
+    write /sys/class/android_usb/android0/functions rndis
     setprop usb.mtp.pid 0x710F
     setprop usb.mtp.cdrom 1
     setprop usb.mtp.config mass_storage
@@ -18,8 +18,8 @@ on boot
 on charger
     write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
-    write /sys/class/android_usb/android0/f_mass_storage/vendor ${ro.product.manufacturer}
-    write /sys/class/android_usb/android0/f_mass_storage/product ${ro.product.model}
+    write /sys/class/android_usb/android0/idProduct 0x710C
+    write /sys/class/android_usb/android0/functions rndis,adb
     setprop sys.usb.config charger
 
 # Perms
