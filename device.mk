@@ -237,12 +237,7 @@ PRODUCT_COPY_FILES += \
 
 # Device specific permissions
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.intel.internal.telephony.OemTelephony.xml:system/etc/permissions/com.intel.internal.telephony.OemTelephony.xml \
     $(LOCAL_PATH)/modules/prebuilt/etc/permissions/com.motorola.android.drmcommonconfig.xml:system/etc/permissions/com.motorola.android.drmcommonconfig.xml
-
-# Device specific frameworks
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/modules/prebuilt/framework/com.intel.internal.telephony.OemTelephony.jar:system/framework/com.intel.internal.telephony.OemTelephony.jar
 
 PRODUCT_GMS_CLIENTID_BASE ?= android-motorola
 
