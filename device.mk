@@ -106,6 +106,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libdrm
 
+# AGPS
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/modules/prebuilt/framework/com.motorola.android.location.jar:system/framework/com.motorola.android.location.jar
+
 # Misc
 PRODUCT_PACKAGES += \
     curl \
