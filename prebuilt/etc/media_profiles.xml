@@ -379,6 +379,19 @@
 
         </EncoderProfile>
 
+        <EncoderProfile quality="cif" fileFormat="mp4" duration="30">
+            <Video codec="h264"
+                   bitRate="640000"
+                   width="352"
+                   height="288"
+                   frameRate="30" />
+
+            <Audio codec="amrnb"
+                   bitRate="12200"
+                   sampleRate="8000"
+                   channels="1" />
+        </EncoderProfile>
+
         <EncoderProfile quality="480p" fileFormat="mp4" duration="60">
             <Video codec="h264"
                    bitRate="4000000"
