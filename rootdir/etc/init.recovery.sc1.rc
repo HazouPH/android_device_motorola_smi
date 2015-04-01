@@ -1,8 +1,3 @@
-on init
-# interval:60s margin:20s
-service watchdogd /sbin/watchdogd 60 20
-    oneshot
-    seclabel u:r:watchdogd:s0
-# Reset the watchdog counter once boot is completed
-on property:init.svc.recovery=running
-    write /sys/devices/virtual/misc/watchdog/counter "0"
+on boot
+# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
+service watchdogd /sbin/watchdogd 10 20
