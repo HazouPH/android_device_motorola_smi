@@ -100,7 +100,7 @@ BOARD_USES_TINY_ALSA_AUDIO := true
 
 # Graphics
 USE_OPENGL_RENDERER	:= true
-BOARD_EGL_CFG := $(LOCAL_PATH)/config/egl.cfg
+BOARD_EGL_CFG := $(LOCAL_PATH)/prebuilt/lib/egl/egl.cfg
 BOARD_USES_HWCOMPOSER := true
 BOARD_ALLOW_EGL_HIBERNATION := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
@@ -126,7 +126,7 @@ BOARD_SKIP_ANDROID_DOC_BUILD := true
 # Recovery configuration global
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.sc1
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.sc1
 BOARD_RECOVERY_SWIPE := true
 BOARD_UMS_LUNFILE := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun%d/file"
 TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/boottools/image/bzImage
