@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+  <project path="vendor/motorola/smi" name="HazouPH/android_vendor_motorola_smi" revision="cm-11.0"/>
+
+  <project path="patches" name="HazouPH/smi_cm11_patches" revision="cm-11.0"/>
+
+  <project path="device/motorola/smi" name="HazouPH/android_device_motorola_smi" revision="cm-11.0"/>
+
+  <project path="hardware/intel/img/psb_video" name="platform/hardware/intel/img/psb_video" remote="aosp" revision="master"/>
+
+  <project path="hardware/intel/img/libdrm" name="platform/hardware/intel/img/libdrm" remote="aosp" revision="master"/>
+
+  <project path="hardware/intel/img/psb_headers" name="platform/hardware/intel/img/psb_headers" remote="aosp" revision="master"/>
+
+  <project path="hardware/intel/common/omx-components" name="platform/hardware/intel/common/omx-components" remote="aosp" revision="master"/>
+
+  <project path="hardware/intel/common/wrs_omxil_core" name="platform/hardware/intel/common/wrs_omxil_core" remote="aosp" revision="master"/>
+
+  <project path="hardware/intel/common/libstagefrighthw" name="platform/hardware/intel/common/libstagefrighthw" remote="aosp" revision="master"/>
+
+  <project path="hardware/intel/common/libva" name="platform/hardware/intel/common/libva" remote="aosp" revision="master"/>
+
+  <project path="hardware/intel/common/libmix" name="platform/hardware/intel/common/libmix" remote="aosp" revision="master"/>
+
+  <project path="hardware/intel/audio/media" name="platform/hardware/intel/audio_media" remote="aosp" revision="master"/>
+
+  <project path="hardware/intel/common/libwsbm" name="platform/hardware/intel/common/libwsbm" remote="aosp" revision="master"/>
+
+</manifest>
