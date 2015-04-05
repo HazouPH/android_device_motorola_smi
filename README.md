@@ -7,5 +7,5 @@ Motorola Razr i Intel-atom
 
 Source from Turl, Oxavelar, Motorola, Intel and HazouPH
 
-Bugs:
-- Full screen video glitching (sometimes)
+Still todo:
+- Kernel build when source is available, takes long
