@@ -181,6 +181,9 @@ on post-fs
     # create pds/public/locale to store current language selected
     mkdir /pds/public/locale 0700 system system
 
+# For LBS
+    insmod /system/lib/modules/gps_drv.ko
+
 # run after "on post-fs" and before "on early-boot"
 # /data should always be mounted by this point
 on post-fs-data
@@ -283,9 +286,6 @@ on property:sys.boot_completed=1
     # Insert matrix for PnP measurements
     insmod /system/lib/modules/matrix.ko
     chmod 0640 /dev/matrix
-
-# For LBS
-    insmod /system/lib/modules/gps_drv.ko
 
 service gkisystem /system/bin/gkisystem
     class main
