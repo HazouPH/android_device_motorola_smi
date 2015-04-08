@@ -12,3 +12,5 @@ if busybox [ ! -f "$NVS_BIN" ]; then
     calibrator set nvs_mac $NVS_BIN $MAC
     toolbox mount -o remount,ro /system
 fi
+
+toolbox insmod /system/lib/modules/wl12xx_sdio.ko
