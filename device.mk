@@ -69,55 +69,55 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
-    camera.sc1 \
-    libintelmetadatabuffer
+    camera.sc1
+#    libintelmetadatabuffer
 
 # psb video
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     msvdx_bin \
-    topaz_bin #\
-#    pvr_drv_video
+    topaz_bin \
+    pvr_drv_video
 
 # libva
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     libva \
     libva-android \
     libva-tpi
 
 # libstagefrighthw
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     libstagefrighthw
 
 # libmix
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     libmixvbp_mpeg4 \
     libmixvbp_h264 \
     libmixvbp_h264secure \
     libmixvbp_vc1 \
-    libmixvbp #\
-#    libva_videodecoder \
-#    libva_videoencoder
+    libmixvbp \
+    libva_videodecoder \
+    libva_videoencoder
 
 # HW acceleration
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     libwrs_omxil_common \
-    libwrs_omxil_core_pvwrapped #\
-#    libOMXVideoDecoderAVC \
-#    libOMXVideoDecoderAVCSecure \
-#    libOMXVideoDecoderH263 \
-#    libOMXVideoDecoderMPEG4 \
-#    libOMXVideoDecoderPAVC \
-#    libOMXVideoDecoderWMV #\
-#    libOMXVideoEncoderAVC \
-#    libOMXVideoEncoderH263 \
-#    libOMXVideoEncoderMPEG4
+    libwrs_omxil_core_pvwrapped \
+    libOMXVideoDecoderAVC \
+    libOMXVideoDecoderAVCSecure \
+    libOMXVideoDecoderH263 \
+    libOMXVideoDecoderMPEG4 \
+    libOMXVideoDecoderPAVC \
+    libOMXVideoDecoderWMV \
+    libOMXVideoEncoderAVC \
+    libOMXVideoEncoderH263 \
+    libOMXVideoEncoderMPEG4
 
 # libwsbm
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     libwsbm
 
 # libdrm
-PRODUCT_PACKAGES += \
+#PRODUCT_PACKAGES += \
     libdrm
 
 # AGPS
