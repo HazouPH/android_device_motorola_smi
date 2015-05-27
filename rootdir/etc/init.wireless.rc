@@ -133,6 +133,6 @@ service pcsc /system/bin/pcscd --auto-exit
     disabled
     oneshot
 
-on property:persist.radio.airplane_mode_on=0
-    stop ril-daemon
-    start ril-daemon
+#on property:persist.radio.airplane_mode_on=0
+#   stop ril-daemon
+#   start ril-daemon
