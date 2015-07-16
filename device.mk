@@ -94,20 +94,20 @@ PRODUCT_PACKAGES += \
     libmixvbp_h264 \
     libmixvbp_h264secure \
     libmixvbp_vc1 \
-    libmixvbp #\
-#    libva_videodecoder \
+    libmixvbp \
+    libva_videodecoder #\
 #    libva_videoencoder
 
 # HW acceleration
 PRODUCT_PACKAGES += \
     libwrs_omxil_common \
-    libwrs_omxil_core_pvwrapped #\
-#    libOMXVideoDecoderAVC \
-#    libOMXVideoDecoderAVCSecure \
-#    libOMXVideoDecoderH263 \
-#    libOMXVideoDecoderMPEG4 \
-#    libOMXVideoDecoderPAVC \
-#    libOMXVideoDecoderWMV #\
+    libwrs_omxil_core_pvwrapped \
+    libOMXVideoDecoderAVC \
+    libOMXVideoDecoderAVCSecure \
+    libOMXVideoDecoderH263 \
+    libOMXVideoDecoderMPEG4 \
+    libOMXVideoDecoderPAVC \
+    libOMXVideoDecoderWMV #\
 #    libOMXVideoEncoderAVC \
 #    libOMXVideoEncoderH263 \
 #    libOMXVideoEncoderMPEG4
