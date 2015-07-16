@@ -81,16 +81,10 @@ lib/parameter-framework-plugins/System/libproperty-subsystem.so
 vendor/etc/audio_policy.conf
 
 # MultiMedia
-bin/msvdx_bin
-bin/topaz_bin
 etc/firmware/aac_dec_1.bin
 etc/firmware/aac_enc_1.bin
 etc/firmware/aac_v1_dec_1.bin
 etc/firmware/aac_v2_dec_1.bin
-etc/firmware/mp3_dec_1.bin
-etc/firmware/msvdx_fw_mfld_DE2.0.bin
-etc/firmware/topazsc_fw.bin
-etc/firmware/wma9_dec_1.bin
 etc/wrs_omxil_components.list
 lib/lib_ARC_Omx_Plugin.so
 lib/libarcaudiogetinfo.so
@@ -100,39 +94,29 @@ lib/libarcomx_qcelpdec_sharedlibrary.so
 lib/libarcomx_qcelpenc_sharedlibrary.so
 lib/libarcomx_wmadec_sharedlibrary.so
 lib/libarcplatform.so
-lib/libmixvbp.so
 lib/libmixvbp_h264.so
 lib/libmixvbp_mpeg4.so
+lib/libmixvbp.so
 lib/libmixvbp_vc1.so
-lib/libOMXVideoDecoderAVC.so
-lib/libOMXVideoDecoderAVCSecure.so
-lib/libOMXVideoDecoderH263.so
-lib/libOMXVideoDecoderMPEG4.so
-lib/libOMXVideoDecoderPAVC.so
-lib/libOMXVideoDecoderWMV.so
 lib/libOMXVideoEncoderAVC.so
 lib/libOMXVideoEncoderH263.so
 lib/libOMXVideoEncoderMPEG4.so
 lib/libremote-processor.so
 lib/libstagefrighthw.so
-lib/libva_videodecoder.so
 lib/libva_videoencoder.so
-lib/libwrs_omxil_common.so
-lib/libwrs_omxil_core_pvwrapped.so
 vendor/media/LMspeed_508.emd
 vendor/media/PFFprec_600.emd
 
 # Graphics
+etc/firmware/mp3_dec_1.bin
+etc/firmware/msvdx_fw_mfld_DE2.0.bin
+etc/firmware/topazsc_fw.bin
+etc/firmware/wma9_dec_1.bin
 lib/drm/libmotdrmplugin.so
 lib/hw/hwcomposer.smi.so
-lib/libdrm.so
 lib/libpvr2d.so
 lib/libsepdrm.so
-lib/libva-android.so
-lib/libva-tpi.so
-lib/libva.so
 lib/libwbxmlparser.so
-lib/libwsbm.so
 lib/pvr_drv_video.so
 vendor/bin/pvrsrvctl
 vendor/lib/drm/libdrmwvmplugin.so
@@ -157,7 +141,6 @@ vendor/lib/mediadrm/libwvdrmengine.so
 
 # Camera
 lib/hw/camera.sc1.so:lib/hw/camera.vendor.sc1.so
-lib/libintelmetadatabuffer.so
 lib/libmfldadvci.so
 lib/libSh3aParamsLiteOn8M.so
 lib/libSh3aParamsSemcoLc898211.so
