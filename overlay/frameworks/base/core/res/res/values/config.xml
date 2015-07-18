@@ -244,4 +244,10 @@
 
     <!-- Shutdown if the battery temperature exceeds (this value * 0.1) Celsius. -->
     <integer name="config_shutdownBatteryTemperature">800</integer>
+
+    <!-- MMS user agent string -->
+    <string name="config_mms_user_agent" translatable="false">MOT-XT890</string>
+
+    <!-- MMS user agent prolfile url -->
+    <string name="config_mms_user_agent_profile_url" translatable="false">http://uaprof.motorola.com/phoneconfig/motoxt890/Profile/motoxt890_jb.rdf</string>
 </resources>
