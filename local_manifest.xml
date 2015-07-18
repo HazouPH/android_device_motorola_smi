@@ -7,6 +7,8 @@
 
   <project path="device/motorola/smi" name="HazouPH/android_device_motorola_smi" revision="cm-11.0"/>
 
+  <project path="hardware/intel/common/libmix" name="nels83/android_hardware_intel_common_libmix" revision="cm-12.1"/>
+
   <project path="hardware/intel/img/psb_video" name="platform/hardware/intel/img/psb_video" remote="aosp" revision="master"/>
 
   <project path="hardware/intel/img/libdrm" name="platform/hardware/intel/img/libdrm" remote="aosp" revision="master"/>
@@ -20,8 +22,6 @@
   <project path="hardware/intel/common/libstagefrighthw" name="platform/hardware/intel/common/libstagefrighthw" remote="aosp" revision="master"/>
 
   <project path="hardware/intel/common/libva" name="platform/hardware/intel/common/libva" remote="aosp" revision="master"/>
-
-  <project path="hardware/intel/common/libmix" name="platform/hardware/intel/common/libmix" remote="aosp" revision="master"/>
 
   <project path="hardware/intel/audio/media" name="platform/hardware/intel/audio_media" remote="aosp" revision="master"/>
 
