@@ -70,12 +70,12 @@ service dhcpcd_p2p /system/bin/dhcpcd -aABKL
     disabled
     oneshot
 
-service iprenew_wlan0 /system/bin/dhcpcd -n
+service iprenew_wlan0 /system/bin/dhcpcd -nBK
     class main
     disabled
     oneshot
 
-service iprenew_p2p /system/bin/dhcpcd -n
+service iprenew_p2p /system/bin/dhcpcd -nBK
     class main
     disabled
     oneshot

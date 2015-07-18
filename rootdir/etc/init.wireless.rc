@@ -111,12 +111,12 @@ service bd_prov /system/bin/bd_prov
     group bluetooth security net_bt_admin
     oneshot
 
-service dhcpcd_bt-pan /system/bin/logwrapper /system/bin/dhcpcd -ABKL
+service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     class main
     disabled
     oneshot
 
-service iprenew_bt-pan /system/bin/logwrapper /system/bin/dhcpcd -n
+service iprenew_bt-pan /system/bin/dhcpcd -n
     class main
     disabled
     oneshot
