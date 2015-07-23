@@ -13,7 +13,7 @@ LOCAL_SRC_FILES :=              \
 LOCAL_C_INCLUDES :=             \
     $(LOCAL_PATH)               \
     bionic                      \
-    $(call include-path-for, stlport) \
+    external/stlport/stlport
 
 
 LOCAL_SHARED_LIBRARIES :=       \
