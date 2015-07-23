@@ -394,7 +394,8 @@ enum _vbp_parser_error
     VBP_MEM,
     VBP_PARM,
     VBP_PARTIAL,
-    VBP_MULTI
+    VBP_MULTI,
+    VBP_ERROR
 };
 
 enum _vbp_parser_type

@@ -413,13 +413,18 @@ static uint32 vbp_utils_parse_es_buffer(vbp_context *pcontext, uint8 init_data_f
         error = ops->parse_syntax((void *)cxt, (void *)&(cxt->codec_data[0]));
 
         /* can't return error for now. Neet further investigation */
-#if 0
-        if (0 != error)
-        {
-            ETRACE("failed to parse the syntax: %d!", error);
-            return error;
-        }
+        if (0 != error) {
+            WTRACE("failed to parse the syntax: %d!", error);
+            if (pcontext->parser_type == VBP_H264
+#if (defined USE_AVC_SHORT_FORMAT || defined USE_SLICE_HEADER_PARSING)
+                || pcontext->parser_type == VBP_H264SECURE
 #endif
+) {
+                if (error == H264_SPS_INVALID_PROFILE) {
+                    return VBP_ERROR;
+                }
+            }
+        }
 
         /* process parsing result */
         error = pcontext->func_process_parsing_result(pcontext, i);
