@@ -90,6 +90,7 @@ PRODUCT_PACKAGES += \
 
 # libmix
 PRODUCT_PACKAGES += \
+    libasfparser \
     libmixvbp_mpeg4 \
     libmixvbp_h264 \
     libmixvbp_h264secure \
