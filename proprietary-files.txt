@@ -13,7 +13,6 @@ etc/firmware/vpimg_es305b-BB.bin
 etc/firmware/vpimg_es305b-NH.bin
 etc/firmware/vpimg_es305b.bin
 etc/parameter-framework/ParameterFrameworkConfiguration.xml
-etc/parameter-framework/Settings/Audio/AudioConfigurableDomains.xml
 etc/parameter-framework/Structure/Audio/AudienceSubsystem.xml
 etc/parameter-framework/Structure/Audio/AudioClass.xml
 etc/parameter-framework/Structure/Audio/ConfigurationSubsystem.xml
