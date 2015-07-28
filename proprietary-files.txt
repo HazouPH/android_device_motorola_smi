@@ -87,6 +87,7 @@ etc/firmware/aac_v1_dec_1.bin
 etc/firmware/aac_v2_dec_1.bin
 etc/wrs_omxil_components.list
 lib/lib_ARC_Omx_Plugin.so
+lib/libasfparser.so
 lib/libarcaudiogetinfo.so
 lib/libarcomx_evrcdec_sharedlibrary.so
 lib/libarcomx_omxcore_sharedlibrary.so
@@ -102,7 +103,6 @@ lib/libOMXVideoEncoderAVC.so
 lib/libOMXVideoEncoderH263.so
 lib/libOMXVideoEncoderMPEG4.so
 lib/libremote-processor.so
-lib/libstagefrighthw.so
 lib/libva_videoencoder.so
 vendor/media/LMspeed_508.emd
 vendor/media/PFFprec_600.emd
