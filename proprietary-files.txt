@@ -86,7 +86,6 @@ etc/firmware/aac_v1_dec_1.bin
 etc/firmware/aac_v2_dec_1.bin
 etc/wrs_omxil_components.list
 lib/lib_ARC_Omx_Plugin.so
-lib/libasfparser.so
 lib/libarcaudiogetinfo.so
 lib/libarcomx_evrcdec_sharedlibrary.so
 lib/libarcomx_omxcore_sharedlibrary.so
@@ -94,10 +93,6 @@ lib/libarcomx_qcelpdec_sharedlibrary.so
 lib/libarcomx_qcelpenc_sharedlibrary.so
 lib/libarcomx_wmadec_sharedlibrary.so
 lib/libarcplatform.so
-lib/libmixvbp_h264.so
-lib/libmixvbp_mpeg4.so
-lib/libmixvbp.so
-lib/libmixvbp_vc1.so
 lib/libOMXVideoEncoderAVC.so
 lib/libOMXVideoEncoderH263.so
 lib/libOMXVideoEncoderMPEG4.so
