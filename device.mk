@@ -158,10 +158,8 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 # Houdini
-ifndef INTEL_HOUDINI_FROM_SRC
 PRODUCT_COPY_FILES += \
         $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
-endif
 
 PRODUCT_PACKAGES += \
    libhoudini_hook \

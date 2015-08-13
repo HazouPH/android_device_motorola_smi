@@ -8,14 +8,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-INTEL_HOUDINI_FROM_SRC := false
-
-ifdef INTEL_HOUDINI_FROM_SRC
-
-include $(LOCAL_PATH)/SRC/Android.mk
-
-else
-
+# Houdini hook libraries for different module
 include $(CLEAR_VARS)
 LOCAL_MODULE := libhoudini_hook
 LOCAL_SRC_FILES := hooks/libhoudini_hook.cpp
@@ -31,5 +24,3 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := STATIC_LIBRARIES
 LOCAL_C_INCLUDES :=
 include $(BUILD_STATIC_LIBRARY)
-
-endif
