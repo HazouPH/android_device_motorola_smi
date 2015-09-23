@@ -168,14 +168,15 @@ void dvmHookPlatformInvoke(void* pEnv, void* clazz, int argInfo, int argc,
 /******************************************************************************
  * For hook dlopen, dlsym and ABI2 func execution
  *****************************************************************************/
-static bool hookCheckABI2Header(const char *filename) {
+static bool isABI2LibValid(const char *filename) {
     int fd = -1;
     unsigned char header[64];
     Elf32_Ehdr *hdr;
 
-    if ((fd = open(filename, O_RDONLY)) == -1)
-        return true; // open fail, probablly the file isn't exist, return true to keep align with bionic linker's implementation.
-                     // The linker will check libname first instead of its existence
+    if ((fd = open(filename, O_RDONLY)) == -1) {
+        ALOGE("open file %s failed: %s", filename, strerror(errno));
+        return false;
+    }
 
     if (lseek(fd, 0, SEEK_SET) < 0)
         goto fail;
@@ -204,8 +205,8 @@ void* hookDlopen(const char *filename, int flag, bool* useHoudini) {
     if (handle != NULL)
         return handle;
 
-    //Houdini will not handle non-ARM libraries.
-    if (!hookCheckABI2Header(filename)) {
+    //Houdini will only handle valid ARM libraries.
+    if (!isABI2LibValid(filename)) {
         return NULL;
     }
 

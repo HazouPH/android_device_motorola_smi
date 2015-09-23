@@ -11,15 +11,15 @@
 #define CPUINFO            "/proc/cpuinfo"
 #define ARM_CPUINFO        "/system/lib/arm/cpuinfo"
 #define ARM_CPUINFO_NEON   "/system/lib/arm/cpuinfo.neon"
-
-int houdini_hook_open_neon(int myuid, int flags, int mode) {
+#define ANDROID_PER_USER_RANGE 100000
+int houdini_hook_open_neon(int appid, int flags, int mode) {
     int fd = -1;
 
     int pkg_neon_ABI2 = TEMP_FAILURE_RETRY(open(APP_WITH_ABI2_NEON, O_RDONLY, 0444));
     if (pkg_neon_ABI2 != -1) {
         int pkguid = 0;
         while (TEMP_FAILURE_RETRY(read(pkg_neon_ABI2, &pkguid, 4) > 0)) {
-            if (myuid == pkguid) {
+            if (appid == pkguid) {
                 fd = TEMP_FAILURE_RETRY(open(ARM_CPUINFO_NEON, flags, mode));
                 ALOGD("Neon Apps with ABI2 %d accessing /proc/cpuinfo \n", fd);
                 break;
@@ -36,15 +36,16 @@ int houdini_hook_open(const char *path, int flags, int mode) {
 
     if (strncmp(path, CPUINFO, sizeof(CPUINFO)) == 0) {
         int myuid = getuid();
+        int appid = myuid % ANDROID_PER_USER_RANGE;
 
         int pkg_ABI2 = TEMP_FAILURE_RETRY(open(APP_WITH_ABI2, O_RDONLY,0444));
         if (pkg_ABI2 != -1) {
             int pkguid = 0;
-            ALOGD("Searching package installed with ABI2 with Uid: %d \n", myuid);
+            ALOGD("Searching package installed with ABI2 with Uid: %d \n", appid);
 
             while (TEMP_FAILURE_RETRY(read(pkg_ABI2, &pkguid, 4) > 0)) {
-                if (myuid == pkguid) {
-                    fd = houdini_hook_open_neon(myuid, flags, mode);
+                if (appid == pkguid) {
+                    fd = houdini_hook_open_neon(appid, flags, mode);
                     if (fd == -1) {
                         fd = TEMP_FAILURE_RETRY(open(ARM_CPUINFO, flags, mode));
                         ALOGD("Apps with ABI2 %d accessing /proc/cpuinfo \n", fd);
