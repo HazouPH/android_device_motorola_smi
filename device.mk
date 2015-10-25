@@ -75,11 +75,10 @@ PRODUCT_PACKAGES += \
 # psb video
 PRODUCT_PACKAGES += \
     msvdx_bin \
+    msvdx_fw_mfld_DE2.0.bin \
     topazsc_bin \
+    topazsc_fw.bin\
     pvr_drv_video
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/firmware/msvdx_fw_mfld_DE2.0.bin:system/etc/firmware/msvdx_fw_mfld_DE2.0.bin \
-    $(LOCAL_PATH)/prebuilt/etc/firmware/topazsc_fw.bin:system/etc/firmware/topazsc_fw.bin
 
 # libva
 PRODUCT_PACKAGES += \
