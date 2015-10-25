@@ -183,9 +183,9 @@ int AsfHeaderParser::parse(uint8_t *buffer, uint64_t size) {
             } else if(obj->objectID == ASF_Padding_Object) {
             } else if(obj->objectID == ASF_Protection_System_Identifier_Object) {
                 mIsProtected = true;
-                LOGV("ASF_Protection_System_Identifier_Object");
+                ALOGV("ASF_Protection_System_Identifier_Object");
                 if (obj->objectSize < sizeof(AsfProtectionSystemIdObj)) {
-                    LOGE("Unsupported Protection System Object");
+                    ALOGE("Unsupported Protection System Object");
                     return ASF_PARSER_BAD_DATA;
                 }
                 AsfProtectionSystemIdObj *protectionSysObj = (AsfProtectionSystemIdObj*)buffer;
@@ -208,7 +208,7 @@ int AsfHeaderParser::parse(uint8_t *buffer, uint64_t size) {
                         playreadyObjBuf += sizeof(uint16_t);
                         sizeLeft -= sizeof (recordLen);
                         if (sizeLeft < recordLen) {
-                            LOGE("Invalid Rec Protection Identifier Object");
+                            ALOGE("Invalid Rec Protection Identifier Object");
                             status = ASF_PARSER_BAD_DATA;
                             break;
                         }
@@ -217,7 +217,7 @@ int AsfHeaderParser::parse(uint8_t *buffer, uint64_t size) {
                             mPlayreadyHeaderLen = recordLen;
 
                             if (mPlayreadyHeaderLen == 0) {
-                                LOGE("Invalid Protection System Record Length Value");
+                                ALOGE("Invalid Protection System Record Length Value");
                                 return ASF_PARSER_BAD_DATA;
                             }
                             mPlayreadyHeader = new uint8_t [mPlayreadyHeaderLen];
@@ -231,7 +231,7 @@ int AsfHeaderParser::parse(uint8_t *buffer, uint64_t size) {
                         playreadyObjBuf += recordLen;
                         sizeLeft -= recordLen;
                     } else {
-                        LOGE("Invalid sizeLeft");
+                        ALOGE("Invalid sizeLeft");
                         return ASF_PARSER_BAD_DATA;
                     }
                 }
@@ -256,7 +256,7 @@ int AsfHeaderParser::getPlayreadyUuid(uint8_t playreadyUuid[], uint16_t len) {
     if (playreadyUuid == NULL || (!mIsProtected))
         return ASF_PARSER_FAILED;
     if (len < UUIDSIZE) {
-        LOGE("Invalid length ");
+        ALOGE("Invalid length ");
         return ASF_PARSER_FAILED;
     }
 
@@ -361,7 +361,7 @@ int AsfHeaderParser::onVideoSpecificData(AsfStreamPropertiesObject *obj, uint8_t
     } else {
         videoInfo->fourCC = bmp->compressionID;
     }
-    LOGV("onVideoSpecificData() with videoInfo->fourCC = %x", videoInfo->fourCC);
+    ALOGV("onVideoSpecificData() with videoInfo->fourCC = %x", videoInfo->fourCC);
 
     // TODO: get aspect ratio from video meta data
     videoInfo->aspectX = 1;
@@ -424,7 +424,7 @@ int AsfHeaderParser::onAudioSpecificData(AsfStreamPropertiesObject *obj, uint8_t
     } else {
         audioInfo->codecID = format->codecIDFormatTag;
     }
-    LOGV("onAudioSpecificData => format->codecIDFormatTag = %x",format->codecIDFormatTag);
+    ALOGV("onAudioSpecificData => format->codecIDFormatTag = %x",format->codecIDFormatTag);
 
     audioInfo->numChannels = format->numberOfChannels;
     audioInfo->sampleRate= format->samplesPerSecond;
