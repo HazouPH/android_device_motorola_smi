@@ -1,2 +1,2 @@
 LOCAL_PATH := $(call my-dir)
-include $(call all-subdir-makefiles,$(LOCAL_PATH))
+include $(call first-makefiles-under,$(LOCAL_PATH))

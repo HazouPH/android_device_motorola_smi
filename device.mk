@@ -97,8 +97,7 @@ PRODUCT_PACKAGES += \
     libmixvbp_h264 \
     libmixvbp_vc1 \
     libmixvbp \
-    libva_videodecoder
-#PRODUCT_PACKAGES += \
+    libva_videodecoder \
     libva_videoencoder
 
 # HW acceleration
@@ -110,8 +109,7 @@ PRODUCT_PACKAGES += \
     libOMXVideoDecoderH263 \
     libOMXVideoDecoderMPEG4 \
     libOMXVideoDecoderPAVC \
-    libOMXVideoDecoderWMV
-#PRODUCT_PACKAGES += \
+    libOMXVideoDecoderWMV \
     libOMXVideoEncoderAVC \
     libOMXVideoEncoderH263 \
     libOMXVideoEncoderMPEG4

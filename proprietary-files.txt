@@ -93,25 +93,17 @@ lib/libarcomx_qcelpdec_sharedlibrary.so
 lib/libarcomx_qcelpenc_sharedlibrary.so
 lib/libarcomx_wmadec_sharedlibrary.so
 lib/libarcplatform.so
-lib/libOMXVideoEncoderAVC.so
-lib/libOMXVideoEncoderH263.so
-lib/libOMXVideoEncoderMPEG4.so
 lib/libremote-processor.so
-lib/libva_videoencoder.so
 vendor/media/LMspeed_508.emd
 vendor/media/PFFprec_600.emd
 
 # Graphics
 etc/firmware/mp3_dec_1.bin
-etc/firmware/msvdx_fw_mfld_DE2.0.bin
-etc/firmware/topazsc_fw.bin
 etc/firmware/wma9_dec_1.bin
 lib/drm/libmotdrmplugin.so
 lib/hw/hwcomposer.smi.so
 lib/libpvr2d.so
-lib/libsepdrm.so
 lib/libwbxmlparser.so
-lib/pvr_drv_video.so
 vendor/bin/pvrsrvctl
 vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/egl/libEGL_POWERVR_SGX540_121.so
