@@ -214,6 +214,14 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # We have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
+# This library is required for Intel's implementation of Dalvik
+# libpcgdvmjit is a part of Dalvik JIT compiler
+PRODUCT_PACKAGES += libpcgdvmjit
+# This library is required for Intel's implementation of Dalvik
+# libcrash is a library which provides recorded state of an applications
+# which crashed while running on Dalvik VM
+PRODUCT_PACKAGES += libcrash
+
 # IDC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/usr/idc/atmxt-i2c.idc:system/usr/idc/atmxt-i2c.idc \
