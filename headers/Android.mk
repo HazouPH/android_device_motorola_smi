@@ -8,6 +8,6 @@ include $(BUILD_COPY_HEADERS)
 
 include $(CLEAR_VARS)
 LOCAL_COPY_HEADERS := \
-    vbp_loader.h
-LOCAL_COPY_HEADERS_TO := libmixvbp
+    ../modules/pcg/libpcg.h
+LOCAL_COPY_HEADERS_TO := pcg
 include $(BUILD_COPY_HEADERS)

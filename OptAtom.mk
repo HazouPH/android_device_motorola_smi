@@ -55,7 +55,16 @@ USE_PRIVATE_LIBM := true
 INTEL_HOUDINI := true
 WITH_JIT := true
 LOCAL_CFLAGS += -DARCH_IA32
-#WITH_SELF_VERIFICATION := true
+WITH_SELF_VERIFICATION := true
+TARGET_ARCH_LOWMEM := true
+
+# x86 Dalvik opts, only for intel BSP dalvik
+WITH_PCG := true
+WITH_CONDMARK := true
+WITH_TLA := true
+WITH_REGION_GC := true
+WITH_JIT_TUNING := tue
+USE_INTEL_IPP := true
 
 # customize the malloced address to be 16-byte aligned
 BOARD_MALLOC_ALIGNMENT := 16
