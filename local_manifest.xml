@@ -7,6 +7,6 @@
 
   <remove-project name="CyanogenMod/android_dalvik" />
 
-  <project path="dalvik" name="HazouPH/android_dalvik" revision="cm-11.0IA"/>
+  <project path="dalvik" name="HazouPH/android_dalvik" revision="CM-11.0IA"/>
 
 </manifest>
