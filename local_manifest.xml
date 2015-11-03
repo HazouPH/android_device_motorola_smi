@@ -9,4 +9,8 @@
 
   <project path="dalvik" name="HazouPH/android_dalvik" revision="CM-11.0IA"/>
 
+  <remove-project name="CyanogenMod/android_frameworks_rs" />
+
+  <project path="frameworks/rs" name="HazouPH/android_frameworks_rs" revision="cm-11.0IA"/>
+
 </manifest>
