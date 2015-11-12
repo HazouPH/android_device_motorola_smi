@@ -5,6 +5,8 @@
 
   <project path="device/motorola/smi" name="HazouPH/android_device_motorola_smi" revision="cm-11.0"/>
 
+  <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" />
+
   <remove-project name="CyanogenMod/android_dalvik" />
 
   <project path="dalvik" name="HazouPH/android_dalvik" revision="CM-11.0IA"/>

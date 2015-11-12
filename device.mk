@@ -64,7 +64,6 @@ PRODUCT_PACKAGES += \
 	init.rc \
 	init.recovery.sc1.rc
 PRODUCT_COPY_FILES += \
-        $(call find-copy-subdir-files,*,$(LOCAL_PATH)/prebuilt/lib/modules,system/lib/modules) \
     	$(LOCAL_PATH)/rootdir/etc/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # Camera

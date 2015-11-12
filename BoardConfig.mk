@@ -39,9 +39,9 @@ WIFI_MODULES:
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 	mv hardware/ti/wlan/mac80211/compat_wl12xx/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
-	/usr/bin/strip --strip-debug $(KERNEL_MODULES_OUT)/compat.ko $(KERNEL_MODULES_OUT)/mac80211.ko $(KERNEL_MODULES_OUT)/cfg80211.ko $(KERNEL_MODULES_OUT)/wl12xx.ko $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
+	/usr/bin/strip --strip-debug $(KERNEL_MODULES_OUT)/compat.ko $(KERNEL_MODULES_OUT)/mac80211.ko $(KERNEL_MODULES_OUT)/cfg80211.ko 	$(KERNEL_MODULES_OUT)/wl12xx.ko $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
 
-#TARGET_KERNEL_MODULES := WIFI_MODULES
+TARGET_KERNEL_MODULES := WIFI_MODULES
 
 # Global flags
 COMMON_GLOBAL_CFLAGS += -DMOTOROLA_UIDS
@@ -59,9 +59,7 @@ RAZRI_IMAGE := true
 BOARD_KERNEL_BASE := 0x1200000
 BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
-TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/boottools/image/bzImage
-TARGET_KERNEL_CONFIG := i386_mfld_test_defconfig
-#TARGET_KERNEL_SOURCE := linux/kernel
+TARGET_KERNEL_CONFIG := i386_mfld_moto_defconfig
 BOARD_KERNEL_IMAGE_NAME := bzImage
 BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=260046848 earlyprintk=nologger \
                         hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 \
@@ -137,6 +135,7 @@ TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/boottools/image/bzImage
 BOARD_SUPPRESS_EMMC_WIPE := true
 
 # Recovery options TWRP
+RECOVERY_VARIANT := twrp
 DEVICE_RESOLUTION := 540x960
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/max170xx_battery
