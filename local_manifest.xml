@@ -4,12 +4,14 @@
   <project path="vendor/motorola/smi" name="HazouPH/android_vendor_motorola_smi" revision="cm-11.0"/>
 
   <project path="device/motorola/smi" name="HazouPH/android_device_motorola_smi" revision="cm-11.0"/>
+  
+    <project path="smi_patches" name="HazouPH/smi_patches" revision="cm-11.0"/>
 
   <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" />
 
   <remove-project name="CyanogenMod/android_dalvik" />
 
-  <project path="dalvik" name="HazouPH/android_dalvik" revision="CM-11.0IA"/>
+  <project path="dalvik" name="HazouPH/android_dalvik" revision="cm-11.0IA"/>
 
   <remove-project name="CyanogenMod/android_frameworks_rs" />
 

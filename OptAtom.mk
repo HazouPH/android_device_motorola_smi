@@ -58,7 +58,7 @@ INTEL_HOUDINI := true
 WITH_JIT := true
 LOCAL_CFLAGS += -DARCH_IA32
 WITH_SELF_VERIFICATION := true
-TARGET_ARCH_LOWMEM := true
+#TARGET_ARCH_LOWMEM := true
 
 # x86 Dalvik opts, only for intel BSP dalvik
 WITH_PCG := true
