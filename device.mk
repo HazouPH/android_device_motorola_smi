@@ -66,6 +66,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     	$(LOCAL_PATH)/rootdir/etc/twrp.fstab:recovery/root/etc/twrp.fstab
 
+# PDS
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/bin/pdsbackup.sh:system/bin/pdsbackup.sh
+
 # Camera
 PRODUCT_PACKAGES += \
     camera.sc1 \
