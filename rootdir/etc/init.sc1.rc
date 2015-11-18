@@ -64,6 +64,7 @@ on early-fs
 # /system, /cache, and /pds should be mounted at this point
 # does not usually run charge-only-mode
 on post-fs
+    exec /system/bin/pdsbackup.sh
     # Volume keys wakeup capability
     chmod 0664 /sys/devices/platform/gpio-keys/enabled_wakeup
     chmod 0664 /sys/devices/platform/gpio-keys/disabled_wakeup
