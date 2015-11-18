@@ -11,15 +11,12 @@ on post-fs
     #WiFi
     setprop wifi.interface "wlan0"
     setprop softap.interface "wlan0"
-        
+
+    # Load wifi drivers (all except wl12xx_sdio)
     insmod /system/lib/modules/compat.ko
     insmod /system/lib/modules/cfg80211.ko
     insmod /system/lib/modules/mac80211.ko
     insmod /system/lib/modules/wl12xx.ko
-
-    # Fix wlan MAC addr and load module
-    chmod 0755 /system/bin/fix-mac.sh
-    exec /system/bin/fix-mac.sh
 
 on post-fs-data
    mkdir /data/misc/wifi 0770 wifi wifi
@@ -38,6 +35,9 @@ on post-fs-data
    chmod 0660 /system/etc/wifi/hostapd.conf
    chown wifi wifi /system/etc/wifi/hostapd.conf
 
+on boot
+    start wifical_check
+
 on property:init.svc.wpa_supplicant=stopped
     stop dhcpcd_wlan0
 
@@ -53,7 +53,7 @@ service p2p_supplicant /system/bin/wpa_supplicant \
     oneshot
 
 service wpa_supplicant /system/bin/wpa_supplicant \
-    -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -e/data/misc/wifi/entropy.bin \
     -O/data/misc/wifi/sockets -g@android:wpa_wlan0
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
@@ -84,6 +84,14 @@ service hostapd_bin /system/bin/hostapd -d /data/misc/wifi/hostapd.conf -e /data
     socket wpa_wlan0 dgram 660 wifi wifi
     class main
     disabled
+    oneshot
+
+# Wifi check
+service wifical_check /system/bin/sh /system/bin/wifical.sh
+    disabled
+    class late_start
+    user root
+    group wifi
     oneshot
 
 ########################################################

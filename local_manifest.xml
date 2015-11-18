@@ -17,8 +17,4 @@
 
   <project path="frameworks/rs" name="HazouPH/android_frameworks_rs" revision="cm-11.0IA"/>
 
-  <remove-project name="CyanogenMod/android_hardware_ti_wlan" />
-
-  <project path="hardware/ti/wlan" name="HazouPH/android_hardware_ti_wlan" revision="master"/>
-
 </manifest>

@@ -170,11 +170,12 @@ PRODUCT_PACKAGES += \
 # Wifi
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/prebuilt/bin/fix-mac.sh:system/bin/fix-mac.sh
+    $(LOCAL_PATH)/prebuilt/bin/wifical.sh:system/bin/wifical.sh
 PRODUCT_PACKAGES += \
     lib_driver_cmd_wl12xx \
     dhcpcd.conf \
     hostapd.conf \
+    wl1271-nvs.bin \
     calibrator \
     crda \
     regulatory.bin
@@ -260,7 +261,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml.bk
+    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
 
 # Device specific permissions
 PRODUCT_COPY_FILES += \
