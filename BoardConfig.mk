@@ -71,7 +71,7 @@ RAZRI_IMAGE := true
 BOARD_KERNEL_BASE := 0x1200000
 BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
-TARGET_KERNEL_CONFIG := i386_mfld_moto_defconfig
+TARGET_KERNEL_CONFIG := i386_mfld_hazou_defconfig
 BOARD_KERNEL_IMAGE_NAME := bzImage
 BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=260046848 earlyprintk=nologger \
                         hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 \
