@@ -52,6 +52,7 @@ WIFI_MODULES:
 	$(ANDROID_EABI_TOOLCHAIN)/i686-linux-android-strip --strip-unneeded $(KERNEL_MODULES_OUT)/cfg80211.ko
 	$(ANDROID_EABI_TOOLCHAIN)/i686-linux-android-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx.ko
 	$(ANDROID_EABI_TOOLCHAIN)/i686-linux-android-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
+	make clean -C $(TARGET_MODULES_SOURCE)
 
 TARGET_KERNEL_MODULES := WIFI_MODULES
 
