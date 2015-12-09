@@ -281,6 +281,10 @@ $(call inherit-product, vendor/motorola/smi/smi-vendor.mk)
         fmradioif \
         com.ti.fm.fmradioif.xml
 
+# RazrIChargeCurrent (Author: NerdyProjects/PosixCompatible)
+PRODUCT_PACKAGES += \
+	RazrIChargeCurrent
+
 # Wifi Configuration Files
 $(call inherit-product, hardware/ti/wlan/mac80211/wl128x-wlan-products.mk)
 
