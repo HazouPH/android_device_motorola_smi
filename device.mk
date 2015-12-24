@@ -58,6 +58,7 @@ PRODUCT_PACKAGES += \
 	init.oom.rc \
 	init.sc1.rc \
 	init.wifi.rc \
+	init.wifi.vendor.rc \
 	init.wireless.rc \
 	init.xmm.rc \
 	ueventd.sc1.rc \
@@ -168,17 +169,18 @@ PRODUCT_PACKAGES += \
    houdini_hook
 
 # Wifi
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/prebuilt/bin/wifical.sh:system/bin/wifical.sh
 PRODUCT_PACKAGES += \
     lib_driver_cmd_wl12xx \
+    calibrator \
+    wlan_prov \
+    regulatory.bin \
+    crda \
     dhcpcd.conf \
     hostapd.conf \
-    wl1271-nvs.bin \
-    calibrator \
-    crda \
-    regulatory.bin
+    wl128x-fw-4-sr.bin \
+    wl128x-fw-4-mr.bin \
+    wl128x-fw-4-plt.bin \
+    wl1271-nvs_128x.bin
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
@@ -260,8 +262,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
     frameworks/native/data/etc/android.hardware.audio.low_latency.xml:system/etc/permissions/android.hardware.audio.low_latency.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
-    frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
+    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml
 
 # Device specific permissions
 PRODUCT_COPY_FILES += \
@@ -284,9 +285,6 @@ $(call inherit-product, vendor/motorola/smi/smi-vendor.mk)
 # RazrIChargeCurrent (Author: NerdyProjects/PosixCompatible)
 PRODUCT_PACKAGES += \
 	RazrIChargeCurrent
-
-# Wifi Configuration Files
-$(call inherit-product, hardware/ti/wlan/mac80211/wl128x-wlan-products.mk)
 
 # Nfc
 $(call inherit-product, $(LOCAL_PATH)/modules/nfc/nfc.mk)

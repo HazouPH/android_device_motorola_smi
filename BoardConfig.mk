@@ -20,24 +20,14 @@ TARGET_CPU_SMP := true
 -include $(LOCAL_PATH)/OptAtom.mk
 
 # Connectivity - Wi-Fi
-USES_TI_MAC80211 := true
-ifdef USES_TI_MAC80211
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wl12xx
 BOARD_HOSTAPD_DRIVER             := NL80211
 BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_wl12xx
-PRODUCT_WIRELESS_TOOLS           := true
-BOARD_WLAN_DEVICE                := wl12xx_mac80211
-BOARD_SOFTAP_DEVICE              := wl12xx_mac80211
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/wl12xx_sdio.ko"
-WIFI_DRIVER_MODULE_NAME          := "wl12xx_sdio"
-WIFI_FIRMWARE_LOADER             := ""
-BOARD_WIFI_SKIP_CAPABILITIES     := true
-COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
-endif
+BOARD_WLAN_DEVICE                := wl12xx-compat
 
-TARGET_MODULES_SOURCE := "hardware/ti/wlan/mac80211/compat_wl12xx"
+TARGET_MODULES_SOURCE := "hardware/ti/wlan-intel/wl12xx-compat"
 
 WIFI_MODULES:
 	make clean -C $(TARGET_MODULES_SOURCE)
