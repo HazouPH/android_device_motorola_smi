@@ -180,7 +180,8 @@ PRODUCT_PACKAGES += \
     wl128x-fw-4-sr.bin \
     wl128x-fw-4-mr.bin \
     wl128x-fw-4-plt.bin \
-    wl1271-nvs_128x.bin
+    wl1271-nvs_128x.bin \
+    TQS.ini
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
