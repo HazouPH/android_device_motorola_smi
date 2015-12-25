@@ -177,6 +177,8 @@ PRODUCT_PACKAGES += \
     crda \
     dhcpcd.conf \
     hostapd.conf \
+    p2p_supplicant.conf \
+    wpa_supplicant.conf \
     wl128x-fw-4-sr.bin \
     wl128x-fw-4-mr.bin \
     wl128x-fw-4-plt.bin \
