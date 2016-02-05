@@ -36,26 +36,30 @@ int main(int argc, char *argv[])
 	char *origin;
 	char *bzImage;
 	char *ramdisk;
+	char *cmdline;
 	FILE *forigin;
 	FILE *fbzImage;
 	FILE *framdisk;
+	FILE *fcmdline;
 	uint32_t bzImageLen;
 	uint32_t ramdiskLen;
 	uint32_t missing;
 	char buf[BUFSIZ];
 	size_t size;
 
-	if (argc != 4)
-		ERROR("Usage: %s <image to unpack> <bzImage out> <ramdisk out>\n", argv[0]);
+	if (argc != 5)
+		ERROR("Usage: %s <image to unpack> <bzImage out> <ramdisk out> <cmdline>\n", argv[0]);
 
 	origin = argv[1];
 	bzImage = argv[2];
 	ramdisk = argv[3];
+	cmdline = argv[4];
 
 	forigin = fopen(origin, "r");
 	fbzImage = fopen(bzImage, "w");
 	framdisk = fopen(ramdisk, "w");
-	if (!forigin || !bzImage || !framdisk)
+	fcmdline = fopen(cmdline, "w");
+	if (!forigin || !bzImage || !framdisk || !cmdline)
 		ERROR("ERROR: failed to open origin or output images\n");
 
 	/* Read bzImage length from the image to unpack */
@@ -75,6 +79,12 @@ int main(int argc, char *argv[])
 		ERROR("ERROR: failed to read ramdisk length\n");
 	else
 		ramdiskLen = le32toh(ramdiskLen);
+
+	/* Copy cmdline */
+	rewind(forigin);
+	if (fgets (buf, CMDLINE_END, forigin) != NULL) {
+		fputs(buf, fcmdline);
+	}
 
 	/* Copy bzImage */
 	if (fseek(forigin, sizeof(struct bootheader), SEEK_SET) == -1)

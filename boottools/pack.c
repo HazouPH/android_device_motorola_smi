@@ -36,28 +36,32 @@ int main(int argc, char *argv[])
 	char *origin;
 	char *bzImage;
 	char *ramdisk;
+	char *cmdline;
 	char *output;
 	FILE *forigin;
 	FILE *foutput;
 	FILE *fbzImage;
 	FILE *framdisk;
+	FILE *fcmdline;
 	struct stat st;
 	uint32_t tmp;
 	char buf[BUFSIZ];
 	size_t size;
 	struct bootheader *file;
 
-	if (argc != 5)
-		ERROR("Usage: %s <valid image> <bzImage> <ramdisk> <output>\n", argv[0]);
+	if (argc != 6)
+		ERROR("Usage: %s <valid image> <bzImage> <ramdisk> <cmdline> <output>\n", argv[0]);
 
 	origin = argv[1];
 	bzImage = argv[2];
 	ramdisk = argv[3];
-	output = argv[4];
+	cmdline = argv[4];
+	output = argv[5];
 
 	forigin = fopen(origin, "r");
 	fbzImage = fopen(bzImage, "r");
 	framdisk = fopen(ramdisk, "r");
+	fcmdline = fopen(cmdline, "r");
 	foutput = fopen(output, "w");
 	if (!forigin || !foutput)
 		ERROR("ERROR: failed to open origin or output image\n");
@@ -84,7 +88,7 @@ int main(int argc, char *argv[])
 	} else
 		ERROR("ERROR reading ramdisk\n");
 
-	/* Write the patched bootstub to the new image */
+	/* Write the patched bootstub with old cmdline to the new image */
 	if (fwrite(file, sizeof(struct bootheader), 1, foutput) != 1)
 		ERROR("ERROR writing image\n");
 
@@ -93,8 +97,15 @@ int main(int argc, char *argv[])
 		fwrite(buf, 1, size, foutput);
 	}
 
-	/* And finally copy the ramdisk */
+	/* Then copy the new ramdisk */
 	while ((size = fread(buf, 1, BUFSIZ, framdisk))) {
+		fwrite(buf, 1, size, foutput);
+	}
+
+	/* And finally copy the new cmdline   */
+	/* by rewinding to beginning of output file */
+	rewind(foutput);
+	while ((size = fread(buf, 1, BUFSIZ, fcmdline))) {
 		fwrite(buf, 1, size, foutput);
 	}
 
