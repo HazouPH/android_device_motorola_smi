@@ -54,7 +54,6 @@ COMMON_GLOBAL_CFLAGS += -DMOTOROLA_UIDS
 TARGET_USES_MOTOROLA_LOG := true
 
 # Use boot tools to make Intel-formatted images
-# USE_PREBUILT_RAMDISK := true
 DEVICE_BASE_BOOT_IMAGE := $(LOCAL_PATH)/boottools/image/boot
 DEVICE_BASE_RECOVERY_IMAGE := $(LOCAL_PATH)/boottools/image/recovery
 BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/boottools/boot.mk
@@ -66,9 +65,10 @@ BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_KERNEL_CONFIG := i386_mfld_moto_defconfig
 BOARD_KERNEL_IMAGE_NAME := bzImage
-BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=260046848 earlyprintk=nologger \
-                        hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1 \
-                        emmc_ipanic.ipanic_part_number=6 slub_max_order=2 loglevel=4
+BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=272M earlyprintk=nologger
+BOARD_KERNEL_CMDLINE += hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1
+BOARD_KERNEL_CMDLINE += androidboot.spid=xxxx:xxxx:xxxx:xxxx:xxxx:xxxx emmc_ipanic.ipanic_part_number=6
+BOARD_KERNEL_CMDLINE += slub_max_order=2 zram.num_devices=2 loglevel=7
 
 # Storage information
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
@@ -108,7 +108,6 @@ BOARD_USES_HWCOMPOSER := true
 BOARD_ALLOW_EGL_HIBERNATION := true
 BOARD_EGL_WORKAROUND_BUG_10194508 := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
-BOARD_EGL_WORKAROUND_BUG_10194508 := true
 
 ENABLE_IMG_GRAPHICS := true
 BUILD_WITH_FULL_STAGEFRIGHT := true

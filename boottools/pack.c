@@ -102,11 +102,13 @@ int main(int argc, char *argv[])
 		fwrite(buf, 1, size, foutput);
 	}
 
-	/* And finally copy the new cmdline   */
+	/* And finally copy the new cmdline if exist */
 	/* by rewinding to beginning of output file */
-	rewind(foutput);
-	while ((size = fread(buf, 1, BUFSIZ, fcmdline))) {
-		fwrite(buf, 1, size, foutput);
+	if (fcmdline) {
+		rewind(foutput);
+		while ((size = fread(buf, 1, BUFSIZ, fcmdline))) {
+			fwrite(buf, 1, size, foutput);
+		}
 	}
 
 	return 0;
