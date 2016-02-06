@@ -65,10 +65,10 @@ BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_KERNEL_CONFIG := i386_mfld_moto_defconfig
 BOARD_KERNEL_IMAGE_NAME := bzImage
-BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=272M earlyprintk=nologger
+BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=260046848 earlyprintk=nologger
 BOARD_KERNEL_CMDLINE += hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1
 BOARD_KERNEL_CMDLINE += androidboot.spid=xxxx:xxxx:xxxx:xxxx:xxxx:xxxx emmc_ipanic.ipanic_part_number=6
-BOARD_KERNEL_CMDLINE += slub_max_order=2 zram.num_devices=2 loglevel=7
+BOARD_KERNEL_CMDLINE += slub_max_order=2 loglevel=7
 
 # Storage information
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
