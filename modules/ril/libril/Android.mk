@@ -28,7 +28,7 @@ ifeq ($(SIM_COUNT), 2)
     LOCAL_CFLAGS += -DANDROID_SIM_COUNT_2
 endif
 
-LOCAL_C_INCLUDES += $(TARGET_OUT_HEADER)/librilutils
+LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/librilutils
 LOCAL_C_INCLUDES += external/nanopb-c
 
 LOCAL_MODULE:= libril
