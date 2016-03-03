@@ -239,6 +239,3 @@ bin/charge_only_mode
 
 # Battery Health
 bin/batt_health
-
-# Videoeditor
-lib/libI420colorconvert.so
