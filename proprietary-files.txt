@@ -130,13 +130,6 @@ vendor/pittpatt/models/detection/yaw_roll_face_detectors.6/head-y0-yi45-p0-pi45-
 vendor/pittpatt/models/detection/yaw_roll_face_detectors.6/head-y0-yi45-p0-pi45-rp30-ri30.5-v24.bin
 vendor/pittpatt/models/recognition/face.face.y0-y0-22-b-N.bin
 
-# Data En/Decrypt
-bin/enc_mgt_tool
-etc/ecryptfs.tab
-etc/encrypt.tab
-lib/libdataencrypt_openssl.so
-lib/libdataencrypt_utils.so
-
 # GPS
 bin/gkisystem
 bin/gps_driver

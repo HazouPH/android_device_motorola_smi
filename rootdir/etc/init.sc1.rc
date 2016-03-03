@@ -209,10 +209,6 @@ on post-fs-data
 
     symlink /system/etc/MID_thermal.conf /data/misc/thermal/MID_thermal.conf
 
-    # directory for encryption management tool, enc_mgt_tool
-    mkdir /data/emt 0770 root system
-
-
     # create moto specific dirs for factory
     mkdir /data/local/dbvc 0770 mot_tcmd shell
     mkdir /pds/public/atvc 0775 mot_tcmd shell
@@ -231,9 +227,6 @@ on early-boot
     mkdir /data/tpapi/etc/tpa/persistent 2770 mot_tpapi mot_tpapi
     # create logger folder
     mkdir /data/logger 0750 log log
-
-    # Need to launch enc_mgt_tool to create device key and signature for vold to set up sd card
-    start enc_tool
 
 # run after "on early-boot"; does not run in charge-only-mode
 on boot
@@ -316,32 +309,6 @@ service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emul
 service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
-
-# Define the enc_mgt_tool as a service here instead of using exec commands
-service enc_tool /system/bin/enc_mgt_tool
-    disabled
-    user root
-    oneshot
-
-# start the enc_mgt_tool to set the keysig when decrypted userdata partition is mounted
-on property:vold.decrypt=trigger_restart_framework
-    start enc_tool
-
-# Cleanup removable SD card from obsolete encrypted files
-on property:sys.mot.encrypt.cleanup=1
-    exec /system/bin/enc_sd_cleanup /storage/sdcard1
-
-# Check available storage space to execute device encryption or decryption
-on property:sys.mot.encrypt.test=1
-    exec /system/bin/enc_mgt_tool --test
-    setprop sys.mot.encrypt.test ""
-
-# Handle device encryption key protection request
-on property:sys.mot.encrypt.pass.prot=1
-    exec /system/bin/enc_mgt_tool --password_prot
-    setprop sys.mot.encrypt.pass.prot ""
-# Enable production security key check for 3LM
-    setprop ro.3lm.production 1
 
 service batt_health /system/bin/batt_health
     class main
