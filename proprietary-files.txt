@@ -84,15 +84,6 @@ etc/firmware/aac_dec_1.bin
 etc/firmware/aac_enc_1.bin
 etc/firmware/aac_v1_dec_1.bin
 etc/firmware/aac_v2_dec_1.bin
-etc/wrs_omxil_components.list
-lib/lib_ARC_Omx_Plugin.so
-lib/libarcaudiogetinfo.so
-lib/libarcomx_evrcdec_sharedlibrary.so
-lib/libarcomx_omxcore_sharedlibrary.so
-lib/libarcomx_qcelpdec_sharedlibrary.so
-lib/libarcomx_qcelpenc_sharedlibrary.so
-lib/libarcomx_wmadec_sharedlibrary.so
-lib/libarcplatform.so
 lib/libremote-processor.so
 vendor/media/LMspeed_508.emd
 vendor/media/PFFprec_600.emd
