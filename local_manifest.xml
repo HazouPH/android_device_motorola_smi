@@ -5,7 +5,7 @@
 
   <project path="device/motorola/smi" name="HazouPH/android_device_motorola_smi" revision="cm-11.0"/>
   
-  <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" revision="linux-3.101"/>
+  <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" revision="cm-11.0"/>
 
   <project path="smi_patches" name="HazouPH/smi_patches" revision="cm-11.0"/>
 
