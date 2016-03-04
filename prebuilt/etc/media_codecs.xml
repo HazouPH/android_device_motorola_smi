@@ -128,7 +128,6 @@ can be used:
         <MediaCodec name="OMX.ffmpeg.wma.decoder" type="audio/x-ms-wma" />
 
         <!-- ffmpeg video codecs -->
-        <MediaCodec name="OMX.ffmpeg.wma.decoder" type="audio/x-ms-wma"/>
         <MediaCodec name="OMX.ffmpeg.mpeg2v.decoder" type="video/mpeg2"/>
         <MediaCodec name="OMX.ffmpeg.h263.decoder" type="video/3gpp"/>
         <MediaCodec name="OMX.ffmpeg.mpeg4.decoder" type="video/mp4v-es"/>
