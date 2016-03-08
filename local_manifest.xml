@@ -19,8 +19,4 @@
 
   <project path="hardware/ti/wlan-intel" name="HazouPH/android_hardware_ti_wlan" revision="master"/>
 
-  <remove-project name="CyanogenMod/android_external_ffmpeg" />
-
-  <project path="external/ffmpeg" name="CyanogenMod/android_external_ffmpeg" revision="cm-13.0"/>
-
 </manifest>
