@@ -18,9 +18,9 @@ mount_pds_image() {
     busybox mount -o rw,nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/loop7 /pds
 }
 
-if [ -f /data/pds.img ]; then
+if [ -f $PDS_FILE ]; then
     #delete old pds image that may have broken permissions
-    rm -f /data/pds.img
+    rm -f $PDS_FILE
 fi
 
 if [ ! -f $PDS_FILE ] ; then
