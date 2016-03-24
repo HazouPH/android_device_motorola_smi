@@ -64,7 +64,6 @@ lib/hw/audio.primary.smi.so
 lib/hw/audio_policy.smi.so
 lib/libaudience-manager.so
 lib/libaudiohalutils.so
-lib/libaudioresample.so
 lib/libevent-listener.so
 lib/libinterface-provider-lib.so
 lib/libinterface-provider.so
