@@ -91,6 +91,7 @@ BOARD_SYSTEM_FILESYSTEM                 := ext4
 
 # Ramdisk
 TARGET_PROVIDES_INIT_RC := true
+NR_SVC_SUPP_GIDS := 28
 
 # Blutetooth
 BOARD_HAVE_BLUETOOTH := true
