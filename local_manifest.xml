@@ -7,7 +7,7 @@
   
   <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" revision="cm-11.0"/>
 
-  <project path="smi_patches" name="HazouPH/smi_patches" revision="cm-11.0"/>
+  <project path="device/motorola/smi-patches" name="HazouPH/smi_patches" revision="cm-11.0"/>
 
   <remove-project name="CyanogenMod/android_dalvik" />
 
