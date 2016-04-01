@@ -102,6 +102,12 @@ can be used:
             <Quirk name="requires-hold-extra-buffers" />
         </MediaCodec>
 
+        <!-- Video Software (Intel) -->
+        <MediaCodec name="CIPVP8Decoder" type="video/x-vnd.on2.vp8" />
+        <MediaCodec name="VAVideoDecoder" type="video/mp4v-es" />
+        <MediaCodec name="VAVideoDecoder" type="video/3gpp" />
+        <MediaCodec name="VAVideoDecoder" type="video/avc" />
+
         <!-- Video Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.mpeg2v.decoder" type="video/mpeg2"/>
         <MediaCodec name="OMX.ffmpeg.h263.decoder" type="video/3gpp"/>
@@ -124,7 +130,18 @@ can be used:
         <MediaCodec name="OMX.google.h264.decoder" type="video/avc" />
         <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
 
-        <!--  Audio Software (FFmpeg) -->
+        <!-- Audio Software (Intel) -->
+        <MediaCodec name="OMX.Intel.mp3.decoder" type="audio/mpeg" />
+        <MediaCodec name="CIPMP3Decoder" type="audio/mpeg" />
+        <MediaCodec name="CIPAMRNBDecoder" type="audio/3gpp" />
+        <MediaCodec name="CIPAMRWBDecoder" type="audio/amr-wb" />
+        <MediaCodec name="OMX.Intel.aac.decoder" type="audio/mp4a-latm" />
+        <MediaCodec name="CIPAACDecoder" type="audio/mp4a-latm" />
+        <MediaCodec name="CIPVorbisDecoder" type="audio/vorbis" />
+        <MediaCodec name="OMX.Intel.alac.decoder" type="audio/alac" />
+        <MediaCodec name="CIPWMADecoder" type="audio/x-ms-wma" />
+
+        <!-- Audio Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.aac.decoder" type="audio/mp4a-latm" />
         <MediaCodec name="OMX.ffmpeg.mp3.decoder" type="audio/mpeg" />
         <MediaCodec name="OMX.ffmpeg.vorbis.decoder" type="audio/vorbis" />
@@ -166,7 +183,12 @@ can be used:
             <Quirk name="requires-loaded-to-idle-after-allocation" />
         </MediaCodec>
 
-        <!-- Audio software -->
+        <!-- Audio Software (Intel) -->
+        <MediaCodec name="CIPAMRNBEncoder" type="audio/3gpp" />
+        <MediaCodec name="CIPAMRWBEncoder" type="audio/amr-wb" />
+        <MediaCodec name="CIPAACEncoder" type="audio/mp4a-latm" />
+
+        <!-- Audio Software (Google) -->
         <MediaCodec name="OMX.google.amrnb.encoder" type="audio/3gpp" />
         <MediaCodec name="OMX.google.amrwb.encoder" type="audio/amr-wb" />
         <MediaCodec name="OMX.google.aac.encoder" type="audio/mp4a-latm" />

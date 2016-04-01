@@ -33,7 +33,10 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio.r_submix.default \
 	libaudioutils \
-	libdashplayer
+	libdashplayer \
+        libstagefright_soft_aacdec_mdp \
+        libstagefright_soft_mp3dec_mdp \
+        libstagefright_soft_alacdec
 
 # Stk
 PRODUCT_PACKAGES += \
