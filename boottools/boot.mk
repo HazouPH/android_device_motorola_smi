@@ -9,7 +9,6 @@
 INTEL_PACK := $(HOST_OUT_EXECUTABLES)/pack_intel
 BASE_BOOT_IMAGE := $(DEVICE_BASE_BOOT_IMAGE)
 BASE_RECOVERY_IMAGE := $(DEVICE_BASE_RECOVERY_IMAGE)
-RAMDISK_CONTENT := $(DEVICE_RAMDISK_CONTENT)
 CMDLINE_FILE := $(INSTALLED_BOOTIMAGE_TARGET)_cmdline
 
 $(INSTALLED_RECOVERYIMAGE_TARGET): $(recovery_ramdisk) \
@@ -17,7 +16,7 @@ $(INSTALLED_RECOVERYIMAGE_TARGET): $(recovery_ramdisk) \
 		$(INTEL_PACK)
 	$(call pretty,"Target recovery image: $@")
 	$(shell echo $(BOARD_KERNEL_CMDLINE) > $(CMDLINE_FILE))
-	$(INTEL_PACK) $(BASE_RECOVERY_IMAGE) $(recovery_kernel) $(recovery_ramdisk)  $(CMDLINE_FILE) $@
+	$(INTEL_PACK) $(BASE_RECOVERY_IMAGE) $(INSTALLED_KERNEL_TARGET) $(recovery_ramdisk)  $(CMDLINE_FILE) $@
 	@echo -e ${CL_CYN}"Made recovery image: $@"${CL_RST}
 	$(hide) $(call assert-max-image-size,$@,$(BOARD_RECOVERYIMAGE_PARTITION_SIZE),raw)
 
