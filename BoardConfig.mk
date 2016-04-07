@@ -21,7 +21,7 @@ TARGET_CPU_SMP := true
 
 # Connectivity - Wi-Fi
 USES_TI_MAC80211                 := true
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
+WPA_SUPPLICANT_VERSION           := VER_0_8_X_TI
 BOARD_WLAN_DEVICE                := wl12xx-compat
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 BOARD_HOSTAPD_DRIVER             := NL80211
