@@ -102,11 +102,12 @@ can be used:
             <Quirk name="requires-hold-extra-buffers" />
         </MediaCodec>
 
-        <!-- Video Software (Intel) -->
-        <MediaCodec name="CIPVP8Decoder" type="video/x-vnd.on2.vp8" />
+        <!-- BEGIN Motorola, IKSMIKK-668, android.media package is failed in CTS-->
+        <!--MediaCodec name="CIPVP8Decoder" type="video/x-vnd.on2.vp8" />
         <MediaCodec name="VAVideoDecoder" type="video/mp4v-es" />
         <MediaCodec name="VAVideoDecoder" type="video/3gpp" />
-        <MediaCodec name="VAVideoDecoder" type="video/avc" />
+        <MediaCodec name="VAVideoDecoder" type="video/avc" /-->
+        <!--END IKSMIKK-668-->
 
         <!-- Video Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.mpeg2v.decoder" type="video/mpeg2"/>
@@ -186,12 +187,14 @@ can be used:
         <!-- Audio Software (Intel) -->
         <MediaCodec name="CIPAMRNBEncoder" type="audio/3gpp" />
         <MediaCodec name="CIPAMRWBEncoder" type="audio/amr-wb" />
-        <MediaCodec name="CIPAACEncoder" type="audio/mp4a-latm" />
 
         <!-- Audio Software (Google) -->
         <MediaCodec name="OMX.google.amrnb.encoder" type="audio/3gpp" />
         <MediaCodec name="OMX.google.amrwb.encoder" type="audio/amr-wb" />
         <MediaCodec name="OMX.google.aac.encoder" type="audio/mp4a-latm" />
         <MediaCodec name="OMX.google.flac.encoder" type="audio/flac" />
+
+        <!-- Audio Software (Intel) -->
+        <MediaCodec name="CIPAACEncoder" type="audio/mp4a-latm" />
     </Encoders>
 </MediaCodecs>
