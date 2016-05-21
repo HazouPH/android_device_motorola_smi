@@ -33,10 +33,7 @@ PRODUCT_PACKAGES += \
 	audio.usb.default \
 	audio.r_submix.default \
 	libaudioutils \
-	libdashplayer \
-        libstagefright_soft_aacdec_mdp \
-        libstagefright_soft_mp3dec_mdp \
-        libstagefright_soft_alacdec
+	libdashplayer
 
 # Stk
 PRODUCT_PACKAGES += \
@@ -99,7 +96,6 @@ PRODUCT_PACKAGES += \
 
 # libmix
 PRODUCT_PACKAGES += \
-    libasfparser \
     libmixvbp_mpeg4 \
     libmixvbp_h264 \
     libmixvbp_vc1 \
