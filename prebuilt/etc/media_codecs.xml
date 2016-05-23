@@ -124,19 +124,8 @@ can be used:
         <MediaCodec name="OMX.google.h264.decoder" type="video/avc" />
         <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
 
-        <!-- Audio Software (Google) -->
+        <!-- Audio Software (Google Override) -->
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
-        <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
-        <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb" />
-        <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-latm" />
-        <MediaCodec name="OMX.google.g711.alaw.decoder" type="audio/g711-alaw" >
-            <Quirk name="codec-requires-samplerate" />
-        </MediaCodec>
-        <MediaCodec name="OMX.google.g711.mlaw.decoder" type="audio/g711-mlaw" >
-            <Quirk name="codec-requires-samplerate" />
-        </MediaCodec>
-        <MediaCodec name="OMX.google.gsm.decoder" type="audio/gsm" />
-        <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
 
         <!-- Audio Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.aac.decoder" type="audio/mp4a-latm" />
@@ -150,6 +139,19 @@ can be used:
         <MediaCodec name="OMX.ffmpeg.ape.decoder" type="audio/x-ape" />
         <MediaCodec name="OMX.ffmpeg.dts.decoder" type="audio/vnd.dts" />
         <MediaCodec name="OMX.ffmpeg.atrial.decoder" type="audio/ffmpeg" />
+
+        <!-- Audio Software (Google) -->
+        <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
+        <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb" />
+        <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-latm" />
+        <MediaCodec name="OMX.google.g711.alaw.decoder" type="audio/g711-alaw" >
+            <Quirk name="codec-requires-samplerate" />
+        </MediaCodec>
+        <MediaCodec name="OMX.google.g711.mlaw.decoder" type="audio/g711-mlaw" >
+            <Quirk name="codec-requires-samplerate" />
+        </MediaCodec>
+        <MediaCodec name="OMX.google.gsm.decoder" type="audio/gsm" />
+        <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
     </Decoders>
     <Encoders>
         <!-- Video Hardware -->
