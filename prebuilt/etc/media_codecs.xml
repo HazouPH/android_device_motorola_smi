@@ -103,7 +103,7 @@ can be used:
         </MediaCodec>
 
         <!-- Video Software (FFmpeg) -->
-        <MediaCodec name="OMX.ffmpeg.mpeg2.decoder" type="video/mpeg2"/>
+        <MediaCodec name="OMX.ffmpeg.mpeg2v.decoder" type="video/mpeg2"/>
         <MediaCodec name="OMX.ffmpeg.h263.decoder" type="video/3gpp"/>
         <MediaCodec name="OMX.ffmpeg.mpeg4.decoder" type="video/mp4v-es"/>
         <MediaCodec name="OMX.ffmpeg.wmv.decoder" type="video/x-ms-wmv"/>
@@ -124,19 +124,6 @@ can be used:
         <MediaCodec name="OMX.google.h264.decoder" type="video/avc" />
         <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
 
-        <!-- Audio Software (FFmpeg) -->
-        <MediaCodec name="OMX.ffmpeg.aac.decoder" type="audio/mp4a-latm" />
-        <MediaCodec name="OMX.ffmpeg.mp3.decoder" type="audio/mpeg" />
-        <MediaCodec name="OMX.ffmpeg.vorbis.decoder" type="audio/vorbis" />
-        <MediaCodec name="OMX.ffmpeg.wma.decoder" type="audio/x-ms-wma" />
-        <MediaCodec name="OMX.ffmpeg.ra.decoder" type="audio/vnd.rn-realaudio" />
-        <MediaCodec name="OMX.ffmpeg.flac.decoder" type="audio/flac" />
-        <MediaCodec name="OMX.ffmpeg.mp2.decoder" type="audio/mpeg-L2" />
-        <MediaCodec name="OMX.ffmpeg.ac3.decoder" type="audio/ac3" />
-        <MediaCodec name="OMX.ffmpeg.ape.decoder" type="audio/x-ape" />
-        <MediaCodec name="OMX.ffmpeg.dts.decoder" type="audio/vnd.dts" />
-        <MediaCodec name="OMX.ffmpeg.atrial.decoder" type="audio/ffmpeg" />
-
         <!-- Audio Software (Google) -->
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
         <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
@@ -150,6 +137,19 @@ can be used:
         </MediaCodec>
         <MediaCodec name="OMX.google.gsm.decoder" type="audio/gsm" />
         <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
+
+        <!-- Audio Software (FFmpeg) -->
+        <MediaCodec name="OMX.ffmpeg.aac.decoder" type="audio/mp4a-latm" />
+        <!--MediaCodec name="OMX.ffmpeg.mp3.decoder" type="audio/mpeg" /-->
+        <MediaCodec name="OMX.ffmpeg.vorbis.decoder" type="audio/vorbis" />
+        <MediaCodec name="OMX.ffmpeg.wma.decoder" type="audio/x-ms-wma" />
+        <MediaCodec name="OMX.ffmpeg.ra.decoder" type="audio/vnd.rn-realaudio" />
+        <MediaCodec name="OMX.ffmpeg.flac.decoder" type="audio/flac" />
+        <MediaCodec name="OMX.ffmpeg.mp2.decoder" type="audio/mpeg-L2" />
+        <MediaCodec name="OMX.ffmpeg.ac3.decoder" type="audio/ac3" />
+        <MediaCodec name="OMX.ffmpeg.ape.decoder" type="audio/x-ape" />
+        <MediaCodec name="OMX.ffmpeg.dts.decoder" type="audio/vnd.dts" />
+        <MediaCodec name="OMX.ffmpeg.atrial.decoder" type="audio/ffmpeg" />
     </Decoders>
     <Encoders>
         <!-- Video Hardware -->
