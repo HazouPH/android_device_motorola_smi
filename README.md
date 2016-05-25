@@ -7,9 +7,6 @@ Motorola Razr i Intel-atom
 
 Source from Turl, Oxavelar, Motorola, Intel and HazouPH
 
-Still todo:
-- Kernel build when source is available, takes long
-
 ---------------------------------------------------------
 
 To build CM11 from with this device tree:
@@ -18,8 +15,9 @@ To build CM11 from with this device tree:
 - Download/Copy over 'local_manifest.xml to:
 (build-directory)/.repo/local_manifests/local_manifest.xml
 - Execute "Repo Sync" in your build directory
-- Execute 'sync_and_patch.sh' in the map /patches
 - Now do all the commands to get a build starting, 
 'extract-files.sh is not needed because of the vendor map,
-Use lunch and 'make/mka' to start the build!
+the build commands will trigger the patching of the source
+- Don't forget to download the prebuilts in vendor/cm
+- Use "breakfast" and "make/mka" commands to start the build!
 
