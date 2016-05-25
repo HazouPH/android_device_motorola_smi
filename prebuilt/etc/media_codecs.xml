@@ -126,11 +126,10 @@ can be used:
 
         <!-- Audio Software (Google Override) -->
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
+        <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
 
         <!-- Audio Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.aac.decoder" type="audio/mp4a-latm" />
-        <!--MediaCodec name="OMX.ffmpeg.mp3.decoder" type="audio/mpeg" /-->
-        <MediaCodec name="OMX.ffmpeg.vorbis.decoder" type="audio/vorbis" />
         <MediaCodec name="OMX.ffmpeg.wma.decoder" type="audio/x-ms-wma" />
         <MediaCodec name="OMX.ffmpeg.ra.decoder" type="audio/vnd.rn-realaudio" />
         <MediaCodec name="OMX.ffmpeg.flac.decoder" type="audio/flac" />
@@ -151,7 +150,6 @@ can be used:
             <Quirk name="codec-requires-samplerate" />
         </MediaCodec>
         <MediaCodec name="OMX.google.gsm.decoder" type="audio/gsm" />
-        <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
     </Decoders>
     <Encoders>
         <!-- Video Hardware -->
