@@ -205,7 +205,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.radio.apn_delay=5000 \
     ro.mot.cambtntime=400 \
     ro.ril.status.polling.enable=0 \
-    ro.config.personality=compat_layout
+    rild.libpath=/system/lib/librapid-ril-core.so \
+    ro.telephony.default_network=9 \
+    ro.ril.telephony.mqanelements=5 \
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     panel.physicalWidthmm=52 \
