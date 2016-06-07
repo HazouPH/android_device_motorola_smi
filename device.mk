@@ -222,16 +222,10 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.disable_scissor_opt=true
 
-# We have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
-
-# This library is required for Intel's implementation of Dalvik
-# libpcgdvmjit is a part of Dalvik JIT compiler
-PRODUCT_PACKAGES += libpcgdvmjit
-# This library is required for Intel's implementation of Dalvik
-# libcrash is a library which provides recorded state of an applications
-# which crashed while running on Dalvik VM
-PRODUCT_PACKAGES += libcrash
+# Dalvik
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.dalvik.vm.isa.arm=x86 \
+    dalvik.vm.implicit_checks=none
 
 # IDC
 PRODUCT_COPY_FILES += \
