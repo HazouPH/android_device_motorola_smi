@@ -4,6 +4,8 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 # Inherit enhanced nfc config 
 $(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
 
+PRODUCT_RUNTIMES := runtime_libart_default
+
 # Boot animation
 TARGET_SCREEN_HEIGHT := 960
 TARGET_SCREEN_WIDTH := 480	#Real=540 (Fix bootanimation)
