@@ -78,7 +78,8 @@ PRODUCT_COPY_FILES += \
 # Camera
 PRODUCT_PACKAGES += \
     camera.sc1 \
-    libintelmetadatabuffer
+    libintelmetadatabuffer \
+    snap
 
 # psb video
 PRODUCT_PACKAGES += \
