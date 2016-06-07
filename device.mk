@@ -173,6 +173,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 ADDITIONAL_DEFAULT_PROPERTIES += ro.dalvik.vm.native.bridge=libhoudini.so
 
+# stlport required for our LP blobs
+PRODUCT_PACKAGES += \
+    libstlport
+
 # Wifi
 PRODUCT_PACKAGES += \
     lib_driver_cmd_wl12xx \
