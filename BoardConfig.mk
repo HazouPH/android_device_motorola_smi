@@ -17,9 +17,6 @@ TARGET_BOARD_PLATFORM := medfield
 TARGET_BOOTLOADER_BOARD_NAME := sc1
 TARGET_CPU_SMP := true
 
-# Atom optimizations to improve memory benchmarks.
--include $(LOCAL_PATH)/OptAtom.mk
-
 # Connectivity - Wi-Fi
 USES_TI_MAC80211                 := true
 WPA_SUPPLICANT_VERSION           := VER_0_8_X_TI
