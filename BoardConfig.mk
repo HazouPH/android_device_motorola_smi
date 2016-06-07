@@ -127,8 +127,9 @@ RIL_SUPPORTS_SEEK := true
 # GPS
 BOARD_HAVE_GPS := true
 
-# skip doc from building
-BOARD_SKIP_ANDROID_DOC_BUILD := true
+# Charger
+BOARD_CHARGER_ENABLE_SUSPEND := true
+BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 # Recovery configuration global
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
