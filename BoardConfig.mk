@@ -8,12 +8,13 @@ TARGET_NO_RADIOIMAGE := true
 # Board configuration
 TARGET_BOOTLOADER_BOARD_NAME := smi
 TARGET_CPU_ABI := x86
-TARGET_CPU_VARIANT := x86
 TARGET_CPU_ABI2 := armeabi-v7a
+TARGET_CPU_ABI_LIST := x86,armeabi-v7a,armeabi
 TARGET_ARCH := x86
-TARGET_ARCH_VARIANT := x86-atom
+TARGET_ARCH_VARIANT := atom
 TARGET_ARCH_VARIANT_FPU := sse
-TARGET_BOARD_PLATFORM := sc1
+TARGET_BOARD_PLATFORM := medfield
+TARGET_BOOTLOADER_BOARD_NAME := sc1
 TARGET_CPU_SMP := true
 
 # Atom optimizations to improve memory benchmarks.
