@@ -143,6 +143,7 @@ BOARD_RECOVERY_SWIPE := true
 BOARD_UMS_LUNFILE := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun%d/file"
 TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/boottools/image/bzImage
 BOARD_SUPPRESS_EMMC_WIPE := true
+COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
 # Recovery options TWRP
 #RECOVERY_VARIANT := twrp
