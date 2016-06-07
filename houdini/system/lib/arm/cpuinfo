@@ -1,6 +1,6 @@
 Processor	: ARMv7 processor rev 1 (v7l)
 BogoMIPS	: 1500.0
-Features	: neon vfp swp half thumb fastmult edsp vfpv3 
+Features	: neon vfp swp half thumb fastmult edsp vfpv3 vfpv4 idiva idivt
 CPU implementer	: 0x69
 CPU architecture: 7
 CPU variant	: 0x1

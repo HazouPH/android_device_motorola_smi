@@ -5,6 +5,8 @@ on early-init
     chown system system /dev/dri/card0
     chmod 0666 /dev/dri/card0
     symlink /dev/dri/card0 /dev/card0
+    # Enable native bridge for target executables
+    mount binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc
 
 on init
 # setup the global environment
@@ -95,10 +97,10 @@ service media /system/bin/mediaserver
     group system audio camera media_rw sdcard_rw inet net_bt net_bt_admin net_bw_acct drmrpc net_raw security mot_tpapi radio mot_drm
     ioprio rt 4
 
-#Enable Houdini for execuable
-service enable_houdini /system/bin/enable_houdini
-    class main
-    oneshot
+# Enable native bridge for target executables
+on property:ro.enable.native.bridge.exec=1
+    copy /system/etc/binfmt_misc/arm_exe /proc/sys/fs/binfmt_misc/register
+    copy /system/etc/binfmt_misc/arm_dyn /proc/sys/fs/binfmt_misc/register
 
 # This property trigger has added to imitiate the previous behavior of "adb root".
 # The adb gadget driver used to reset the USB bus when the adbd daemon exited,
