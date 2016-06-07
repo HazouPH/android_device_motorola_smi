@@ -27,6 +27,10 @@ PRODUCT_LOCALES += hdpi
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := hdpi
 
+# Art
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.dex2oat-swap=false
+
 # Audio
 PRODUCT_PACKAGES += \
 	audio.a2dp.default \
