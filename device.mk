@@ -164,13 +164,14 @@ PRODUCT_PACKAGES += \
     resize2fs \
     setup_fs
 
-# Houdini
+# Houdini (arm native bridge)
 PRODUCT_COPY_FILES += \
         $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
 
-PRODUCT_PACKAGES += \
-   libhoudini_hook \
-   houdini_hook
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.enable.native.bridge.exec=1
+
+ADDITIONAL_DEFAULT_PROPERTIES += ro.dalvik.vm.native.bridge=libhoudini.so
 
 # Wifi
 PRODUCT_PACKAGES += \
