@@ -162,9 +162,3 @@ HAVE_SELINUX := true
 # SELinux
 BOARD_SEPOLICY_DIRS += \
     device/motorola/smi/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-    file_contexts \
-    domain.te \
-    init_shell.te \
-    netd.te
