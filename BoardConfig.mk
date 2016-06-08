@@ -160,5 +160,5 @@ TW_DEFAULT_EXTERNAL_STORAGE := true
 HAVE_SELINUX := true
 
 # SELinux
-BOARD_SEPOLICY_DIRS += \
+#BOARD_SEPOLICY_DIRS += \
     device/motorola/smi/sepolicy
