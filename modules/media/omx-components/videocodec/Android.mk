@@ -343,7 +343,7 @@ LOCAL_SRC_FILES := \
     OMXComponentCodecBase.cpp\
     OMXVideoDecoderBase.cpp
 
-ifneq ($(filter $(TARGET_BOARD_PLATFORM),clovertrail medfield sc1),)
+ifneq ($(filter $(TARGET_BOARD_PLATFORM),clovertrail medfield),)
 # Secure AVC decoder for Clovertrail/Medfield (uses IMR)
 LOCAL_SHARED_LIBRARIES += libsepdrm
 
