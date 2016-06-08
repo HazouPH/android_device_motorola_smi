@@ -19,10 +19,13 @@ TARGET_CPU_SMP := true
 
 # Connectivity - Wi-Fi
 USES_TI_MAC80211                 := true
-WPA_SUPPLICANT_VERSION           := VER_0_8_X_TI
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
 BOARD_WLAN_DEVICE                := wl12xx-compat
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wl12xx
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_wl12xx
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 BOARD_HOSTAPD_DRIVER             := NL80211
+CONFIG_HS20                      := true
 COMMON_GLOBAL_CFLAGS             += -DUSES_TI_MAC80211
 
 TARGET_MODULES_SOURCE := "hardware/ti/wlan-intel/wl12xx-compat"
@@ -61,8 +64,7 @@ BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_KERNEL_CONFIG := i386_mfld_moto_defconfig
 BOARD_KERNEL_IMAGE_NAME := bzImage
-KERNEL_TOOLCHAIN := ~/CM11/prebuilts/gcc/linux-x86/x86/i686-linux-android-4.7/bin #TEMP
-KERNEL_TOOLCHAIN_PREFIX := i686-linux-android-
+KERNEL_TOOLCHAIN_PREFIX := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/x86/i686-linux-android-4.7/bin/i686-linux-android-
 BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=260046848 earlyprintk=nologger
 BOARD_KERNEL_CMDLINE += hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1
 BOARD_KERNEL_CMDLINE += androidboot.spid=xxxx:xxxx:xxxx:xxxx:xxxx:xxxx emmc_ipanic.ipanic_part_number=6
