@@ -32,17 +32,17 @@ TARGET_MODULES_SOURCE := "hardware/ti/wlan-intel/wl12xx-compat"
 
 WIFI_MODULES:
 	make clean -C $(TARGET_MODULES_SOURCE)
-	make -j8 -C $(TARGET_MODULES_SOURCE) KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(KERNEL_CROSS_COMPILE)
+	make -j8 -C $(TARGET_MODULES_SOURCE) KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(KERNEL_CROSS_COMPILE) -o $(KERNEL_OUT)/wl12xx-compat
 	mv $(TARGET_MODULES_SOURCE)/compat/compat.ko $(KERNEL_MODULES_OUT)
 	mv $(TARGET_MODULES_SOURCE)/net/mac80211/mac80211.ko $(KERNEL_MODULES_OUT)
 	mv $(TARGET_MODULES_SOURCE)/net/wireless/cfg80211.ko $(KERNEL_MODULES_OUT)
 	mv $(TARGET_MODULES_SOURCE)/drivers/net/wireless/wl12xx/wl12xx.ko $(KERNEL_MODULES_OUT)
 	mv $(TARGET_MODULES_SOURCE)/drivers/net/wireless/wl12xx/wl12xx_sdio.ko $(KERNEL_MODULES_OUT)
-	$(ANDROID_EABI_TOOLCHAIN)/i686-linux-android-strip --strip-unneeded $(KERNEL_MODULES_OUT)/compat.ko
-	$(ANDROID_EABI_TOOLCHAIN)/i686-linux-android-strip --strip-unneeded $(KERNEL_MODULES_OUT)/mac80211.ko
-	$(ANDROID_EABI_TOOLCHAIN)/i686-linux-android-strip --strip-unneeded $(KERNEL_MODULES_OUT)/cfg80211.ko
-	$(ANDROID_EABI_TOOLCHAIN)/i686-linux-android-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx.ko
-	$(ANDROID_EABI_TOOLCHAIN)/i686-linux-android-strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
+	$(KERNEL_TOOLCHAIN_PREFIX)strip --strip-unneeded $(KERNEL_MODULES_OUT)/compat.ko
+	$(KERNEL_TOOLCHAIN_PREFIX)strip --strip-unneeded $(KERNEL_MODULES_OUT)/mac80211.ko
+	$(KERNEL_TOOLCHAIN_PREFIX)strip --strip-unneeded $(KERNEL_MODULES_OUT)/cfg80211.ko
+	$(KERNEL_TOOLCHAIN_PREFIX)strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx.ko
+	$(KERNEL_TOOLCHAIN_PREFIX)strip --strip-unneeded $(KERNEL_MODULES_OUT)/wl12xx_sdio.ko
 	make clean -C $(TARGET_MODULES_SOURCE)
 
 TARGET_KERNEL_MODULES := WIFI_MODULES
