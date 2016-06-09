@@ -262,20 +262,6 @@ on boot
 on fs
     setprop ro.crypto.fuse_sdcard true
 
-# Access Token
-service atvc_core /system/bin/dbvc_atvc_property_set
-    class main
-    user mot_atvc
-    group mot_tpapi
-    oneshot
-
-# Access Token
-service atvc /system/bin/dbvc_atvc_property_set
-    class late_start
-    user mot_atvc
-    group mot_tpapi
-    oneshot
-
 on property:sys.boot_completed=1
     # Insert matrix for PnP measurements
     insmod /system/lib/modules/matrix.ko

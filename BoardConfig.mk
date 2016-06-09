@@ -91,7 +91,6 @@ BOARD_SYSTEM_DEVICE                     := /dev/block/mmcblk0p16
 BOARD_SYSTEM_FILESYSTEM                 := ext4
 
 # Ramdisk
-TARGET_PROVIDES_INIT_RC := true
 TARGET_NR_SVC_SUPP_GIDS := 28
 
 # Blutetooth
