@@ -456,7 +456,7 @@ wsbmFenceCmdUnlock(struct _WsbmFenceMgr *mgr, uint32_t fence_class)
 void
 wsbmFenceMgrTTMTakedown(struct _WsbmFenceMgr *mgr)
 {
-    int i;
+    unsigned int i;
 
     if (!mgr)
 	return;

@@ -256,7 +256,7 @@ static inline int
 wsbmPot(unsigned int val)
 {
     unsigned int shift = 0;
-    while(val > (1 << shift))
+    while(val > (unsigned int)(1 << shift))
 	shift++;
 
     return shift;
@@ -267,7 +267,7 @@ wsbmPot(unsigned int val)
 static int
 validateCreateList(int numTarget, struct _ValidateList *list, int driverData)
 {
-    int i;
+    unsigned int i;
     unsigned int shift = wsbmPot(numTarget);
     int ret;
 
@@ -729,7 +729,7 @@ wsbmBODataUB(struct _WsbmBufferObject *buf,
     curPool = storage->pool;
 
     if (data) {
-        memcpy(user_ptr, data, size);
+        memcpy((unsigned long *) user_ptr, data, size);
     }
 
     out:
@@ -971,7 +971,7 @@ wsbmGenBuffers(struct _WsbmBufferPool *pool,
 	       unsigned alignment, uint32_t placement)
 {
     struct _WsbmBufferObject *buf;
-    int i;
+    unsigned int i;
 
     placement = (placement) ? placement :
 	WSBM_PL_FLAG_SYSTEM | WSBM_PL_FLAG_CACHED;
@@ -994,7 +994,7 @@ wsbmGenBuffers(struct _WsbmBufferPool *pool,
 void
 wsbmDeleteBuffers(unsigned n, struct _WsbmBufferObject *buffers[])
 {
-    int i;
+    unsigned int i;
 
     for (i = 0; i < n; ++i) {
 	wsbmBOUnreference(&buffers[i]);

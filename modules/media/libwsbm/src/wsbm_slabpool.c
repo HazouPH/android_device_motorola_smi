@@ -323,7 +323,7 @@ wsbmAllocKernelBO(struct _WsbmSlabSizeHeader *header)
      * to efficiently reuse slabs.
      */
 
-    size = (size <= slabPool->maxSlabSize) ? size : slabPool->maxSlabSize;
+    size = (size <= (uint32_t) slabPool->maxSlabSize) ? size : (uint32_t) slabPool->maxSlabSize;
     if (size < header->bufSize)
 	size = header->bufSize;
     size = (size + slabPool->pageSize - 1) & ~(slabPool->pageSize - 1);
@@ -449,8 +449,8 @@ wsbmAllocSlab(struct _WsbmSlabSizeHeader *header)
     struct _WsbmSlab *slab;
     struct _WsbmSlabBuffer *sBuf;
     uint32_t numBuffers;
-    int ret;
-    int i;
+    uint32_t ret;
+    uint32_t i;
 
     slab = calloc(1, sizeof(*slab));
     if (!slab)
@@ -546,7 +546,7 @@ wsbmSlabFreeBufferLocked(struct _WsbmSlabBuffer *buf)
 	struct _WsbmSlabCache *cache = header->slabPool->cache;
 
 	WSBMLISTFOREACHSAFE(list, next, &header->freeSlabs) {
-	    int i;
+	    uint32_t i;
 	    struct _WsbmSlabBuffer *sBuf;
 
 	    slab = WSBMLISTENTRY(list, struct _WsbmSlab, head);
@@ -576,7 +576,7 @@ wsbmSlabCheckFreeLocked(struct _WsbmSlabSizeHeader *header, int wait)
     struct _WsbmSlab *slab;
     int firstWasSignaled = 1;
     int signaled;
-    int i;
+    uint32_t i;
     int ret;
 
     /*
@@ -696,7 +696,7 @@ pool_create(struct _WsbmBufferPool *pool, unsigned long size,
     struct _WsbmSlabPool *slabPool = slabPoolFromPool(pool);
     struct _WsbmSlabSizeHeader *header;
     struct _WsbmSlabBuffer *sBuf;
-    int i;
+    uint32_t i;
     int ret;
 
     /*
@@ -885,7 +885,7 @@ pool_waitIdle(struct _WsbmBufStorage *buf, int lazy)
 }
 
 static int
-pool_map(struct _WsbmBufStorage *buf, unsigned mode, void **virtual)
+pool_map(struct _WsbmBufStorage *buf, unsigned mode __attribute__ ((unused)), void **virtual)
 {
     struct _WsbmSlabBuffer *sBuf = slabBuffer(buf);
 
@@ -895,7 +895,7 @@ pool_map(struct _WsbmBufStorage *buf, unsigned mode, void **virtual)
 }
 
 static void
-pool_releaseFromCpu(struct _WsbmBufStorage *buf, unsigned mode)
+pool_releaseFromCpu(struct _WsbmBufStorage *buf, unsigned mode __attribute__ ((unused)))
 {
     struct _WsbmSlabBuffer *sBuf = slabBuffer(buf);
 
@@ -941,7 +941,7 @@ pool_syncForCpu(struct _WsbmBufStorage *buf, unsigned mode)
 }
 
 static void
-pool_unmap(struct _WsbmBufStorage *buf)
+pool_unmap(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     ;
 }
@@ -1001,7 +1001,7 @@ pool_fence(struct _WsbmBufStorage *buf, struct _WsbmFenceObject *fence)
 
 static int
 pool_validate(struct _WsbmBufStorage *buf,
-	      uint64_t set_flags, uint64_t clr_flags)
+        uint64_t set_flags __attribute__ ((unused)), uint64_t clr_flags __attribute__ ((unused)))
 {
     struct _WsbmSlabBuffer *sBuf = slabBuffer(buf);
 
@@ -1119,7 +1119,7 @@ static void
 pool_takedown(struct _WsbmBufferPool *pool)
 {
     struct _WsbmSlabPool *slabPool = slabPoolFromPool(pool);
-    int i;
+    unsigned int i;
 
     for (i = 0; i < slabPool->numBuckets; ++i) {
 	wsbmFinishSizeHeader(&slabPool->headers[i]);

@@ -335,14 +335,20 @@ pool_releasefromcpu(struct _WsbmBufStorage *buf, unsigned mode)
 }
 
 #ifdef ANDROID
+
+/* No header but syscall provided by bionic */
+void*  __mmap2(void*, size_t, int, int, int, size_t);
+#define MMAP2_SHIFT 12 // 2**12 == 4096
+
 static void* _temp_mmap(void *addr, size_t size, int prot, int flags, int fd, long long offset)
 {
-        return __mmap2(addr, size, prot, flags, fd, (unsigned long)(offset >> PAGE_SHIFT));
+    return __mmap2(addr, size, prot, flags, fd, (unsigned long)(offset >> MMAP2_SHIFT));
 }
+
 #endif
 
 static int
-pool_map(struct _WsbmBufStorage *buf, unsigned mode, void **virtual)
+pool_map(struct _WsbmBufStorage *buf, unsigned mode __attribute__ ((unused)), void **virtual)
 {
     struct _TTMBuffer *dBuf = ttmBuffer(buf);
     void *virt;
@@ -381,7 +387,7 @@ pool_map(struct _WsbmBufStorage *buf, unsigned mode, void **virtual)
 }
 
 static void
-pool_unmap(struct _WsbmBufStorage *buf)
+pool_unmap(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     ;
 }
@@ -395,7 +401,7 @@ pool_offset(struct _WsbmBufStorage *buf)
 }
 
 static unsigned long
-pool_poolOffset(struct _WsbmBufStorage *buf)
+pool_poolOffset(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     return 0;
 }
@@ -417,7 +423,8 @@ pool_size(struct _WsbmBufStorage *buf)
 }
 
 static void
-pool_fence(struct _WsbmBufStorage *buf, struct _WsbmFenceObject *fence)
+pool_fence(struct _WsbmBufStorage *buf __attribute__ ((unused)),
+        struct _WsbmFenceObject *fence __attribute__ ((unused)))
 {
     /*
      * Noop. The kernel handles all fencing.

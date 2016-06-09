@@ -62,19 +62,19 @@ n_condInit(struct _WsbmCond *cond, struct _WsbmThreadFuncs *func)
 }
 
 static void
-n_mutexNone(struct _WsbmMutex *mutex)
+n_mutexNone(struct _WsbmMutex *mutex __attribute__ ((unused)))
 {
     ;
 }
 
 static void
-n_condNone(struct _WsbmCond *cond)
+n_condNone(struct _WsbmCond *cond __attribute__ ((unused)))
 {
     ;
 }
 
 static void
-n_condWait(struct _WsbmCond *cond, struct _WsbmMutex *mutex)
+n_condWait(struct _WsbmCond *cond __attribute__ ((unused)), struct _WsbmMutex *mutex __attribute__ ((unused)))
 {
     ;
 }

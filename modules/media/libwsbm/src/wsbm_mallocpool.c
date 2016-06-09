@@ -54,7 +54,7 @@ mallocBuf(struct _WsbmBufStorage *buf)
 
 static struct _WsbmBufStorage *
 pool_create(struct _WsbmBufferPool *pool,
-	    unsigned long size, uint32_t placement, unsigned alignment)
+        unsigned long size, uint32_t placement, unsigned alignment __attribute__ ((unused)))
 {
     struct _WsbmMallocBuffer *mBuf = malloc(size + sizeof(*mBuf) + 16);
 
@@ -78,38 +78,38 @@ pool_destroy(struct _WsbmBufStorage **buf)
 }
 
 static int
-pool_waitIdle(struct _WsbmBufStorage *buf, int lazy)
+pool_waitIdle(struct _WsbmBufStorage *buf __attribute__ ((unused)), int lazy __attribute__ ((unused)))
 {
     return 0;
 }
 
 static int
-pool_map(struct _WsbmBufStorage *buf, unsigned mode, void **virtual)
+pool_map(struct _WsbmBufStorage *buf, unsigned mode __attribute__ ((unused)), void **virtual __attribute__ ((unused)))
 {
     *virtual = mallocBuf(buf)->mem;
     return 0;
 }
 
 static void
-pool_unmap(struct _WsbmBufStorage *buf)
+pool_unmap(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     ;
 }
 
 static int
-pool_syncforcpu(struct _WsbmBufStorage *buf, unsigned mode)
+pool_syncforcpu(struct _WsbmBufStorage *buf __attribute__ ((unused)), unsigned mode __attribute__ ((unused)))
 {
     return 0;
 }
 
 static void
-pool_releasefromcpu(struct _WsbmBufStorage *buf, unsigned mode)
+pool_releasefromcpu(struct _WsbmBufStorage *buf __attribute__ ((unused)), unsigned mode __attribute__ ((unused)))
 {
     ;
 }
 
 static unsigned long
-pool_offset(struct _WsbmBufStorage *buf)
+pool_offset(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     /*
      * BUG
@@ -119,7 +119,7 @@ pool_offset(struct _WsbmBufStorage *buf)
 }
 
 static unsigned long
-pool_poolOffset(struct _WsbmBufStorage *buf)
+pool_poolOffset(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     /*
      * BUG
@@ -128,7 +128,7 @@ pool_poolOffset(struct _WsbmBufStorage *buf)
 }
 
 static uint32_t
-pool_placement(struct _WsbmBufStorage *buf)
+pool_placement(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     return WSBM_PL_FLAG_SYSTEM | WSBM_PL_FLAG_CACHED;
 }
@@ -140,13 +140,13 @@ pool_size(struct _WsbmBufStorage *buf)
 }
 
 static void
-pool_fence(struct _WsbmBufStorage *buf, struct _WsbmFenceObject *fence)
+pool_fence(struct _WsbmBufStorage *buf __attribute__ ((unused)), struct _WsbmFenceObject *fence __attribute__ ((unused)))
 {
     abort();
 }
 
 static struct _WsbmKernelBuf *
-pool_kernel(struct _WsbmBufStorage *buf)
+pool_kernel(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     abort();
     return NULL;

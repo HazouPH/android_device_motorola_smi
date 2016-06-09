@@ -10,6 +10,9 @@
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1
 
+#ifdef ANDROID
+#undef HAVE_PTHREADS
+#endif
 /* "os has pthreads" */
 #define HAVE_PTHREADS 1
 

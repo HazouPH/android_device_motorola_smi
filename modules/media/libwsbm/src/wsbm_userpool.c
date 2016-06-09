@@ -448,7 +448,7 @@ pool_destroy(struct _WsbmBufStorage **buf)
 }
 
 static int
-pool_map(struct _WsbmBufStorage *buf, unsigned mode, void **virtual)
+pool_map(struct _WsbmBufStorage *buf, unsigned mode __attribute__ ((unused)), void **virtual)
 {
     struct _WsbmUserBuffer *vBuf = userBuf(buf);
 
@@ -457,13 +457,13 @@ pool_map(struct _WsbmBufStorage *buf, unsigned mode, void **virtual)
 }
 
 static void
-pool_unmap(struct _WsbmBufStorage *buf)
+pool_unmap(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     ;
 }
 
 static void
-pool_releaseFromCpu(struct _WsbmBufStorage *buf, unsigned mode)
+pool_releaseFromCpu(struct _WsbmBufStorage *buf, unsigned mode __attribute__ ((unused)))
 {
     struct _WsbmUserBuffer *vBuf = userBuf(buf);
 
@@ -510,7 +510,7 @@ pool_offset(struct _WsbmBufStorage *buf)
 }
 
 static unsigned long
-pool_poolOffset(struct _WsbmBufStorage *buf)
+pool_poolOffset(struct _WsbmBufStorage *buf __attribute__ ((unused)))
 {
     return 0UL;
 }
