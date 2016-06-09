@@ -36,8 +36,7 @@ PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	audio.usb.default \
 	audio.r_submix.default \
-	libaudioutils \
-	libdashplayer
+	libaudioutils
 
 # Stk
 PRODUCT_PACKAGES += \
