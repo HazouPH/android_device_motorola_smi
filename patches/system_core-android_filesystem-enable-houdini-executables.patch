@@ -1,0 +1,25 @@
+From a67c248d509c2947b5210c9987f193002a48aaf1 Mon Sep 17 00:00:00 2001
+From: Patrick Harbers <jgrharbers@gmail.com>
+Date: Thu, 9 Jun 2016 16:01:46 +0200
+Subject: [PATCH] android_filesystem: enable houdini executables
+
+Change-Id: I5663a97f65c34e48590ae2ccbbe3bf13e44269f1
+---
+ libcutils/fs_config.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/libcutils/fs_config.c b/libcutils/fs_config.c
+index 7b23d71..eb6e11c 100644
+--- a/libcutils/fs_config.c
++++ b/libcutils/fs_config.c
+@@ -138,6 +138,7 @@ static const struct fs_path_config android_files[] = {
+     { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/install-recovery.sh" },
+     { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/*" },
+     { 00755, AID_ROOT,      AID_SHELL,     0, "system/etc/init.d/*" },
++    { 00755, AID_ROOT,      AID_SHELL,     0, "system/lib/arm/houdini" },
+     { 00755, AID_ROOT,      AID_ROOT,      0, "system/lib/valgrind/*" },
+     { 00755, AID_ROOT,      AID_ROOT,      0, "system/lib64/valgrind/*" },
+     { 00755, AID_ROOT,      AID_SHELL,     0, "system/xbin/*" },
+-- 
+2.7.4
+
