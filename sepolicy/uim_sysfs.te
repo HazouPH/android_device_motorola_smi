@@ -1,0 +1,17 @@
+type uim_sysfs, domain;
+type uim_sysfs_exec, exec_type, file_type;
+
+init_daemon_domain(uim_sysfs)
+
+# Allow uim-sysfs to create gps data files in /data
+file_type_auto_trans(uim_sysfs, system_data_file, gps_data_file)
+
+allow uim_sysfs self:capability {
+    sys_module dac_read_search dac_override fowner chown fsetid
+};
+
+allow uim_sysfs gps_device:chr_file { setattr rw_file_perms };
+allow uim_sysfs radio_device:chr_file { setattr rw_file_perms };
+allow uim_sysfs hci_attach_dev:chr_file rw_file_perms;
+allow uim_sysfs sysfs_bluetooth_writable:file { setattr rw_file_perms };
+allow uim_sysfs gps_data_file:file create_file_perms;

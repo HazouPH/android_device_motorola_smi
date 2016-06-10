@@ -1,0 +1,16 @@
+type batt_health, domain;
+type batt_health_exec, exec_type, file_type;
+init_daemon_domain(batt_health);
+
+allow batt_health self:capability { setuid fowner chown fsetid net_admin dac_override };
+allow batt_health batt_health_data_file:dir rw_dir_perms;
+allow batt_health batt_health_data_file:file create_file_perms;
+allow batt_health batt_health_sysfs:file rw_file_perms;
+allow batt_health batt_health_sysfs:dir rw_dir_perms;
+allow batt_health pds_file:dir rw_dir_perms;
+allow batt_health pds_file:file create_file_perms;
+allow batt_health self:netlink_kobject_uevent_socket read;
+allow batt_health self:netlink_kobject_uevent_socket { bind create setopt };
+
+# batt_health needs to access /sys/devices/platform/msm_ssbi.0/pm8921-core which is used by others
+allow batt_health sysfs:file w_file_perms;

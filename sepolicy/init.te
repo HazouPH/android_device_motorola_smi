@@ -1,0 +1,7 @@
+# We load modules in our init.rc scripts
+permissive init;
+allow init self:capability sys_module;
+allow init self:process execmem;
+allow init wifi_data_file:dir { write add_name };
+allow init wifi_data_file:file { write create };
+

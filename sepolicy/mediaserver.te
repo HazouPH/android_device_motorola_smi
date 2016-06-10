@@ -1,0 +1,6 @@
+allow mediaserver default_prop:property_service set;
+allow mediaserver radio_device:chr_file { read write ioctl open getattr };
+allow mediaserver audio_device:chr_file { read write ioctl open getattr };
+allow mediaserver socket_device:sock_file write;
+allow mediaserver graphics_device:dir search;
+allow mediaserver mmgr:unix_stream_socket connectto;

@@ -1,0 +1,3 @@
+allow rild socket_device:sock_file write;
+allow rild radio_device:chr_file getattr;
+allow rild mmgr:unix_stream_socket connectto;

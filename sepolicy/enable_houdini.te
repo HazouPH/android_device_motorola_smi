@@ -1,0 +1,17 @@
+type enable_houdini, domain;
+type enable_houdini_exec, exec_type, file_type;
+
+init_daemon_domain(enable_houdini)
+
+# enable_houdini is a shell script.
+# Allow it to execute /system/bin/sh
+allow enable_houdini shell_exec:file rx_file_perms;
+
+# Execute /system/bin/toolbox commands such as cp
+allow enable_houdini system_file:file rx_file_perms;
+
+allow enable_houdini proc:dir mounton;
+allow enable_houdini unlabeled:filesystem mount;
+allow enable_houdini unlabeled:dir search;
+allow enable_houdini unlabeled:file { write getattr open };
+allow enable_houdini self:capability { dac_read_search sys_admin dac_override };

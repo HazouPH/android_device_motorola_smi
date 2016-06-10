@@ -1,0 +1,1 @@
+allow bluetooth hci_attach_dev:chr_file { read write open };

@@ -1,1 +1,3 @@
 allow netd kernel:system module_request;
+# we don't allow modules
+dontaudit netd self:capability sys_module;

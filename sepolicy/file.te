@@ -1,0 +1,9 @@
+# batt_health
+type batt_health_data_file, file_type;
+type batt_health_sysfs, sysfs_type, fs_type;
+
+# PDS files
+type pds_file, file_type;
+
+# WIFI files
+type wifi_file, file_type;

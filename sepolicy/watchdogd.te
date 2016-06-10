@@ -1,0 +1,1 @@
+allow watchdogd self:capability dac_override;

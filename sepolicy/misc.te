@@ -1,0 +1,15 @@
+# WIFI CALIBRATION
+type wifi_calib, domain;
+type wifi_calib_exec, exec_type, file_type;
+
+init_daemon_domain(wifi_calib)
+
+allow wifi_calib devpts:chr_file { open read write };
+allow wifi_calib self:capability { dac_read_search dac_override };
+allow wifi_calib shell_exec:file rx_file_perms;
+allow wifi_calib shell_exec:file read;
+# Allow executing toolbox commands (ls, mkdir, ..)
+allow wifi_calib system_file:file rx_file_perms;
+
+allow wifi_calib wifi_data_file:file create_file_perms;
+allow wifi_calib wifi_data_file:dir search;

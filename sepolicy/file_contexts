@@ -1,1 +1,51 @@
-/dev/dri/card0		u:object_r:graphics_device:s0
+/dev/dri/card0				u:object_r:gpu_device:s0
+/system/bin/ak8963fs                  	u:object_r:akmd8963_exec:s0
+/system/bin/akmd8963                  	u:object_r:akmd8963_exec:s0
+/system/bin/batt_health            	u:object_r:batt_health_exec:s0
+/system/bin/enable_houdini       	u:object_r:enable_houdini_exec:s0
+/system/bin/uim		             	u:object_r:uim_sysfs_exec:s0
+/system/bin/pvrsrvctl 			u:object_r:pvrsrvctl_exec:s0
+/system/bin/bd_prov			u:object_r:bd_prov_exec:s0
+/system/bin/gps_driver			u:object_r:locdrv_exec:s0
+
+# AKMD8963
+/dev/akm8963    			u:object_r:sensors_device:s0
+/dev/akm8963_dev			u:object_r:sensors_device:s0
+
+# batt_health
+/data/power_supply_logger(/.*)?    	u:object_r:batt_health_data_file:s0
+/sys/module/max17042(/.*)?       	u:object_r:batt_health_sysfs:s0
+
+# PDS
+/pds(/.*)?                         	u:object_r:pds_file:s0
+
+# Rild
+/dev/gsmtty(.*)?    			u:object_r:radio_device:s0
+
+# Camera
+/dev/lis3dh    				u:object_r:sensors_device:s0
+
+# Audio
+/dev/audience_es305			u:object_r:audio_device:s0
+/dev/intel_sst_ctrl			u:object_r:audio_device:s0
+
+# Bluetooth
+/dev/hci_tty				u:object_r:hci_attach_dev:s0
+/dev/ttyMFD0				u:object_r:hci_attach_dev:s0
+
+# Firmwares
+/system/etc/firmware/ti-connectivity(/*)? u:object_r:wifi_data_file:s0
+
+# GPS
+/data/location(/*)?			u:object_r:radio_data_file:s0
+/system/bin/TIDrv			u:object_r:system_file:s0
+/system/etc/location.cfg		u:object_r:system_data_file:s0
+/data/location/GpsIpcDrvSocket		u:object_r:system_data_file:s0
+/dev/tigps				u:object_r:radio_device:s0
+
+# MMGR
+/system/bin/mmgr                u:object_r:mmgr_exec:s0
+/dev/mdm_ctrl(.*)?              u:object_r:tty_device:s0
+/dev/ttyACM(.*)?                u:object_r:tty_device:s0
+/dev/ttyXMM(.*)?                u:object_r:tty_device:s0
+/dev/ttyIFX0			u:object_r:tty_device:s0

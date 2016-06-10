@@ -1,0 +1,15 @@
+# AKMD8963 Sensor daemon
+type akmd8963, domain;
+type akmd8963_exec, exec_type, file_type;
+type akmd8963_data_file, file_type, data_file_type;
+init_daemon_domain(akmd8963)
+
+file_type_auto_trans(akmd8963, system_data_file, akmd8963_data_file)
+
+
+allow akmd8963 sensors_device:chr_file rw_file_perms;
+allow akmd8963 akmd8963_data_file:file create_file_perms;
+
+# Permission needed to create files in /data/misc/
+#allow akmd8963 system_data_file:dir w_dir_perms;
+allow akmd8963 self:process execmem;
