@@ -129,6 +129,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libdrm
 
+# pvrsrvctl
+PRODUCT_PACKAGES += \
+    pvrsrvctl
+
 # AGPS
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/framework/com.motorola.android.location.jar:system/framework/com.motorola.android.location.jar
@@ -139,13 +143,8 @@ PRODUCT_PACKAGES += \
     libbson \
     libcurl \
     tcpdump \
-    Torch \
+    libcorkscrew \
     com.android.future.usb.accessory
-
-# Crda
-PRODUCT_PACKAGES += \
-    crda \
-    regulatory.bin
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \

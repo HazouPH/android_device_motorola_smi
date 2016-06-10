@@ -94,7 +94,6 @@ lib/drm/libmotdrmplugin.so
 lib/hw/hwcomposer.smi.so
 lib/libpvr2d.so
 lib/libwbxmlparser.so
-vendor/bin/pvrsrvctl
 vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/egl/libEGL_POWERVR_SGX540_121.so
 vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_121.so
