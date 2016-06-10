@@ -15,7 +15,6 @@ TARGET_ARCH_VARIANT := atom
 TARGET_ARCH_VARIANT_FPU := sse
 TARGET_BOARD_PLATFORM := medfield
 TARGET_BOOTLOADER_BOARD_NAME := sc1
-TARGET_CPU_SMP := true
 
 # Connectivity - Wi-Fi
 USES_TI_MAC80211                 := true
