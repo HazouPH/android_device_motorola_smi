@@ -46,11 +46,6 @@ WIFI_MODULES:
 
 TARGET_KERNEL_MODULES := WIFI_MODULES
 
-# Global flags
-COMMON_GLOBAL_CFLAGS += -DMOTOROLA_UIDS
-
-TARGET_USES_MOTOROLA_LOG := true
-
 # Use boot tools to make Intel-formatted images
 DEVICE_BASE_BOOT_IMAGE := $(LOCAL_PATH)/boottools/image/boot
 DEVICE_BASE_RECOVERY_IMAGE := $(LOCAL_PATH)/boottools/image/recovery
@@ -100,7 +95,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 BOARD_USES_TINY_ALSA_AUDIO := true
-USE_INTEL_RSP := true
 
 # Graphics
 USE_OPENGL_RENDERER	:= true
@@ -117,13 +111,6 @@ BOARD_USES_WRS_OMXIL_CORE := true
 BOARD_USES_MRST_OMX := true
 USE_INTEL_SECURE_AVC := true
 
-# Enable WEBGL in WebKit
-ENABLE_WEBGL := true
-TARGET_FORCE_CPU_UPLOAD := true
-
-# RILD
-RIL_SUPPORTS_SEEK := true
-
 # GPS
 BOARD_HAVE_GPS := true
 
@@ -133,6 +120,9 @@ BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 # Houdini: enable ARM codegen for x86
 BUILD_ARM_FOR_X86 := true
+
+# Use dlmalloc
+#MALLOC_IMPL := dlmalloc
 
 # Recovery configuration global
 BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
