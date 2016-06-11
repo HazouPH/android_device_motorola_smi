@@ -166,10 +166,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
         $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
 
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.enable.native.bridge.exec=1
+ADDITIONAL_BUILD_PROPERTIES += \
+    ro.enable.native.bridge.exec=1 \
+    ro.dalvik.vm.isa.arm=x86 \
+    dalvik.vm.implicit_checks=none \
+    ro.dalvik.vm.native.bridge=libhoudini.so
 
-ADDITIONAL_DEFAULT_PROPERTIES += ro.dalvik.vm.native.bridge=libhoudini.so
+# Appends path to ARM libs for Houdini
+PRODUCT_LIBRARY_PATH := $(PRODUCT_LIBRARY_PATH):/system/lib/arm:/system/lib/arm/nb
 
 # stlport required for our LP blobs
 PRODUCT_PACKAGES += \
@@ -226,11 +230,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 # SGX540 is slower with the scissor optimization enabled
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.disable_scissor_opt=true
-
-# Dalvik
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.dalvik.vm.isa.arm=x86 \
-    dalvik.vm.implicit_checks=none
 
 # IDC
 PRODUCT_COPY_FILES += \
