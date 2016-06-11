@@ -1,0 +1,10 @@
+on post-fs-data
+
+    mkdir /data/nfc 0770 nfc nfc
+
+
+on boot
+#  Permissions for NFC
+    setprop ro.nfc.port "I2C"
+    chmod 0660 /dev/pn544
+    chown nfc nfc /dev/pn544

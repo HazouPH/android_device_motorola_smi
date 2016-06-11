@@ -1,40 +1,41 @@
-on early-init
+import /init.watchdog.rc
 
+on early-init
     # set permission for charger-mode
-    chmod 0770 /charger
+    chmod 0750 /charger
     chown system system /dev/dri/card0
     chmod 0666 /dev/dri/card0
     symlink /dev/dri/card0 /dev/card0
     # Enable native bridge for target executables
     mount binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc
+    #  Mount debugfs for systrace settings
+    mount debugfs none /sys/kernel/debug mode=0755
 
 on init
-# setup the global environment
-    mkdir /factory 0770 system system
-    mkdir /factory/wifi
-    chown system wifi /factory/wifi
-    chmod 0770 /factory/wifi
-    chown system system /watchdogd
-    chmod 0500 /watchdogd
+    # set usb serial number
+    write /sys/class/android_usb/android0/iSerial ${ro.serialno}
+
+    mkdir /storage/emulated 0555 root root
+
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
 
 on boot
-    chown system system /dev/pvr_sync
-    chmod 666 /dev/pvr_sync
+#    chown system system /dev/pvr_sync
+#    chmod 666 /dev/pvr_sync
 
-    chown system system /dev/dri/card0
-    chmod 0666 /dev/dri/card0
-    symlink /dev/dri/card0 /dev/card0
-    chmod 0666 /dev/card0
-    chown system system /dev/card0
-
+#   chown system system /dev/dri/card0
+#   chmod 0666 /dev/dri/card0
+#   symlink /dev/dri/card0 /dev/card0
 
     # IMG Graphics specific setup. See also "service pvrsrvctl"
     # The permissions below should be tighter.
-    chown system system /dev/card0
+#    chown system system /dev/card0
     chown system system /sys/class/backlight/psb-bl/brightness
     chown system system /sys/class/backlight/psb-bl/max_brightness
     chown system system /sys/class/backlight/psb-bl/actual_brightness
-    chmod 0666 /dev/card0
+ #   chmod 0666 /dev/card0
     chmod 0664 /sys/class/backlight/psb-bl/brightness
     chmod 0664 /sys/class/backlight/psb-bl/max_brightness
     chmod 0664 /sys/class/backlight/psb-bl/actual_brightness
@@ -42,38 +43,91 @@ on boot
     #Change mmc queue nr_requests from 128 to 32 to reduce write latencies
     write /sys/block/mmcblk0/queue/nr_requests 32
 
-    #reduce dirty memory size
-    write /proc/sys/vm/dirty_background_bytes  5242880
 
 # Change TCP Net-Core buffers sizes to improve cellular data throughput
      write /proc/sys/net/core/rmem_default 1048576
-     write /proc/sys/net/core/wmem_default 524288
      write /proc/sys/net/core/rmem_max 2097152
      write /proc/sys/net/core/wmem_max 1048576
-     write /proc/sys/net/ipv4/tcp_mem  "83520 111360 2097152"
+
+    #Set freezing timeout value as 2000ms
+    write /sys/power/pm_freeze_timeout 2000
+
+    #enable kernel compaction
+    write /proc/sys/vm/compact_memory 1
 
 on fs
     mkdir /factory 0775 system system
     mkdir /config 0775 system system
     mkdir /media 0775 media media
     mount_all /fstab.sc1
+    chown root system /factory
+    chmod 0770 /factory
+    mkdir /config/wifi
+    chown system wifi /factory/wifi
+    chmod 0770 /factory/wifi
+    restorecon_recursive /config
+    restorecon_recursive /factory
+
+on post-fs
+# create virtual SD card at /mnt/sdcard, based on the /data/media directory
+# daemon will drop to user/group system/media_rw after initializing
+# underlying files in /data/media will be created with user and group media_rw (1023)
+
+# Performance tweaks for interactive governor
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/boostpulse
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/touchboostpulse
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/touchboostpulse_duration
+    chown system system /sys/devices/system/cpu/cpufreq/interactive/touchboost_freq
+    chmod 0220 /sys/devices/system/cpu/cpufreq/interactive/touchboostpulse
+    chmod 0220 /sys/devices/system/cpu/cpufreq/interactive/boostpulse
 
 on post-fs-data
     mkdir /data/system/ 0770 system system
     write /proc/sys/kernel/ctrl-alt-del 0
 
+    mkdir /mnt/asec/media 0770 media media
+
+    # Disable data roaming option enabled by default
+    setprop ro.com.android.dataroaming false
+
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
+
+    # Set this property to force the camera shutter sound to play on speaker
+    # We implement this property in buildinfo.sh. So comment this.
+    # setprop ro.camera.sound.forced 1
+
+    # Set this property for the use of unlock
+    setprop ro.build.servaddr 1
+
+    chown system system /sys/class/drm/card0/gt_max_freq_mhz
+
+    #support emmc_total_size
+    symlink /sys/devices/pci0000:00/0000:00:01.0/emmc_total_size /data/data/emmc_total_size
+
+
 
 on charger
     # /system is not already mounted under COS
     mount ext4 /dev/block/mmcblk0p16 /system ro noatime
+    chown system system /dev/dri/card0
+    chmod 0666 /dev/dri/card0
+    symlink /dev/dri/card0 /dev/card0
+
+    # IMG Graphics specific setup. See also "service pvrsrvctl"
+    # The permissions below should be tighter.
+    chown system system /dev/card0
+
     start pvrsrvctl
     # reduce backlight
     write /sys/class/backlight/psb-bl/brightness 50
     #default setting to enable charging in COS
     setprop sys.usb.config charging
 
+    # TODO: Remove this when the charger app works
     # reset counter watchdog at the end of system boot
     write /sys/devices/virtual/misc/watchdog/counter "0"
 
@@ -82,20 +136,6 @@ service pvrsrvctl /system/vendor/bin/pvrsrvctl --no-module --start
     oneshot
     user root
 
-# Set watchdog timer to 30 seconds and pet it every 10 seconds to get a 20 second margin
-service watchdogd /sbin/watchdogd 10 20
-    class core
-
-service_redefine drm /system/bin/drmserver
-    class main
-    user drm
-    group drm inet drmrpc sdcard_r security mot_tpapi mot_drm
-
-service_redefine media /system/bin/mediaserver
-    class main
-    user media
-    group system audio camera media_rw sdcard_rw inet net_bt net_bt_admin net_bw_acct drmrpc net_raw security mot_tpapi radio mot_drm
-    ioprio rt 4
 
 # Enable native bridge for target executables
 on property:ro.enable.native.bridge.exec=1
@@ -128,7 +168,3 @@ on property:sys.shutdown.requested=1recovery
 
 on property:sys.shutdown.requested=1bootloader
     write /sys/devices/virtual/misc/watchdog/reboot_ongoing 1
-
-# Clear counter watchdog when boot is completed
-on property:sys.boot_completed=1
-    write /sys/devices/virtual/misc/watchdog/counter "0"

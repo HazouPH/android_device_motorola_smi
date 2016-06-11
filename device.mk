@@ -53,22 +53,26 @@ PRODUCT_PACKAGES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-	fstab.sc1 \
-	init.avc.rc \
-	init.common.rc \
-	init.debug.rc \
-	init.moto.usb.rc \
-	init.oom.rc \
-	init.sc1.rc \
-	init.wifi.rc \
-	init.wifi.vendor.rc \
-	init.wireless.rc \
-	init.xmm.rc \
-	ueventd.sc1.rc \
-	init.rc \
-	init.recovery.sc1.rc
+    fstab.sc1 \
+    init.avc.rc \
+    init.bt.rc \
+    init.bt.vendor.rc \
+    init.common.rc \
+    init.debug.rc \
+    init.gps.rc \
+    init.modem.rc \
+    init.moto.usb.rc \
+    init.nfc.rc \
+    init.oom.rc \
+    init.sc1.rc \
+    init.watchdog.rc \
+    init.wifi.rc \
+    init.wifi.vendor.rc \
+    init.xmm.rc \
+    ueventd.sc1.rc \
+    init.recovery.sc1.rc
 PRODUCT_COPY_FILES += \
-    	$(LOCAL_PATH)/rootdir/etc/twrp.fstab:recovery/root/etc/twrp.fstab
+    $(LOCAL_PATH)/rootdir/etc/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # PDS
 PRODUCT_COPY_FILES += \
@@ -164,7 +168,7 @@ PRODUCT_PACKAGES += \
 
 # Houdini (arm native bridge)
 PRODUCT_COPY_FILES += \
-        $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
+    $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
 
 ADDITIONAL_BUILD_PROPERTIES += \
     ro.enable.native.bridge.exec=1 \

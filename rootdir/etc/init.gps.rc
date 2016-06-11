@@ -1,0 +1,16 @@
+on post-fs-data
+
+    mkdir /data/gps 0770 gps system
+
+on post-fs
+    ## CSR GPS setup
+    ## RESET gpio and UART
+    write /sys/class/gpio/export 172
+    write /sys/class/gpio/gpio172/direction high
+    write /sys/class/gpio/gpio172/value 1
+    chmod 0664 /sys/class/gpio/gpio172/value
+    chmod 0660 /dev/ttyMFD2
+    chmod 0664 /sys/devices/pci0000:00/0000:00:05.2/power/control
+    chown system system /dev/ttyMFD2
+    chown system system /sys/class/gpio/gpio172/value
+    chown system system /sys/devices/pci0000:00/0000:00:05.2/power/control

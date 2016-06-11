@@ -1,5 +1,13 @@
+########################################################
+#  WIFI CONFIGURATION - TI SPECIFIC
+########################################################
+
+on init
+    chmod 0755 /system/bin/pcscd
+
 on post-fs-data
     mkdir /data/misc/firmware/ti-connectivity 0770 wifi wifi
+    mkdir /data/misc/dhcp 0770 dhcp wifi
 
 on property:dev.bootcomplete=1
    start wlan_prov
@@ -14,6 +22,13 @@ on boot
     insmod /system/lib/modules/wl12xx.ko
     insmod /system/lib/modules/wl12xx_sdio.ko
 
+service pcsc /system/bin/pcscd --auto-exit
+    class main
+    user wifi
+    group wifi inet
+    disabled
+    oneshot
+
 service wlan_prov /system/bin/wlan_prov
     class main
     user root
@@ -24,13 +39,13 @@ service wlan_prov /system/bin/wlan_prov
 service wpa_supplicant /system/bin/wpa_supplicant -Dnl80211 -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf -d -g@android:wpa_wlan0
     class main
     socket wpa_wlan0 dgram 660 wifi wifi
-    group system wifi inet
+    group system wifi inet bluetooth
     disabled
     oneshot
 
-service hostapd_bin /system/bin/logwrapper /system/bin/hostapd_bin -dd /data/misc/wifi/hostapd.conf
+service hostapd_bin /system/bin/hostapd_bin -dd /data/misc/wifi/hostapd.conf
     class main
     socket wpa_wlan1 dgram 660 wifi wifi
-    group system wifi inet
+    group system wifi inet bluetooth
     disabled
     oneshot

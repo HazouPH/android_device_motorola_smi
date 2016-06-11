@@ -2,8 +2,12 @@ import init.common.rc
 import init.debug.rc
 import init.oom.rc
 import init.avc.rc
-import init.wireless.rc
 import init.wifi.rc
+import init.gps.rc
+import init.nfc.rc
+import init.bt.rc
+import init.modem.rc
+import init.xmm.rc
 
 # include usb rc file
 import init.moto.usb.rc
@@ -22,7 +26,6 @@ on init
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
     export SECONDARY_STORAGE /storage/sdcard1
-    export LD_LIBRARY_PATH /vendor/lib:/system/lib:/system/lib/arm/
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
@@ -189,11 +192,8 @@ on post-fs
 # /data should always be mounted by this point
 on post-fs-data
     # we will remap this as /storage/sdcard0 with the sdcard fuse tool
-    mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
     setprop ro.crypto.fuse_sdcard true
-
-    mkdir /data/system/ 0770 system system
 
     # Create directory used by power_supply logger
     mkdir /data/power_supply_logger 0755 mot_pwric mot_pwric
@@ -202,17 +202,15 @@ on post-fs-data
     mkdir /data/location 0771 radio radio
     mkdir /data/gki 0770 radio radio
     mkdir /tmp/commdrv 0770 radio radio
-    setprop ro.sys.atvc_allow_gki_log 0
 
     mkdir /data/misc/firmware 0770 system system
     mkdir /data/misc/thermal 0770 system system
 
     symlink /system/etc/MID_thermal.conf /data/misc/thermal/MID_thermal.conf
 
-    # create moto specific dirs for factory
-    mkdir /data/local/dbvc 0770 mot_tcmd shell
-    mkdir /pds/public/atvc 0775 mot_tcmd shell
-
+    # If there is no fs-post-data action in the init.<device>.rc file, you
+    # must uncomment this line, otherwise encrypted filesystems
+    # won't work.
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
@@ -300,3 +298,16 @@ service batt_health /system/bin/batt_health
     class main
     group mot_pwric
     oneshot
+
+# From init.rc in stock, these redefine service definitions
+
+service_redefine drm /system/bin/drmserver
+    class main
+    user drm
+    group drm inet drmrpc sdcard_r security mot_tpapi mot_drm
+
+service_redefine media /system/bin/mediaserver
+    class main
+    user media
+    group system audio camera media_rw sdcard_rw inet net_bt net_bt_admin net_bw_acct drmrpc net_raw security mot_tpapi radio mot_drm
+    ioprio rt 4

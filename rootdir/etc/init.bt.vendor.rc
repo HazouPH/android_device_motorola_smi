@@ -1,0 +1,42 @@
+########################################################
+#  BLUETOOTH CONFIGURATION - TI SPECIFIC
+########################################################
+
+on init
+    insmod /system/lib/modules/sdio.ko
+    insmod /system/lib/modules/st_drv.ko
+    mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
+    mkdir /data/misc/hcid 0770 bluetooth bluetooth
+
+    chown system system /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+
+on property:bluetooth.uim_service_state=1
+    start uim
+
+on property:bluetooth.uim_service_state=0
+    stop uim
+
+on boot
+    chmod 0660 /dev/rfkill
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+
+# uim interfaces
+    chmod 0660 /sys/devices/platform/kim/install
+    chown bluetooth net_bt_stack /sys/devices/platform/kim/install
+    chmod 0660 /sys/devices/platform/kim/dev_name
+    chown bluetooth net_bt_stack /sys/devices/platform/kim/dev_name
+    chmod 0660 /sys/devices/platform/kim/baud_rate
+    chown bluetooth net_bt_stack /sys/devices/platform/kim/baud_rate
+    chmod 0660 /sys/devices/platform/kim/flow_cntrl
+    chown bluetooth net_bt_stack /sys/devices/platform/kim/flow_cntrl
+    chmod 0660 /dev/ttyMFD0
+    chown bluetooth net_bt_stack /dev/ttyMFD0
+
+on post-fs
+service uim /system/bin/uim
+    class core
+    user root
+    group bluetooth net_bt_admin
