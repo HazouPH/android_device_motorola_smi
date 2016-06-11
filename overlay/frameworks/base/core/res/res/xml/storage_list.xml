@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<StorageList
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <storage android:storageDescription="@string/storage_internal" android:primary="true" android:emulated="true" android:removable="false" android:mtpReserve="100" />
-    <storage android:mountPoint="/storage/sdcard1" android:storageDescription="@string/storage_sd_card" android:primary="false" android:removable="true" android:maxFileSize="4096" />
-</StorageList>

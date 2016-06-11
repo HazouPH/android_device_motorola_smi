@@ -17,23 +17,6 @@ import init.moto.usb.rc
 # runs in charge-only-mode
 on init
     write /sys/class/graphics/fbcon/cursor_blink 0
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-    mkdir /mnt/media_rw 0777 media_rw media_rw
-    mkdir /mnt/media_rw/sdcard1 0777 media_rw media_rw
-    mkdir /storage/sdcard1 0775 root root
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-    export SECONDARY_STORAGE /storage/sdcard1
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-    symlink /storage/sdcard1 /mnt/sdcard
-    symlink /storage/sdcard1 /sdcard
-    symlink /storage/sdcard1 /external_sd
-    symlink /storage/sdcard1 /mnt/external_sd
 
     chmod 0660 /sys/class/gpio/gpio157/value
     chown system system /sys/class/gpio/gpio157/value
@@ -191,10 +174,6 @@ on post-fs
 # run after "on post-fs" and before "on early-boot"
 # /data should always be mounted by this point
 on post-fs-data
-    # we will remap this as /storage/sdcard0 with the sdcard fuse tool
-    chown media_rw media_rw /data/media
-    setprop ro.crypto.fuse_sdcard true
-
     # Create directory used by power_supply logger
     mkdir /data/power_supply_logger 0755 mot_pwric mot_pwric
 
@@ -257,9 +236,6 @@ on boot
     # Setup folder for aplogd
     mkdir /data/aplogd 0750 log log
 
-on fs
-    setprop ro.crypto.fuse_sdcard true
-
 on property:sys.boot_completed=1
     # Insert matrix for PnP measurements
     insmod /system/lib/modules/matrix.ko
@@ -283,16 +259,6 @@ service akmd8963 /system/bin/akmd8963
     group compass misc input
 
 # Properties, events trigging service
-
-# create virtual SD card at /mnt/sdcard, based on the /data/media directory
-# daemon will drop to user/group system/media_rw after initializing
-# underlying files in /data/media will be created with user and group media_rw (1023)
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
-    class late_start
-    disabled
 
 service batt_health /system/bin/batt_health
     class main

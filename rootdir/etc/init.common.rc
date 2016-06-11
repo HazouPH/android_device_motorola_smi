@@ -15,12 +15,6 @@ on init
     # set usb serial number
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
 
-    mkdir /storage/emulated 0555 root root
-
-    # Support legacy paths
-    symlink /sdcard /mnt/sdcard
-    symlink /sdcard /storage/sdcard0
-
 on boot
 #    chown system system /dev/pvr_sync
 #    chmod 666 /dev/pvr_sync
@@ -69,10 +63,6 @@ on fs
     restorecon_recursive /factory
 
 on post-fs
-# create virtual SD card at /mnt/sdcard, based on the /data/media directory
-# daemon will drop to user/group system/media_rw after initializing
-# underlying files in /data/media will be created with user and group media_rw (1023)
-
 # Performance tweaks for interactive governor
     chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
     chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load
