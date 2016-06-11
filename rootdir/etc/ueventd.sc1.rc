@@ -1,14 +1,23 @@
-# SD device
-/dev/block/mmcblk1p1      0660   root       mot_tcmd
-# CID partition
-/dev/block/mmcblk0p7      0660   root       mot_tcmd
 # Intel Security Driver
 /dev/sep_sec_driver       0660   system     system
 # SGX graphics device
 /dev/dri/card*            0666   root       root
+
+# modem tty node change to radio user can read and write
+/dev/gsmtty*              0660   system     radio
+/dev/gsmtty13             0666   system     radio
+/dev/ttyMFD*              0660   system     radio
+/dev/ttyGS0               0660   root       radio
+/dev/ttyACM*              0660   root       radio
+/dev/ttyPTI1              0660   root       radio
+/dev/mdmTrace             0660   root       radio
+/dev/mdm_ctrl             0660   root       radio
+/dev/ttyIFX0              0660   root       radio
+/dev/ttyIFX1              0660   root       radio
+
 # Bluetooth device
 /dev/hci_tty              0666   bluetooth  bluetooth
-/dev/ttyMFD0              0660   bluetooth  bluetooth
+/dev/ttyMFD0              0660   bluetooth  net_bt_stack
 /dev/tigps                0666   root       radio
 /dev/tifm                 0660   bluetooth  bluetooth
 /dev/pn544                0660   nfc        nfc
@@ -37,20 +46,7 @@
 /dev/log/kernel           0600   root       log
 
 # the Intel camera device node is world writable/readable.
-#/dev/video*               0666   media      camera
 /dev/video*               0666   root       camera
-
-# modem tty node change to radio user can read and write
-/dev/gsmtty*              0660   radio      system
-/dev/gsmtty13             0666   radio      system
-/dev/ttyGS0               0660   radio      radio
-/dev/ttyACM*              0660   root       radio
-/dev/ttyPTI1              0660   root       radio
-/dev/ttyMFD*              0660   root       radio
-/dev/mdmTrace             0660   root       radio
-/dev/mdm_ctrl             0660   root       radio
-/dev/ttyIFX0              0660   root       radio
-/dev/ttyIFX1              0660   root       radio
 
 #Motorola Sensor Inteface
 /dev/lis3dh               0660   compass    system
@@ -61,6 +57,11 @@
 
 # Sound devices, needs fix in permissions
 /dev/snd/*                0666   system      audio
+
+# Android sync framework sw driver
+/dev/card0                              0666   system     system
+/dev/pvr_sync                           0666   system     system
+/dev/sw_sync                            0660   system     system
 
 # sysfs properties
 /sys/devices/system/cpu/cpu1/cpufreq scaling_governor 0644 system system
