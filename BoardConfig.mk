@@ -14,7 +14,6 @@ TARGET_ARCH := x86
 TARGET_ARCH_VARIANT := atom
 TARGET_ARCH_VARIANT_FPU := sse
 TARGET_BOARD_PLATFORM := medfield
-TARGET_BOOTLOADER_BOARD_NAME := sc1
 
 # Connectivity - Wi-Fi
 USES_TI_MAC80211                 := true
@@ -53,7 +52,6 @@ BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/boottools/boot.mk
 RAZRI_IMAGE := true
 
 # Kernel build (source:github.com/oxavelar)
-BOARD_KERNEL_BASE := 0x1200000
 BOARD_KERNEL_BASE := 0x000400
 BOARD_KERNEL_PAGESIZE := 4096
 TARGET_KERNEL_CONFIG := i386_mfld_moto_defconfig
