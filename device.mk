@@ -51,6 +51,10 @@ PRODUCT_PACKAGES += \
     pack_intel \
     unpack_intel
 
+# Radio
+PRODUCT_PACKAGES += \
+    libshim_security_api
+
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.sc1 \
@@ -283,17 +287,17 @@ $(call inherit-product, vendor/motorola/smi/smi-vendor.mk)
 
 # FM Radio
 #PRODUCT_PACKAGES += \
-        kfmapp \
-        FmRxApp \
-        FmTxApp \
-        FmService \
-        libfmradio \
-        fmradioif \
-        com.ti.fm.fmradioif.xml
+    kfmapp \
+    FmRxApp \
+    FmTxApp \
+    FmService \
+    libfmradio \
+    fmradioif \
+    com.ti.fm.fmradioif.xml
 
 # RazrIChargeCurrent (Author: NerdyProjects/PosixCompatible)
 PRODUCT_PACKAGES += \
-	RazrIChargeCurrent
+    RazrIChargeCurrent
 
 # Nfc
 $(call inherit-product, $(LOCAL_PATH)/modules/nfc/nfc.mk)

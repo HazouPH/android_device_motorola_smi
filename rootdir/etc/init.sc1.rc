@@ -16,6 +16,7 @@ import init.moto.usb.rc
 # runs after "on early-init" and before "on early-fs"
 # runs in charge-only-mode
 on init
+    export LD_SHIM_LIBS /system/lib/libsecurity_api.so|libshim_security_api.so
     write /sys/class/graphics/fbcon/cursor_blink 0
 
     chmod 0660 /sys/class/gpio/gpio157/value
