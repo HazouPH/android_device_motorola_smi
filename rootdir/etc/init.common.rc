@@ -121,7 +121,7 @@ on charger
     # reset counter watchdog at the end of system boot
     write /sys/devices/virtual/misc/watchdog/counter "0"
 
-service pvrsrvctl /system/vendor/bin/pvrsrvctl --no-module --start
+service pvrsrvctl /system/bin/pvrsrvctl --no-module --start
     class core
     oneshot
     user root
