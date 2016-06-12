@@ -6,9 +6,8 @@ bin/bd_prov
 bin/uim
 vendor/lib/libbt-vendor.so
 
-# Sound
+# Audio
 bin/remote-process
-lib/libtinyalsa.so
 etc/firmware/vpimg_es305b-BB.bin
 etc/firmware/vpimg_es305b-NH.bin
 etc/firmware/vpimg_es305b.bin
@@ -64,6 +63,7 @@ lib/hw/audio.primary.smi.so
 lib/hw/audio_policy.smi.so
 lib/libaudience-manager.so
 lib/libaudiohalutils.so
+lib/libaudioresample.so
 lib/libevent-listener.so
 lib/libinterface-provider-lib.so
 lib/libinterface-provider.so
