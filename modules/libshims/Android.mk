@@ -14,23 +14,11 @@
 
 LOCAL_PATH := $(call my-dir)
 
-# Audio
-
 include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := icu53.c
 LOCAL_SHARED_LIBRARIES := libicuuc libicui18n
-LOCAL_MODULE := libshim_audio
+LOCAL_MODULE := libmmcompat
 LOCAL_MODULE_TAGS := optional
-
-include $(BUILD_SHARED_LIBRARY)
-
-# RILD Intel
-
-include $(CLEAR_VARS)
-
-LOCAL_SRC_FILES := crypto.c
-LOCAL_MODULE := libshim_security_api
-LOCAL_MODULE_TAGS := optional
-
+LOCAL_SRC_FILES := \
+	crypto.c \
+	icu53.c
 include $(BUILD_SHARED_LIBRARY)

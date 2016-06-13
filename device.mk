@@ -36,8 +36,11 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.usb.default \
     audio.r_submix.default \
-    libaudioutils \
-    libshim_audio
+    libaudioutils
+
+# MM Compability
+PRODUCT_PACKAGES += \
+    libmmcompat
 
 # Stk
 PRODUCT_PACKAGES += \
@@ -51,10 +54,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     pack_intel \
     unpack_intel
-
-# Radio
-PRODUCT_PACKAGES += \
-    libshim_security_api
 
 # Ramdisk
 PRODUCT_PACKAGES += \
