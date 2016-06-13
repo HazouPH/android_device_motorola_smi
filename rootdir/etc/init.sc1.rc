@@ -40,7 +40,6 @@ on charger
 
     start console
     start watchdogd
-    exec /system/bin/charge_only_mode
 
 # runs after "on init" and before "on fs"; doesn't run in charge-only-mode
 on early-fs

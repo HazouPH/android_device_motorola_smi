@@ -216,8 +216,5 @@ etc/firmware/shisp.bin
 # Misc, source available
 etc/firmware/fa_extension.bin
 
-# Charger (from source doesn't boot)
-bin/charge_only_mode
-
 # Battery Health
 bin/batt_health

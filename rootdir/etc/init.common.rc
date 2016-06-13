@@ -117,15 +117,15 @@ on charger
     #default setting to enable charging in COS
     setprop sys.usb.config charging
 
-    # TODO: Remove this when the charger app works
-    # reset counter watchdog at the end of system boot
-    write /sys/devices/virtual/misc/watchdog/counter "0"
-
 service pvrsrvctl /system/bin/pvrsrvctl --no-module --start
     class core
     oneshot
     user root
 
+service charger_app /charger
+    class charger
+    user root
+    seclabel u:r:healthd:s0
 
 # Enable native bridge for target executables
 on property:ro.enable.native.bridge.exec=1

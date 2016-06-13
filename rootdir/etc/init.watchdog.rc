@@ -7,6 +7,5 @@ service watchdogd /sbin/watchdogd 60 20
 on property:sys.boot_completed=1
     write /sys/devices/virtual/misc/watchdog/counter "0"
 
-# TODO: Enable this when charger works if ever
-#on property:init.svc.charger_app=running
-#    write /sys/devices/virtual/misc/watchdog/counter "0"
+on property:init.svc.charger_app=running
+    write /sys/devices/virtual/misc/watchdog/counter "0"

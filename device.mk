@@ -88,6 +88,11 @@ PRODUCT_PACKAGES += \
     libintelmetadatabuffer \
     snap
 
+# Charger
+PRODUCT_PACKAGES += \
+    charger \
+    charger_res_images
+
 # psb video
 PRODUCT_PACKAGES += \
     msvdx_bin \
