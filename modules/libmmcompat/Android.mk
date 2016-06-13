@@ -20,5 +20,5 @@ LOCAL_MODULE := libmmcompat
 LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := \
 	crypto.c \
-	icu53.c
+	icu51.c
 include $(BUILD_SHARED_LIBRARY)

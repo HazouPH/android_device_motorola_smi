@@ -1,18 +1,18 @@
 #include "unicode/ucnv.h"
 
 U_STABLE UConverter* U_EXPORT2
-ucnv_open_53(const char *converterName, UErrorCode *err)
+ucnv_open_51(const char *converterName, UErrorCode *err)
 {
     return ucnv_open(converterName, err);
 }
 
 U_STABLE void  U_EXPORT2
-ucnv_close_53(UConverter * converter)
+ucnv_close_51(UConverter * converter)
 {
     return ucnv_close(converter);
 }
 
-U_STABLE void U_EXPORT2 UCNV_TO_U_CALLBACK_STOP_53(
+U_STABLE void U_EXPORT2 UCNV_TO_U_CALLBACK_STOP_51(
                   const void *context,
                   UConverterToUnicodeArgs *toUArgs,
                   const char* codeUnits,
@@ -23,7 +23,7 @@ U_STABLE void U_EXPORT2 UCNV_TO_U_CALLBACK_STOP_53(
     UCNV_TO_U_CALLBACK_STOP(context, toUArgs, codeUnits, length, reason, err);
 }
 
-U_STABLE void U_EXPORT2 UCNV_FROM_U_CALLBACK_STOP_53(
+U_STABLE void U_EXPORT2 UCNV_FROM_U_CALLBACK_STOP_51(
                   const void *context,
                   UConverterFromUnicodeArgs *fromUArgs,
                   const UChar* codeUnits,
@@ -36,7 +36,7 @@ U_STABLE void U_EXPORT2 UCNV_FROM_U_CALLBACK_STOP_53(
 }
 
 U_STABLE void U_EXPORT2
-ucnv_setToUCallBack_53(UConverter * converter,
+ucnv_setToUCallBack_51(UConverter * converter,
                      UConverterToUCallback newAction,
                      const void* newContext,
                      UConverterToUCallback *oldAction,
@@ -47,7 +47,7 @@ ucnv_setToUCallBack_53(UConverter * converter,
 }
 
 U_STABLE void U_EXPORT2
-ucnv_setFromUCallBack_53(UConverter * converter,
+ucnv_setFromUCallBack_51(UConverter * converter,
                        UConverterFromUCallback newAction,
                        const void *newContext,
                        UConverterFromUCallback *oldAction,
@@ -58,7 +58,7 @@ ucnv_setFromUCallBack_53(UConverter * converter,
 }
 
 U_STABLE void U_EXPORT2
-ucnv_convertEx_53(UConverter *targetCnv, UConverter *sourceCnv,
+ucnv_convertEx_51(UConverter *targetCnv, UConverter *sourceCnv,
                char **target, const char *targetLimit,
                const char **source, const char *sourceLimit,
                UChar *pivotStart, UChar **pivotSource,
