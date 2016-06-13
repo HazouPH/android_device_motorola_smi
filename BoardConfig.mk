@@ -1,5 +1,6 @@
 include $(GENERIC_X86_CONFIG_MK)
 LOCAL_PATH := device/motorola/smi
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Make settings
 TARGET_NO_BOOTLOADER := true
