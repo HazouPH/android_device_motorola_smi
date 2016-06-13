@@ -39,6 +39,8 @@ extern "C" {
  * for this header file to compile successfully
  */
 #include <OMX_Core.h>
+#include <OMX_Video.h>
+
 /** NALU Formats */
 typedef enum OMX_INTEL_NALUFORMATSTYPE {
     OMX_NaluFormatZeroByteInterleaveLength = 32,
@@ -68,7 +70,7 @@ typedef struct OMX_VIDEO_CONFIG_INTEL_BITRATETYPE {
      OMX_U32 nTemporalID;
 } OMX_VIDEO_CONFIG_INTEL_BITRATETYPE;
 
-typedef enum  {
+enum  {
     OMX_Video_Intel_ControlRateVideoConferencingMode = OMX_Video_ControlRateVendorStartUnused + 1
 };
 
@@ -161,13 +163,13 @@ typedef struct OMX_VIDEO_ERROR_INFO {
     union {
         struct {OMX_U32 start_mb; OMX_U32 end_mb;} mb_pos;
     } error_data;
-};
+} OMX_VIDEO_ERROR_INFO;
 
 typedef struct OMX_VIDEO_ERROR_BUFFER {
     OMX_U32 errorNumber;   // Error number should be no more than MAX_ERR_NUM
     OMX_S64 timeStamp;      // presentation time stamp
     OMX_VIDEO_ERROR_INFO errorArray[MAX_ERR_NUM];
-};
+} OMX_VIDEO_ERROR_BUFFER;
 
 // Force K frame for VP8 encode
 typedef struct OMX_VIDEO_CONFIG_INTEL_VP8_FORCE_KFRAME {
@@ -194,6 +196,9 @@ typedef struct OMX_VIDEO_PARAM_INTEL_TEMPORAL_LAYER {
     OMX_U32 nPeriodicity;
     OMX_U32 nLayerID[32];
 } OMX_VIDEO_PARAM_INTEL_TEMPORAL_LAYER;
+
+#define OMX_INTEL_COLOR_FormatYUV420PackedSemiPlanar (OMX_COLOR_FORMATTYPE)0x7FA00E00
+#define OMX_INTEL_COLOR_FormatYUV420PackedSemiPlanar_Tiled (OMX_COLOR_FORMATTYPE)0x7FA00F00
 
 #ifdef __cplusplus
 }
