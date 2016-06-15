@@ -88,6 +88,10 @@ PRODUCT_PACKAGES += \
     libintelmetadatabuffer \
     snap
 
+# Power
+PRODUCT_PACKAGES += \
+    power.smi
+
 # Charger
 PRODUCT_PACKAGES += \
     charger \
