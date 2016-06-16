@@ -34,7 +34,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio.usb.default \
     audio.r_submix.default \
     libaudioutils
 
