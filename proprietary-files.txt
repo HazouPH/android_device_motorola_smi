@@ -76,6 +76,7 @@ lib/parameter-framework-plugins/Audio/liblpe-subsystem.so
 lib/parameter-framework-plugins/Audio/libtinyalsactl-subsystem.so
 lib/parameter-framework-plugins/Audio/libtinyamixer-subsystem.so
 lib/parameter-framework-plugins/System/libproperty-subsystem.so
+lib/libtinyalsa.so
 vendor/etc/audio_policy.conf
 
 # MultiMedia
