@@ -15,12 +15,10 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_C_INCLUDES:= external/tinyalsa/include
 LOCAL_SHARED_LIBRARIES := libicuuc libicui18n
 LOCAL_MODULE := libmmcompat
 LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := \
 	crypto.c \
-	icu51.c \
-        tinyalsa.c
+	icu51.c
 include $(BUILD_SHARED_LIBRARY)
