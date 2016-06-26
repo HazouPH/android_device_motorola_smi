@@ -1,0 +1,103 @@
+diff --git a/services/core/java/com/android/server/VibratorService.java b/services/core/java/com/android/server/VibratorService.java
+index f637c4f..df03275 100644
+--- a/services/core/java/com/android/server/VibratorService.java
++++ b/services/core/java/com/android/server/VibratorService.java
+@@ -96,6 +96,7 @@ public class VibratorService extends IVibratorService.Stub
+     private int mVibratorIntensity;
+ 
+     native static boolean vibratorExists();
++    native static void vibratorInit();
+     native static void vibratorOn(long milliseconds);
+     native static void vibratorOff();
+ 
+@@ -203,6 +204,7 @@ public class VibratorService extends IVibratorService.Stub
+     }
+ 
+     VibratorService(Context context) {
++        vibratorInit();
+         // Reset the hardware to a default state, in case this is a runtime
+         // restart instead of a fresh boot.
+         vibratorOff();
+diff --git a/services/core/jni/com_android_server_VibratorService.cpp b/services/core/jni/com_android_server_VibratorService.cpp
+index fb1166b..6b7a042 100644
+--- a/services/core/jni/com_android_server_VibratorService.cpp
++++ b/services/core/jni/com_android_server_VibratorService.cpp
+@@ -22,32 +22,69 @@
+ 
+ #include <utils/misc.h>
+ #include <utils/Log.h>
+-#include <hardware_legacy/vibrator.h>
++#include <hardware/vibrator.h>
+ 
+ #include <stdio.h>
+ 
+ namespace android
+ {
+ 
+-static jboolean vibratorExists(JNIEnv* /* env */, jobject /* clazz */)
++static hw_module_t *gVibraModule = NULL;
++static vibrator_device_t *gVibraDevice = NULL;
++
++static void vibratorInit(JNIEnv, jobject)
++{
++    if (gVibraModule != NULL) {
++        return;
++    }
++
++    int err = hw_get_module(VIBRATOR_HARDWARE_MODULE_ID, (hw_module_t const**)&gVibraModule);
++
++    if (err) {
++        ALOGE("Couldn't load %s module (%s)", VIBRATOR_HARDWARE_MODULE_ID, strerror(-err));
++    } else {
++        if (gVibraModule) {
++            vibrator_open(gVibraModule, &gVibraDevice);
++        }
++    }
++}
++
++static jboolean vibratorExists(JNIEnv, jobject)
+ {
+-    return vibrator_exists() > 0 ? JNI_TRUE : JNI_FALSE;
++    if (gVibraModule && gVibraDevice) {
++        return JNI_TRUE;
++    } else {
++        return JNI_FALSE;
++    }
+ }
+ 
+-static void vibratorOn(JNIEnv* /* env */, jobject /* clazz */, jlong timeout_ms)
++static void vibratorOn(JNIEnv, jobject, jlong timeout_ms)
+ {
+-    // ALOGI("vibratorOn\n");
+-    vibrator_on(timeout_ms);
++    if (gVibraDevice) {
++        int err = gVibraDevice->vibrator_on(gVibraDevice, timeout_ms);
++        if (err != 0) {
++            ALOGE("The hw module failed in vibrator_on: %s", strerror(-err));
++        }
++    } else {
++        ALOGW("Tried to vibrate but there is no vibrator device.");
++    }
+ }
+ 
+-static void vibratorOff(JNIEnv* /* env */, jobject /* clazz */)
++static void vibratorOff(JNIEnv, jobject)
+ {
+-    // ALOGI("vibratorOff\n");
+-    vibrator_off();
++    if (gVibraDevice) {
++        int err = gVibraDevice->vibrator_off(gVibraDevice);
++        if (err != 0) {
++            ALOGE("The hw module failed in vibrator_off(): %s", strerror(-err));
++        }
++    } else {
++        ALOGW("Tried to stop vibrating but there is no vibrator device.");
++    }
+ }
+ 
+ static JNINativeMethod method_table[] = {
+     { "vibratorExists", "()Z", (void*)vibratorExists },
++    { "vibratorInit", "()V", (void*)vibratorInit },
+     { "vibratorOn", "(J)V", (void*)vibratorOn },
+     { "vibratorOff", "()V", (void*)vibratorOff }
+ };
