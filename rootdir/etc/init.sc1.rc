@@ -31,6 +31,10 @@ on init
     # set auto_suspend delay to 10ms for camera which is on bus i2c-4
     write /sys/bus/pci/devices/0000:00:03.3/power/autosuspend_delay_ms 10
 
+    # for backwards compatibility
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
+
 # run after "on init" in charge-only-mode
 # init does not automatically run "on early-fs", "on fs", "on post-fs",
 #   "on post-fs-data", "on early-boot", and "on boot" in charge-only-mode
