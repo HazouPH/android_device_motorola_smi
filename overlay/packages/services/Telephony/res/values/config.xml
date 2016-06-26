@@ -20,7 +20,4 @@
     <!-- Determines if device implements a noise suppression device for in call audio-->
     <bool name="has_in_call_noise_suppression">true</bool>
 
-    <!-- Flag indicating if the phone is a world phone-->
-    <bool name="world_phone">true</bool>
-
 </resources>
