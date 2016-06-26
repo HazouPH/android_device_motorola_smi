@@ -135,8 +135,8 @@ BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(LOCAL_PATH)/charger/images
 BUILD_ARM_FOR_X86 := true
 
 # Use dlmalloc and legacy mmap
-#MALLOC_IMPL := dlmalloc
-#BOARD_USES_LEGACY_MMAP := true
+MALLOC_IMPL := dlmalloc
+BOARD_USES_LEGACY_MMAP := true
 
 # skip some proccess to speed up build
 BOARD_SKIP_ANDROID_DOC_BUILD := true
