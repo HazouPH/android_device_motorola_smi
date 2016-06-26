@@ -230,6 +230,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     rild.libpath=/system/lib/librapid-ril-core.so \
     ro.telephony.default_network=9 \
     ro.ril.telephony.mqanelements=5 \
+    ro.telephony.ril.config=simactivation
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     panel.physicalWidthmm=52 \
