@@ -19,6 +19,14 @@ LOCAL_MODULE_SUFFIX := .so
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := libmmgrcli
+LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/lib/libmmgrcli.so
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := msvdx_fw_mfld_DE2.0.bin
 LOCAL_MODULE_OWNER := intel
 LOCAL_MODULE_TAGS := optional
