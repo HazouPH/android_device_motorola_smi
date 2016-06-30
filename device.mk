@@ -41,9 +41,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libmmcompat
 
-# Stk
+# Radio
 PRODUCT_PACKAGES += \
     Stk
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/telephony/repository.txt:system/etc/telephony/repository.txt
 
 # Intel Display
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -224,10 +226,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.product.drm.sd.enable=1 \
     ro.product.drm.cd.enable=1 \
     keyguard.no_require_sim=true \
-    persist.radio.apn_delay=5000 \
     ro.mot.cambtntime=400 \
     ro.ril.status.polling.enable=0 \
-    rild.libpath=/system/lib/librapid-ril-core.so \
     ro.telephony.default_network=9 \
     ro.ril.telephony.mqanelements=5 \
     ro.telephony.ril.config=simactivation
@@ -237,9 +237,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     panel.physicalHeightmm=89 \
     ro.opengles.version=131072 \
     gsm.net.interface=rmnet0 \
-    persist.ril-daemon.disable=0 \
     persist.sys.usb.config=mtp \
-    persist.radio.ril_modem_state=1 \
     ro.secure=0 \
     ro.adb.secure=0 \
     ro.debuggable=1
