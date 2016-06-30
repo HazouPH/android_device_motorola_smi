@@ -1,0 +1,275 @@
+// repository.txt - used for controlling user-defined values in the RIL
+
+// The same name must be used for each Request in the RequestTimeouts and RequestNumRetries groups.
+// The request name must also match the value used in the mapping table in repository.cpp.
+// <name>  = API request (please see complete list in rapid_ril/UTIL/ND/repository.cpp)
+// <value> = AT command timeout (value in ms)
+// If missing, default = "TimeoutAPIDefault" below (default is 10000ms)
+Group RequestTimeouts
+    EnterNetworkDepersonalization      20000
+    Dial                               90000
+    Hangup                             30000
+    HangupWaitingOrBackground          30000
+    HangupForegroundResumeBackground   30000
+    SwitchHoldingAndActive             32000
+    Conference                         30000
+    UDUB                               40000
+    SignalStrength                     10000
+    Operator                          100000
+    RadioPower                        120000
+    SendSms                           180000
+    SendSmsExpectMore                 180000    // network-dependent, IMC recommends 90 sec
+    SetupDefaultPDP                   300000
+    SendUSSD                          180000    // network-dependent, IMC recommends 90 sec
+    CancelUSSD                         90000    // network-dependent, IMC recommends 90 sec
+    GetCLIR                            60000
+    SetCLIR                            60000
+    QueryCallForwardStatus             90000    // network-dependent, IMC recommends 90 sec
+    SetCallForward                     90000    // network-dependent, IMC recommends 90 sec
+    QueryCallWaiting                   90000    // network-dependent, IMC recommends 90 sec
+    SetCallWaiting                     90000    // network-dependent, IMC recommends 90 sec
+    SmsAcknowledge                     60000
+    Answer                             30000
+    DeactivateDataCall                180000
+    QueryFacilityLock                  30000
+    SetFacilityLock                    30000
+    ChangeBarringPassword              30000
+    QueryNetworkSelectionMode         100000
+    SetNetworkSelectionAutomatic      300000
+    SetNetworkSelectionManual         300000
+    QueryAvailableNetworks            300000
+    RequestDtmfStart                   15000
+    RequestDtmfStop                    15000
+    SeperateConnection                 32000
+    QueryCLIP                          60000
+    SetBandMode                        60000
+    QueryAvailableBandMode             60000
+    StkGetProfile                      30000
+    StkSetProfile                      30000
+    StkSendEnvelopeCommand             30000
+    StkSendTerminalResponse            30000
+    ReportStkServiceIsRunning          30000
+    StkSendEnvelopeWithStatus          30000
+    StkHandleCallSetupRequestedFromSim 330000
+    SetPreferredNetworkType           300000
+    GetNeighboringCellIDs             300000
+    GetCellInfoList                   300000
+    ReportSmsMemoryStatus              60000
+    GetIPAddress                       30000
+    GetDNS                             30000
+    SetInitialAttachApn               300000
+    RegisterNetwork                   610000
+    EnterSimPin                        20000
+    AllowData                         300000
+    EnterSimPin2                       20000
+    ChangeSimPin                       20000
+    ChangeSimPin2                      20000
+    SimTransmitChannel                 60000
+    SimOpenChannel                     60000
+    SimCloseChannel                    60000
+    SimTransmitBasic                   60000
+    SimIO                              60000
+    SimAuthentication                  60000
+
+Group InternalRequestTimeouts
+    SilentPinEntry                     20000
+    QuerySimSmsStoreStatus             30000
+
+
+Group OtherTimeouts
+    TimeoutCmdInit                      5000    // Value is in ms (if missing default = 5000ms)
+    TimeoutAPIDefault                   10000   // Value is in ms (if missing default = 10000ms)
+    TimeoutWaitForInit                  10000   // Value is in ms (if missing default = 10000ms)
+    TimeoutWaitForXIREG                 200000  // Value is in ms (if missing default = 180000ms)
+
+
+Group RILSettings
+    TimeoutThresholdForRetry            10000   // If AT timeout <= threshold, then retry command ONCE.
+                                                // Time is in ms.
+                                                // A value of 0 means no retries.
+                                                // (if missing default = 10000)
+
+
+//   -"OpenPortRetries" is the number of attempts RIL makes to open gsmttyX ports before radio
+//    reset is called.
+//    Default is 30 if this setting is omitted.
+//   -"OpenPortInterval" is the delay in ms between each open port attempt.
+//    Default is 1000 if this setting is omitted (not defined in this file).
+    OpenPortRetries                     30
+    OpenPortInterval                    1000    // Value is in ms
+
+// Pin Caching mode
+// 1 - Pin caching in file system
+// 2 - Pin caching in NVRAM
+    PinCacheMode 1
+
+// Settable values for the InitCmds group include:
+//   PreInitCmds,  PreReinitCmds,  PreUnlockCmds,  PreSmsInitCmds
+//  PostInitCmds, PostReinitCmds, PostUnlockCmds, PostSmsInitCmds
+Group InitCmds
+
+
+// Modem settings
+Group Modem
+    SupportedModem              XMM6260
+
+// Possible values are: "rmnet" for MIPI HSI IPC, "usb" for USB HSIC IPC
+    NetworkInterfaceNamePrefix        rmnet      // The number will be appended in RIL
+                                                // Number appended = Context ID - 1
+                                                // e.g. Context ID = 1, "rmnet0"
+// MTU size - 1358 is the value recommended in 3GPP 23.060 for both support of IPv4 and IPv6 traffic
+    MTU                         1358
+
+// Modem resource name could be:
+// - mipi_ipc for HSI (default)
+// - USBHS/NCM for USB
+// - USBHSIC/NCM for HSIC
+    ModemDataChannelResourceName        mipi_ipc
+
+
+// Minimum data channel index (number of direct channels reserved for tty in HSI)
+// 2 for HSI (first channels reserved for MUX and traces)
+// 0 for USB
+    IpcDataChannelMin 2
+
+// Enable modem power off in flightmode
+// If set to 1 RRIL will request to power off the modem once flightmode is enabled
+    EnableModemOffInFlightMode 1
+
+// EnableCellInfo - Enable support for reporting of serving and neighbour cell info
+//      If set to "1", RIL_REQUEST_GET_NEIGHBORING_CELL_IDS request is supported
+//      If set to "0", RIL_REQUEST_GET_NEIGHBORING_CELL_IDS request is not supported
+//      If missing, the default value will be "1" and cell info will be supported.
+    EnableCellInfo              1
+
+// EnableCipheringInd - Enable support for reporting of ciphering indication
+//      If set to "1", Ciphering Indication is supported
+//      If set to "0", Ciphering Indication is not supported
+//      If missing, the default value will be "1" and Ciphering indication is
+//      supported.
+    EnableCipheringInd          1
+
+//  Set Fast Dormancy Timer
+//    "FDDelayTimer" = integer value in range of 1 to 60 (seconds)
+//    "SCRITimer" = integer value in range of 1 to 120 (seconds)
+//
+//  Command will be sent upon device init.
+//  If values are missing, then default modem values are used (default value is 0)
+    FDDelayTimer                2
+    SCRITimer                   30
+
+// Fast Dormancy mode - Set Modem Autonomous Fast Dormancy (MAFD) mode
+//      If set to "1", "OEM Managed": MAFD is off by default;  It can be
+//          enabled/disabled by OEM middleware SW through OEM Hook command.
+//      If set to "2", "Display Driven": MAFD is enabled by RIL_REQUEST_SCREEN_STATE(off)
+//          and disabled by RIL_REQUEST_SCREEN_STATE(on).
+//      If set to "3", "Always on": MAFD is enabled at boot time and remains on
+//          during device power cycle.
+//      If value is missing, default mode is "2": "Display Driven".
+    FDMode                      2
+
+// Temporary Out of Service (OoS) Notifications - Enable/disable support for
+//      Temporary OoS notications.
+// This setting is only supported on modems with dual-sim support (DSDS) and should
+//    not be used otherwise.
+//      If set to "0", Temporary OoS notifcations will not be supported
+//      If set to "1", Temporary OoS notification will be supported
+//      If missing, the default value will be "0" and notifications will not be
+//          supported
+//   TempOoSNotificationEnable    0
+
+//Definition of the class of a apn type, as follows:
+//1: always use a direct channel to the modem
+//2: direct channel prefered, will fall back to a mux channel if no direct channel available
+//3: always use a mux channel.
+//
+//Note: a 'direct channel' means a direct AP <=> modem connection without going through the GSM
+//      MUX layer
+   ApnTypeDefault    2
+   ApnTypeDUN        2
+   ApnTypeIMS        3
+   ApnTypeCBS        3
+   ApnTypeFOTA       3
+
+//Total of direct channels reserved for data. The class 1 and class 2 apns
+//should be defined accordingly.
+   HsiDataDirect    2
+
+
+// USSD - Enable/Disable support for Unstructured Supplementary Service Data
+// DisableUSSD
+//      If set to "1", USSD will be disabled, else if "0" enable
+//      If missing, the default value will be "0" and USSD will be enabled
+//   DisableUSSD      0
+
+// Custom APN configuration
+// These parameters are used to define the apn sent in the modem init command at startup
+// When attaching LTE, the apn is sent to the network before receiving the CGCONTRDP
+// APN type is mandatory and value should be "IP", "IPV6" or "IPV4V6"
+// APN Name is optional
+//   customAPNName    apn.example.com
+//   customAPNType    IPV4V6
+
+// System Capability settings - Set a modem's capabilities using various flags
+//  These flags control the sending of init commands to a channel during initialization.
+//      "VoiceCapable" - Set to "0" to disable voice calls, otherwise enabled by default.
+//      "DataCapable" - Set to "0" to disable data calls, otherwise enabled by default.
+//      "SmsOverCSCapable" - Set to "0" to disable SMS over CS, otherwise enabled by default.
+//      "SmsOverPSCapable" - Set to "0" to disable SMS over PS, otherwise enabled by default.
+//      "StkCapable" - Set to "0" to disable STK support, otherwise enabled by default.
+//      "EnableXDATASTATReporting" - Set to "1" to enable data call status reporting, otherwise
+//                                  disabled by default.
+//      "EnableSMSOverIP" - Set to "1" to enable SMS over IMS, this setting will be used only
+//                          if IMS BP centric is activated (ims_support set to 1).
+//      "SupportCGPIAF" - Set to "1" to support new implementation based on +CGPIAF direct format
+//                        (for IMC IPV6 AT commands), or set to "0" to keep the current behavior.
+//      "EnableSignalStrengthReporting" - Set to "1" configures the modem to report signal strength
+//                          changes via an URC.
+//    VoiceCapable                0
+//    DataCapable                 0
+//    SmsOverCSCapable            0
+//    SmsOverPSCapable            0
+//    StkCapable                  0
+//    EnableXDATASTATReporting    1
+//    EnableSMSOverIP             1
+    SupportCGPIAF               0
+    EnableSignalStrengthReporting 1
+
+// IMEI blacklist - A list of default IMEIs which could be flashed to the device.  The device
+//      will not register on a live network if any of these IMEIs are used.
+//      IMEIs listed below must be separated by spaces.
+    ImeiBlackList       000000000000000 004999010640000 // default IMEIs for IMC
+
+
+// Log levels
+Group Logging
+    CallDropReporting           1    // 0: disable (default), 1: enable
+    LogLevel                    2    // 4: Critical, 3: Warning, 2: Info, 1: Verbose
+
+
+// Silo Configuration - A bitmask of the silos assigned for each channel.
+// Setting the appropriate bit in the mask adds the silo to the channel:
+//      bit 11: Common silo       1000 0000 0000
+//      bit 9-10: Reserved for new silos
+//      bit 8: rfcoexistence silo 0001 0000 0000
+//      bit 7: IMS silo           0000 1000 0000
+//      bit 6: Misc silo          0000 0100 0000
+//      bit 5: Phonebook silo     0000 0010 0000
+//      bit 4: Network silo       0000 0001 0000
+//      bit 3: Data silo          0000 0000 1000
+//      bit 2: SMS silo           0000 0000 0100
+//      bit 1: SIM silo           0000 0000 0010
+//      bit 0: Voice silo         0000 0000 0001
+//
+Group ChannelSiloConfiguration
+    SilosATCmdChannel       0x840    // Misc and common silo (2)
+    SilosDLC2Channel        0x810    // Network and common silo (2)
+    SilosDLC6Channel        0x801    // Voice and common silo (2)
+    SilosDLC8Channel        0x802    // SIM and common silo (2)
+    SilosDLC22Channel       0x800    // common silo (1)
+    SilosDLC23Channel       0x800    // common silo (1)
+    SilosSmsChannel         0x804    // SMS and common silo (2)
+    SilosURCChannel         0x8F7    // All silos except data
+    SilosOEMChannel         0x800    // common silo only (1)
+    SilosDataChannel        0x808    // Data and common silo (2)
+

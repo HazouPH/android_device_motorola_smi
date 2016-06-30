@@ -46,6 +46,12 @@ PRODUCT_PACKAGES += \
     Stk
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/telephony/repository.txt:system/etc/telephony/repository.txt
+PRODUCT_PROPERTY_OVERRIDES += \
+    keyguard.no_require_sim=true \
+    ro.ril.status.polling.enable=0 \
+    ro.telephony.default_network=9 \
+    ro.ril.telephony.mqanelements=5 \
+    ro.telephony.ril.config=simactivation
 
 # Intel Display
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -151,7 +157,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     pvrsrvctl
 
-# AGPS
+# AGPS (TODO: implement it for MM)
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/framework/com.motorola.android.location.jar:system/framework/com.motorola.android.location.jar
 
@@ -163,15 +169,6 @@ PRODUCT_PACKAGES += \
     tcpdump \
     libcorkscrew \
     com.android.future.usb.accessory
-
-# Live Wallpapers
-PRODUCT_PACKAGES += \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    MagicSmokeWallpapers \
-    HoloSpiralWallpaper \
-    VisualizationWallpapers \
-    librs_jni
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
@@ -215,22 +212,6 @@ PRODUCT_PACKAGES += \
     TQS.ini
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.mot.deep.sleep.supported=true \
-    persist.mot.nfc.ce=50 \
-    ro.com.google.clientid=android-motorola \
-    ro.mot.proximity.delay=450 \
-    mot.proximity.distance=60 \
-    ro.mot.NfcEnabled=false \
-    ro.product.drm.sd.enable=1 \
-    ro.product.drm.cd.enable=1 \
-    keyguard.no_require_sim=true \
-    ro.mot.cambtntime=400 \
-    ro.ril.status.polling.enable=0 \
-    ro.telephony.default_network=9 \
-    ro.ril.telephony.mqanelements=5 \
-    ro.telephony.ril.config=simactivation
 
 ADDITIONAL_DEFAULT_PROPERTIES += \
     panel.physicalWidthmm=52 \
