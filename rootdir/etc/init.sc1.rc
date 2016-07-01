@@ -274,10 +274,10 @@ service batt_health /system/bin/batt_health
 service_redefine drm /system/bin/drmserver
     class main
     user drm
-    group drm inet drmrpc sdcard_r security mot_tpapi mot_drm
+    group drm system inet drmrpc sdcard_r
 
 service_redefine media /system/bin/mediaserver
     class main
     user media
-    group system audio camera media_rw sdcard_rw inet net_bt net_bt_admin net_bw_acct drmrpc net_raw security mot_tpapi radio mot_drm
+    group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm radio system qcom_diag
     ioprio rt 4
