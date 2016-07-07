@@ -151,13 +151,10 @@ lib/libtinyxml_stl.so
 bin/mmgr
 etc/firmware/fw_sst_082f.bin
 etc/firmware/fw_sst_08e7.bin
-etc/rril/repository.txt
 etc/telephony/mmgr.conf
 lib/libglib-2.0.so
 lib/libmmgrcli.so
 lib/libpn544_fw.so:lib/libpn544_fw.bak
-lib/librapid-ril-core.so
-lib/librapid-ril-util.so
 lib/libsecurity_api.so
 
 # FS

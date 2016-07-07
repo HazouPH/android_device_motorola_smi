@@ -43,7 +43,9 @@ PRODUCT_PACKAGES += \
 
 # Radio
 PRODUCT_PACKAGES += \
-    Stk
+    Stk \
+    librapid-ril-core \
+    librapid-ril-util
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/telephony/repository.txt:system/etc/telephony/repository.txt
 PRODUCT_PROPERTY_OVERRIDES += \
