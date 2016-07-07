@@ -66,7 +66,7 @@ LOCAL_SRC_FILES:= \
     cbs_info.cpp \
     ND/hardwareconfig.cpp
 
-LOCAL_SHARED_LIBRARIES := libcutils libutils libmmgrcli librilutils libtcs
+LOCAL_SHARED_LIBRARIES := libcutils libutils libmmgrcli librilutils
 
 # Activating this macro enables PIN retry count feature
 ifeq ($(strip $(M2_PIN_RETRIES_FEATURE_ENABLED)),true)
@@ -83,7 +83,6 @@ LOCAL_C_INCLUDES :=  \
     $(LOCAL_PATH)/../INC \
     $(LOCAL_PATH)/../UTIL/ND \
     $(TARGET_OUT_HEADERS)/IFX-modem \
-    $(TARGET_OUT_HEADERS)/libtcs \
 
 #build shared library
 LOCAL_PRELINK_MODULE := false

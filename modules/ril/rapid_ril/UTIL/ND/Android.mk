@@ -21,8 +21,6 @@ LOCAL_C_INCLUDES :=  \
     $(LOCAL_PATH)/../../OEM/ND \
     $(TARGET_OUT_HEADERS)/IFX-modem \
 
-LOCAL_REQUIRED_MODULES := rril_cfg
-
 #build shared library
 LOCAL_PRELINK_MODULE := false
 LOCAL_STRIP_MODULE := true

@@ -14,6 +14,8 @@
 #define __RIL_TYPES_H__
 
 #include <cstdint>
+#include <cstring>
+#include <cerrno>
 
 typedef bool                BOOL;
 typedef uint8_t             BYTE;

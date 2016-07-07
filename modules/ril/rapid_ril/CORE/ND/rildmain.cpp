@@ -24,7 +24,6 @@
 #include "reset.h"
 #include <cutils/properties.h>
 #include <utils/Log.h>
-#include "tcs.h"
 #include "hardwareconfig.h"
 
 ///////////////////////////////////////////////////////////
@@ -632,23 +631,6 @@ static void* mainLoop(void* /*param*/)
     int subscriptionId = 0;
     int SIMId = 0;
 
-    tcs_handle_t* h                   = tcs_init();
-    tcs_cfg_t*    cfg                 = NULL;
-    if (h == NULL)
-    {
-        RLOGE("%s - Failed to init TCS", __func__);
-        dwRet = 0;
-        goto Error;
-    }
-
-    cfg = tcs_get_config(h);
-    if (cfg == NULL)
-    {
-        RLOGE("%s - Failed to get current configuration", __func__);
-        dwRet = 0;
-        goto Error;
-    }
-
     // Create the hardware config from the configuration file
     if (!CHardwareConfig::GetInstance().CreateHardwareConfig(cfg))
     {
@@ -722,7 +704,6 @@ Error:
         freeDlcs();
     }
 
-    tcs_dispose(h);
     RIL_LOG_INFO("mainLoop() - Exit\r\n");
     return (void*)(intptr_t)dwRet;
 }
