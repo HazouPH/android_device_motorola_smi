@@ -153,6 +153,25 @@ const char   g_szSilosOEM[]             = "SilosOEMChannel";
 const char   g_szSilosData[]            = "SilosDataChannel";
 
 //////////////////////////////////////////////////////////////////////////
+
+const char   g_szGroupChannelPorts[]    = "ChannelPortConfiguration";
+
+const char   g_szChannelsATCmd[]        = "PortsATCmdChannel";
+const char   g_szChannelsDLC2[]         = "PortsDLC2Channel";
+const char   g_szChannelsDLC6[]         = "PortsDLC6Channel";
+const char   g_szChannelsDLC8[]         = "PortsDLC8Channel";
+const char   g_szChannelsDLC22[]        = "PortsDLC22Channel";
+const char   g_szChannelsDLC23[]        = "PortsDLC23Channel";
+const char   g_szChannelsSms[]          = "PortsSmsChannel";
+const char   g_szChannelsURC[]          = "PortsURCChannel";
+const char   g_szChannelsOEM[]          = "PortsOEMChannel";
+const char   g_szChannelsData1[]        = "PortsDataChannel1";
+const char   g_szChannelsData2[]        = "PortsDataChannel2";
+const char   g_szChannelsData3[]        = "PortsDataChannel3";
+const char   g_szChannelsData4[]        = "PortsDataChannel4";
+const char   g_szChannelsData5[]        = "PortsDataChannel5";
+
+//////////////////////////////////////////////////////////////////////////
 // Structs and Enums.
 
 enum

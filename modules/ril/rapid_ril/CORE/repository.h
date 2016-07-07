@@ -142,6 +142,25 @@ extern const char   g_szSilosData[];
 
 //////////////////////////////////////////////////////////////////////////
 
+extern const char   g_szGroupChannelPorts[];
+
+extern const char   g_szChannelsATCmd[];
+extern const char   g_szChannelsDLC2[];
+extern const char   g_szChannelsDLC6[];
+extern const char   g_szChannelsDLC8[];
+extern const char   g_szChannelsDLC22[];
+extern const char   g_szChannelsDLC23[];
+extern const char   g_szChannelsSms[];
+extern const char   g_szChannelsURC[];
+extern const char   g_szChannelsOEM[];
+extern const char   g_szChannelsData1[];
+extern const char   g_szChannelsData2[];
+extern const char   g_szChannelsData3[];
+extern const char   g_szChannelsData4[];
+extern const char   g_szChannelsData5[];
+
+//////////////////////////////////////////////////////////////////////////
+
 class CRepository
 {
 public:

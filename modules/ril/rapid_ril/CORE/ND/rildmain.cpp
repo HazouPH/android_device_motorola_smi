@@ -531,24 +531,27 @@ static const char* getVersion(void)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-static bool copyDlc(char **out, channel_t* ch, int channelNumber)
+static bool copyDlc(char **out, const char* ch, int channelNumber)
 {
     bool ret = true;
 
-    if (ch->device[0] != '\0')
+    CRepository repository;
+    char bzBuff[MAX_BUFFER_SIZE];
+    if (repository.Read(g_szGroupChannelPorts, ch, bzBuff, MAX_BUFFER_SIZE))
     {
-        *out = strdup(ch->device);
+        *out = strdup(bzBuff);
         RLOGI("%s - ch[%d] = \"%s\"", __FUNCTION__, channelNumber, *out);
     }
-    else
+    else {
         ret = false;
+    }
 
     return ret;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
-static bool RIL_SetGlobals(channels_rril_t *ch)
+static bool RIL_SetGlobals()
 {
     int opt;
     bool ret = true;
@@ -556,15 +559,15 @@ static bool RIL_SetGlobals(channels_rril_t *ch)
     g_uiRilChannelUpperLimit = RIL_CHANNEL_MAX;
     g_pReqInfo = (REQ_INFO*)g_ReqInfoDefault;
 
-    ret &= copyDlc(&g_szCmdPort, &ch->control, RIL_CHANNEL_ATCMD);
-    ret &= copyDlc(&g_szDLC2Port, &ch->registration, RIL_CHANNEL_DLC2);
-    ret &= copyDlc(&g_szDLC6Port, &ch->settings, RIL_CHANNEL_DLC6);
-    ret &= copyDlc(&g_szDLC8Port, &ch->sim_toolkit, RIL_CHANNEL_DLC8);
-    ret &= copyDlc(&g_szDLC22Port, &ch->cops_commands, RIL_CHANNEL_DLC22);
-    ret &= copyDlc(&g_szDLC23Port, &ch->rfcoexistence, RIL_CHANNEL_DLC23);
-    ret &= copyDlc(&g_szSmsPort, &ch->sms, RIL_CHANNEL_SMS);
-    ret &= copyDlc(&g_szURCPort, &ch->monitoring, RIL_CHANNEL_URC);
-    ret &= copyDlc(&g_szOEMPort, &ch->field_test, RIL_CHANNEL_OEM);
+    ret &= copyDlc(&g_szCmdPort, g_szChannelsATCmd, RIL_CHANNEL_ATCMD);
+    ret &= copyDlc(&g_szDLC2Port, g_szChannelsDLC2, RIL_CHANNEL_DLC2);
+    ret &= copyDlc(&g_szDLC6Port, g_szChannelsDLC6, RIL_CHANNEL_DLC6);
+    ret &= copyDlc(&g_szDLC8Port, g_szChannelsDLC8, RIL_CHANNEL_DLC8);
+    ret &= copyDlc(&g_szDLC22Port, g_szChannelsDLC22, RIL_CHANNEL_DLC22);
+    ret &= copyDlc(&g_szDLC23Port, g_szChannelsDLC23, RIL_CHANNEL_DLC23);
+    ret &= copyDlc(&g_szSmsPort, g_szChannelsSms, RIL_CHANNEL_SMS);
+    ret &= copyDlc(&g_szURCPort, g_szChannelsURC, RIL_CHANNEL_URC);
+    ret &= copyDlc(&g_szOEMPort, g_szChannelsOEM, RIL_CHANNEL_OEM);
 
     if (ret)
     {
@@ -577,15 +580,21 @@ static bool RIL_SetGlobals(channels_rril_t *ch)
         // when config read unsuccessfully,  DataCapable will be enable by default
         if (!bConfigPresent || dataCapable)
         {
-            ret &= copyDlc(&g_szDataPort1, &ch->packet_data_1, RIL_CHANNEL_DATA1);
-            ret &= copyDlc(&g_szDataPort2, &ch->packet_data_2, RIL_CHANNEL_DATA2);
-            ret &= copyDlc(&g_szDataPort3, &ch->packet_data_3, RIL_CHANNEL_DATA3);
-            ret &= copyDlc(&g_szDataPort4, &ch->packet_data_4, RIL_CHANNEL_DATA4);
-            ret &= copyDlc(&g_szDataPort5, &ch->packet_data_5, RIL_CHANNEL_DATA5);
-
-            if (ret)
+            ret &= copyDlc(&g_szDataPort1, g_szChannelsData1, RIL_CHANNEL_DATA1);
+            ret &= copyDlc(&g_szDataPort2, g_szChannelsData2, RIL_CHANNEL_DATA2);
+            ret &= copyDlc(&g_szDataPort3, g_szChannelsData3, RIL_CHANNEL_DATA3);
+            if (!copyDlc(&g_szDataPort4, g_szChannelsData4, RIL_CHANNEL_DATA4))
             {
+                g_uiRilChannelCurMax += 3;
+                ret &= true;
+            }
+            if (!copyDlc(&g_szDataPort5, g_szChannelsData5, RIL_CHANNEL_DATA5))
+            {
+                g_uiRilChannelCurMax += 4;
+                ret &= true;
+            } else {
                 g_uiRilChannelCurMax += 5;
+                ret &= true;
             }
         }
     }
