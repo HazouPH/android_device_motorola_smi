@@ -844,15 +844,6 @@ BOOL CSystemManager::MMgrConnectionInit()
         goto out;
     }
 
-    if (E_ERR_CLI_SUCCEED !=
-          mmgr_cli_set_instance(m_pMMgrLibHandle, modemId + 1))
-    {
-        RIL_LOG_CRITICAL("CSystemManager::MMgrConnectionInit() -"
-                " Cannot set the instance id %u\n",
-                modemId + 1);
-        goto out;
-    }
-
     //  TODO: Change looping formula
 
     for (int i = 0; i < NUM_LOOPS; i++)
