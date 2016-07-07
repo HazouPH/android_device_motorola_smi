@@ -51,7 +51,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.ril.status.polling.enable=0 \
     ro.telephony.default_network=9 \
     ro.ril.telephony.mqanelements=5 \
-    ro.telephony.ril.config=simactivation
+    ro.telephony.ril.config=simactivation \
+    rild.libpath=/system/lib/librapid-ril-core.so
 
 # Intel Display
 PRODUCT_PROPERTY_OVERRIDES += \

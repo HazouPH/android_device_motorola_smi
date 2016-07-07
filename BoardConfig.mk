@@ -117,7 +117,6 @@ BOARD_USES_MRST_OMX := true
 USE_INTEL_SECURE_AVC := true
 
 # RILD
-BOARD_PROVIDES_RILD := true
 BOARD_PROVIDES_LIBRIL := true
 #BOARD_RIL_CLASS := ../../../device/motorola/smi/ril
 

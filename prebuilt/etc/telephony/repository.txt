@@ -273,3 +273,16 @@ Group ChannelSiloConfiguration
     SilosOEMChannel         0x800    // common silo only (1)
     SilosDataChannel        0x808    // Data and common silo (2)
 
+Group ChannelPortConfiguration
+    PortsATCmdChannel       /dev/gsmtty12
+    PortsDLC2Channel        /dev/gsmtty2
+    PortsDLC6Channel        /dev/gsmtty6
+    PortsDLC8Channel        /dev/gsmtty8
+    PortsDLC22Channel       /dev/gsmtty22
+    PortsDLC23Channel       /dev/gsmtty23
+    PortsSmsChannel         /dev/gsmtty20
+    PortsURCChannel         /dev/gsmtty1
+    PortsOEMChannel         /dev/gsmtty9
+    PortsDataChannel1       /dev/gsmtty3
+    PortsDataChannel2       /dev/gsmtty4
+    PortsDataChannel3       /dev/gsmtty15
