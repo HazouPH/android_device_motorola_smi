@@ -13,7 +13,6 @@
 #define CHARDWARECONFIG_H
 
 #include "types.h"
-#include "tcs.h"
 
 #include <telephony/ril.h>
 
@@ -52,7 +51,7 @@ public:
     bool IsMultiModem() { return m_isMultiModem; }
 
     // This function creates the hardware config array
-    bool CreateHardwareConfig(tcs_cfg_t* pConfig);
+    bool CreateHardwareConfig();
 
     // This function returns the subscription id
     bool GetSubscriptionId() { return m_subscriptionId; }

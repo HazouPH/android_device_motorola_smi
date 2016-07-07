@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 extern char* g_szClientId;
-
+#define RIL_HARDWARE_CONFIG_UUID_LENGTH 64
 CHardwareConfig* CHardwareConfig::m_pInstance = NULL;
 
 CHardwareConfig& CHardwareConfig::GetInstance()
@@ -100,11 +100,13 @@ CHardwareConfig::~CHardwareConfig()
 }
 
 //  Create the hardware config
-bool CHardwareConfig::CreateHardwareConfig(tcs_cfg_t* pConfig)
+bool CHardwareConfig::CreateHardwareConfig()
 {
     RIL_LOG_INFO("CHardwareConfig::CreateHardwareConfig() - ENTER\r\n");
     int count = 0;
     bool ret = FALSE;
+    int i = 0;
+    int j = 0;
 
     // Need to set the subscription ID first based on the client id
     if (!SetSubscriptionId())
@@ -112,22 +114,6 @@ bool CHardwareConfig::CreateHardwareConfig(tcs_cfg_t* pConfig)
         RIL_LOG_CRITICAL("%s - Failed to set the subscription id", __FUNCTION__);
     }
 
-    // Check if we are in multi modem config
-    if (pConfig->nb > 1)
-    {
-        SetMultiModem(TRUE);
-    }
-
-    // else Check if we are in multi SIM config
-    else if (pConfig->mdm[0].chs.nb > 1)
-    {
-        SetMultiSIM(TRUE);
-    }
-
-    for (size_t i = 0; i < pConfig->nb; i++)
-    {
-        for (size_t j = 0; j < pConfig->mdm[i].chs.nb; j++)
-        {
             if (count++ == m_subscriptionId)
             {
                 RIL_HardwareConfig* modemConfig = new RIL_HardwareConfig();
@@ -158,8 +144,6 @@ bool CHardwareConfig::CreateHardwareConfig(tcs_cfg_t* pConfig)
                 ret = TRUE;
                 return ret;
             }
-        }
-    }
 
 Error:
     RIL_LOG_INFO("CHardwareConfig::CreateHardwareConfig() - EXIT\r\n");

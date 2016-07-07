@@ -86,6 +86,7 @@ const char* g_szPostInitCmds[] =
 
 const char   g_szGroupModem[]                   = "Modem";
 
+const char   g_szSupportedModem[]               = "SupportedModem";
 const char   g_szNetworkInterfaceNamePrefix[]   = "NetworkInterfaceNamePrefix";
 const char   g_szMTU[]                          = "MTU";
 const char   g_szEnableCellInfo[]               = "EnableCellInfo";

@@ -622,6 +622,8 @@ static void freeDlcs(void)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+static const char* cfg = "repository.txt";
+
 static void* mainLoop(void* /*param*/)
 {
     RLOGI("mainLoop() - Enter\r\n");
@@ -632,7 +634,7 @@ static void* mainLoop(void* /*param*/)
     int SIMId = 0;
 
     // Create the hardware config from the configuration file
-    if (!CHardwareConfig::GetInstance().CreateHardwareConfig(cfg))
+    if (!CHardwareConfig::GetInstance().CreateHardwareConfig())
     {
         RLOGE("%s - Failed to create hardware config", __func__);
 
@@ -646,7 +648,7 @@ static void* mainLoop(void* /*param*/)
     SIMId = CHardwareConfig::GetInstance().GetSIMId();
 
     // Make sure each instances can access Non-Volatile Memory
-    if (!CRepository::Init(cfg->mdm[modemId].mod.rril_txt))
+    if (!CRepository::Init(cfg))
     {
         RLOGE("%s - could not initialize configuration file for modem ID %d",
                 __func__,
@@ -656,7 +658,7 @@ static void* mainLoop(void* /*param*/)
         goto Error;
     }
 
-    if (!RIL_SetGlobals(&cfg->mdm[modemId].chs.ch[SIMId].rril))
+    if (!RIL_SetGlobals())
     {
          RLOGE("%s - Multi Modem - Failed to initialize globals for modemID %d SIMId %d",
                 __func__,
@@ -682,7 +684,7 @@ static void* mainLoop(void* /*param*/)
     }
 
     // Create and start system manager
-    if (!CSystemManager::GetInstance().InitializeSystem(cfg->mdm[modemId].core.name))
+    if (!CSystemManager::GetInstance().InitializeSystem())
     {
         RIL_LOG_CRITICAL("mainLoop() - RIL InitializeSystem() FAILED for modem ID: %d\r\n",
                 modemId);

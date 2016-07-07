@@ -75,6 +75,7 @@ extern const char*  g_szPostInitCmds[];
 
 extern const char   g_szGroupModem[];
 
+extern const char   g_szSupportedModem[];
 extern const char   g_szNetworkInterfaceNamePrefix[];
 extern const char   g_szMTU[];
 extern const char   g_szEnableCellInfo[];
