@@ -575,7 +575,7 @@ static bool RIL_SetGlobals()
         int dataCapable = 0;
         bool bConfigPresent = repository.Read(g_szGroupModem, g_szDataCapable, dataCapable);
 
-        g_uiRilChannelCurMax = RIL_CHANNEL_DATA1;
+        g_uiRilChannelCurMax = RIL_CHANNEL_DATA4; // For 3 more data channels for Medfield only
 
         // when config read unsuccessfully,  DataCapable will be enable by default
         if (!bConfigPresent || dataCapable)
@@ -583,6 +583,7 @@ static bool RIL_SetGlobals()
             ret &= copyDlc(&g_szDataPort1, g_szChannelsData1, RIL_CHANNEL_DATA1);
             ret &= copyDlc(&g_szDataPort2, g_szChannelsData2, RIL_CHANNEL_DATA2);
             ret &= copyDlc(&g_szDataPort3, g_szChannelsData3, RIL_CHANNEL_DATA3);
+/* //Disable this, it gives the wrong number of channels
             if (!copyDlc(&g_szDataPort4, g_szChannelsData4, RIL_CHANNEL_DATA4))
             {
                 g_uiRilChannelCurMax += 3;
@@ -595,7 +596,7 @@ static bool RIL_SetGlobals()
             } else {
                 g_uiRilChannelCurMax += 5;
                 ret &= true;
-            }
+            }*/
         }
     }
 
