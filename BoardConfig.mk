@@ -133,9 +133,10 @@ BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(LOCAL_PATH)/charger/images
 # Houdini: enable ARM codegen for x86
 BUILD_ARM_FOR_X86 := true
 
-# Use dlmalloc and legacy mmap
+# Use dlmalloc, legacy mmap
 MALLOC_IMPL := dlmalloc
 BOARD_USES_LEGACY_MMAP := true
+USE_LEGACY_BLOBS := true
 
 # skip some proccess to speed up build
 BOARD_SKIP_ANDROID_DOC_BUILD := true
@@ -153,7 +154,7 @@ BOARD_SUPPRESS_EMMC_WIPE := true
 COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
 # Recovery options TWRP
-RECOVERY_VARIANT := twrp
+#RECOVERY_VARIANT := twrp
 DEVICE_RESOLUTION := 540x960
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/max170xx_battery
