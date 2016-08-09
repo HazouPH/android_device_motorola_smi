@@ -707,6 +707,20 @@ RIL_RESULT_CODE CTE_XMM6260::ParseIpAddress(RESPONSE_DATA& rRspData)
         pChannelData->AddAddressString(pChannelData->ADDR_IP, szIpAddr1);
         pChannelData->AddAddressString(pChannelData->ADDR_IP, szIpAddr2);
 
+        // Set the PDP type
+        if (szIpAddr2[0] == '\0')
+        {
+            pChannelData->SetPdpType(PDPTYPE_IP);
+        }
+        else if (szIpAddr1[0] == '\0')
+        {
+            pChannelData->SetPdpType(PDPTYPE_IPV6);
+        }
+        else
+        {
+            pChannelData->SetPdpType(PDPTYPE_IPV4V6);
+        }
+
         res = RRIL_RESULT_OK;
     }
     else
