@@ -1,7 +1,7 @@
 #!/system/bin/sh
 export PATH=/system/xbin:$PATH
 
-if [ ! -f /cache/pds-CM10.img ]
+if [ ! -f /cache/pds-image.img ]
 then
     #make a copy of pds in /data
     dd if=/dev/block/mmcblk0p12 of=/cache/pds-image.img
