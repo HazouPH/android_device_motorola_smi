@@ -1111,9 +1111,11 @@ bool CChannel_Data::AddAddressString(const ADDR_TYPE type, const char* pszAddres
     static const char* const apszType[] = {"IP", "DNS", "GATEWAY", "PCSCF"};
     UINT32 uiLength = 0;
 
-    if (NULL == pszAddress)
+    // we do not add invalid address (0.0.0.0 for Ipv4 or :: for IPv6) and empty address
+    if (NULL == pszAddress
+            || strcmp(pszAddress, "0.0.0.0") == 0 || strcmp(pszAddress, "::") == 0)
     {
-        RIL_LOG_WARNING("CChannel_Data::AddAddressString() - Input is NULL\r\n");
+        RIL_LOG_WARNING("CChannel_Data::AddAddressString() - Invalid address!\r\n");
         goto Error;
     }
 
