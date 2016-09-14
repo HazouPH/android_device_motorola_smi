@@ -118,7 +118,7 @@ USE_INTEL_SECURE_AVC := true
 
 # RILD
 BOARD_PROVIDES_LIBRIL := true
-#BOARD_RIL_CLASS := ../../../device/motorola/smi/ril
+BOARD_RIL_CLASS += ../../../device/motorola/smi/ril
 
 # GPS
 BOARD_HAVE_GPS := true
