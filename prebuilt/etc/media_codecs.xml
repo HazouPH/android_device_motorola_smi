@@ -102,6 +102,9 @@ can be used:
             <Quirk name="requires-hold-extra-buffers" />
         </MediaCodec>
 
+        <!-- Video Software (Google Override) -->
+        <MediaCodec name="OMX.google.vp9.decoder" type="video/x-vnd.on2.vp9" />
+
         <!-- Video Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.mpeg2v.decoder" type="video/mpeg2"/>
         <MediaCodec name="OMX.ffmpeg.h263.decoder" type="video/3gpp"/>
@@ -119,7 +122,6 @@ can be used:
 
         <!-- Video Software (Google) -->
         <MediaCodec name="OMX.google.vp8.decoder" type="video/x-vnd.on2.vp8" />
-        <MediaCodec name="OMX.google.vp9.decoder" type="video/x-vnd.on2.vp9" />
         <MediaCodec name="OMX.google.h263.decoder" type="video/3gpp" />
         <MediaCodec name="OMX.google.h264.decoder" type="video/avc" />
         <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
