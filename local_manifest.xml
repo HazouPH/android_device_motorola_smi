@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <manifest>
 
-  <project path="vendor/motorola/smi" name="HazouPH/android_vendor_motorola_smi" revision="cm-11.0"/>
+  <remote name="hazouph" fetch="https://github.com/HazouPH/" />
 
-  <project path="device/motorola/smi" name="HazouPH/android_device_motorola_smi" revision="cm-11.0"/>
-  
-  <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" revision="cm-11.0"/>
+  <project path="device/motorola/smi" name="android_device_motorola_smi" remote="hazouph"/>
 
-  <project path="device/motorola/smi-patches" name="HazouPH/smi_patches" revision="cm-11.0"/>
+  <project path="vendor/motorola/smi" name="android_vendor_motorola_smi" remote="hazouph"/>
 
-  <remove-project name="CyanogenMod/android_dalvik" />
+  <project path="hardware/ti/wlan-intel" name="android_hardware_ti_wlan" remote="hazouph" revision="master"/>
 
-  <project path="dalvik" name="HazouPH/android_dalvik" revision="cm-11.0IA"/>
+  <project path="kernel/motorola/smi" name="android_kernel_motorola_smi" remote="hazouph" revision="cm-11.0"/>
 
-  <remove-project name="CyanogenMod/android_frameworks_rs" />
-
-  <project path="frameworks/rs" name="HazouPH/android_frameworks_rs" revision="cm-11.0IA"/>
-
-  <project path="hardware/ti/wlan-intel" name="HazouPH/android_hardware_ti_wlan" revision="master"/>
+  <project path="prebuilts/gcc/linux-x86/x86/i686-linux-android-4.7" name="platform/prebuilts/gcc/linux-x86/x86/i686-linux-android-4.7" groups="pdk,linux,x86" remote="aosp" revision="refs/tags/android-4.4.4_r2" />
 
 </manifest>
