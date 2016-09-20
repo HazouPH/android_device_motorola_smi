@@ -96,7 +96,12 @@
 #define AID_NET_BW_STATS  3006  /* read bandwidth statistics */
 #define AID_NET_BW_ACCT   3007  /* change bandwidth statistics accounting */
 #define AID_NET_BT_STACK  3008  /* bluetooth: access config files */
+#define AID_QCOM_ONCRPC   3009  /* can read/write /dev/oncrpc files */
+#define AID_QCOM_DIAG     3010  /* can read/write /dev/diag */
+#define AID_SENSORS       3011 /* access to /dev/socket/sensor_ctl_socket & QCCI/QCSI */
+#define AID_IMS           3012  /* can read/write /dev/socket/imsrtp */
 
+#define AID_MOT_OSH       5000  /* OSH */
 #define AID_MOT_ACCY      9000  /* access to accessory */
 #define AID_MOT_PWRIC     9001  /* power IC */
 #define AID_MOT_USB       9002  /* mot usb */
@@ -112,6 +117,9 @@
 #define AID_MOT_ATVC      9012  /* mot_atvc - This is for use of the ATVC service ONLY */
 #define AID_SPRINT_EXTENSION 9013  /* IKASANTISPRINT-149 sprint extension service */
 #define AID_MOT_DBVC      9014  /* mot_dbvc - This group is used to access DataBlock feature related data */
+
+#define AID_MTKCCCI       9996
+#define AID_NVRAM         9997
 
 #define AID_MISC          9998  /* access to misc storage */
 #define AID_NOBODY        9999
@@ -186,11 +194,13 @@ static const struct android_id_info android_ids[] = {
     { "net_bw_acct",   AID_NET_BW_ACCT, },
     { "qcom_oncrpc", AID_QCOM_ONCRPC, },
     { "qcom_diag", AID_QCOM_DIAG, },
+    { "ims", AID_IMS, },
     { "net_bt_stack",  AID_NET_BT_STACK, },
 
     { "smartcard", AID_SMARTCARD, },
     { "qcom_thermal", AID_QCOM_THERMAL, },
     { "fm_radio",  AID_FM_RADIO, },
+    { "mot_osh",   AID_MOT_OSH, },
     { "mot_accy",	AID_MOT_ACCY, },
     { "mot_pwric",	AID_MOT_PWRIC, },
     { "mot_usb",	AID_MOT_USB, },
@@ -207,6 +217,9 @@ static const struct android_id_info android_ids[] = {
     { "sprint_extension", AID_SPRINT_EXTENSION, },
     { "mot_dbvc",	AID_MOT_DBVC, },
 
+    { "sensors",       AID_SENSORS, },
+    { "ccci", AID_MTKCCCI, },
+    { "nvram", AID_NVRAM, },
     { "misc",          AID_MISC, },
     { "nobody",        AID_NOBODY, },
     { "theme_man", AID_THEMEMAN },
