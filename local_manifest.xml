@@ -19,4 +19,6 @@
 
   <project path="hardware/ti/wlan-intel" name="HazouPH/android_hardware_ti_wlan" revision="master"/>
 
+  <remove-project name="CyanogenMod/android_external_tinyalsa" />
+
 </manifest>
