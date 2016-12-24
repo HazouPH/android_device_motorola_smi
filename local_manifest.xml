@@ -21,4 +21,8 @@
 
   <remove-project name="CyanogenMod/android_external_tinyalsa" />
 
+  <remove-project name="CyanogenMod/android_external_ffmpeg" />
+
+  <project path="external/ffmpeg" name="Cyanogenmod/android_external_ffmpeg" revision="cm-13.0"/>
+
 </manifest>
