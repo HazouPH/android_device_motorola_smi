@@ -115,7 +115,6 @@
 #define AID_MOT_CAIF      9010  /* can create CAIF sockets */
 #define AID_MOT_DLNA      9011  /* DLNA native */
 #define AID_MOT_ATVC      9012  /* mot_atvc - This is for use of the ATVC service ONLY */
-#define AID_SPRINT_EXTENSION 9013  /* IKASANTISPRINT-149 sprint extension service */
 #define AID_MOT_DBVC      9014  /* mot_dbvc - This group is used to access DataBlock feature related data */
 
 #define AID_MTKCCCI       9996
@@ -198,7 +197,6 @@ static const struct android_id_info android_ids[] = {
     { "net_bt_stack",  AID_NET_BT_STACK, },
 
     { "smartcard", AID_SMARTCARD, },
-    { "qcom_thermal", AID_QCOM_THERMAL, },
     { "fm_radio",  AID_FM_RADIO, },
     { "mot_osh",   AID_MOT_OSH, },
     { "mot_accy",	AID_MOT_ACCY, },
@@ -214,7 +212,6 @@ static const struct android_id_info android_ids[] = {
     { "mot_caif",	AID_MOT_CAIF, },
     { "mot_dlna",	AID_MOT_DLNA, },
     { "mot_atvc",	AID_MOT_ATVC, },
-    { "sprint_extension", AID_SPRINT_EXTENSION, },
     { "mot_dbvc",	AID_MOT_DBVC, },
 
     { "sensors",       AID_SENSORS, },
@@ -306,6 +303,7 @@ static const struct fs_path_config android_files[] = {
     /* the following files have enhanced capabilities and ARE included in user builds. */
     { 00750, AID_ROOT,      AID_SHELL,     (1 << CAP_SETUID) | (1 << CAP_SETGID), "system/bin/run-as" },
 
+    { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/uncrypt" },
     { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/*" },
     { 00755, AID_ROOT,      AID_ROOT,      0, "system/lib/valgrind/*" },
     { 00755, AID_ROOT,      AID_SHELL,     0, "system/xbin/*" },
