@@ -37,7 +37,7 @@
   <project path="bionic" name="HazouPH/android_bionic" revision="cm-11.0"/>
   <project path="build" name="HazouPH/android_build" revision="cm-11.0"/>
   <project path="dalvik" name="HazouPH/android_dalvik" revision="cm-11.0IA"/>
-  <project path="external/ffmpeg" name="Cyanogenmod/android_external_ffmpeg" revision="cm-13.0-4.4.4"/>
+  <project path="external/ffmpeg" name="HazouPH/android_external_ffmpeg" revision="cm-13.0-4.4.4"/>
   <project path="external/icu4c" name="HazouPH/android_external_icu4c" revision="cm-11.0"/>
   <project path="external/stagefright-plugins" name="HazouPH/android_external_stagefright-plugins" revision="cm-11.0-ffmpeg3.0"/>
   <project path="frameworks/av" name="HazouPH/android_frameworks_av" revision="cm-11.0"/>
