@@ -56,8 +56,7 @@ android_common_sqlite_flags += -fno-pic -fno-pie
 # Use Intel libm
 USE_PRIVATE_LIBM := true
 
-# Dalvik with houdini
-INTEL_HOUDINI := true
+# DalvikVM for x86
 WITH_JIT := true
 LOCAL_CFLAGS += -DARCH_IA32
 WITH_SELF_VERIFICATION := true
