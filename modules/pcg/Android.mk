@@ -23,17 +23,6 @@ LOCAL_PREBUILT_LIBS := libpcg.a libirc_pcg.a libsvml_pcg.a
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_MULTI_PREBUILT)
 
-$(LOCAL_BUILT_MODULE) : check_libpcg_consistency
-#
-# libpcg light consistency check
-#
-define post_build
-check_libpcg_consistency: $(1)/libpcg.log
-	echo "Check libpcg package for consistency:"
-	cd $(1); md5sum -c libpcg.log
-endef
-$(eval $(call post_build,$(LOCAL_PATH)))
-
 #
 # Build for the host.
 #
