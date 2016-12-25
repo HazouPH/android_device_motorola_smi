@@ -3,104 +3,57 @@
 
   <!-- Device specific repos -->
 
-  <project path="vendor/motorola/smi" name="HazouPH/android_vendor_motorola_smi" revision="cm-11.0"/>
-
   <project path="device/motorola/smi" name="HazouPH/android_device_motorola_smi" revision="cm-11.0"/>
-  
-  <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" revision="cm-11.0"/>
-
+  <project path="device/motorola/smi-patches" name="HazouPH/smi_patches" revision="cm-11.0"/>
   <project path="hardware/ti/wlan-intel" name="HazouPH/android_hardware_ti_wlan" revision="master"/>
-
-  <!--project path="device/motorola/smi-patches" name="HazouPH/smi_patches" revision="cm-11.0"/-->
-
-
+  <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" revision="cm-11.0"/>
+  <project path="vendor/motorola/smi" name="HazouPH/android_vendor_motorola_smi" revision="cm-11.0"/>
 
   <!-- Updated CM repos with patches from CMForks, GPDroid, Hazou, Intel, CyanogenMod -->
 
+  <remove-project name="CyanogenMod/android_bionic" />
+  <remove-project name="CyanogenMod/android_build" />
   <remove-project name="CyanogenMod/android_dalvik" />
-
-  <remove-project name="CyanogenMod/android_frameworks_rs" />
-
-  <remove-project name="CyanogenMod/android_external_tinyalsa" />
-
-  <remove-project name="CyanogenMod/android_external_stagefright-plugins" />
-
-  <remove-project name="CyanogenMod/android_hardware_libhardware_legacy" />
-
-  <remove-project name="CyanogenMod/android_packages_apps_Stk" />
-
-  <remove-project name="CyanogenMod/android_frameworks_opt_telephony" />
-
+  <remove-project name="CyanogenMod/android_external_ffmpeg" />
   <remove-project name="CyanogenMod/android_external_icu4c" />
-
-  <remove-project name="CyanogenMod/android_packages_apps_LockClock" />
-
+  <remove-project name="CyanogenMod/android_external_stagefright-plugins" />
+  <remove-project name="CyanogenMod/android_external_tinyalsa" />
   <remove-project name="CyanogenMod/android_frameworks_av" />
-
   <remove-project name="CyanogenMod/android_frameworks_base" />
-
+  <remove-project name="CyanogenMod/android_frameworks_native" />
+  <remove-project name="CyanogenMod/android_frameworks_opt_telephony" />
+  <remove-project name="CyanogenMod/android_frameworks_rs" />
   <remove-project name="CyanogenMod/android_hardware_libhardware" />
-
-  <remove-project name="CyanogenMod/android_packages_apps_Trebuchet" />
-
+  <remove-project name="CyanogenMod/android_hardware_libhardware_legacy" />
+  <remove-project name="CyanogenMod/android_libcore" />
+  <remove-project name="CyanogenMod/android_packages_apps_LockClock" />
   <remove-project name="CyanogenMod/android_packages_apps_Settings" />
-
+  <remove-project name="CyanogenMod/android_packages_apps_SoundRecorder" />
+  <remove-project name="CyanogenMod/android_packages_apps_Stk" />
+  <remove-project name="CyanogenMod/android_packages_apps_Trebuchet" />
+  <remove-project name="CyanogenMod/android_system_core" />
   <remove-project name="CyanogenMod/android_vendor_cm" />
 
-  <remove-project name="CyanogenMod/android_packages_apps_SoundRecorder" />
-
-  <remove-project name="CyanogenMod/android_system_core" />
-
-  <remove-project name="CyanogenMod/android_frameworks_native" />
-
-  <remove-project name="CyanogenMod/android_build" />
-
-  <remove-project name="CyanogenMod/android_libcore" />
-
-  <remove-project name="CyanogenMod/android_bionic" />
-
-  <!--remove-project name="CyanogenMod/android_external_ffmpeg" /-->
-
-  <project path="dalvik" name="HazouPH/android_dalvik" revision="cm-11.0IA"/>
-
-  <project path="frameworks/rs" name="HazouPH/android_frameworks_rs" revision="cm-11.0IA"/>
-
-  <project path="external/stagefright-plugins" name="HazouPH/android_external_stagefright-plugins" revision="cm-11.0"/>
-
-  <project path="hardware/libhardware_legacy" name="HazouPH/android_hardware_libhardware_legacy" revision="cm-11.0"/>
-
-  <project path="packages/apps/Stk" name="HazouPH/android_packages_apps_Stk" revision="cm-11.0"/>
-
-  <project path="frameworks/opt/telephony" name="HazouPH/android_frameworks_opt_telephony" revision="cm-11.0"/>
-
-  <project path="external/icu4c" name="HazouPH/android_external_icu4c" revision="cm-11.0"/>
-
-  <project path="packages/apps/LockClock" name="HazouPH/android_packages_apps_LockClock" revision="cm-11.0"/>
-
-  <project path="frameworks/av" name="HazouPH/android_frameworks_av" revision="cm-11.0"/>
-
-  <project path="frameworks/base" name="HazouPH/android_frameworks_base" revision="cm-11.0"/>
-
-  <project path="hardware/libhardware" name="HazouPH/android_hardware_libhardware" revision="cm-11.0"/>
-
-  <project path="packages/apps/Trebuchet" name="HazouPH/android_packages_apps_Trebuchet" revision="cm-11.0"/>
-
-  <project path="packages/apps/Settings" name="HazouPH/android_packages_apps_Settings" revision="cm-11.0"/>
-
-  <project path="vendor/cm" name="HazouPH/android_vendor_cm" revision="cm-11.0"/>
-
-  <project path="packages/apps/SoundRecorder" name="HazouPH/android_packages_apps_SoundRecorder" revision="cm-11.0"/>
-
-  <project path="system/core" name="HazouPH/android_system_core" revision="cm-11.0"/>
-
-  <project path="frameworks/native" name="HazouPH/android_frameworks_native" revision="cm-11.0"/>
-
-  <project path="build" name="HazouPH/android_build" revision="cm-11.0"/>
-
-  <project path="libcore" name="HazouPH/android_libcore" revision="cm-11.0"/>
-
   <project path="bionic" name="HazouPH/android_bionic" revision="cm-11.0"/>
-
-  <!--project path="external/ffmpeg" name="Cyanogenmod/android_external_ffmpeg" revision="cm-13.0"/-->
+  <project path="build" name="HazouPH/android_build" revision="cm-11.0"/>
+  <project path="dalvik" name="HazouPH/android_dalvik" revision="cm-11.0IA"/>
+  <project path="external/ffmpeg" name="Cyanogenmod/android_external_ffmpeg" revision="cm-13.0-4.4.4"/>
+  <project path="external/icu4c" name="HazouPH/android_external_icu4c" revision="cm-11.0"/>
+  <project path="external/stagefright-plugins" name="HazouPH/android_external_stagefright-plugins" revision="cm-11.0-ffmpeg3.0"/>
+  <project path="frameworks/av" name="HazouPH/android_frameworks_av" revision="cm-11.0"/>
+  <project path="frameworks/base" name="HazouPH/android_frameworks_base" revision="cm-11.0"/>
+  <project path="frameworks/native" name="HazouPH/android_frameworks_native" revision="cm-11.0"/>
+  <project path="frameworks/opt/telephony" name="HazouPH/android_frameworks_opt_telephony" revision="cm-11.0"/>
+  <project path="frameworks/rs" name="HazouPH/android_frameworks_rs" revision="cm-11.0IA"/>
+  <project path="hardware/libhardware" name="HazouPH/android_hardware_libhardware" revision="cm-11.0"/>
+  <project path="hardware/libhardware_legacy" name="HazouPH/android_hardware_libhardware_legacy" revision="cm-11.0"/>
+  <project path="libcore" name="HazouPH/android_libcore" revision="cm-11.0"/>
+  <project path="packages/apps/LockClock" name="HazouPH/android_packages_apps_LockClock" revision="cm-11.0"/>
+  <project path="packages/apps/Settings" name="HazouPH/android_packages_apps_Settings" revision="cm-11.0"/>
+  <project path="packages/apps/SoundRecorder" name="HazouPH/android_packages_apps_SoundRecorder" revision="cm-11.0"/>
+  <project path="packages/apps/Stk" name="HazouPH/android_packages_apps_Stk" revision="cm-11.0"/>
+  <project path="packages/apps/Trebuchet" name="HazouPH/android_packages_apps_Trebuchet" revision="cm-11.0"/>
+  <project path="system/core" name="HazouPH/android_system_core" revision="cm-11.0"/>
+  <project path="vendor/cm" name="HazouPH/android_vendor_cm" revision="cm-11.0"/>
 
 </manifest>

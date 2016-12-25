@@ -1,0 +1,15 @@
+# Current List of cherry-pick needed for Razr I project
+# repopick in this order
+
+
+# Update Security String to 2016-12-01
+repopick 176891
+git fetch https://review.cyanogenmod.org/CyanogenMod/android_build refs/changes/91/176891/1 && git cherry-pick FETCH_HEAD
+
+# Remove SSLv3 fallback logic
+repopick 176892
+git fetch https://review.cyanogenmod.org/CyanogenMod/android_external_chromium refs/changes/92/176892/1 && git cherry-pick FETCH_HEAD
+
+# Restrict SipProfiles to profiles directory DO NOT MERGE
+repopick 176901
+git fetch https://review.cyanogenmod.org/CyanogenMod/android_packages_services_Telephony refs/changes/01/176901/1 && git cherry-pick FETCH_HEAD
