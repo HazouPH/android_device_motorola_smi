@@ -50,6 +50,9 @@ TARGET_GLOBAL_CFLAGS += -DUSE_SSSE3 -DUSE_SSE2
 TARGET_GLOBAL_CPPFLAGS += -march=atom -fno-exceptions
 TARGET_GLOBAL_LDFLAGS += -Wl,-O1
 
+# SQLite optimization (Sebastien MICHEL)
+android_common_sqlite_flags += -fno-pic -fno-pie
+
 # Use Intel libm
 USE_PRIVATE_LIBM := true
 
