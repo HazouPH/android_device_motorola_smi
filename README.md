@@ -15,9 +15,9 @@ To build CM11 from with this device tree:
 - Download/Copy over 'local_manifest.xml to:
 (build-directory)/.repo/local_manifests/local_manifest.xml
 - Execute "Repo Sync" in your build directory
+- Execute the command from repopick.txt in the right directory (repo)
 - Now do all the commands to get a build starting, 
 'extract-files.sh is not needed because of the vendor map,
 the build commands will trigger the patching of the source
-- Don't forget to download the prebuilts in vendor/cm
-- Use "breakfast" and "make/mka" commands to start the build!
+- Use "breakfast" and "make/mka (bacon)" commands to start the build!
 
