@@ -96,10 +96,10 @@ PRODUCT_PACKAGES += \
 
 # libmix
 PRODUCT_PACKAGES += \
+    libmixvbp \
     libmixvbp_mpeg4 \
     libmixvbp_h264 \
     libmixvbp_vc1 \
-    libmixvbp \
     libva_videodecoder \
     libva_videoencoder
 
@@ -107,8 +107,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libwrs_omxil_common \
     libwrs_omxil_core_pvwrapped \
-    libOMXVideoDecoderAVC \
-    libOMXVideoDecoderAVCSecure \
+    libOMXVideoDecoderAVC \ # Does it always work?
+    libOMXVideoDecoderAVCSecure \ # Does it always work?
     libOMXVideoDecoderH263 \
     libOMXVideoDecoderMPEG4 \
     libOMXVideoDecoderPAVC \

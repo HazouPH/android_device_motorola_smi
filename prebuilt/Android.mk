@@ -3,16 +3,40 @@ LOCAL_PATH := $(call my-dir)
 VENDOR_PREBUILT_DIR := ../../../../vendor/motorola/smi/proprietary
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := libtinyalsa
-LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/lib/libtinyalsa.so
+LOCAL_MODULE := libmixvbp
+LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/lib/libmixvbp.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_SUFFIX := .so
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := libpvr2d
-LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/lib/libpvr2d.so
+LOCAL_MODULE := libmixvbp_h264
+LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/lib/libmixvbp_h264.so
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libmixvbp_mpeg4
+LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/lib/libmixvbp_mpeg4.so
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libmixvbp_vc1
+LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/lib/libmixvbp_vc1.so
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+LOCAL_MODULE_SUFFIX := .so
+include $(BUILD_PREBUILT)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libtinyalsa
+LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/lib/libtinyalsa.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 LOCAL_MODULE_SUFFIX := .so
