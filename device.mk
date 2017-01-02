@@ -107,8 +107,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libwrs_omxil_common \
     libwrs_omxil_core_pvwrapped \
-    libOMXVideoDecoderAVC \ # Does it always work?
-    libOMXVideoDecoderAVCSecure \ # Does it always work?
+    libOMXVideoDecoderAVC \
+    libOMXVideoDecoderAVCSecure \
     libOMXVideoDecoderH263 \
     libOMXVideoDecoderMPEG4 \
     libOMXVideoDecoderPAVC \
