@@ -1,26 +1,18 @@
-/* INTEL CONFIDENTIAL
-* Copyright (c) 2009 Intel Corporation.  All rights reserved.
-*
-* The source code contained or described herein and all documents
-* related to the source code ("Material") are owned by Intel
-* Corporation or its suppliers or licensors.  Title to the
-* Material remains with Intel Corporation or its suppliers and
-* licensors.  The Material contains trade secrets and proprietary
-* and confidential information of Intel or its suppliers and
-* licensors. The Material is protected by worldwide copyright and
-* trade secret laws and treaty provisions.  No part of the Material
-* may be used, copied, reproduced, modified, published, uploaded,
-* posted, transmitted, distributed, or disclosed in any way without
-* Intel's prior express written permission.
-*
-* No license under any patent, copyright, trade secret or other
-* intellectual property right is granted to or conferred upon you
-* by disclosure or delivery of the Materials, either expressly, by
-* implication, inducement, estoppel or otherwise. Any license
-* under such intellectual property rights must be express and
-* approved by Intel in writing.
-*
-*/
+/*
+ * Copyright (C) 2014 Intel Corporation. All rights reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 
 #ifndef VBP_LOADER_H
@@ -49,6 +41,9 @@ typedef unsigned short uint16;
 #endif
 #ifndef uint32
 typedef unsigned int uint32;
+#endif
+#ifndef int16
+typedef short int16;
 #endif
 
 typedef void *Handle;
@@ -79,8 +74,19 @@ typedef struct _vbp_codec_data_mp42
     uint8   par_width;
     uint8   par_height;
 
+#ifdef ASUS_ZENFONE2_LP_BLOBS
+    int wtf_did_they_add_here;
+#endif
+
     // bit rate
     int bit_rate;
+
+#ifndef ASUS_ZENFONE2_LP_BLOBS
+    // indicate if vol is received
+    uint8 got_vol;
+    // indicate if vop is received
+    uint8 got_vop;
+#endif
 } vbp_codec_data_mp42;
 
 typedef struct _vbp_slice_data_mp42
@@ -89,6 +95,11 @@ typedef struct _vbp_slice_data_mp42
     uint32 slice_offset;
     uint32 slice_size;
     VASliceParameterBufferMPEG4 slice_param;
+    uint8* cur_frame_addr;
+    uint8* forward_ref_addr;
+    uint8* backward_ref_addr;
+    uint32_t pic_stride;
+    uint32_t pic_height;
 } vbp_slice_data_mp42;
 
 typedef struct _vbp_picture_data_mp42 vbp_picture_data_mp42;
@@ -118,6 +129,79 @@ typedef struct _vbp_data_mp42
 } vbp_data_mp42;
 
 /*
+ * MPEG2 data structure
+ */
+
+typedef struct _vbp_codec_data_mpeg2
+{
+    uint8 profile_and_level_indication;
+
+    // picture_coding_type
+    uint8 frame_type;
+
+    // picture_structure
+    uint8 interlaced;
+
+    // horizontal_size is a 14-bit unsigned integer
+    uint32 frame_width;
+    // vertical_size is a 14-bit unsigned integer
+    uint32 frame_height;
+
+    // a 3-bit integer, 0 for unspecified, PAL/NTSC/SECAM
+    uint8 video_format;
+
+    // 0 short range, 1 full range
+    uint8 video_range;
+
+    // a 4-bit integer
+    uint8  aspect_ratio;
+    uint32 par_width;
+    uint32 par_height;
+
+    // a 8-bit integer
+    uint8  matrix_coefficients;
+
+    uint8  load_intra_quantiser_matrix;
+    uint8  load_non_intra_quantiser_matrix;
+
+    // a 30-bit integer
+    int bit_rate;
+
+    // a 4-bit integer
+    int frame_rate;
+} vbp_codec_data_mpeg2;
+
+typedef struct _vbp_slice_data_mpeg2
+{
+    uint8* buffer_addr;
+    uint32 slice_offset;
+    uint32 slice_size;
+    VASliceParameterBufferMPEG2 slice_param;
+} vbp_slice_data_mpeg2;
+
+typedef struct _vbp_picture_data_mpeg2
+{
+    VAPictureParameterBufferMPEG2* pic_parms;
+    vbp_slice_data_mpeg2* slice_data;
+
+    uint32 num_slices;
+} vbp_picture_data_mpeg2;
+
+typedef struct _vbp_data_mpeg2
+{
+    /* rolling counter of buffers sent by vbp_parse */
+    uint32 buf_number;
+
+    vbp_codec_data_mpeg2* codec_data;
+    VAIQMatrixBufferMPEG2* iq_matrix_buffer;
+
+    uint32 num_pictures;
+
+    vbp_picture_data_mpeg2 *pic_data;
+} vbp_data_mpeg2;
+
+
+/*
  * H.264 data structure
  */
 
@@ -134,6 +218,9 @@ typedef struct _vbp_codec_data_h264
     uint8 constraint_set2_flag;
     uint8 constraint_set3_flag;
     uint8 constraint_set4_flag;
+#ifndef ASUS_ZENFONE2_LP_BLOBS
+    uint8 constraint_set5_flag;
+#endif
 
     uint8 num_ref_frames;
     uint8 gaps_in_frame_num_value_allowed_flag;
@@ -171,6 +258,7 @@ typedef struct _vbp_codec_data_h264
 
     int bit_rate;
 
+    int has_slice;
 } vbp_codec_data_h264;
 
 typedef struct _vbp_slice_data_h264
@@ -225,6 +313,10 @@ typedef struct _vbp_data_h264
     VAIQMatrixBufferH264* IQ_matrix_buf;
 
     vbp_codec_data_h264* codec_data;
+
+#ifdef USE_SLICE_HEADER_PARSING
+    VAParsePictureParameterBuffer* pic_parse_buffer;
+#endif
 
 } vbp_data_h264;
 
@@ -327,6 +419,9 @@ typedef struct _vbp_codec_data_vp8
     uint8 version_num;
     int show_frame;
 
+    /* color space type specification */
+    int clr_type;
+
     uint32 frame_width;
     uint32 frame_height;
 
@@ -407,7 +502,7 @@ enum _vbp_parser_type
 #ifdef USE_HW_VP8
     VBP_VP8,
 #endif
-#ifdef USE_AVC_SHORT_FORMAT
+#if (defined USE_AVC_SHORT_FORMAT || defined USE_SLICE_HEADER_PARSING)
     VBP_H264SECURE,
 #endif
 };
@@ -460,8 +555,7 @@ uint32 vbp_query(Handle hcontext, void **data);
  */
 uint32 vbp_flush(Handle hcontent);
 
-
-#ifdef USE_AVC_SHORT_FORMAT
+#if (defined USE_AVC_SHORT_FORMAT || defined USE_SLICE_HEADER_PARSING)
 /*
  * update the the vbp context using the new data
  * @param hcontext: handle to VBP context.
@@ -473,5 +567,7 @@ uint32 vbp_flush(Handle hcontent);
 */
 uint32 vbp_update(Handle hcontext, void *newdata, uint32 size, void **data);
 #endif
+
+uint32 vbp_decode(Handle hcontext, void *picdata);
 
 #endif /* VBP_LOADER_H */
