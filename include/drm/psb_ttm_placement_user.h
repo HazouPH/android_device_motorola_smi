@@ -41,7 +41,7 @@
 #include <linux/kernel.h>
 #endif
 
-#include "ttm/ttm_placement.h"
+#include "drm/ttm/ttm_placement.h"
 
 #define TTM_PLACEMENT_MAJOR 0
 #define TTM_PLACEMENT_MINOR 1
