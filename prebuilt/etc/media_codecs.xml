@@ -80,7 +80,7 @@ can be used:
 
 <MediaCodecs>
     <Decoders>
-        <!-- Video Hardware -->
+        <!-- Video Hardware (Intel) -->
         <MediaCodec name="OMX.Intel.VideoDecoder.MPEG4" type="video/mp4v-es" >
             <Quirk name="requires-loaded-to-idle-after-allocation" />
             <Quirk name="requires-set-fps" />
@@ -102,8 +102,12 @@ can be used:
             <Quirk name="requires-hold-extra-buffers" />
         </MediaCodec>
 
-        <!-- Video Software (Google Override) -->
+        <!-- Video Software (Google) -->
         <MediaCodec name="OMX.google.vp9.decoder" type="video/x-vnd.on2.vp9" />
+        <MediaCodec name="OMX.google.vp8.decoder" type="video/x-vnd.on2.vp8" />
+        <MediaCodec name="OMX.google.h263.decoder" type="video/3gpp" />
+        <MediaCodec name="OMX.google.h264.decoder" type="video/avc" />
+        <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
 
         <!-- Video Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.mpeg2v.decoder" type="video/mpeg2"/>
@@ -120,15 +124,19 @@ can be used:
         <MediaCodec name="OMX.ffmpeg.hevc.decoder" type="video/hevc"/>
         <MediaCodec name="OMX.ffmpeg.vtrial.decoder" type="video/ffmpeg"/>
 
-        <!-- Video Software (Google) -->
-        <MediaCodec name="OMX.google.vp8.decoder" type="video/x-vnd.on2.vp8" />
-        <MediaCodec name="OMX.google.h263.decoder" type="video/3gpp" />
-        <MediaCodec name="OMX.google.h264.decoder" type="video/avc" />
-        <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
-
-        <!-- Audio Software (Google Override) -->
+        <!-- Audio Software (Google) -->
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
         <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
+        <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
+        <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb" />
+        <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-latm" />
+        <MediaCodec name="OMX.google.g711.alaw.decoder" type="audio/g711-alaw" >
+            <Quirk name="codec-requires-samplerate" />
+        </MediaCodec>
+        <MediaCodec name="OMX.google.g711.mlaw.decoder" type="audio/g711-mlaw" >
+            <Quirk name="codec-requires-samplerate" />
+        </MediaCodec>
+        <MediaCodec name="OMX.google.gsm.decoder" type="audio/gsm" />
 
         <!-- Audio Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.aac.decoder" type="audio/mp4a-latm" />
@@ -140,21 +148,10 @@ can be used:
         <MediaCodec name="OMX.ffmpeg.ape.decoder" type="audio/x-ape" />
         <MediaCodec name="OMX.ffmpeg.dts.decoder" type="audio/vnd.dts" />
         <MediaCodec name="OMX.ffmpeg.atrial.decoder" type="audio/ffmpeg" />
-
-        <!-- Audio Software (Google) -->
-        <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
-        <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb" />
-        <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-latm" />
-        <MediaCodec name="OMX.google.g711.alaw.decoder" type="audio/g711-alaw" >
-            <Quirk name="codec-requires-samplerate" />
-        </MediaCodec>
-        <MediaCodec name="OMX.google.g711.mlaw.decoder" type="audio/g711-mlaw" >
-            <Quirk name="codec-requires-samplerate" />
-        </MediaCodec>
-        <MediaCodec name="OMX.google.gsm.decoder" type="audio/gsm" />
     </Decoders>
+
     <Encoders>
-        <!-- Video Hardware -->
+        <!-- Video Hardware (Intel) -->
         <MediaCodec name="OMX.Intel.VideoEncoder.MPEG4" type="video/mp4v-es" >
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation" />
@@ -167,6 +164,9 @@ can be used:
             <Quirk name="requires-allocate-on-input-ports" />
             <Quirk name="requires-loaded-to-idle-after-allocation" />
         </MediaCodec>
+
+        <!-- Video Hardware (Google) -->
+        <MediaCodec name="OMX.google.vp8.encoder" type="video/x-vnd.on2.vp8" />
 
         <!-- Audio Software (Google) -->
         <MediaCodec name="OMX.google.amrnb.encoder" type="audio/3gpp" />
