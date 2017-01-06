@@ -1,4 +1,4 @@
-# Inherit some common CM stuff.
+# Inherit some common Lineage stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 # Inherit enhanced nfc config 
@@ -10,7 +10,7 @@ TARGET_SCREEN_WIDTH := 480	#Real=540 (Fix bootanimation)
 
 # Release name
 PRODUCT_RELEASE_NAME := Razr I
-PRODUCT_NAME := cm_smi
+PRODUCT_NAME := lineage_smi
 
 # Inherit from smi device
 $(call inherit-product, device/motorola/smi/full_smi.mk)
