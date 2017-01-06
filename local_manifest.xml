@@ -16,7 +16,7 @@
   <project path="hardware/intel/common/libmix" name="HazouPH/android_hardware_intel_common_libmix" groups="intel" revision="cm-14.1"/>
   <project path="hardware/intel/common/libstagefrighthw" name="platform/hardware/intel/common/libstagefrighthw" groups="intel" remote="aosp" revision="refs/tags/android-7.1.1_r6"/>
   <project path="hardware/intel/common/libva" name="HazouPH/android_hardware_intel_common_libva" revision="cm-14.1"/>
-  <project path="hardware/intel/common/libwsbm" name="LineageOS/android_hardware_intel_common_libwsbm" groups="intel" revision="refs/heads/cm-14.1"/>
+  <project path="hardware/intel/common/libwsbm" name="LineageOS/android_hardware_intel_common_libwsbm" groups="intel" revision="cm-14.1"/>
   <project path="hardware/intel/common/omx-components" name="HazouPH/android_hardware_intel_common_omx-components" groups="intel" revision="cm-14.1"/>
   <project path="hardware/intel/common/wrs_omxil_core" name="platform/hardware/intel/common/wrs_omxil_core" remote="aosp" revision="refs/tags/android-7.1.1_r6"/>
   <project path="hardware/intel/img/psb_video" name="HazouPH/android_hardware_intel_img_psb_video" groups="intel" revision="cm-14.1"/>
