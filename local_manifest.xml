@@ -16,35 +16,35 @@
   <project path="hardware/intel/common/libmix" name="HazouPH/android_hardware_intel_common_libmix" groups="intel" revision="cm-14.1"/>
   <project path="hardware/intel/common/libstagefrighthw" name="platform/hardware/intel/common/libstagefrighthw" groups="intel" remote="aosp" revision="refs/tags/android-7.1.1_r6"/>
   <project path="hardware/intel/common/libva" name="HazouPH/android_hardware_intel_common_libva" revision="cm-14.1"/>
-  <project path="hardware/intel/common/libwsbm" name="CyanogenMod/android_hardware_intel_common_libwsbm" groups="intel" revision="refs/heads/cm-14.1"/>
+  <project path="hardware/intel/common/libwsbm" name="LineageOS/android_hardware_intel_common_libwsbm" groups="intel" revision="refs/heads/cm-14.1"/>
   <project path="hardware/intel/common/omx-components" name="HazouPH/android_hardware_intel_common_omx-components" groups="intel" revision="cm-14.1"/>
   <project path="hardware/intel/common/wrs_omxil_core" name="platform/hardware/intel/common/wrs_omxil_core" remote="aosp" revision="refs/tags/android-7.1.1_r6"/>
   <project path="hardware/intel/img/psb_video" name="HazouPH/android_hardware_intel_img_psb_video" groups="intel" revision="cm-14.1"/>
 
-  <!-- Updated CM repos with patches from CMForks, GPDroid, Hazou, Intel, CyanogenMod -->
+  <!-- Updated CM repos with patches from CMForks, GPDroid, Hazou, Intel, LineageOS -->
 
-  <remove-project name="CyanogenMod/android_bionic" />
-  <remove-project name="CyanogenMod/android_build" />
-  <remove-project name="CyanogenMod/android_dalvik" />
-  <remove-project name="CyanogenMod/android_external_ffmpeg" />
-  <remove-project name="CyanogenMod/android_external_icu4c" />
-  <remove-project name="CyanogenMod/android_external_stagefright-plugins" />
-  <remove-project name="CyanogenMod/android_external_tinyalsa" />
-  <remove-project name="CyanogenMod/android_frameworks_av" />
-  <remove-project name="CyanogenMod/android_frameworks_base" />
-  <remove-project name="CyanogenMod/android_frameworks_native" />
-  <remove-project name="CyanogenMod/android_frameworks_opt_telephony" />
-  <remove-project name="CyanogenMod/android_frameworks_rs" />
-  <remove-project name="CyanogenMod/android_hardware_libhardware" />
-  <remove-project name="CyanogenMod/android_hardware_libhardware_legacy" />
-  <remove-project name="CyanogenMod/android_libcore" />
-  <remove-project name="CyanogenMod/android_packages_apps_LockClock" />
-  <remove-project name="CyanogenMod/android_packages_apps_Settings" />
-  <remove-project name="CyanogenMod/android_packages_apps_SoundRecorder" />
-  <remove-project name="CyanogenMod/android_packages_apps_Stk" />
-  <remove-project name="CyanogenMod/android_packages_apps_Trebuchet" />
-  <remove-project name="CyanogenMod/android_system_core" />
-  <remove-project name="CyanogenMod/android_vendor_cm" />
+  <remove-project name="LineageOS/android_bionic" />
+  <remove-project name="LineageOS/android_build" />
+  <remove-project name="LineageOS/android_dalvik" />
+  <remove-project name="LineageOS/android_external_ffmpeg" />
+  <remove-project name="LineageOS/android_external_icu4c" />
+  <remove-project name="LineageOS/android_external_stagefright-plugins" />
+  <remove-project name="LineageOS/android_external_tinyalsa" />
+  <remove-project name="LineageOS/android_frameworks_av" />
+  <remove-project name="LineageOS/android_frameworks_base" />
+  <remove-project name="LineageOS/android_frameworks_native" />
+  <remove-project name="LineageOS/android_frameworks_opt_telephony" />
+  <remove-project name="LineageOS/android_frameworks_rs" />
+  <remove-project name="LineageOS/android_hardware_libhardware" />
+  <remove-project name="LineageOS/android_hardware_libhardware_legacy" />
+  <remove-project name="LineageOS/android_libcore" />
+  <remove-project name="LineageOS/android_packages_apps_LockClock" />
+  <remove-project name="LineageOS/android_packages_apps_Settings" />
+  <remove-project name="LineageOS/android_packages_apps_SoundRecorder" />
+  <remove-project name="LineageOS/android_packages_apps_Stk" />
+  <remove-project name="LineageOS/android_packages_apps_Trebuchet" />
+  <remove-project name="LineageOS/android_system_core" />
+  <remove-project name="LineageOS/android_vendor_cm" />
 
   <project path="bionic" name="HazouPH/android_bionic" revision="cm-11.0"/>
   <project path="build" name="HazouPH/android_build" revision="cm-11.0"/>
