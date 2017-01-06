@@ -9,9 +9,9 @@ Source from Turl, Oxavelar, Motorola, Intel and HazouPH
 
 ---------------------------------------------------------
 
-To build CM11 from with this device tree:
-- Setup an Android 4.4.4 (CM11) build environment
-- Repo init CM11 in your build directory
+To build LineageOS: cm-11.0, from with this device tree:
+- Setup an Android 4.4.4 (cm-11.0) build environment
+- Repo init cm-11.0 in your build directory
 - Download/Copy over 'local_manifest.xml to:
 (build-directory)/.repo/local_manifests/local_manifest.xml
 - Execute "Repo Sync" in your build directory
