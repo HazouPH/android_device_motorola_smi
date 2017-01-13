@@ -9,6 +9,7 @@ import init.bt.rc
 import init.modem.rc
 import init.xmm.rc
 import init.zram.rc
+import init.ksm.rc
 
 # include usb rc file
 import init.moto.usb.rc
