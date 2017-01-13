@@ -63,7 +63,8 @@ PRODUCT_PACKAGES += \
 	init.xmm.rc \
 	ueventd.sc1.rc \
 	init.rc \
-	init.recovery.sc1.rc
+	init.recovery.sc1.rc \
+	init.zram.rc
 PRODUCT_COPY_FILES += \
     	$(LOCAL_PATH)/rootdir/etc/twrp.fstab:recovery/root/etc/twrp.fstab
 

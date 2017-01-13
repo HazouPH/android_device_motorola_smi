@@ -4,6 +4,7 @@ import init.oom.rc
 import init.avc.rc
 import init.wireless.rc
 import init.wifi.rc
+import init.zram.rc
 
 # include usb rc file
 import init.moto.usb.rc

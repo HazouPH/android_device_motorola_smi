@@ -9,6 +9,9 @@
 /dev/block/mmcblk0p17 /data ext4 nosuid,nodev,noatime,nodelalloc,barrier=1,data=ordered wait,check,encryptable=footer
 /dev/block/mmcblk0p12 /pds ext4 nosuid,nodev,noatime,nodelalloc,barrier=1,data=ordered wait,check
 
+# zram
+/dev/block/zram0 none swap defaults zramsize=104857600
+
 # Voldmanaged
 /devices/pci0000:00/0000:00:04.0/mmc_host/mmc1 auto auto defaults voldmanaged=sdcard1:auto
 
