@@ -1,0 +1,7 @@
+on boot
+    # Read one page at a time for swap (default is 8)
+    write /proc/sys/vm/page-cluster 0
+
+on post-fs-data
+    # Enable swaps described in the fstab
+    swapon_all /fstab.sc1

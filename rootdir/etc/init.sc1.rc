@@ -8,6 +8,7 @@ import init.nfc.rc
 import init.bt.rc
 import init.modem.rc
 import init.xmm.rc
+import init.zram.rc
 
 # include usb rc file
 import init.moto.usb.rc
