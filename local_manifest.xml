@@ -38,6 +38,8 @@
   <remove-project name="LineageOS/android_hardware_libhardware" />
   <remove-project name="LineageOS/android_hardware_libhardware_legacy" />
   <remove-project name="LineageOS/android_libcore" />
+  <remove-project name="LineageOS/android_packages_apps_CMUpdater" />
+  <remove-project name="LineageOS/android_packages_apps_CMBugreport" />
   <remove-project name="LineageOS/android_packages_apps_LockClock" />
   <remove-project name="LineageOS/android_packages_apps_Settings" />
   <remove-project name="LineageOS/android_packages_apps_SoundRecorder" />
