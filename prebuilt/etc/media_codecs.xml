@@ -124,9 +124,10 @@ can be used:
         <MediaCodec name="OMX.ffmpeg.hevc.decoder" type="video/hevc"/>
         <MediaCodec name="OMX.ffmpeg.vtrial.decoder" type="video/ffmpeg"/>
 
-        <MediaCodec name="OMX.Intel.mp3.decoder" type="audio/mpeg" />
+        <!-- Audio Software (Intel) -->
+        <!--MediaCodec name="OMX.Intel.mp3.decoder" type="audio/mpeg" /-->
         <MediaCodec name="CIPMP3Decoder" type="audio/mpeg" />
-        <MediaCodec name="OMX.Intel.aac.decoder" type="audio/mp4a-latm" />
+        <!--MediaCodec name="OMX.Intel.aac.decoder" type="audio/mp4a-latm" /-->
         <MediaCodec name="CIPAACDecoder" type="audio/mp4a-latm" />
         <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-aacextended" />
         <MediaCodec name="CIPVorbisDecoder" type="audio/vorbis" />
@@ -175,6 +176,11 @@ can be used:
 
         <!-- Video Hardware (Google) -->
         <MediaCodec name="OMX.google.vp8.encoder" type="video/x-vnd.on2.vp8" />
+
+	<!-- Audio Software (Intel) -->
+        <MediaCodec name="CIPAMRNBEncoder" type="audio/3gpp" />
+        <MediaCodec name="CIPAMRWBEncoder" type="audio/amr-wb" />
+        <MediaCodec name="CIPAACEncoder" type="audio/mp4a-latm" />
 
         <!-- Audio Software (Google) -->
         <MediaCodec name="OMX.google.amrnb.encoder" type="audio/3gpp" />

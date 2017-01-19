@@ -1,7 +1,11 @@
-From:	stock/ffmpeg  	mdp	Problems
-WMA: 	4%		3%	Can't play newer WMA files. ASF Parers not needed
+From:	stock/ffmpeg  	mdp	shared	Problems
+WMA: 	4%		3%		Can't play newer WMA files. ASF Parers not needed
 Vorbis:	8%		4%
-MP3:	4%		3%	Play mp3 within mp4
+MP3:	4%		3%	4%	Play mp3 within mp4
 AMRWB	6%		4%
 AMRNB	6%		4%
+AMRNBE	8%		5%
+AMRWBE	15%		8%
+AAC	8%		3%	4%
+AAC-LC	-		1/2%		Works now
 
