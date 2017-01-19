@@ -130,6 +130,8 @@ can be used:
         <MediaCodec name="CIPAACDecoder" type="audio/mp4a-latm" />
         <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-aacextended" />
         <MediaCodec name="CIPVorbisDecoder" type="audio/vorbis" />
+        <MediaCodec name="CIPAMRWBDecoder" type="audio/amr-wb" />
+        <MediaCodec name="CIPAMRNBDecoder" type="audio/3gpp" />
 
         <!-- Audio Software (Google) -->
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
