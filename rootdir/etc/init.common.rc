@@ -92,7 +92,7 @@ service drm /system/bin/drmserver
 service media /system/bin/mediaserver
     class main
     user media
-    group system audio camera media_rw sdcard_rw inet net_bt net_bt_admin net_bw_acct drmrpc net_raw security mot_tpapi radio mot_drm
+    group system audio camera media_rw sdcard_rw inet net_bt net_bt_admin net_bw_acct drmrpc qcom_diag mediadrm nvram ccci net_raw security mot_tpapi radio mot_drm
     ioprio rt 4
 
 #Enable Houdini for execuable
