@@ -21,7 +21,7 @@
   <project path="hardware/intel/common/wrs_omxil_core" name="platform/hardware/intel/common/wrs_omxil_core" remote="aosp" revision="refs/tags/android-7.1.1_r6"/>
   <project path="hardware/intel/img/psb_video" name="HazouPH/android_hardware_intel_img_psb_video" groups="intel" revision="cm-14.1"/>
 
-  <!-- Updated CM repos with patches from CMForks, GPDroid, Hazou, Intel, LineageOS -->
+  <!-- Updated Lineage repos with patches from CMForks, GPDroid, Hazou, Intel, LineageOS -->
 
   <remove-project name="LineageOS/android_bionic" />
   <remove-project name="LineageOS/android_build" />
@@ -32,6 +32,7 @@
   <remove-project name="LineageOS/android_external_tinyalsa" />
   <remove-project name="LineageOS/android_frameworks_av" />
   <remove-project name="LineageOS/android_frameworks_base" />
+  <remove-project name="LineageOS/android_frameworks_compile_libbcc" />
   <remove-project name="LineageOS/android_frameworks_native" />
   <remove-project name="LineageOS/android_frameworks_opt_telephony" />
   <remove-project name="LineageOS/android_frameworks_rs" />
@@ -56,6 +57,7 @@
   <project path="external/stagefright-plugins" name="HazouPH/android_external_stagefright-plugins" revision="cm-11.0-ffmpeg3.0"/>
   <project path="frameworks/av" name="HazouPH/android_frameworks_av" revision="cm-11.0"/>
   <project path="frameworks/base" name="HazouPH/android_frameworks_base" revision="cm-11.0"/>
+  <project path="frameworks/compile/libbcc" name="HazouPH/android_frameworks_compile_libbcc" revision="cm-11.0"/>
   <project path="frameworks/native" name="HazouPH/android_frameworks_native" revision="cm-11.0"/>
   <project path="frameworks/opt/telephony" name="HazouPH/android_frameworks_opt_telephony" revision="cm-11.0"/>
   <project path="frameworks/rs" name="HazouPH/android_frameworks_rs" revision="cm-11.0IA"/>
