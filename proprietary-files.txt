@@ -92,6 +92,8 @@ vendor/media/PFFprec_600.emd
 etc/firmware/mp3_dec_1.bin
 etc/firmware/wma9_dec_1.bin
 lib/drm/libmotdrmplugin.so
+lib/libnativedrm1.so
+lib/libmotdrm1.so
 lib/hw/hwcomposer.smi.so
 lib/libpvr2d.so
 lib/libwbxmlparser.so
