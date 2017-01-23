@@ -87,7 +87,7 @@ service watchdogd /sbin/watchdogd 10 20
 service drm /system/bin/drmserver
     class main
     user drm
-    group drm inet drmrpc sdcard_r security mot_tpapi mot_drm
+    group drm system inet drmrpc sdcard_r security mot_tpapi mot_drm
 
 service media /system/bin/mediaserver
     class main
