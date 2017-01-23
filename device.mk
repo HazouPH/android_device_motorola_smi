@@ -201,17 +201,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.mot.deep.sleep.supported=true \
-    persist.mot.nfc.ce=50 \
     ro.com.google.clientid=android-motorola \
-    ro.mot.proximity.delay=450 \
-    mot.proximity.distance=60 \
-    ro.mot.NfcEnabled=false \
     ro.product.drm.sd.enable=1 \
     ro.product.drm.cd.enable=1 \
     keyguard.no_require_sim=true \
     persist.radio.apn_delay=5000 \
-    ro.mot.cambtntime=400 \
     ro.ril.status.polling.enable=0 \
     ro.config.personality=compat_layout
 
