@@ -204,16 +204,11 @@ on post-fs-data
     mkdir /data/location 0771 radio radio
     mkdir /data/gki 0770 radio radio
     mkdir /tmp/commdrv 0770 radio radio
-    setprop ro.sys.atvc_allow_gki_log 0
 
     mkdir /data/misc/firmware 0770 system system
     mkdir /data/misc/thermal 0770 system system
 
     symlink /system/etc/MID_thermal.conf /data/misc/thermal/MID_thermal.conf
-
-    # create moto specific dirs for factory
-    mkdir /data/local/dbvc 0770 mot_tcmd shell
-    mkdir /pds/public/atvc 0775 mot_tcmd shell
 
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
@@ -263,20 +258,6 @@ on boot
 
 on fs
     setprop ro.crypto.fuse_sdcard true
-
-# Access Token
-service atvc_core /system/bin/dbvc_atvc_property_set
-    class main
-    user mot_atvc
-    group mot_tpapi
-    oneshot
-
-# Access Token
-service atvc /system/bin/dbvc_atvc_property_set
-    class late_start
-    user mot_atvc
-    group mot_tpapi
-    oneshot
 
 on property:sys.boot_completed=1
     # Insert matrix for PnP measurements
