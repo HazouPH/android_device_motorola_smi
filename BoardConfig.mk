@@ -5,6 +5,7 @@ TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 # Make settings
 TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
+TARGET_NO_INITLOGO   := true
 
 # Board configuration
 TARGET_BOOTLOADER_BOARD_NAME := smi
