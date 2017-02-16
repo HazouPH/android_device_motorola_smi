@@ -120,10 +120,11 @@ PRODUCT_PACKAGES += \
     libOMXVideoEncoderH263 \
     libOMXVideoEncoderMPEG4
 
-# MDP files
+# MDP files + alac
 PRODUCT_PACKAGES += \
     libstagefright_soft_aacdec_mdp \
-    libstagefright_soft_mp3dec_mdp
+    libstagefright_soft_mp3dec_mdp \
+    libstagefright_soft_alacdec
 
 # libwsbm
 PRODUCT_PACKAGES += \
