@@ -133,6 +133,7 @@ can be used:
         <MediaCodec name="CIPVorbisDecoder" type="audio/vorbis" />
         <MediaCodec name="CIPAMRWBDecoder" type="audio/amr-wb" />
         <MediaCodec name="CIPAMRNBDecoder" type="audio/3gpp" />
+        <MediaCodec name="OMX.Intel.alac.decoder" type="audio/alac" />
 
         <!-- Audio Software (Google) -->
         <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
@@ -149,6 +150,7 @@ can be used:
 
         <!-- Audio Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.aac.decoder" type="audio/mp4a-latm" />
+        <MediaCodec name="OMX.ffmpeg.alac.decoder"   type="audio/alac" />
         <MediaCodec name="OMX.ffmpeg.wma.decoder" type="audio/x-ms-wma" />
         <MediaCodec name="OMX.ffmpeg.ra.decoder" type="audio/vnd.rn-realaudio" />
         <MediaCodec name="OMX.ffmpeg.flac.decoder" type="audio/flac" />
