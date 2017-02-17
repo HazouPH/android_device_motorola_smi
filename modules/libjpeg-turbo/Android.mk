@@ -236,3 +236,8 @@ LOCAL_CFLAGS += \
 LOCAL_MODULE := libjpeg-turbo-static
 LOCAL_MODULE_TAGS := optional
 include $(BUILD_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_COPY_HEADERS:=jconfig.h jerror.h jmorecfg.h jpeglib.h
+LOCAL_COPY_HEADERS_TO:=jpeg-turbo
+include $(BUILD_COPY_HEADERS)
