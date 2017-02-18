@@ -216,10 +216,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     gsm.net.interface=rmnet0 \
     persist.ril-daemon.disable=0 \
     persist.sys.usb.config=mtp \
-    persist.radio.ril_modem_state=1 \
-    ro.secure=0 \
-    ro.adb.secure=0 \
-    ro.debuggable=1
+    persist.radio.ril_modem_state=1
 
 # SGX540 is slower with the scissor optimization enabled
 PRODUCT_PROPERTY_OVERRIDES += \
