@@ -10,7 +10,6 @@ TARGET_GLOBAL_CFLAGS += \
                         -O2 \
                         -flto \
                         -march=atom \
-                        -march=bonnel \
                         -mmmx \
                         -m8bit-idiv \
                         -msse \
@@ -71,7 +70,7 @@ WITH_JIT_TUNING := tue
 USE_INTEL_IPP := true
 
 # customize the malloced address to be 16-byte aligned
-BOARD_MALLOC_ALIGNMENT := 16
+BOARD_MALLOC_ALIGNMENT := 8
 
 ifdef INTEL_HOUDINI
 TARGET_CPU_ABI2 := armeabi-v7a
