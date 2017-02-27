@@ -1,11 +1,27 @@
+MEDIA performance
+All those numbers are coming from different media files
+This should give some indication about the optimization
+All those numbers are CPU usage, coming from "top" command
+"<-" Will be used
+
+stock/ffmpeg= stagefright decoders to ffmpeg is stagefright doesn't have it
+mdp=          CIP/MDP codecs, Intel optimized codecs
+shared=       CIP/MDP stagefright plugin
+
 From:	stock/ffmpeg  	mdp	shared	Problems
-WMA: 	4%		3%		Can't play newer WMA files. ASF Parers not needed
-Vorbis:	8%		4%
-MP3:	4%		3%	4%	Play mp3 within mp4
-AMRWB	6%		4%
-AMRNB	6%		4%
-AMRNBE	8%		5%
-AMRWBE	15%		8%
-AAC	8%		3%	4%
-AAC-LC	-		1/2%		Works now
+WMA: 	4%<-		3%		Can't play newer WMA files. ASF Parers not needed
+Vorbis:	8%		4%<-
+MP3:	4%		3%	4%<-	Play mp3 within mp4
+AMRWB	6%		4%<-
+AMRNB	6%		4%<-
+AMRNBE	8%		5%<-
+AMRWBE	15%		8%<-
+AAC	8%		3%	4%<-
+AAC-LC	-		1/2%<-		Works now
+
+
+VPX optimized for atom
+From:   stock           optimization
+VP8     51%             20%<-
+VP9     40%             21%<-
 
