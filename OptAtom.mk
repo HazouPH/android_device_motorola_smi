@@ -10,7 +10,6 @@ TARGET_GLOBAL_CFLAGS += \
                         -O2 \
                         -flto \
                         -march=atom \
-                        -march=bonnel \
                         -mmmx \
                         -m8bit-idiv \
                         -msse \
