@@ -7,8 +7,7 @@
 #
 
 export PATH=/system/xbin:/system/bin:$PATH
-PDS_MAP=/data/misc/pds
-PDS_FILE=$PDS_MAP/pdsdata.img
+PDS_FILE=/data/misc/pds/pdsdata.img
 
 mount_pds_image() {
     mkdir -p /pds
@@ -18,13 +17,30 @@ mount_pds_image() {
     mount -o rw,nosuid,nodev,noatime,nodiratime,barrier=1 /dev/block/loop7 /pds
 }
 
+if [ -f /data/pds.img ]; then
+    #delete old pds image that may have broken permissions
+    rm -f /data/pds.img
+fi
+
 if [ ! -f $PDS_FILE ] ; then
     #make a copy of pds in /data
-    mkdir $PDS_MAP
     dd if=/dev/block/mmcblk0p12 of=$PDS_FILE bs=4096
 
     #mount the fake pds
     mount_pds_image
+
+    #find and change moto users first
+    find /pds -user 9000 -exec chown 1000 {} \;
+    find /pds -user 9003 -exec chown 1000 {} \;
+    find /pds -user 9004 -exec chown 1000 {} \;
+    find /pds -user 9007 -exec chown 1000 {} \;
+
+    #find and change moto groups
+    find /pds -group 9000 -exec chgrp 1000 {} \;
+    find /pds -group 9003 -exec chgrp 1000 {} \;
+    find /pds -group 9004 -exec chgrp 1000 {} \;
+    find /pds -group 9007 -exec chgrp 1000 {} \;
+    find /pds -group 9009 -exec chgrp 1000 {} \;
 
     echo "PDS Backed up, permissions fixed and mounted"
 

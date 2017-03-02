@@ -53,8 +53,11 @@ on early-fs
 # /system, /cache, and /pds should be mounted at this point
 # does not usually run charge-only-mode
 on post-fs
-    wait /dev/block/mmcblk0p12
-    exec /system/bin/pdsbackup.sh
+    mkdir /data/misc/pds 0700 root root
+    restorecon_recursive /data/misc/pds
+    restorecon /dev/block/mmcblk0p12
+    exec u:r:vold:s0 root root -- /system/bin/sh /system/bin/pdsbackup.sh
+    restorecon_recursive /pds
     # Volume keys wakeup capability
     chmod 0664 /sys/devices/platform/gpio-keys/enabled_wakeup
     chmod 0664 /sys/devices/platform/gpio-keys/disabled_wakeup
