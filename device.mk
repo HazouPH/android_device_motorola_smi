@@ -201,8 +201,9 @@ PRODUCT_PACKAGES += \
     lib_driver_cmd_wl12xx \
     calibrator \
     wlan_prov \
-    regulatory.bin \
-    crda \
+    libwpa_client \
+    hostapd \
+    wpa_supplicant \
     dhcpcd.conf \
     hostapd.conf \
     p2p_supplicant.conf \
@@ -212,6 +213,8 @@ PRODUCT_PACKAGES += \
     wl128x-fw-4-plt.bin \
     wl1271-nvs_128x.bin \
     TQS.ini
+#    regulatory.bin \
+#    crda \
 PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0
 
