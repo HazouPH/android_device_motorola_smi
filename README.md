@@ -13,10 +13,10 @@ working:
 - call
 - gps
 - audio
-
-Not working:
 - All data connections (wifi and cellular)
 - Most off the video's
+
+Not working:
 - Houdini
 - SElinux
 - Many more things
