@@ -9,7 +9,7 @@
 
   <project path="hardware/ti/wlan-intel" name="android_hardware_ti_wlan" remote="hazouph" revision="master"/>
 
-  <project path="kernel/motorola/smi" name="android_kernel_motorola_smi" remote="hazouph" revision="cm-11.0"/>
+  <project path="kernel/motorola/smi" name="android_kernel_motorola_smi" remote="hazouph" revision="LOS-13"/>
 
   <project path="prebuilts/gcc/linux-x86/x86/i686-linux-android-4.7" name="platform/prebuilts/gcc/linux-x86/x86/i686-linux-android-4.7" groups="pdk,linux,x86" remote="aosp" revision="refs/tags/android-4.4.4_r2" />
 
