@@ -3,49 +3,33 @@ package com.android.internal.telephony;
 import static com.android.internal.telephony.RILConstants.*;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.os.AsyncResult;
 import android.os.Message;
 import android.os.Parcel;
+import android.telephony.PhoneNumberUtils;
+import android.telephony.Rlog;
+import android.telephony.SignalStrength;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+
+import com.android.internal.telephony.uicc.IccCardApplicationStatus;
+import com.android.internal.telephony.uicc.IccCardStatus;
 
 /**
- * Custom Medfield RIL
- *
- * {@hide}
+ * Provides SignalStrength correction for old MedfieldRIL extends RIL
  */
-public class MedfieldRIL extends RIL implements CommandsInterface {
-    public MedfieldRIL(Context context, int preferredNetworkType, int cdmaSubscription) {
-        super(context, preferredNetworkType, cdmaSubscription, null);
+public class MedfieldRIL extends RIL {
+
+    public MedfieldRIL(Context context, int NetworkType, int cdmaSubscription) {
+        super(context, NetworkType, cdmaSubscription);
+       mQANElements = 5;
     }
 
-    public MedfieldRIL(Context context, int preferredNetworkType,
-            int cdmaSubscription, Integer instanceId) {
-        super(context, preferredNetworkType, cdmaSubscription, instanceId);
-    }
-
-    @Override
-    public void getRadioCapability(Message response) {
-        riljLog("getRadioCapability: returning static radio capability");
-        if (response != null) {
-            Object ret = makeStaticRadioCapability();
-            AsyncResult.forMessage(response, ret, null);
-            response.sendToTarget();
-        }
-    }
-
-    @Override
-    public void
-    setNetworkSelectionModeManual(String operatorNumeric, Message response) {
-        RILRequest rr
-                = RILRequest.obtain(RIL_REQUEST_SET_NETWORK_SELECTION_MANUAL,
-                                    response);
-
-        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
-                    + " " + operatorNumeric);
-
-        rr.mParcel.writeInt(2);
-        rr.mParcel.writeString(operatorNumeric);
-        rr.mParcel.writeString("2"); // NOCHANGE
-
-        send(rr);
+    public MedfieldRIL(Context context, int NetworkType, int cdmaSubscription, Integer instanceId) {
+        super(context, NetworkType, cdmaSubscription, instanceId);
+       mQANElements = 5;
     }
 }

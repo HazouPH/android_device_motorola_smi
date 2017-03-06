@@ -117,7 +117,7 @@ COMMON_GLOBAL_CFLAGS += -DASUS_ZENFONE2_LP_BLOBS
 
 # RILD
 BOARD_PROVIDES_LIBRIL := true
-BOARD_RIL_CLASS += ../../../device/motorola/smi/ril
+#BOARD_RIL_CLASS := ../../../device/motorola/smi/ril
 
 # GPS
 BOARD_HAVE_GPS := true
