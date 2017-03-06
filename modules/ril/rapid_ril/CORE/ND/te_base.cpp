@@ -6181,9 +6181,6 @@ RIL_RESULT_CODE CTEBase::ParseReadContextParams(RESPONSE_DATA& rRspData)
             goto Error;
         }
 
-        pChannelData->AddAddressString(pChannelData->ADDR_GATEWAY, szTempAddress1);
-        pChannelData->AddAddressString(pChannelData->ADDR_GATEWAY, szTempAddress2);
-
         if (!SkipString(pszRsp, ",", pszRsp) ||
             !ExtractQuotedString(pszRsp, szTmpBuffer, MAX_BUFFER_SIZE, pszRsp))
         {
@@ -10644,7 +10641,6 @@ BOOL CTEBase::DataConfigUpIpV4(char* pszNetworkInterfaceName, CChannel_Data* pCh
     BOOL bRet = FALSE;
     int s = -1;
     char szIpAddr[2*MAX_IPADDR_SIZE + 1] = {'\0'};
-    char szGatewayAddr[2*MAX_IPADDR_SIZE + 1] = {'\0'};
 
     if (NULL == pChannelData || NULL == pszNetworkInterfaceName)
     {
@@ -10691,27 +10687,9 @@ BOOL CTEBase::DataConfigUpIpV4(char* pszNetworkInterfaceName, CChannel_Data* pCh
         }
     }
 
-    pChannelData->GetAddressString(szGatewayAddr,
-            pChannelData->ADDR_GATEWAY, sizeof(szGatewayAddr));
-
-    if (0 == strlen(szGatewayAddr))
-    {
-        in_addr_t gw;
-        struct in_addr gwaddr;
-        in_addr_t addr;
-
-        RIL_LOG_INFO("CTEBase::DataConfigUpIpV4() : set default gateway to fake value\r\n");
-        if (inet_pton(AF_INET, szIpAddr, &addr) <= 0)
-        {
-            RIL_LOG_INFO("CTEBase::DataConfigUpIpV4() : inet_pton() failed for %s!\r\n", szIpAddr);
-            goto Error;
-        }
-        gw = ntohl(addr) & 0xFFFFFF00;
-        gw |= 1;
-        gwaddr.s_addr = htonl(gw);
-
-        pChannelData->AddAddressString(pChannelData->ADDR_GATEWAY, inet_ntoa(gwaddr));
-    }
+    // Reset GATEWAY address to IPv4 invalid address
+    pChannelData->DeleteAddressesString(pChannelData->ADDR_GATEWAY);
+    pChannelData->AddAddressString(pChannelData->ADDR_GATEWAY, "0.0.0.0");
 
     bRet = TRUE;
 
@@ -10848,6 +10826,10 @@ BOOL CTEBase::DataConfigUpIpV6(char* pszNetworkInterfaceName, CChannel_Data* pCh
     {
         RIL_LOG_CRITICAL("CTEBase::DataConfigUpIpV6() : Cannot open [%s]\r\n", file_to_open);
     }
+
+    // Reset GATEWAY address to IPv6 invalid address
+    pChannelData->DeleteAddressesString(pChannelData->ADDR_GATEWAY);
+    pChannelData->AddAddressString(pChannelData->ADDR_GATEWAY, "::");
 
     bRet = TRUE;
 
@@ -11010,24 +10992,9 @@ BOOL CTEBase::DataConfigUpIpV4V6(char* pszNetworkInterfaceName,
         RIL_LOG_CRITICAL("CTEBase::DataConfigUpIpV4V6() : Cannot open [%s]\r\n", file_to_open);
     }
 
-    in_addr_t gw;
-    struct in_addr gwaddr;
-    in_addr_t addr;
-
-    RIL_LOG_INFO("CTEBase::DataConfigUpIpV4V6() : set default gateway to fake value\r\n");
-    if (inet_pton(AF_INET, pszIpAddr, &addr) <= 0)
-    {
-        RIL_LOG_INFO("CTEBase::DataConfigUpIpV4V6() : inet_pton() failed for %s!\r\n", pszIpAddr);
-        goto Error;
-    }
-    gw = ntohl(addr) & 0xFFFFFF00;
-    gw |= 1;
-    gwaddr.s_addr = htonl(gw);
-
-    // First clear GATEWAY addresses
+    // Reset GATEWAY address to IPv4v6 invalid address
     pChannelData->DeleteAddressesString(pChannelData->ADDR_GATEWAY);
-    // Add GATEWAY address
-    pChannelData->AddAddressString(pChannelData->ADDR_GATEWAY, inet_ntoa(gwaddr));
+    pChannelData->AddAddressString(pChannelData->ADDR_GATEWAY, "0.0.0.0 ::");
 
     bRet = TRUE;
 
