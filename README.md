@@ -23,7 +23,6 @@ Not working:
 
 What needs to be done:
 - Enable fully working SElinux
-- Port all specific kernel updates from google's android 3.0 kernel for 5.0+
 - Enable camera (api/missing functions)
 - Enable A-GPS
 - Enable vibrator (port changes to framework or build new vps module)
