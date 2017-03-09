@@ -183,11 +183,17 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
 
-ADDITIONAL_BUILD_PROPERTIES += \
-    ro.enable.native.bridge.exec=1 \
-    ro.dalvik.vm.isa.arm=x86 \
-    dalvik.vm.implicit_checks=none \
+# Houdini (arm native bridge)
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.enable.native.bridge.exec=1
+
+ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.dalvik.vm.native.bridge=libhoudini.so
+
+# Dalvik
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.dalvik.vm.isa.arm=x86 \
+    dalvik.vm.implicit_checks=none
 
 # Appends path to ARM libs for Houdini
 PRODUCT_LIBRARY_PATH := $(PRODUCT_LIBRARY_PATH):/system/lib/arm:/system/lib/arm/nb
