@@ -15,14 +15,13 @@ working:
 - audio
 - All data connections (wifi and cellular)
 - Most off the video's
+- Houdini 6.1.1a_*
 
 Not working:
-- Houdini
 - SElinux
 - Many more things
 
 What needs to be done:
-- Enable houdini
 - Enable fully working SElinux
 - Port all specific kernel updates from google's android 3.0 kernel for 5.0+
 - Enable camera (api/missing functions)
