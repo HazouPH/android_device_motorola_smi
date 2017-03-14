@@ -50,9 +50,9 @@ TARGET_GLOBAL_CPPFLAGS += -march=atom -fno-exceptions
 TARGET_GLOBAL_LDFLAGS += -Wl,-O1
 
 # customize the malloced address to be 16-byte aligned
-BOARD_MALLOC_ALIGNMENT := 8
+BOARD_MALLOC_ALIGNMENT := 16
 
 # Intel ART optimized build flags (needs art-extension)
 VENDOR_ART_PATH := art-extension
-#BOARD_USES_DLMALLOC_META_CHUNK_FILTER := true
+BOARD_USES_DLMALLOC_META_CHUNK_FILTER := true
 #WITH_DEXPREOPT_COMP : = true

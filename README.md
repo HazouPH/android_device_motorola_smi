@@ -32,7 +32,6 @@ What needs to be done:
 -- Codecs (VPX)
 -- SKIA
 -- Renderscript
--- libm
 -- ART (Intel extensions and HT)
 - Possibly many more
 
