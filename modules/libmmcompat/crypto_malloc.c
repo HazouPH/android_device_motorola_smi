@@ -8,7 +8,6 @@ void (*CRYPTO_get_locking_callback(void))(int mode,int type,const char *file,
 
 void *CRYPTO_malloc(int num, const char *file, int line)
 {
-    if (num <= 0) return NULL;
     return malloc(num);
 }
 
