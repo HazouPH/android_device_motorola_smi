@@ -135,8 +135,6 @@ static char * camera_fixup_getparams(const char * settings)
     return ret;
 }
 
-bool isHdrWithZslEnabled = false;
-
 char * camera_fixup_setparams(const char * settings)
 {
     android::CameraParameters params;
@@ -167,7 +165,6 @@ char * camera_fixup_setparams(const char * settings)
                     android::CameraParameters::SCENE_MODE_AUTO);
         } else {
             params.set("mot-hdr-mode", "off");
-            isHdrWithZslEnabled = false;
         }
 	for(int i = 0; i < 5; i++) {
             if (!strcmp(sceneMode, sceneWords[i])) {
@@ -271,10 +268,6 @@ void camera_disable_msg_type(struct camera_device * device, int32_t msg_type)
         return;
 
     VENDOR_CALL(device, disable_msg_type, msg_type);
-
-    /* HDR with ZSL needs preview started right after jpeg is received by camera app */
-    if (isHdrWithZslEnabled && msg_type == CAMERA_MSG_COMPRESSED_IMAGE)
-        VENDOR_CALL(device, start_preview);
 }
 
 int camera_msg_type_enabled(struct camera_device * device, int32_t msg_type)
