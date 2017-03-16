@@ -62,6 +62,9 @@ on fs
     restorecon_recursive /config
     restorecon_recursive /factory
 
+    # increase read-ahead value to 256 kb
+    write /sys/block/mmcblk0/queue/read_ahead_kb 256
+
 on post-fs
 # Performance tweaks for interactive governor
     chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate
