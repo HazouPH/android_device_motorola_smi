@@ -99,6 +99,10 @@ PRODUCT_PACKAGES += \
     libintelmetadatabuffer \
     snap
 
+# Newer camera API isn't supported.
+PRODUCT_PROPERTY_OVERRIDES += \
+	camera2.portability.force_api=1
+
 # Power
 PRODUCT_PACKAGES += \
     power.smi
@@ -241,8 +245,12 @@ PRODUCT_PACKAGES += \
     fs_config_files
 
 # SGX540 is slower with the scissor optimization enabled
+# Avoids retrying for an EGL config w/o EGL_SWAP_BEHAVIOR_PRESERVED
+# We don't support eglSwapBuffersWithDamageKHR; this avoids some unnecessary code.
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.disable_scissor_opt=true
+    ro.hwui.disable_scissor_opt=true \
+    debug.hwui.render_dirty_regions=false \
+    debug.hwui.swap_with_damage=false
 
 # IDC
 PRODUCT_COPY_FILES += \
