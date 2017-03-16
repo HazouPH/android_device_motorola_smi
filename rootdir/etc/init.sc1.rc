@@ -33,10 +33,6 @@ on init
     # set auto_suspend delay to 10ms for camera which is on bus i2c-4
     write /sys/bus/pci/devices/0000:00:03.3/power/autosuspend_delay_ms 10
 
-    # for backwards compatibility
-    symlink /sdcard /mnt/sdcard
-    symlink /sdcard /storage/sdcard0
-
 # run after "on init" in charge-only-mode
 # init does not automatically run "on early-fs", "on fs", "on post-fs",
 #   "on post-fs-data", "on early-boot", and "on boot" in charge-only-mode
@@ -183,6 +179,8 @@ on post-fs
 # run after "on post-fs" and before "on early-boot"
 # /data should always be mounted by this point
 on post-fs-data
+    chown media_rw media_rw /data/media
+
     # Create directory used by power_supply logger
     mkdir /data/power_supply_logger 0755 mot_pwric mot_pwric
 

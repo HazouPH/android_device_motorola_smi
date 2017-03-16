@@ -15,6 +15,12 @@ on init
     # set usb serial number
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
 
+    mkdir /storage/emulated 0555 root root
+
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
+
 on boot
 #    chown system system /dev/pvr_sync
 #    chmod 666 /dev/pvr_sync
@@ -57,8 +63,8 @@ on fs
     chown root system /factory
     chmod 0770 /factory
     mkdir /config/wifi
-    chown system wifi /factory/wifi
-    chmod 0770 /factory/wifi
+    chown system wifi /config/wifi
+    chmod 0770 /config/wifi
     restorecon_recursive /config
     restorecon_recursive /factory
 
