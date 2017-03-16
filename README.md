@@ -16,6 +16,7 @@ working:
 - All data connections (wifi and cellular)
 - Most off the video's
 - Houdini 6.1.1a_*
+- Vibrator
 
 Not working:
 - SElinux
@@ -25,7 +26,6 @@ What needs to be done:
 - Enable fully working SElinux
 - Enable camera (api/missing functions)
 - Enable A-GPS
-- Enable vibrator (port changes to framework or build new vps module)
 - Fix WVM codecs
 - Fix network search and switch (2g/3g)
 - Enable all kinds of optimizations

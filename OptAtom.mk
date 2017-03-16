@@ -55,4 +55,4 @@ BOARD_MALLOC_ALIGNMENT := 16
 # Intel ART optimized build flags (needs art-extension)
 VENDOR_ART_PATH := art-extension
 BOARD_USES_DLMALLOC_META_CHUNK_FILTER := true
-#WITH_DEXPREOPT_COMP : = true
+#WITH_DEXPREOPT_COMP := true
