@@ -14,8 +14,7 @@ TARGET_CPU_ABI_LIST := x86,armeabi-v7a,armeabi
 TARGET_CPU_ABI_LIST_32_BIT := x86,armeabi-v7a,armeabi
 TARGET_ARCH := x86
 TARGET_ARCH_VARIANT := atom
-TARGET_ARCH_VARIANT_FPU := sse
-TARGET_BOARD_PLATFORM := medfield
+TARGET_BOARD_PLATFORM := sc1
 
 # Atom optimizations to improve memory benchmarks.
 -include $(LOCAL_PATH)/OptAtom.mk
