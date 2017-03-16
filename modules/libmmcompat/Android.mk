@@ -15,10 +15,12 @@
 LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
-LOCAL_SHARED_LIBRARIES := libicuuc libicui18n
+LOCAL_SHARED_LIBRARIES := libicui18n libicuuc libui libutils libgui libbinder
 LOCAL_MODULE := libmmcompat
 LOCAL_MODULE_TAGS := optional
 LOCAL_SRC_FILES := \
 	crypto.c \
-	icu51.c
+        graphicBufferManager.cpp \
+	icu51.c \
+        sensorManager.c
 include $(BUILD_SHARED_LIBRARY)
