@@ -23,7 +23,7 @@
 */
 
 //#define LOG_NDEBUG 0
-//#define LOG_PARAMETERS
+#define LOG_PARAMETERS
 
 #define LOG_TAG "CameraWrapper"
 #include <cutils/log.h>
