@@ -147,6 +147,10 @@ char * camera_fixup_setparams(const char * settings)
     params.dump();
 #endif
 
+    /* Make sure that thumbnail size does not remain unset */
+    params.set(android::CameraParameters::KEY_JPEG_THUMBNAIL_WIDTH, "512");
+    params.set(android::CameraParameters::KEY_JPEG_THUMBNAIL_HEIGHT, "384");
+
     // Scenemode fixer
     const char *sceneMode = params.get(android::CameraParameters::KEY_SCENE_MODE);
     char sceneWords[4][10] = {"fireworks",
