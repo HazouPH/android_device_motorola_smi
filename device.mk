@@ -97,7 +97,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     camera.sc1 \
     libintelmetadatabuffer \
-    snap
+    Snap
 
 # Newer camera API isn't supported.
 PRODUCT_PROPERTY_OVERRIDES += \
