@@ -39,7 +39,10 @@ PRODUCT_PACKAGES += \
 
 # MM Compability
 PRODUCT_PACKAGES += \
-    libmmcompat
+    libshim_audio \
+    libshim_camera \
+    libshim_mmgr \
+    libshim_security_api
 
 # Radio
 PRODUCT_PACKAGES += \
