@@ -96,6 +96,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libstagefrighthw
 
+# Display Driver
+PRODUCT_PACKAGES += \
+    libEGL_POWERVR_SGX54X
 # libmix
 PRODUCT_PACKAGES += \
     libmixvbp \
