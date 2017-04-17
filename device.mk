@@ -84,8 +84,7 @@ PRODUCT_PACKAGES += \
     msvdx_fw_mfld_DE2.0.bin \
     topazsc_bin \
     topazsc_fw.bin \
-    pvr_drv_video \
-    libpvr2d
+    pvr_drv_video
 
 # libva
 PRODUCT_PACKAGES += \
