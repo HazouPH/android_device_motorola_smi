@@ -42,11 +42,8 @@
   <remove-project name="LineageOS/android_libcore" />
   <remove-project name="LineageOS/android_packages_apps_CMUpdater" />
   <remove-project name="LineageOS/android_packages_apps_CMBugreport" />
-  <remove-project name="LineageOS/android_packages_apps_LockClock" />
   <remove-project name="LineageOS/android_packages_apps_Settings" />
-  <remove-project name="LineageOS/android_packages_apps_SoundRecorder" />
   <remove-project name="LineageOS/android_packages_apps_Stk" />
-  <remove-project name="LineageOS/android_packages_apps_Trebuchet" />
   <remove-project name="LineageOS/android_system_core" />
   <remove-project name="LineageOS/android_vendor_cm" />
 
@@ -66,11 +63,8 @@
   <project path="hardware/libhardware" name="HazouPH/android_hardware_libhardware" revision="cm-11.0"/>
   <project path="hardware/libhardware_legacy" name="HazouPH/android_hardware_libhardware_legacy" revision="cm-11.0"/>
   <project path="libcore" name="HazouPH/android_libcore" revision="cm-11.0"/>
-  <project path="packages/apps/LockClock" name="HazouPH/android_packages_apps_LockClock" revision="cm-11.0"/>
   <project path="packages/apps/Settings" name="HazouPH/android_packages_apps_Settings" revision="cm-11.0"/>
-  <project path="packages/apps/SoundRecorder" name="HazouPH/android_packages_apps_SoundRecorder" revision="cm-11.0"/>
   <project path="packages/apps/Stk" name="HazouPH/android_packages_apps_Stk" revision="cm-11.0"/>
-  <project path="packages/apps/Trebuchet" name="HazouPH/android_packages_apps_Trebuchet" revision="cm-11.0"/>
   <project path="system/core" name="HazouPH/android_system_core" revision="cm-11.0"/>
   <project path="vendor/cm" name="HazouPH/android_vendor_cm" revision="cm-11.0"/>
 
