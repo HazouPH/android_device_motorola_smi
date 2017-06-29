@@ -29,11 +29,11 @@ PRODUCT_AAPT_PREF_CONFIG := hdpi
 
 # Audio
 PRODUCT_PACKAGES += \
-	audio.a2dp.default \
-	audio.usb.default \
-	audio.r_submix.default \
-	libaudioutils \
-	libdashplayer
+    audio.a2dp.default \
+    audio.usb.default \
+    audio.r_submix.default \
+    libaudioutils \
+    libdashplayer
 
 # Stk
 PRODUCT_PACKAGES += \
@@ -50,24 +50,24 @@ PRODUCT_PACKAGES += \
 
 # Ramdisk
 PRODUCT_PACKAGES += \
-	fstab.sc1 \
-	init.avc.rc \
-	init.common.rc \
-	init.debug.rc \
-	init.moto.usb.rc \
-	init.oom.rc \
-	init.sc1.rc \
-	init.wifi.rc \
-	init.wifi.vendor.rc \
-	init.wireless.rc \
-	init.xmm.rc \
-	ueventd.sc1.rc \
-	init.rc \
-	init.recovery.sc1.rc \
-	init.zram.rc \
-	init.ksm.rc
+    fstab.sc1 \
+    init.avc.rc \
+    init.common.rc \
+    init.debug.rc \
+    init.moto.usb.rc \
+    init.oom.rc \
+    init.sc1.rc \
+    init.wifi.rc \
+    init.wifi.vendor.rc \
+    init.wireless.rc \
+    init.xmm.rc \
+    ueventd.sc1.rc \
+    init.rc \
+    init.recovery.sc1.rc \
+    init.zram.rc \
+    init.ksm.rc
 PRODUCT_COPY_FILES += \
-    	$(LOCAL_PATH)/rootdir/etc/twrp.fstab:recovery/root/etc/twrp.fstab
+    $(LOCAL_PATH)/rootdir/etc/twrp.fstab:recovery/root/etc/twrp.fstab
 
 # PDS
 PRODUCT_COPY_FILES += \
@@ -99,6 +99,7 @@ PRODUCT_PACKAGES += \
 # Display Driver
 PRODUCT_PACKAGES += \
     libEGL_POWERVR_SGX54X
+
 # libmix
 PRODUCT_PACKAGES += \
     libmixvbp \
@@ -154,18 +155,8 @@ PRODUCT_PACKAGES += \
     crda \
     regulatory.bin
 
-# Live Wallpapers
-PRODUCT_PACKAGES += \
-    LiveWallpapers \
-    LiveWallpapersPicker \
-    MagicSmokeWallpapers \
-    HoloSpiralWallpaper \
-    VisualizationWallpapers \
-    librs_jni
-
 # Filesystem management tools
 PRODUCT_PACKAGES += \
-    make_ext4fs \
     e2fsck \
     resize2fs \
     setup_fs
@@ -289,17 +280,17 @@ $(call inherit-product, vendor/motorola/smi/smi-vendor.mk)
 
 # FM Radio
 #PRODUCT_PACKAGES += \
-        kfmapp \
-        FmRxApp \
-        FmTxApp \
-        FmService \
-        libfmradio \
-        fmradioif \
-        com.ti.fm.fmradioif.xml
+    kfmapp \
+    FmRxApp \
+    FmTxApp \
+    FmService \
+    libfmradio \
+    fmradioif \
+    com.ti.fm.fmradioif.xml
 
 # RazrIChargeCurrent (Author: NerdyProjects/PosixCompatible)
 PRODUCT_PACKAGES += \
-	RazrIChargeCurrent
+    RazrIChargeCurrent
 
 # Nfc
 $(call inherit-product, $(LOCAL_PATH)/modules/nfc/nfc.mk)
