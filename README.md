@@ -28,11 +28,6 @@ What needs to be done:
 - Enable A-GPS
 - Fix WVM codecs
 - Fix network search and switch (2g/3g)
-- Enable all kinds of optimizations
--- Codecs (VPX)
--- SKIA
--- Renderscript
--- ART (Intel extensions and HT)
 - Possibly many more
 
 Also debug features are on. Device is a little slow with all those warnings, errors etc.
