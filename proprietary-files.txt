@@ -166,7 +166,6 @@ lib/libsecurity_api.so
 lib/parameter-framework-plugins/Fs/libfs-subsystem.so
 
 # HW
-lib/hw/lights.mrst.so:lib/hw/lights.smi.so
 lib/hw/power.smi.so
 lib/hw/sensors.smi.so
 
