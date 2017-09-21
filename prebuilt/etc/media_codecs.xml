@@ -81,6 +81,7 @@ can be used:
 <MediaCodecs>
     <Decoders>
         <!-- Video Hardware -->
+        <!--
         <MediaCodec name="OMX.Intel.VideoDecoder.MPEG4" type="video/mp4v-es" >
             <Quirk name="requires-loaded-to-idle-after-allocation" />
             <Quirk name="requires-set-fps" />
@@ -101,6 +102,7 @@ can be used:
             <Quirk name="requires-loaded-to-idle-after-allocation" />
             <Quirk name="requires-hold-extra-buffers" />
         </MediaCodec>
+        -->
 
         <!-- Video Software (FFmpeg) -->
         <MediaCodec name="OMX.ffmpeg.mpeg2v.decoder" type="video/mpeg2"/>
