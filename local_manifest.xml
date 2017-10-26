@@ -12,9 +12,9 @@
 
   <!-- Device specific media repos -->
 
-  <project path="external/libdrm" name="platform/external/libdrm" groups="pdk" remote="aosp" revision="refs/tags/android-7.1.1_r6"/>
+  <project path="external/libdrm" name="platform/external/libdrm" groups="pdk" remote="aosp" revision="refs/tags/android-7.1.2_r33"/>
   <project path="hardware/intel/common/libmix" name="HazouPH/android_hardware_intel_common_libmix" groups="intel" revision="cm-14.1"/>
-  <project path="hardware/intel/common/libstagefrighthw" name="platform/hardware/intel/common/libstagefrighthw" groups="intel" remote="aosp" revision="refs/tags/android-7.1.1_r6"/>
+  <project path="hardware/intel/common/libstagefrighthw" name="platform/hardware/intel/common/libstagefrighthw" groups="intel" remote="aosp" revision="refs/tags/android-7.1.2_r33"/>
   <project path="hardware/intel/common/libva" name="HazouPH/android_hardware_intel_common_libva" revision="cm-14.1"/>
   <project path="hardware/intel/common/libwsbm" name="LineageOS/android_hardware_intel_common_libwsbm" groups="intel" revision="cm-14.1"/>
   <project path="hardware/intel/common/omx-components" name="HazouPH/android_hardware_intel_common_omx-components" groups="intel" revision="cm-14.1"/>
@@ -27,7 +27,6 @@
   <remove-project name="LineageOS/android_build" />
   <remove-project name="LineageOS/android_dalvik" />
   <remove-project name="LineageOS/android_external_ffmpeg" />
-  <remove-project name="LineageOS/android_external_icu4c" />
   <remove-project name="LineageOS/android_external_skia" />
   <remove-project name="LineageOS/android_external_stagefright-plugins" />
   <remove-project name="LineageOS/android_external_tinyalsa" />
@@ -50,8 +49,7 @@
   <project path="bionic" name="HazouPH/android_bionic" revision="cm-11.0"/>
   <project path="build" name="HazouPH/android_build" revision="cm-11.0"/>
   <project path="dalvik" name="HazouPH/android_dalvik" revision="cm-11.0IA"/>
-  <project path="external/ffmpeg" name="HazouPH/android_external_ffmpeg" revision="cm-13.0-4.4.4"/>
-  <project path="external/icu4c" name="HazouPH/android_external_icu4c" revision="cm-11.0"/>
+  <project path="external/ffmpeg" name="LineageOS/android_external_ffmpeg" revision="cm-14.1"/>
   <project path="external/skia" name="HazouPH/android_external_skia" revision="cm-11.0"/>
   <project path="external/stagefright-plugins" name="HazouPH/android_external_stagefright-plugins" revision="cm-11.0-ffmpeg3.0"/>
   <project path="frameworks/av" name="HazouPH/android_frameworks_av" revision="cm-11.0"/>
