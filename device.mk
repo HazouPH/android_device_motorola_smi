@@ -35,6 +35,10 @@ PRODUCT_PACKAGES += \
     libaudioutils \
     libdashplayer
 
+# Lights
+PRODUCT_PACKAGES += \
+    lights.smi
+
 # Stk
 PRODUCT_PACKAGES += \
     Stk
