@@ -145,25 +145,13 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/etc/fstab.sc1
 BOARD_RECOVERY_SWIPE := true
 BOARD_UMS_LUNFILE := "/sys/devices/virtual/android_usb/android0/f_mass_storage/lun%d/file"
-TARGET_PREBUILT_RECOVERY_KERNEL := $(LOCAL_PATH)/boottools/image/bzImage
 BOARD_SUPPRESS_EMMC_WIPE := true
+COMMON_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 
-# Recovery options TWRP
-#RECOVERY_VARIANT := twrp
-DEVICE_RESOLUTION := 540x960
-RECOVERY_GRAPHICS_USE_LINELENGTH := true
-TW_CUSTOM_BATTERY_PATH := /sys/class/power_supply/max170xx_battery
-TW_MAX_BRIGHTNESS := 100
-TW_BRIGHTNESS_PATH := /sys/class/backlight/psb-bl/brightness
-#TW_NO_SCREEN_BLANK := true
-RECOVERY_SDCARD_ON_DATA := true
-BOARD_HAS_NO_REAL_SDCARD := true
-TW_INTERNAL_STORAGE_PATH := "/data/media"
-TW_INTERNAL_STORAGE_MOUNT_POINT := "data"
-TW_EXTERNAL_STORAGE_PATH := "/external_sd"
-TW_EXTERNAL_STORAGE_MOUNT_POINT := "external_sd"
-TW_DEFAULT_EXTERNAL_STORAGE := true
-HAVE_SELINUX := true
+# TWRP Support
+ifeq ($(WITH_TWRP),true)
+-include $(LOCAL_PATH)/twrp/twrp.mk
+endif
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
