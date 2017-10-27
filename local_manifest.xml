@@ -47,6 +47,7 @@
   <remove-project name="LineageOS/android_vendor_cm" />
 
   <project path="bionic" name="HazouPH/android_bionic" revision="cm-11.0"/>
+  <project path="bootable/recovery-twrp" name="omnirom/android_bootable_recovery" revision="android-7.1"/>
   <project path="build" name="HazouPH/android_build" revision="cm-11.0"/>
   <project path="dalvik" name="HazouPH/android_dalvik" revision="cm-11.0IA"/>
   <project path="external/ffmpeg" name="LineageOS/android_external_ffmpeg" revision="cm-14.1"/>
