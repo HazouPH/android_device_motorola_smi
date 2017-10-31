@@ -1,11 +1,11 @@
-# Recovery Touch
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/usr/idc/atmxt-i2c.idc:recovery/root/vendor/firmware/atmxt-i2c.idc \
-    $(LOCAL_PATH)/prebuilt/usr/idc/atmxt-r2.tdat:recovery/root/vendor/firmware/atmxt-r2.tdat
-
-# Recovery fstab
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/twrp/twrp.fstab:recovery/root/etc/twrp.fstab
+# Recovery copy files when building with "mka recoveryimage"
+# Create directory
+    $(shell mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/vendor/firmware/)
+    $(shell mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/etc/)
+# Copy firmware and fstab
+    $(shell cp $(LOCAL_PATH)/prebuilt/usr/idc/atmxt-i2c.idc $(TARGET_RECOVERY_ROOT_OUT)/vendor/firmware/)
+    $(shell cp $(LOCAL_PATH)/prebuilt/usr/idc/atmxt-r2.tdat $(TARGET_RECOVERY_ROOT_OUT)/vendor/firmware/)
+    $(shell cp $(LOCAL_PATH)/twrp/twrp.fstab $(TARGET_RECOVERY_ROOT_OUT)/etc/)
 
 # Recovery options TWRP
 RECOVERY_VARIANT := twrp
