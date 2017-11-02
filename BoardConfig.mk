@@ -130,6 +130,7 @@ POWERHAL_MFLD := true
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(LOCAL_PATH)/charger/images
+BOARD_CHARGER_SHOW_PERCENTAGE := true
 
 # Houdini: enable ARM codegen for x86
 BUILD_ARM_FOR_X86 := true
