@@ -10,9 +10,4 @@ on post-fs-data
    mkdir /data/misc/wifi/sockets 0770 wifi wifi
    mkdir /data/misc/dhcp 0770 dhcp wifi
    mkdir /data/misc/firmware 0770 system system
-   chmod 0660 /system/etc/wifi/wpa_supplicant.conf
-   chown wifi wifi /system/etc/wifi/wpa_supplicant.conf
-   chmod 0660 /system/etc/wifi/p2p_supplicant.conf
-   chown wifi wifi /system/etc/wifi/p2p_supplicant.conf
-   chmod 0660 /system/etc/wifi/hostapd.conf
-   chown wifi wifi /system/etc/wifi/hostapd.conf
+   chown dhcp wifi /data/misc/dhcp
