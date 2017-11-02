@@ -253,7 +253,7 @@
     <string translatable="false" name="config_radio_access_family">GSM|WCDMA</string>
 
     <!--  Maximum number of supported users -->
-    <integer name="config_multiuserMaximumUsers">8</integer>
+    <integer name="config_multiuserMaximumUsers">4</integer>
     <!-- Whether UI for multi user should be shown -->
     <bool name="config_enableMultiUserUI">true</bool>
 
