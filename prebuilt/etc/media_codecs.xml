@@ -16,10 +16,12 @@
 
 <!--
 <!DOCTYPE MediaCodecs [
-<!ELEMENT MediaCodecs (Decoders,Encoders)>
-<!ELEMENT Decoders (MediaCodec*)>
-<!ELEMENT Encoders (MediaCodec*)>
-<!ELEMENT MediaCodec (Type*,Quirk*)>
+<!ELEMENT Include EMPTY>
+<!ATTLIST Include href CDATA #REQUIRED>
+<!ELEMENT MediaCodecs (Decoders|Encoders|Include)*>
+<!ELEMENT Decoders (MediaCodec|Include)*>
+<!ELEMENT Encoders (MediaCodec|Include)*>
+<!ELEMENT MediaCodec (Type|Quirk|Include)*>
 <!ATTLIST MediaCodec name CDATA #REQUIRED>
 <!ATTLIST MediaCodec type CDATA>
 <!ELEMENT Type EMPTY>
@@ -48,6 +50,7 @@ can be used:
         <Quirk name="output-buffers-are-unreadable" />
     </MediaCodec>
 
+Only the three quirks included above are recognized at this point:
 
 "requires-allocate-on-input-ports"
     must be advertised if the component does not properly support specification
@@ -72,106 +75,73 @@ can be used:
     matching surfaceflinger support that can render the custom format to
     a texture and possibly other code, so just DON'T USE THIS QUIRK.
 
-"codec-requires-samplerate"
-    Some AUDIO codecs can assume constant sample rate. This may be wrong
-    sometimes and these codecs can be set sample rate from application.
 
 -->
 
 <MediaCodecs>
+
     <Decoders>
-        <!-- Video Hardware -->
-        <!--
-        <MediaCodec name="OMX.Intel.VideoDecoder.MPEG4" type="video/mp4v-es" >
-            <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Quirk name="requires-set-fps" />
-            <Quirk name="requires-hold-extra-buffers" />
+        <MediaCodec name="OMX.Intel.VideoDecoder.MPEG4" type="video/mp4v-es">
+            <Limit name="size" min="96x32" max="1920x1088" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" range="12-244800" />
+            <Limit name="bitrate" range="1-20000000" />
+            <Feature name="adaptive-playback" optional="yes" />
+            <Limit name="concurrent-instances" max="2" />
         </MediaCodec>
-        <MediaCodec name="OMX.Intel.VideoDecoder.H263" type="video/3gpp" >
-            <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Quirk name="requires-set-fps" />
-            <Quirk name="requires-hold-extra-buffers" />
+        <MediaCodec name="OMX.Intel.VideoDecoder.H263" type="video/3gpp">
+            <Limit name="size" min="96x32" max="720x576" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" range="12-48600" />
+            <Limit name="bitrate" range="1-16000000" />
+            <Feature name="adaptive-playback" optional="yes" />
+            <Limit name="concurrent-instances" max="1" />
         </MediaCodec>
-        <MediaCodec name="OMX.Intel.VideoDecoder.AVC" type="video/avc" >
-            <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Quirk name="requires-set-profile-level" />
-            <Quirk name="requires-set-fps" />
-            <Quirk name="requires-hold-extra-buffers" />
+        <MediaCodec name="OMX.Intel.VideoDecoder.AVC" type="video/avc">
+            <Limit name="size" min="96x32" max="2560x1440" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" range="12-864000" />
+            <Limit name="bitrate" range="1-50000000" />
+            <Feature name="adaptive-playback" />
+            <Limit name="concurrent-instances" max="2" />
         </MediaCodec>
-        <MediaCodec name="OMX.Intel.VideoDecoder.WMV" type="video/x-ms-wmv" >
-            <Quirk name="requires-loaded-to-idle-after-allocation" />
-            <Quirk name="requires-hold-extra-buffers" />
+        <MediaCodec name="OMX.Intel.VideoDecoder.AVC.secure" type="video/avc">
+            <Limit name="size" min="96x32" max="1920x1088" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" range="12-522240" />
+            <Limit name="bitrate" range="1-50000000" />
+            <Feature name="adaptive-playback" />
+            <Feature name="secure-playback" required="true" />
+            <Limit name="concurrent-instances" max="5" />
         </MediaCodec>
-        -->
-
-        <!-- Video Software (FFmpeg) -->
-        <MediaCodec name="OMX.ffmpeg.mpeg2v.decoder" type="video/mpeg2"/>
-        <MediaCodec name="OMX.ffmpeg.h263.decoder" type="video/3gpp"/>
-        <MediaCodec name="OMX.ffmpeg.mpeg4.decoder" type="video/mp4v-es"/>
-        <MediaCodec name="OMX.ffmpeg.wmv.decoder" type="video/x-ms-wmv"/>
-        <MediaCodec name="OMX.ffmpeg.rv.decoder" type="video/vnd.rn-realvideo"/>
-        <MediaCodec name="OMX.ffmpeg.h264.decoder" type="video/avc"/>
-        <MediaCodec name="OMX.ffmpeg.vp8.decoder" type="video/x-vnd.on2.vp8" />
-        <MediaCodec name="OMX.ffmpeg.vp9.decoder" type="video/x-vnd.on2.vp9" />
-        <MediaCodec name="OMX.ffmpeg.vc1.decoder" type="video/vc1"/>
-        <MediaCodec name="OMX.ffmpeg.flv1.decoder" type="video/x-flv"/>
-        <MediaCodec name="OMX.ffmpeg.divx.decoder" type="video/divx"/>
-        <MediaCodec name="OMX.ffmpeg.hevc.decoder" type="video/hevc"/>
-        <MediaCodec name="OMX.ffmpeg.vtrial.decoder" type="video/ffmpeg"/>
-
-        <!-- Video Software (Google) -->
-        <MediaCodec name="OMX.google.vp8.decoder" type="video/x-vnd.on2.vp8" />
-        <MediaCodec name="OMX.google.vp9.decoder" type="video/x-vnd.on2.vp9" />
-        <MediaCodec name="OMX.google.h263.decoder" type="video/3gpp" />
-        <MediaCodec name="OMX.google.h264.decoder" type="video/avc" />
-        <MediaCodec name="OMX.google.mpeg4.decoder" type="video/mp4v-es" />
-
-        <!-- Audio Software (Google Override) -->
-        <MediaCodec name="OMX.google.mp3.decoder" type="audio/mpeg" />
-        <MediaCodec name="OMX.google.vorbis.decoder" type="audio/vorbis" />
-
-        <!-- Audio Software (FFmpeg) -->
-        <MediaCodec name="OMX.ffmpeg.aac.decoder" type="audio/mp4a-latm" />
-        <MediaCodec name="OMX.ffmpeg.wma.decoder" type="audio/x-ms-wma" />
-        <MediaCodec name="OMX.ffmpeg.ra.decoder" type="audio/vnd.rn-realaudio" />
-        <MediaCodec name="OMX.ffmpeg.flac.decoder" type="audio/flac" />
-        <MediaCodec name="OMX.ffmpeg.mp2.decoder" type="audio/mpeg-L2" />
-        <MediaCodec name="OMX.ffmpeg.ac3.decoder" type="audio/ac3" />
-        <MediaCodec name="OMX.ffmpeg.ape.decoder" type="audio/x-ape" />
-        <MediaCodec name="OMX.ffmpeg.dts.decoder" type="audio/vnd.dts" />
-        <MediaCodec name="OMX.ffmpeg.atrial.decoder" type="audio/ffmpeg" />
-
-        <!-- Audio Software (Google) -->
-        <MediaCodec name="OMX.google.amrnb.decoder" type="audio/3gpp" />
-        <MediaCodec name="OMX.google.amrwb.decoder" type="audio/amr-wb" />
-        <MediaCodec name="OMX.google.aac.decoder" type="audio/mp4a-latm" />
-        <MediaCodec name="OMX.google.g711.alaw.decoder" type="audio/g711-alaw" >
-            <Quirk name="codec-requires-samplerate" />
-        </MediaCodec>
-        <MediaCodec name="OMX.google.g711.mlaw.decoder" type="audio/g711-mlaw" >
-            <Quirk name="codec-requires-samplerate" />
-        </MediaCodec>
-        <MediaCodec name="OMX.google.gsm.decoder" type="audio/gsm" />
+        <!--MediaCodec name="OMX.Intel.VideoDecoder.WMV" type="video/x-ms-wmv" >
+            <Limit name="size" min="96x32" max="1920x1088" />
+            <Limit name="alignment" value="2x2" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="blocks-per-second" range="12-244800" />
+            <Limit name="bitrate" range="1-20000000" />
+            <Feature name="adaptive-playback" optional="yes" />
+            <Limit name="concurrent-instances" max="2" />
+        </MediaCodec-->
     </Decoders>
+
     <Encoders>
-        <!-- Video Hardware -->
-        <MediaCodec name="OMX.Intel.VideoEncoder.MPEG4" type="video/mp4v-es" >
-            <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-loaded-to-idle-after-allocation" />
-        </MediaCodec>
-        <MediaCodec name="OMX.Intel.VideoEncoder.H263" type="video/3gpp" >
-            <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-loaded-to-idle-after-allocation" />
-        </MediaCodec>
         <MediaCodec name="OMX.Intel.VideoEncoder.AVC" type="video/avc" >
             <Quirk name="requires-allocate-on-input-ports" />
-            <Quirk name="requires-loaded-to-idle-after-allocation" />
+            <Limit name="size" min="176x144" max="1920x1088" />
+            <Limit name="alignment" value="8x8" />
+            <Limit name="block-size" value="16x16" />
+            <Limit name="frame-rate" range="1-60" />
+            <Limit name="bitrate" range="1-50000000" />
+            <Limit name="concurrent-instances" max="5" />
         </MediaCodec>
-
-        <!-- Audio Software (Google) -->
-        <MediaCodec name="OMX.google.amrnb.encoder" type="audio/3gpp" />
-        <MediaCodec name="OMX.google.amrwb.encoder" type="audio/amr-wb" />
-        <MediaCodec name="OMX.google.aac.encoder" type="audio/mp4a-latm" />
-        <MediaCodec name="OMX.google.flac.encoder" type="audio/flac" />
     </Encoders>
+
+    <Include href="media_codecs_google_audio.xml" />
+    <Include href="media_codecs_google_video.xml" />
+    <Include href="media_codecs_ffmpeg.xml" />
 </MediaCodecs>
