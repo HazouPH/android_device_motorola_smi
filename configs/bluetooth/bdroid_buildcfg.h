@@ -27,4 +27,7 @@
 
 /* Defined if the kernel does not have support for CLOCK_BOOTTIME_ALARM */
 #define KERNEL_MISSING_CLOCK_BOOTTIME_ALARM TRUE
+
+#define SC_MODE_INCLUDED FALSE
+
 #endif
