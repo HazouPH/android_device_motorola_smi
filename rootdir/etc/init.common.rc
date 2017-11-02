@@ -8,8 +8,6 @@ on early-init
     symlink /dev/dri/card0 /dev/card0
     # Enable native bridge for target executables
     mount binfmt_misc binfmt_misc /proc/sys/fs/binfmt_misc
-    #  Mount debugfs for systrace settings
-    mount debugfs none /sys/kernel/debug mode=0755
 
 on init
     # set usb serial number
