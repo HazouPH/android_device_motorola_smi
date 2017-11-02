@@ -290,5 +290,5 @@ service audioserver /system/bin/audioserver
 service drm /system/bin/drmserver
     class main
     user drm
-    group drm system inet drmrpc sdcard_r
+    group drm system inet drmrpc readproc sdcard_r
     writepid /dev/cpuset/foreground/tasks
