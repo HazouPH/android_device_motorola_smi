@@ -183,10 +183,7 @@ PRODUCT_PACKAGES += \
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
-    make_ext4fs \
-    e2fsck \
-    resize2fs \
-    setup_fs
+    e2fsck
 
 # Houdini (arm native bridge)
 PRODUCT_COPY_FILES += \
