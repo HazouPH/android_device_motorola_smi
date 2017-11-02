@@ -229,7 +229,6 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     panel.physicalHeightmm=89 \
     ro.opengles.version=131072 \
     gsm.net.interface=rmnet0 \
-    persist.sys.usb.config=mtp \
     ro.secure=0 \
     ro.adb.secure=0 \
     ro.debuggable=1
