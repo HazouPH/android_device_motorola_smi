@@ -179,10 +179,6 @@ PRODUCT_PACKAGES += \
     libcorkscrew \
     com.android.future.usb.accessory
 
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-    e2fsck
-
 # Houdini (arm native bridge)
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
