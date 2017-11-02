@@ -126,6 +126,9 @@ BOARD_HAVE_GPS := true
 # Power
 POWERHAL_MFLD := true
 
+# Lights
+TARGET_PROVIDES_LIBLIGHT := true
+
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(LOCAL_PATH)/charger/images
