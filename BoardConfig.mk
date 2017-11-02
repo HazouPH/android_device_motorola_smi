@@ -22,7 +22,7 @@ TARGET_BOARD_PLATFORM := sc1
 # Connectivity - Wi-Fi
 USES_TI_MAC80211                 := true
 WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WLAN_DEVICE                := wl12xx-compat
+BOARD_WLAN_DEVICE                := wl12xx_compat
 BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
 BOARD_HOSTAPD_DRIVER             := NL80211
 CONFIG_HS20                      := true
