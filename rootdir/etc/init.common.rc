@@ -13,10 +13,7 @@ on init
     # set usb serial number
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
 
-    mkdir /storage/emulated 0555 root root
-
     # Support legacy paths
-    symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
 on boot
