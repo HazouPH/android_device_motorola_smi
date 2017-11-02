@@ -16,8 +16,6 @@ LOCAL_PATH := device/motorola/smi
 
 $(call inherit-product, $(LOCAL_PATH)/configs/phone-hdpi-1024-dalvik-heap.mk)
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
 # xt890 specific overlay
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
