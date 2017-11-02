@@ -1,9 +1,6 @@
 # Inherit some common Lineage stuff.
 $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
-# Inherit enhanced nfc config 
-$(call inherit-product, vendor/cm/config/nfc_enhanced.mk)
-
 PRODUCT_RUNTIMES := runtime_libart_default
 
 # Boot animation
