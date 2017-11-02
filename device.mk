@@ -108,11 +108,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     power.smi
 
-# Charger
-PRODUCT_PACKAGES += \
-    charger \
-    charger_res_images
-
 # psb video
 PRODUCT_PACKAGES += \
     msvdx_bin \
