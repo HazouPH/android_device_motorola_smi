@@ -17,6 +17,6 @@ $(call inherit-product, device/motorola/smi/full_smi.mk)
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRODUCT_BRAND=motorola \
     PRODUCT_NAME=XT890 \
-    BUILD_PRODUCT=smi \
+    BUILD_PRODUCT=smi
 
 
