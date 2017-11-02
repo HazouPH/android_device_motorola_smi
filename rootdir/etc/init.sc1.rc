@@ -194,6 +194,9 @@ on post-fs-data
     mkdir /data/misc/firmware 0770 system system
     mkdir /data/misc/thermal 0770 system system
 
+    # set this to switch to CPU renderscipt
+    setprop debug.rs.default-CPU-driver 1
+
     symlink /system/etc/MID_thermal.conf /data/misc/thermal/MID_thermal.conf
 
     # If there is no fs-post-data action in the init.<device>.rc file, you
