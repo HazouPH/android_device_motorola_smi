@@ -276,12 +276,12 @@ service batt_health /system/bin/batt_health
 
 # From init.rc in stock, these redefine service definitions
 
-service_redefine drm /system/bin/drmserver
+service drm /system/bin/drmserver
     class main
     user drm
     group drm system inet drmrpc sdcard_r
 
-service_redefine media /system/bin/mediaserver
+service media /system/bin/mediaserver
     class main
     user media
     group audio camera inet net_bt net_bt_admin net_bw_acct drmrpc mediadrm radio system qcom_diag
