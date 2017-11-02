@@ -102,7 +102,9 @@ PRODUCT_PACKAGES += \
 
 # Newer camera API isn't supported.
 PRODUCT_PROPERTY_OVERRIDES += \
-	camera2.portability.force_api=1
+    camera2.portability.force_api=1 \
+    media.stagefright.legacyencoder=true \
+    media.stagefright.less-secure=true
 
 # Power
 PRODUCT_PACKAGES += \
