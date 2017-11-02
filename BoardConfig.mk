@@ -134,11 +134,6 @@ BOARD_CHARGER_SHOW_PERCENTAGE := true
 # Houdini: enable ARM codegen for x86
 BUILD_ARM_FOR_X86 := true
 
-# Use dlmalloc, legacy mmap
-MALLOC_IMPL := dlmalloc
-BOARD_USES_LEGACY_MMAP := true
-USE_LEGACY_BLOBS := true
-
 # skip some proccess to speed up build
 BOARD_SKIP_ANDROID_DOC_BUILD := true
 BUILD_EMULATOR := false
