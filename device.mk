@@ -265,6 +265,7 @@ PRODUCT_COPY_FILES += \
 
 # MediaProfile and Audio
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/etc/audio_policy.xml:system/etc/audio_policy.xml \
     $(LOCAL_PATH)/prebuilt/etc/media_profiles.xml:system/etc/media_profiles.xml \
     $(LOCAL_PATH)/prebuilt/etc/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/prebuilt/etc/wrs_omxil_components.list:system/etc/wrs_omxil_components.list \
