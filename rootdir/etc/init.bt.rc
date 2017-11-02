@@ -1,16 +1,5 @@
 import init.bt.vendor.rc
 
-service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
-    class main
-    group bluetooth wifi system dhcp
-    disabled
-    oneshot
-
-service iprenew_bt-pan /system/bin/dhcpcd -n
-    group bluetooth system dhcp
-    disabled
-    oneshot
-
 service bd_prov /system/bin/bd_prov
     class core
     user system

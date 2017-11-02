@@ -205,7 +205,6 @@ PRODUCT_PACKAGES += \
     libwpa_client \
     hostapd \
     wpa_supplicant \
-    dhcpcd.conf \
     hostapd.conf \
     p2p_supplicant.conf \
     wpa_supplicant.conf \

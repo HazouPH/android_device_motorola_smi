@@ -16,23 +16,3 @@ on post-fs-data
    chown wifi wifi /system/etc/wifi/p2p_supplicant.conf
    chmod 0660 /system/etc/wifi/hostapd.conf
    chown wifi wifi /system/etc/wifi/hostapd.conf
-
-on property:init.svc.wpa_supplicant=stopped
-    stop dhcpcd
-
-
-service ifcfg_mac80211 /system/bin/ifconfig wlan0 up
-    class main
-    disabled
-    oneshot
-
-service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
-    class main
-    group wifi system dhcp
-    disabled
-    oneshot
-
-service iprenew_wlan0 /system/bin/dhcpcd -n
-    group system dhcp
-    disabled
-    oneshot
