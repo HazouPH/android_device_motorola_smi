@@ -50,7 +50,7 @@ service ril-daemon /system/bin/rild -l /system/lib/librapid-ril-core.so -- -a /d
     socket rild-debug stream 660 radio system
     class main
     user root
-    group radio cache inet misc audio log mot_tpapi
+    group radio cache inet misc audio log mot_tpapi qcom_diag readproc wakelock
 
 #on property:persist.radio.airplane_mode_on=0
 #   stop ril-daemon
