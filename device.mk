@@ -318,5 +318,3 @@ $(call inherit-product, $(LOCAL_PATH)/modules/nfc/nfc.mk)
 
 # Shared Transport (BLUETOOTH,FM,GPS)
 #$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
-
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
