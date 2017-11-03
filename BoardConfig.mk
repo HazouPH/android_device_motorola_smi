@@ -140,10 +140,6 @@ BOARD_CHARGER_SHOW_PERCENTAGE := true
 # Houdini: enable ARM codegen for x86
 BUILD_ARM_FOR_X86 := true
 
-# skip some proccess to speed up build
-BOARD_SKIP_ANDROID_DOC_BUILD := true
-BUILD_EMULATOR := false
-
 # Recovery configuration global
 BOARD_CANT_BUILD_RECOVERY_FROM_BOOT_PATCH := true
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
