@@ -2085,7 +2085,7 @@ RIL_RESULT_CODE CTE_XMM6260::CoreHookStrings(REQUEST_DATA& rReqData,
     }
 
     pszRequest = ((char**)pData);
-    if (NULL == pszRequest || NULL == pszRequest[0])
+    if (NULL == pszRequest || '\0' == *pszRequest[0])
     {
         RIL_LOG_CRITICAL("CTE_XMM6260::CoreHookStrings() - pszRequest was NULL\r\n");
         goto Error;
@@ -4400,7 +4400,7 @@ RIL_RESULT_CODE CTE_XMM6260::CreateAutonomousFDReq(REQUEST_DATA& rReqData,
     char szDelayTimer[3] = {0};
     char szSCRITimer[3] = {0};
 
-    if (pszRequest == NULL || '\0' == pszRequest[0])
+    if (pszRequest == NULL || '\0' == *pszRequest[0])
     {
         RIL_LOG_CRITICAL("CTE_XMM6260::CreateAutonomousFDReq() - pszRequest was NULL\r\n");
         goto Error;
@@ -4464,7 +4464,7 @@ RIL_RESULT_CODE CTE_XMM6260::CreateDebugScreenReq(REQUEST_DATA& rReqData,
     int mode = E_MODE_ONE_SHOT_DUMP;
     int page_nr = 1; // Number of response pages
 
-    if (pszRequest == NULL || '\0' == pszRequest[0])
+    if (pszRequest == NULL || '\0' == *pszRequest[0])
     {
         RIL_LOG_CRITICAL("CTE_XMM6260::CreateDebugScreenReq() - pszRequest was NULL\r\n");
         goto Error;
@@ -4549,7 +4549,7 @@ RIL_RESULT_CODE CTE_XMM6260::CreateSetSMSTransportModeReq(REQUEST_DATA& rReqData
     RIL_RESULT_CODE res = RRIL_RESULT_ERROR;
     int service;
 
-    if (pszRequest == NULL || '\0' == pszRequest[0])
+    if (pszRequest == NULL || '\0' == *pszRequest[0])
     {
         RIL_LOG_CRITICAL("CTE_XMM6260::CreateSetSMSTransportModeReq() - pszRequest was NULL\r\n");
         goto Error;
@@ -4599,7 +4599,7 @@ RIL_RESULT_CODE CTE_XMM6260::CreateSetRFPowerCutbackTableReq(REQUEST_DATA& rReqD
     RIL_RESULT_CODE res = RRIL_RESULT_ERROR;
     int powerTableOffset;
 
-    if (pszRequest == NULL || '\0' == pszRequest[0])
+    if (pszRequest == NULL || '\0' == *pszRequest[0])
     {
         RIL_LOG_CRITICAL("CTE_XMM260::CreateSetRFPowerCutbackTableReq()"
                 " - invalid input parameter pszRequest \r\n");
@@ -4652,7 +4652,7 @@ RIL_RESULT_CODE CTE_XMM6260::SetCallImsAvailable(REQUEST_DATA& rReqData,
     RIL_RESULT_CODE res = RRIL_RESULT_ERROR;
     int callStatus;
 
-    if (pszRequest == NULL || '\0' == pszRequest[0])
+    if (pszRequest == NULL || '\0' == *pszRequest[0])
     {
         RIL_LOG_CRITICAL("CTE_XMM260::SetCallImsAvailable()"
                 " - invalid input parameter pszRequest \r\n");
@@ -4698,7 +4698,7 @@ RIL_RESULT_CODE CTE_XMM6260::SetSmsImsAvailable(REQUEST_DATA& rReqData,
     RIL_RESULT_CODE res = RRIL_RESULT_ERROR;
     int smsStatus;
 
-    if (pszRequest == NULL || '\0' == pszRequest[0])
+    if (pszRequest == NULL || '\0' == *pszRequest[0])
     {
         RIL_LOG_CRITICAL("CTE_XMM260::SetSmsImsAvailable()"
                 " - invalid input parameter pszRequest \r\n");

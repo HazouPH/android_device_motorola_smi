@@ -1039,7 +1039,7 @@ RIL_RESULT_CODE CTE_XMM7160::CreateIMSRegistrationReq(REQUEST_DATA& rReqData,
     RIL_LOG_VERBOSE("CTE_XMM7160::CreateIMSRegistrationReq() - Enter\r\n");
     RIL_RESULT_CODE res = RRIL_RESULT_ERROR;
 
-    if (pszRequest == NULL || '\0' == pszRequest[1])
+    if (pszRequest == NULL || '\0' == *pszRequest[1])
     {
         RIL_LOG_CRITICAL("CTE_XMM7160::CreateIMSRegistrationReq() - pszRequest was empty\r\n");
         goto Error;
@@ -1257,7 +1257,7 @@ RIL_RESULT_CODE CTE_XMM7160::HandleSetupDefaultPDN(RIL_Token rilToken,
     RIL_LOG_VERBOSE("CTE_XMM7160::HandleSetupDefaultPDN() - Enter\r\n");
 
     RIL_RESULT_CODE res = RRIL_RESULT_ERROR;
-    char* szModemResourceName = {'\0'};
+    char* szModemResourceName = {"\0"};
     int muxControlChannel = -1;
     int hsiChannel = pChannelData->GetHSIChannel();
     int ipcDataChannelMin = 0;

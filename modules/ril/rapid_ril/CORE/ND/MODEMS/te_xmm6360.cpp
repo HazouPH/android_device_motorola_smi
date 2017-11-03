@@ -318,7 +318,7 @@ BOOL CTE_XMM6360::PdpContextActivate(REQUEST_DATA& rReqData, void* pData,
     int hsiChannel = -1;
     UINT32 uiRilChannel = 0;
     int ipcDataChannelMin = 0;
-    char* szModemResourceName = {'\0'};
+    char* szModemResourceName = {"\0"};
 
     if (NULL == pData ||
                     sizeof(S_SETUP_DATA_CALL_CONTEXT_DATA) != uiDataSize)

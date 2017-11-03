@@ -447,7 +447,7 @@ BOOL CTE::IsOemHookPossible(int requestId, void* pData, size_t uiDataSize)
         goto Error;
     }
 
-    if (pszRequest == NULL || '\0' == pszRequest[0])
+    if (pszRequest == NULL || '\0' == *pszRequest[0])
     {
         RIL_LOG_CRITICAL("CTE::IsOemHookPossible() - pszRequest was NULL\r\n");
         goto Error;

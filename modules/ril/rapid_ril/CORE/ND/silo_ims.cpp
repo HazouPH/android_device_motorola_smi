@@ -71,7 +71,7 @@ char* CSilo_IMS::GetURCInitString()
         PrintStringNullTerminate(szEnableIMS, MAX_BUFFER_SIZE, "+CIREP=1|+XISRVCC=1");
     }
 
-    if (szEnableIMS != '\0')
+    if (*szEnableIMS != '\0')
     {
         if (!ConcatenateStringNullTerminate(m_szURCInitString,
                 sizeof(m_szURCInitString), szEnableIMS))

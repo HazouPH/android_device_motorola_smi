@@ -16,6 +16,7 @@
 #include <cstdint>
 #include <cstring>
 #include <cerrno>
+#include <unistd.h>
 
 typedef bool                BOOL;
 typedef uint8_t             BYTE;
