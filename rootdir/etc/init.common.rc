@@ -94,6 +94,9 @@ on post-fs-data
     # We implement this property in buildinfo.sh. So comment this.
     # setprop ro.camera.sound.forced 1
 
+    # set this to switch to CPU renderscipt
+    setprop debug.rs.default-CPU-driver 1
+
     # Set this property for the use of unlock
     setprop ro.build.servaddr 1
 
@@ -105,8 +108,6 @@ on post-fs-data
 
 
 on charger
-    # /system is not already mounted under COS
-    mount ext4 /dev/block/mmcblk0p16 /system ro noatime
     chown system system /dev/dri/card0
     chmod 0666 /dev/dri/card0
     symlink /dev/dri/card0 /dev/card0
@@ -125,6 +126,7 @@ service pvrsrvctl /system/bin/pvrsrvctl --no-module --start
     class core
     oneshot
     user root
+    group graphics readproc
 
 service charger_app /charger
     class charger
