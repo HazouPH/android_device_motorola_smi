@@ -3,7 +3,6 @@ LOCAL_PATH := device/motorola/smi
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Make settings
-TARGET_NO_BOOTLOADER := true
 TARGET_NO_RADIOIMAGE := true
 
 # Board configuration
@@ -47,11 +46,8 @@ WIFI_MODULES:
 
 TARGET_KERNEL_MODULES := WIFI_MODULES
 
-# Use boot tools to make Intel-formatted images
-DEVICE_BASE_BOOT_IMAGE := $(LOCAL_PATH)/boottools/image/boot
-DEVICE_BASE_RECOVERY_IMAGE := $(LOCAL_PATH)/boottools/image/recovery
-BOARD_CUSTOM_BOOTIMG_MK := $(LOCAL_PATH)/boottools/boot.mk
-RAZRI_IMAGE := true
+# bootstub as 2nd bootloader
+TARGET_BOOTLOADER_IS_2ND := true
 
 # Kernel build (source:github.com/oxavelar)
 BOARD_KERNEL_BASE := 0x000400

@@ -61,11 +61,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=240
 
-# Intel Bootimage Tools
-PRODUCT_PACKAGES += \
-    pack_intel \
-    unpack_intel
-
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.sc1 \
