@@ -1,1 +1,0 @@
-allow dhcp devpts:chr_file rw_file_perms;

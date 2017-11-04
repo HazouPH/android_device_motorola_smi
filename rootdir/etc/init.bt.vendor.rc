@@ -40,3 +40,4 @@ service uim /system/bin/uim
     class core
     user root
     group bluetooth net_bt_admin
+    seclabel u:r:bluetooth:s0

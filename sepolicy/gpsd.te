@@ -1,0 +1,11 @@
+allow gpsd radio_device:chr_file rw_file_perms;
+
+allow gpsd rild_socket:sock_file rw_file_perms;
+unix_socket_connect(gpsd, rild, rild);
+
+# Use sockets provided by system_server via binder or local socket.
+allow gpsd system_server:unix_stream_socket { read write setopt getattr getopt shutdown };
+
+binder_use(gpsd)
+binder_call(gpsd, system_server)
+wakelock_use(gpsd)

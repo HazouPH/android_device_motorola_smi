@@ -1,2 +1,3 @@
-# Access files in /dev/block/vold
-allow kernel block_device:blk_file rw_file_perms;
+# watchdog needs this
+allow kernel self:capability sys_admin;
+

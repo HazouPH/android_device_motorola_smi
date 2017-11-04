@@ -1,7 +1,13 @@
-# We load modules in our init.rc scripts
-permissive init;
-allow init self:capability sys_module;
-allow init self:process execmem;
-allow init wifi_data_file:dir { write add_name };
-allow init wifi_data_file:file { write create };
+#============= init ==============
+allow init port:tcp_socket name_connect;
+allow init self:tcp_socket { write getopt create read connect };
 
+# Mount on and write to /proc/sys/fs/binfmt_misc.
+allow init proc:dir mounton;
+allow init binfmt_miscfs:file w_file_perms;
+
+# Allow shimlibs
+allow init { domain -lmkd }:process noatsecure;
+
+allow init kernel:system module_request;
+allow init debugfs:file rw_file_perms;

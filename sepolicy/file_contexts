@@ -1,51 +1,65 @@
-/dev/dri/card0				u:object_r:gpu_device:s0
-/system/bin/ak8963fs                  	u:object_r:akmd8963_exec:s0
-/system/bin/akmd8963                  	u:object_r:akmd8963_exec:s0
-/system/bin/batt_health            	u:object_r:batt_health_exec:s0
-/system/bin/enable_houdini       	u:object_r:enable_houdini_exec:s0
-/system/bin/uim		             	u:object_r:uim_sysfs_exec:s0
-/system/bin/pvrsrvctl 			u:object_r:pvrsrvctl_exec:s0
-/system/bin/bd_prov			u:object_r:bd_prov_exec:s0
-/system/bin/gps_driver			u:object_r:locdrv_exec:s0
-
 # AKMD8963
 /dev/akm8963    			u:object_r:sensors_device:s0
 /dev/akm8963_dev			u:object_r:sensors_device:s0
+/system/bin/akmd8963                  	u:object_r:akmd8963_exec:s0
 
 # batt_health
 /data/power_supply_logger(/.*)?    	u:object_r:batt_health_data_file:s0
 /sys/module/max17042(/.*)?       	u:object_r:batt_health_sysfs:s0
+/system/bin/batt_health            	u:object_r:batt_health_exec:s0
 
 # PDS
 /pds(/.*)?                         	u:object_r:pds_file:s0
 
-# Rild
-/dev/gsmtty(.*)?    			u:object_r:radio_device:s0
-
 # Camera
 /dev/lis3dh    				u:object_r:sensors_device:s0
 
-# Audio
+# A/V
+/dev/v4l-subdev[0-9]*                   u:object_r:camera_device:s0
+/dev/media0                             u:object_r:camera_device:s0
 /dev/audience_es305			u:object_r:audio_device:s0
 /dev/intel_sst_ctrl			u:object_r:audio_device:s0
+/mnt/asec/media(/.*)?                   u:object_r:media_rw_data_file:s0
 
 # Bluetooth
-/dev/hci_tty				u:object_r:hci_attach_dev:s0
-/dev/ttyMFD0				u:object_r:hci_attach_dev:s0
+/dev/hci_tty				u:object_r:bluetooth_device:s0
+/dev/ttyMFD0				u:object_r:bluetooth_device:s0
+/system/bin/bd_prov		        u:object_r:bluetooth_exec:s0
+/system/bin/uim		             	u:object_r:bluetooth_exec:s0
+
+# Display
+/dev/dri/card0				u:object_r:gpu_device:s0
+/dev/card0				u:object_r:gpu_device:s0
+/system/bin/pvrsrvctl                   u:object_r:pvrsrvctl_exec:s0
 
 # Firmwares
 /system/etc/firmware/ti-connectivity(/*)? u:object_r:wifi_data_file:s0
 
 # GPS
 /data/location(/*)?			u:object_r:radio_data_file:s0
-/system/bin/TIDrv			u:object_r:system_file:s0
+/system/bin/TIDrv			u:object_r:gpsd_exec:s0
 /system/etc/location.cfg		u:object_r:system_data_file:s0
 /data/location/GpsIpcDrvSocket		u:object_r:system_data_file:s0
-/dev/tigps				u:object_r:radio_device:s0
+/dev/tigps				u:object_r:gps_device:s0
+/system/bin/gps_driver			u:object_r:gpsd_exec:s0
+
+# Houdini
+/system/lib/arm/cpuinfo                 u:object_r:cpuinfo_file:s0
 
 # MMGR
-/system/bin/mmgr                u:object_r:mmgr_exec:s0
-/dev/mdm_ctrl(.*)?              u:object_r:tty_device:s0
-/dev/ttyACM(.*)?                u:object_r:tty_device:s0
-/dev/ttyXMM(.*)?                u:object_r:tty_device:s0
-/dev/ttyIFX0			u:object_r:tty_device:s0
+/dev/gsmtty[0-9]*                       u:object_r:radio_device:s0
+/dev/mdm_ctrl[01]                       u:object_r:radio_device:s0
+/dev/socket/mmgr                        u:object_r:rild_socket:s0
+/dev/ttyACM[01]                         u:object_r:radio_device:s0
+/dev/ttyMFD1				u:object_r:radio_device:s0
+/dev/ttyXMM[01]                         u:object_r:radio_device:s0
+/dev/ttyIFX0			        u:object_r:radio_device:s0
+/system/bin/mmgr                        u:object_r:rild_exec:s0
+
+# Modem creates logs but never rotates them?  Either way, we can't read these
+# logs so they aren't doing us any good so don't make them available to the
+# daemons
+# /data/logs(/.*)?                        u:object_r:radio_log_file:s0
+
+# wifi
+/config/wifi(/.*)?                      u:object_r:wifi_config_file:s0

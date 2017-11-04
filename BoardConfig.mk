@@ -14,6 +14,7 @@ TARGET_CPU_ABI_LIST_32_BIT := x86,armeabi-v7a,armeabi
 TARGET_ARCH := x86
 TARGET_ARCH_VARIANT := atom
 TARGET_BOARD_PLATFORM := sc1
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
 # Atom optimizations to improve memory benchmarks.
 -include $(LOCAL_PATH)/OptAtom.mk
@@ -168,5 +169,5 @@ TW_DEFAULT_EXTERNAL_STORAGE := true
 TWHAVE_SELINUX := true
 
 # SELinux
-#BOARD_SEPOLICY_DIRS += \
+BOARD_SEPOLICY_DIRS += \
     device/motorola/smi/sepolicy

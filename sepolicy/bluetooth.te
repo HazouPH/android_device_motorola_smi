@@ -1,1 +1,5 @@
-allow bluetooth hci_attach_dev:chr_file { read write open };
+type bluetooth_exec, exec_type, file_type;
+domain_auto_trans(init, bluetooth_exec, bluetooth)
+
+allow bluetooth bluetooth_device:chr_file rw_file_perms;
+allow bluetooth sysfs_bluetooth_writable:file w_file_perms;

@@ -1,7 +1,0 @@
-type bd_prov, domain;
-type bd_prov_exec, exec_type, file_type;
-
-init_daemon_domain(bd_prov)
-allow bd_prov property_socket:sock_file write;
-allow bd_prov bluetooth_prop:property_service set;
-allow bd_prov init:unix_stream_socket connectto;

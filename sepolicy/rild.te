@@ -1,3 +1,13 @@
-allow rild socket_device:sock_file write;
-allow rild radio_device:chr_file getattr;
-allow rild mmgr:unix_stream_socket connectto;
+allow rild device:dir r_dir_perms;
+allow rild proc_net:file w_file_perms;
+allow rild radio_cache_file:dir { create_file_perms rw_dir_perms };
+allow rild radio_cache_file:file { create_file_perms rw_file_perms unlink };
+allow rild radio_data_file:dir { create_file_perms rw_dir_perms };
+allow rild radio_data_file:file { create_file_perms rw_file_perms unlink };
+allow rild radio_device:dir r_dir_perms;
+allow rild radio_log_file:dir { create_file_perms rw_dir_perms };
+allow rild radio_log_file:file { create_file_perms rw_file_perms unlink };
+allow rild radio_sysfs_file:file rw_file_perms;
+allow rild rild_socket:sock_file rw_file_perms;
+allow rild system_data_file:dir { write };
+

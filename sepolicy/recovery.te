@@ -1,10 +1,2 @@
-recovery_only(`
-  # htcbatt
-  allow recovery self:capability net_admin;
-  allow recovery self:netlink_kobject_uevent_socket create_socket_perms;
-
-  allow recovery device:dir rw_dir_perms;
-  allow recovery self:capability mknod;
-
-  allow recovery device:chr_file create_file_perms;
-')
+allow recovery self:capability sys_boot;
+allow recovery gpu_device:chr_file { rw_file_perms setattr };

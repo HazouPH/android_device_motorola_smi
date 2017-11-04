@@ -2,8 +2,20 @@
 type batt_health_data_file, file_type;
 type batt_health_sysfs, sysfs_type, fs_type;
 
+# Bluetooth
+type bluetooth_config_file, file_type, data_file_type;
+type bluetooth_device, dev_type;
+
+# Houdini
+type cpuinfo_file, file_type;
+
 # PDS files
 type pds_file, file_type;
 
-# WIFI files
-type wifi_file, file_type;
+# Radio
+type radio_cache_file, file_type, data_file_type;
+type radio_log_file, file_type, data_file_type;
+type radio_sysfs_file, fs_type, sysfs_type;
+
+# WiFi
+type wifi_config_file, file_type, data_file_type;

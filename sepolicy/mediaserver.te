@@ -1,6 +1,15 @@
-allow mediaserver default_prop:property_service set;
-allow mediaserver radio_device:chr_file { read write ioctl open getattr };
-allow mediaserver audio_device:chr_file { read write ioctl open getattr };
-allow mediaserver socket_device:sock_file write;
+allow mediaserver camera_device:chr_file rw_file_perms;
 allow mediaserver graphics_device:dir search;
-allow mediaserver mmgr:unix_stream_socket connectto;
+allow mediaserver media_rw_data_file:dir rw_dir_perms;
+allow mediaserver media_rw_data_file:file { create_file_perms rw_file_perms };
+allow mediaserver radio_device:chr_file rw_file_perms;
+
+# This is evil but we cannot constrain it anymore than
+# "any system_file" because the domain rules in external/sepolicy.
+allow mediaserver system_file:file execmod;
+
+# Use sockets received over binder from various services.
+allow mediaserver system_server:unix_stream_socket rw_socket_perms;
+
+unix_socket_connect(mediaserver, rild, rild)
+wakelock_use(mediaserver)

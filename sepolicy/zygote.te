@@ -1,1 +1,2 @@
-allow zygote self:process execmem;
+# This sucks but needed for camera
+allow zygote system_file:file execmod;

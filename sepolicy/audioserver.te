@@ -1,0 +1,16 @@
+allow audioserver asec_apk_file:dir search;
+allow audioserver activity_service:service_manager { find };
+allow audioserver media_rw_data_file:dir rw_dir_perms;
+allow audioserver media_rw_data_file:file { create_file_perms rw_file_perms };
+allow audioserver radio_device:chr_file rw_file_perms;
+allow audioserver rootfs:lnk_file r_file_perms;
+allow audioserver sysfs:file rw_file_perms;
+allow audioserver tmpfs:dir search;
+
+# Use sockets received over binder from various services.
+allow audioserver system_server:unix_stream_socket rw_socket_perms;
+
+set_prop(audioserver, audio_prop)
+
+unix_socket_connect(audioserver, rild, rild)
+wakelock_use(audioserver)
