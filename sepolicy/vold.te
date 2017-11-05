@@ -1,1 +1,4 @@
+allow vold pds_file:dir getattr;
 allow vold kernel:system module_request;
+allow vold shell_exec:file entrypoint;
+allow vold system_data_file:file { open };

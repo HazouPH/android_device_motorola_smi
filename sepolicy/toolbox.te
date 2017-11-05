@@ -1,0 +1,1 @@
+allow toolbox ram_device:blk_file { getattr open read write };

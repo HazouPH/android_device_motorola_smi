@@ -1,3 +1,5 @@
+allow ueventd pds_file:dir search;
+allow ueventd pds_file:file { getattr open read };
 allow ueventd radio_data_file:dir search;
 allow ueventd radio_data_file:file { read open getattr };
 allow ueventd unlabeled:dir search;

@@ -1,4 +1,12 @@
+allow gpsd pds_file:file { open read };
+allow gpsd radio_data_file:dir { add_name remove_name write };
+allow gpsd radio_data_file:file { create getattr open rename write };
+allow gpsd radio_data_file:sock_file { create write };
 allow gpsd radio_device:chr_file rw_file_perms;
+allow gpsd system_data_file:dir { add_name write };
+allow gpsd system_data_file:file { getattr open read };
+allow gpsd system_data_file:sock_file create;
+allow gpsd system_file:file { execmod };
 
 allow gpsd rild_socket:sock_file rw_file_perms;
 unix_socket_connect(gpsd, rild, rild);

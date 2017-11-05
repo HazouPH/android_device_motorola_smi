@@ -1,2 +1,3 @@
 allow surfaceflinger self:process execmem;
 allow surfaceflinger device:chr_file { ioctl };
+allow surfaceflinger system_file:file execmod;

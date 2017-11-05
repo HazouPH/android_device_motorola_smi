@@ -6,9 +6,9 @@ init_daemon_domain(akmd8963)
 
 file_type_auto_trans(akmd8963, system_data_file, akmd8963_data_file)
 
-
 allow akmd8963 sensors_device:chr_file rw_file_perms;
 allow akmd8963 akmd8963_data_file:file create_file_perms;
+allow akmd8963 system_file:file { execmod };
 
 # Permission needed to create files in /data/misc/
 #allow akmd8963 system_data_file:dir w_dir_perms;

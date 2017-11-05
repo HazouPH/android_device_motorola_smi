@@ -1,6 +1,10 @@
 #============= init ==============
 allow init port:tcp_socket name_connect;
+allow init ram_device:blk_file write;
+allow init self:capability sys_module;
 allow init self:tcp_socket { write getopt create read connect };
+allow init socket_device:sock_file { create setattr };
+allow init tmpfs:lnk_file create;
 
 # Mount on and write to /proc/sys/fs/binfmt_misc.
 allow init proc:dir mounton;

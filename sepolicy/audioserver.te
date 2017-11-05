@@ -2,9 +2,11 @@ allow audioserver asec_apk_file:dir search;
 allow audioserver activity_service:service_manager { find };
 allow audioserver media_rw_data_file:dir rw_dir_perms;
 allow audioserver media_rw_data_file:file { create_file_perms rw_file_perms };
+allow audioserver proc_net:file { getattr open read };
 allow audioserver radio_device:chr_file rw_file_perms;
 allow audioserver rootfs:lnk_file r_file_perms;
 allow audioserver sysfs:file rw_file_perms;
+allow audioserver system_file:file execmod;
 allow audioserver tmpfs:dir search;
 
 # Use sockets received over binder from various services.
