@@ -4,8 +4,8 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_SRC_FILES := icu51.c
-LOCAL_SHARED_LIBRARIES := libicuuc libicui18n
+LOCAL_SRC_FILES := icu51.c mixer.c
+LOCAL_SHARED_LIBRARIES := libicuuc libicui18n 
 LOCAL_MODULE := libshim_audio
 LOCAL_MODULE_TAGS := optional
 
