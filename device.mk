@@ -247,6 +247,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     debug.hwui.swap_with_damage=false \
     debug.hwui.use_buffer_age=false
 
+# Disable Atlas
+PRODUCT_PROPERTY_OVERRIDES += \
+    config.disable_atlas=true
+
 # IDC
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/usr/idc/atmxt-i2c.idc:system/usr/idc/atmxt-i2c.idc \
