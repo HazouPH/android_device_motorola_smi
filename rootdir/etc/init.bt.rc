@@ -1,6 +1,6 @@
 import init.bt.vendor.rc
 
-service bd_prov /system/bin/bd_prov
+service bd_prov /system/bin/bd_prov.sh
     class core
     user system
     group system bluetooth

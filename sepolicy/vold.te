@@ -1,4 +1,7 @@
-allow vold pds_file:dir getattr;
+type pds_block_device, dev_type;
+allow vold pds_file:file create_file_perms;
+allow vold pds_file:dir create_dir_perms;
+allow vold pds_block_device:blk_file rw_file_perms;
 allow vold kernel:system module_request;
 allow vold shell_exec:file entrypoint;
 allow vold system_data_file:file { open };

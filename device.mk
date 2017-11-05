@@ -225,6 +225,15 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.adb.secure=0 \
     ro.debuggable=1
 
+# Fix SELinux execmod denials
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/akmd8963.sh \
+    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/batt_health.sh \
+    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/bd_prov.sh \
+    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/pvrsrvctl.sh \
+    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/gps_driver.sh \
+    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/mmgr.sh
+
 # FS config
 PRODUCT_PACKAGES += \
     fs_config_files

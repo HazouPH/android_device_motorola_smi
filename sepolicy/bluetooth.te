@@ -3,3 +3,5 @@ domain_auto_trans(init, bluetooth_exec, bluetooth)
 
 allow bluetooth bluetooth_device:chr_file rw_file_perms;
 allow bluetooth sysfs_bluetooth_writable:file w_file_perms;
+allow bluetooth shell_exec:file rx_file_perms;
+allow bluetooth system_file:file {rx_file_perms execmod};

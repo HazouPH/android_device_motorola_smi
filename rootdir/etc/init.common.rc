@@ -122,7 +122,7 @@ on charger
     #default setting to enable charging in COS
     setprop sys.usb.config charging
 
-service pvrsrvctl /system/bin/pvrsrvctl --no-module --start
+service pvrsrvctl /system/bin/pvrsrvctl.sh
     class core
     oneshot
     user root

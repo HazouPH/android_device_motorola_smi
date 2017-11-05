@@ -18,7 +18,7 @@ import init.moto.usb.rc
 # runs after "on early-init" and before "on early-fs"
 # runs in charge-only-mode
 on init
-    export LD_SHIM_LIBS "/system/bin/mmgr|libshim_mmgr.so:/system/lib/libparameter.so|libshim_audio.so:/system/lib/parameter-framework-plugins/Audio/libtinyalsa_custom-subsystem.so|libshim_audio.so:/system/lib/hw/camera.vendor.sc1.so|libshim_camera.so:/system/lib/libsecurity_api.so|libshim_security_api.so"
+    export LD_SHIM_LIBS "/system/bin/mmgr|libshim_mmgr.so:/system/lib/libparameter.so|libshim_audio.so:/system/lib/parameter-framework-plugins/Audio/libtinyalsa_custom-subsystem.so|libshim_audio.so:/system/lib/hw/camera.vendor.sc1.so|libshim_camera.so:/system/lib/libsecurity_api.so|libshim_crypto.so:/system/bin/bd_prov|libshim_crypto.so"
 
     write /sys/class/graphics/fbcon/cursor_blink 0
 
@@ -257,14 +257,14 @@ service gkisystem /system/bin/gkisystem
     group radio mot_accy mot_secclkd
     seclabel u:r:gpsd:s0
 
-service locDrv /system/bin/gps_driver
+service locDrv /system/bin/gps_driver.sh
     class main
     user radio
     group radio inet sdcard_rw
     seclabel u:r:gpsd:s0
 
 # Magnetometer
-service akmd8963 /system/bin/akmd8963
+service akmd8963 /system/bin/akmd8963.sh
     class main
     user compass
     group compass misc input
@@ -272,7 +272,7 @@ service akmd8963 /system/bin/akmd8963
 
 # Properties, events trigging service
 
-service batt_health /system/bin/batt_health
+service batt_health /system/bin/batt_health.sh
     class main
     group mot_pwric
     oneshot

@@ -1,3 +1,4 @@
 # watchdog needs this
 allow kernel self:capability sys_admin;
+allow kernel pds_file:file rw_file_perms;
 

@@ -47,7 +47,7 @@ LOCAL_SRC_FILES := \
      crypto_malloc.c
 
 LOCAL_SHARED_LIBRARIES := libicuuc libicui18n
-LOCAL_MODULE := libshim_security_api
+LOCAL_MODULE := libshim_crypto
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)

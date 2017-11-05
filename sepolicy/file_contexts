@@ -1,15 +1,18 @@
 # AKMD8963
 /dev/akm8963    			u:object_r:sensors_device:s0
 /dev/akm8963_dev			u:object_r:sensors_device:s0
-/system/bin/akmd8963                  	u:object_r:akmd8963_exec:s0
+/system/bin/akmd8963\.sh              	u:object_r:akmd8963_exec:s0
 
 # batt_health
 /data/power_supply_logger(/.*)?    	u:object_r:batt_health_data_file:s0
 /sys/module/max17042(/.*)?       	u:object_r:batt_health_sysfs:s0
-/system/bin/batt_health            	u:object_r:batt_health_exec:s0
+/system/bin/batt_health\.sh            	u:object_r:batt_health_exec:s0
 
 # PDS
+/data/misc/pds(/.*)?            	u:object_r:pds_file:s0
 /pds(/.*)?                         	u:object_r:pds_file:s0
+/dev/block/mmcblk0p12            	u:object_r:pds_block_device:s0
+/dev/block/pds                  	u:object_r:pds_block_device:s0
 
 # Camera
 /dev/lis3dh    				u:object_r:sensors_device:s0
@@ -24,13 +27,13 @@
 # Bluetooth
 /dev/hci_tty				u:object_r:bluetooth_device:s0
 /dev/ttyMFD0				u:object_r:bluetooth_device:s0
-/system/bin/bd_prov		        u:object_r:bluetooth_exec:s0
-/system/bin/uim		             	u:object_r:bluetooth_exec:s0
+/system/bin/bd_prov\.sh		        u:object_r:bluetooth_exec:s0
+/system/bin/uim 	             	u:object_r:bluetooth_exec:s0
 
 # Display
 /dev/dri/card0				u:object_r:gpu_device:s0
 /dev/card0				u:object_r:gpu_device:s0
-/system/bin/pvrsrvctl                   u:object_r:pvrsrvctl_exec:s0
+/system/bin/pvrsrvctl\.sh               u:object_r:pvrsrvctl_exec:s0
 
 # Firmwares
 /system/etc/firmware/ti-connectivity(/*)? u:object_r:wifi_data_file:s0
@@ -41,7 +44,7 @@
 /system/etc/location.cfg		u:object_r:system_data_file:s0
 /data/location/GpsIpcDrvSocket		u:object_r:system_data_file:s0
 /dev/tigps				u:object_r:gps_device:s0
-/system/bin/gps_driver			u:object_r:gpsd_exec:s0
+/system/bin/gps_driver\.sh		u:object_r:gpsd_exec:s0
 
 # Houdini
 /system/lib/arm/cpuinfo                 u:object_r:cpuinfo_file:s0
@@ -54,7 +57,7 @@
 /dev/ttyMFD1				u:object_r:radio_device:s0
 /dev/ttyXMM[01]                         u:object_r:radio_device:s0
 /dev/ttyIFX0			        u:object_r:radio_device:s0
-/system/bin/mmgr                        u:object_r:rild_exec:s0
+/system/bin/mmgr\.sh                    u:object_r:rild_exec:s0
 
 # Modem creates logs but never rotates them?  Either way, we can't read these
 # logs so they aren't doing us any good so don't make them available to the
