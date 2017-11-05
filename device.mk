@@ -235,7 +235,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.hwui.disable_scissor_opt=true \
     debug.hwui.render_dirty_regions=false \
-    debug.hwui.swap_with_damage=false
+    debug.hwui.swap_with_damage=false \
+    debug.hwui.use_buffer_age=false
 
 # IDC
 PRODUCT_COPY_FILES += \
