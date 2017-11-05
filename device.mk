@@ -34,7 +34,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.r_submix.default \
-    libaudioutils
+    libaudioutils \
+    libtinyalsa
 
 # MM Compability
 PRODUCT_PACKAGES += \
