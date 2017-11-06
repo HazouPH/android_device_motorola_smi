@@ -42,7 +42,7 @@ PRODUCT_PACKAGES += \
     libshim_audio \
     libshim_camera \
     libshim_mmgr \
-    libshim_security_api
+    libshim_crypto
 
 # Radio
 PRODUCT_PACKAGES += \
