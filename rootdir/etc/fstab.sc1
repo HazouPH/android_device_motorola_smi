@@ -11,7 +11,7 @@
 #/dev/block/panic     /panic      raw     defaults                                                                           wait
 
 # zram
-/dev/block/zram0      none        swap    defaults                                                                           zramsize=104857600,notrim
+/dev/block/zram0      none        swap    defaults                                                                           zramsize=268435456,zramstreams=2,notrim
 
 # Voldmanaged
 /devices/pci0000:00/0000:00:04.0/mmc_host/mmc1* auto auto defaults                                                           voldmanaged=sdcard1:auto,encryptable=userdata
