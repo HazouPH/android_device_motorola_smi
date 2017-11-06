@@ -23,7 +23,7 @@ static bool charger_is_connected = false;
 
 void healthd_board_init(struct healthd_config *config)
 {
-    config->batteryCapacityPath = "/sys/class/power_supply/max170xx_battery/charge_counter";
+    config->batteryCapacityPath = "/sys/class/power_supply/max170xx_battery/capacity";
 }
 
 void healthd_board_mode_charger_draw_battery(struct android::BatteryProperties *)
