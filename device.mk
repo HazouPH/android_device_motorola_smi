@@ -171,6 +171,7 @@ PRODUCT_PACKAGES += \
     libcurl \
     tcpdump \
     libcorkscrew \
+    imgdiff \
     com.android.future.usb.accessory
 
 # Houdini (arm native bridge)
