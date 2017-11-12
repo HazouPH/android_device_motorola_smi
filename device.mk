@@ -160,9 +160,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     pvrsrvctl
 
-# AGPS (TODO: implement it for MM)
+# Motorola AGPS
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/framework/com.motorola.android.location.jar:system/framework/com.motorola.android.location.jar
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.motoagps.enable=true
 
 # Misc
 PRODUCT_PACKAGES += \
