@@ -5,32 +5,21 @@ XT890|Scorpion Mini Intel|Razr i
 
 Motorola Razr i Intel-atom
 
-WIP, don't use unless u know how this works. Still some leftovers from CM11
- |
- V :P and more
-
-working:
+Working:
 - call
-- gps
+- GPS and AGPS
 - audio
 - All data connections (wifi and cellular)
-- Most off the video's
-- Houdini 6.1.1a_*
 - Vibrator
 
-Not working:
-- SElinux
-- Many more things
-
-What needs to be done:
+Needs work:
 - Enable fully working SElinux
-- Enable camera (api/missing functions)
-- Enable A-GPS
+- Most off the video's
+- Enable camera atomisp kernel v2 driver sometime
 - Fix WVM codecs
 - Fix network search and switch (2g/3g)
+- Houdini 7.1*
 - Possibly many more
-
-Also debug features are on. Device is a little slow with all those warnings, errors etc.
 
 Source from Turl, Oxavelar, Motorola, Intel and HazouPH
 
