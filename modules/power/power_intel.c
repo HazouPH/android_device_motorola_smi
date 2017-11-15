@@ -202,19 +202,10 @@ static void intel_power_init(struct power_module *module)
 {
     ALOGW("**Intel Power HAL initialisation**\n");
 
-#if NO_TOUCH_BOOST
-#if (POWERHAL_MFLD || POWERHAL_MRFLD)
-    sysfs_write(TOUCHBOOST_SYSFS, "1333000");
-#endif
-
-#if POWERHAL_BYT
-    sysfs_write(TOUCHBOOST_SYSFS, "1463000");
-#endif
-
-#if POWERHAL_CLV
-    sysfs_write(TOUCHBOOST_SYSFS, "933000");
-#endif
-#endif
+    /*
+      Touchboost Frequency can be
+      over-ridden here based on requirement
+    */
 }
 
 static void intel_power_set_interactive(struct power_module *module, int on)
