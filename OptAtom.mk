@@ -49,8 +49,8 @@ TARGET_GLOBAL_CFLAGS += -DUSE_SSSE3 -DUSE_SSE2
 TARGET_GLOBAL_CPPFLAGS += -march=atom -fno-exceptions
 TARGET_GLOBAL_LDFLAGS += -Wl,-O1
 
-# customize the malloced address to be 16-byte aligned
-BOARD_MALLOC_ALIGNMENT := 16
+# We only have 1GB of RAM
+MALLOC_SVELTE := true
 
 # Intel ART optimized build flags (needs art-extension)
 VENDOR_ART_PATH := art-extension/art-extension
