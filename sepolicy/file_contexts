@@ -13,6 +13,7 @@
 /pds(/.*)?                         	u:object_r:pds_file:s0
 /dev/block/mmcblk0p12            	u:object_r:pds_block_device:s0
 /dev/block/pds                  	u:object_r:pds_block_device:s0
+/pds/wifi/nvs_map_mac80211.bin          u:object_r:wifi_data_file:s0
 
 # Camera
 /dev/lis3dh    				u:object_r:sensors_device:s0

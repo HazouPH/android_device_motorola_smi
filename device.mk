@@ -208,7 +208,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     lib_driver_cmd_wl12xx \
     calibrator \
-    wlan_prov \
     libwpa_client \
     hostapd \
     wpa_supplicant \
@@ -219,12 +218,21 @@ PRODUCT_PACKAGES += \
     wl128x-fw-4-mr.bin \
     wl128x-fw-4-plt.bin \
     wl1271-nvs_128x.bin \
-    TQS.ini
-#    regulatory.bin \
-#    crda \
+    wl1271-nvs.bin
 PRODUCT_PROPERTY_OVERRIDES += \
-    wifi.interface=wlan0
+    wifi.interface=wlan0 \
+    softap.interface=wlan0 \
+    wifi.ap.interface=wlan0 \
+    persist.wlan.ti.calibrated=0 \
+    ro.disableWifiApFirmwareReload=true
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/bin/wifical.sh:system/bin/wifical.sh \
+    $(LOCAL_PATH)/prebuilt/bin/wificalcheck.sh:system/bin/wificalcheck.sh \
+    $(LOCAL_PATH)/prebuilt/etc/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/prebuilt/etc/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
+    $(LOCAL_PATH)/prebuilt/etc/wifi/TQS.ini:system/etc/wifi/TQS.ini
 
+# Misc
 ADDITIONAL_DEFAULT_PROPERTIES += \
     panel.physicalWidthmm=52 \
     panel.physicalHeightmm=89 \
