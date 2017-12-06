@@ -59,7 +59,7 @@ etc/phonecall_es305b_speaker_far_talk_csv_nb.bin
 etc/phonecall_es305b_speaker_far_talk_csv_wb.bin
 etc/phonecall_es305b_speaker_far_talk_voip_nb.bin
 etc/phonecall_es305b_speaker_far_talk_voip_wb.bin
-lib/hw/audio.primary.smi.so
+lib/hw/audio.primary.smi.so:lib/hw/audio.primary.vendor.smi.so
 lib/hw/audio_policy.smi.so
 lib/libaudience-manager.so
 lib/libaudiohalutils.so
