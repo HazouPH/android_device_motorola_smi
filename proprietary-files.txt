@@ -174,7 +174,7 @@ etc/parameter-framework/ParameterFrameworkConfigurationVibrator.xml
 etc/parameter-framework/Settings/Vibrator/VibratorConfigurableDomains.xml
 etc/parameter-framework/Structure/Vibrator/AlsaVibratorClass.xml
 etc/parameter-framework/Structure/Vibrator/AlsaVibratorSubsystem.xml
-lib/hw/vibrator.smi.so
+lib/hw/vibrator.smi.so:lib/hw/vibrator.vendor.smi.so
 
 # Wifi
 etc/firmware/TIInit_10.5.20.bts

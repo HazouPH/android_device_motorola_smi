@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef _HARDWARE_VIBRATOR_H
-#define _HARDWARE_VIBRATOR_H
+#ifndef _HARDWARE_VENDOR_VIBRATOR_H
+#define _HARDWARE_VENDOR_VIBRATOR_H
 
 #include <stdint.h>
 #include <sys/cdefs.h>
@@ -67,4 +67,4 @@ typedef struct vibrator_module {
 
 __END_DECLS
 
-#endif  // _HARDWARE_VIBRATOR_H
+#endif  // _HARDWARE_VNEDOR_VIBRATOR_H

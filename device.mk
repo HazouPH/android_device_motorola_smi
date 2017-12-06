@@ -166,6 +166,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.motoagps.enable=true
 
+# Vibrator
+PRODUCT_PACKAGES += \
+    vibrator.sc1
+
 # Misc
 PRODUCT_PACKAGES += \
     curl \
