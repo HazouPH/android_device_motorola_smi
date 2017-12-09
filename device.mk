@@ -242,6 +242,10 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.adb.secure=0 \
     ro.debuggable=1
 
+# Storage
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.sys.sdcardfs=true
+
 # Fix SELinux execmod denials
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/akmd8963.sh \
