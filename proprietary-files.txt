@@ -7,7 +7,6 @@ bin/uim
 vendor/lib/libbt-vendor.so
 
 # Audio
-bin/remote-process
 etc/firmware/vpimg_es305b-BB.bin
 etc/firmware/vpimg_es305b-NH.bin
 etc/firmware/vpimg_es305b.bin
@@ -84,7 +83,6 @@ etc/firmware/aac_dec_1.bin
 etc/firmware/aac_enc_1.bin
 etc/firmware/aac_v1_dec_1.bin
 etc/firmware/aac_v2_dec_1.bin
-lib/libremote-processor.so
 vendor/media/LMspeed_508.emd
 vendor/media/PFFprec_600.emd
 

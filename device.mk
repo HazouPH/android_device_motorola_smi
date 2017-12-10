@@ -36,7 +36,9 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.r_submix.default \
     libaudioutils \
-    libtinyalsa
+    libtinyalsa \
+    libremote-processor \
+    remote-process
 
 # MM Compability
 PRODUCT_PACKAGES += \
