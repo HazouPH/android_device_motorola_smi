@@ -15,6 +15,9 @@
      limitations under the License.
 -->
 <resources>
+    <!-- Default values for LiveDisplay -->
+    <integer name="config_defaultLiveDisplayMode">0</integer>
+
     <!-- All the capabilities of the LEDs on this device, stored as a bit field.
          This integer should equal the sum of the corresponding value for each
          of the following capabilities present:
