@@ -1,4 +1,0 @@
-<resources xmlns:xliff="urnasis:names:tc:xliff:document:1.2 ">
-    <!-- When true enable color temperature setting. -->
-    <bool name="config_enableColorTemperature">false</bool>
-</resources>
