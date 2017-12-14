@@ -37,7 +37,7 @@ int logwrapped = 0;
 /* Input */
 struct wrapper_in_stream {
     struct audio_stream_in *stream_in;
-    struct lp_audio_stream_in *lp_stream_in;
+    struct kk_audio_stream_in *kk_stream_in;
     int in_use;
     pthread_mutex_t in_use_mutex;
     pthread_cond_t in_use_cond;
@@ -50,7 +50,7 @@ static pthread_mutex_t in_streams_mutex = PTHREAD_MUTEX_INITIALIZER;
 /* Output */
 struct wrapper_out_stream {
     struct audio_stream_out *stream_out;
-    struct lp_audio_stream_out *lp_stream_out;
+    struct kk_audio_stream_out *kk_stream_out;
     int in_use;
     pthread_mutex_t in_use_mutex;
     pthread_cond_t in_use_cond;
@@ -61,7 +61,7 @@ static int n_out_streams = 0;
 static pthread_mutex_t out_streams_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 /* HAL */
-static struct lp_audio_hw_device *lp_hw_dev = NULL;
+static struct kk_audio_hw_device *kk_hw_dev = NULL;
 static void *dso_handle = NULL;
 static int in_use = 0;
 static pthread_mutex_t in_use_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -80,8 +80,8 @@ static pthread_cond_t in_use_cond = PTHREAD_COND_INITIALIZER;
     static rettype wrapper_ ## direction ## _ ## name  prototype \
     { \
         rettype ret = err; \
-        struct lp_audio_stream *lpstream; \
-        struct lp_audio_stream_ ## direction *lpstream_ ## direction; \
+        struct kk_audio_stream *kkstream; \
+        struct kk_audio_stream_ ## direction *kkstream_ ## direction; \
         int i; \
     \
         if (logwrapped == 1) ALOGI log; \
@@ -89,9 +89,9 @@ static pthread_cond_t in_use_cond = PTHREAD_COND_INITIALIZER;
         for (i = 0; i < n_ ## direction ## _streams; i++) { \
             if (direction ## _streams[i].stream_ ## direction == (struct audio_stream_ ## direction*)stream) { \
                 WAIT_FOR_FREE(direction ## _streams[i].in_use); \
-                lpstream = (struct lp_audio_stream *)direction ## _streams[i].lp_stream_ ## direction; \
-                lpstream_ ## direction = direction ## _streams[i].lp_stream_ ## direction; \
-                ret = lpstream_ ## direction ->function parameters; \
+                kkstream = (struct kk_audio_stream *)direction ## _streams[i].kk_stream_ ## direction; \
+                kkstream_ ## direction = direction ## _streams[i].kk_stream_ ## direction; \
+                ret = kkstream_ ## direction ->function parameters; \
                 UNLOCK_FREE(direction ## _streams[i].in_use); \
                 break; \
             } \
@@ -119,7 +119,7 @@ _WRAP_STREAM_LOCKED(name, common.name, direction, rettype, err, prototype, param
         pthread_mutex_lock(&in_streams_mutex); \
     \
         WAIT_FOR_FREE(in_use); \
-        ret = lp_hw_dev->function parameters; \
+        ret = kk_hw_dev->function parameters; \
         UNLOCK_FREE(in_use); \
     \
         pthread_mutex_unlock(&in_streams_mutex); \
@@ -136,7 +136,7 @@ _WRAP_STREAM_LOCKED(name, common.name, direction, rettype, err, prototype, param
     { \
         if (logwrapped == 1) ALOGI log; \
     \
-        return lp_hw_dev->function parameters; \
+        return kk_hw_dev->function parameters; \
     }
 
 #define WRAP_HAL(name, rettype, prototype, parameters, log) \
@@ -148,57 +148,57 @@ _WRAP_STREAM_LOCKED(name, common.name, direction, rettype, err, prototype, param
 /* Input stream */
 
 WRAP_STREAM_LOCKED(read, in, ssize_t, -ENODEV, (struct audio_stream_in *stream, void* buffer, size_t bytes),
-            (lpstream_in, buffer, bytes), ("in_read"))
+            (kkstream_in, buffer, bytes), ("in_read"))
 
 WRAP_STREAM_LOCKED(set_gain, in, int, -ENODEV, (struct audio_stream_in *stream, float gain),
-            (lpstream_in, gain), ("in_set_gain: %f", gain))
+            (kkstream_in, gain), ("in_set_gain: %f", gain))
 
 WRAP_STREAM_LOCKED_COMMON(standby, in, int, -ENODEV, (struct audio_stream *stream),
-            (lpstream), ("in_standby"))
+            (kkstream), ("in_standby"))
 
 WRAP_STREAM_LOCKED_COMMON(set_parameters, in, int, -ENODEV, (struct audio_stream *stream, const char *kv_pairs),
-(lpstream, kv_pairs), ("in_set_parameters: %s", kv_pairs))
+(kkstream, kv_pairs), ("in_set_parameters: %s", kv_pairs))
 
 WRAP_STREAM_LOCKED_COMMON(get_sample_rate, in, uint32_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("in_get_sample_rate"))
+            (kkstream), ("in_get_sample_rate"))
 
 WRAP_STREAM_LOCKED_COMMON(set_sample_rate, in, int, -ENODEV, (struct audio_stream *stream, uint32_t rate),
-            (lpstream, rate), ("in_set_sample_rate: %u", rate))
+            (kkstream, rate), ("in_set_sample_rate: %u", rate))
 
 WRAP_STREAM_LOCKED_COMMON(get_buffer_size, in, size_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("in_get_buffer_size"))
+            (kkstream), ("in_get_buffer_size"))
 
 WRAP_STREAM_LOCKED_COMMON(get_channels, in, audio_channel_mask_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("in_get_channels"))
+            (kkstream), ("in_get_channels"))
 
 WRAP_STREAM_LOCKED_COMMON(get_format, in, audio_format_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("in_get_format"))
+            (kkstream), ("in_get_format"))
 
 WRAP_STREAM_LOCKED_COMMON(set_format, in, int, -ENODEV, (struct audio_stream *stream, audio_format_t format),
-            (lpstream, format), ("in_set_format: %u", format))
+            (kkstream, format), ("in_set_format: %u", format))
 
 WRAP_STREAM_LOCKED_COMMON(dump, in, int, -ENODEV, (const struct audio_stream *stream, int fd),
-            (lpstream, fd), ("in_dump: %d", fd))
+            (kkstream, fd), ("in_dump: %d", fd))
 
 WRAP_STREAM_LOCKED_COMMON(get_device, in, audio_devices_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("in_get_device"))
+            (kkstream), ("in_get_device"))
 
 WRAP_STREAM_LOCKED_COMMON(set_device, in, int, -ENODEV, (struct audio_stream *stream, audio_devices_t device),
-            (lpstream, device), ("in_set_device: %d", device))
+            (kkstream, device), ("in_set_device: %d", device))
 
 WRAP_STREAM_LOCKED_COMMON(get_parameters, in, char*, NULL, (const struct audio_stream *stream, const char *keys),
-            (lpstream, keys), ("in_get_parameters: %s", keys))
+            (kkstream, keys), ("in_get_parameters: %s", keys))
 
 WRAP_STREAM_LOCKED_COMMON(add_audio_effect, in, int, -ENODEV, (const struct audio_stream *stream, effect_handle_t effect),
-            (lpstream, effect), ("in_add_audio_effect"))
+            (kkstream, effect), ("in_add_audio_effect"))
 
 WRAP_STREAM_LOCKED_COMMON(remove_audio_effect, in, int, -ENODEV, (const struct audio_stream *stream, effect_handle_t effect),
-            (lpstream, effect), ("in_remove_audio_effect"))
+            (kkstream, effect), ("in_remove_audio_effect"))
 
 static void wrapper_close_input_stream(unused_audio_hw_device *dev,
                                        struct audio_stream_in *stream_in)
 {
-    struct lp_audio_stream_in *lp_stream_in = NULL;
+    struct kk_audio_stream_in *kk_stream_in = NULL;
     int i;
 
     pthread_mutex_lock(&in_streams_mutex);
@@ -206,7 +206,7 @@ static void wrapper_close_input_stream(unused_audio_hw_device *dev,
         if (in_streams[i].stream_in == stream_in) {
             WAIT_FOR_FREE(in_streams[i].in_use);
             UNLOCK_FREE(in_streams[i].in_use);
-            lp_stream_in = in_streams[i].lp_stream_in;
+            kk_stream_in = in_streams[i].kk_stream_in;
             free(in_streams[i].stream_in);
             pthread_mutex_destroy(&(in_streams[i].in_use_mutex));
             pthread_cond_destroy(&(in_streams[i].in_use_cond));
@@ -220,9 +220,9 @@ static void wrapper_close_input_stream(unused_audio_hw_device *dev,
             break;
         }
     }
-    if (lp_stream_in) {
+    if (kk_stream_in) {
         WAIT_FOR_FREE(in_use);
-        lp_hw_dev->close_input_stream(lp_hw_dev, lp_stream_in);
+        kk_hw_dev->close_input_stream(kk_hw_dev, kk_stream_in);
         UNLOCK_FREE(in_use);
     }
 
@@ -249,14 +249,14 @@ static int wrapper_open_input_stream(unused_audio_hw_device *dev,
                                      __attribute__((unused)) const char *address,
                                      __attribute__((unused)) audio_source_t source)
 {
-    struct lp_audio_stream_in *lp_stream_in;
+    struct kk_audio_stream_in *kk_stream_in;
     int ret;
 
     pthread_mutex_lock(&in_streams_mutex);
 
     WAIT_FOR_FREE(in_use);
-    ret = lp_hw_dev->open_input_stream(lp_hw_dev, handle, devices,
-                                         config, &lp_stream_in);
+    ret = kk_hw_dev->open_input_stream(kk_hw_dev, handle, devices,
+                                         config, &kk_stream_in);
     UNLOCK_FREE(in_use);
 
     if (ret == 0) {
@@ -272,7 +272,7 @@ static int wrapper_open_input_stream(unused_audio_hw_device *dev,
         in_streams = new_in_streams;
         memset(&in_streams[n_in_streams], 0, sizeof(struct wrapper_in_stream));
 
-        in_streams[n_in_streams].lp_stream_in = lp_stream_in;
+        in_streams[n_in_streams].kk_stream_in = kk_stream_in;
         in_streams[n_in_streams].stream_in = malloc(sizeof(struct audio_stream_in));
         if (!in_streams[n_in_streams].stream_in) {
             ALOGE("Can't allocate memory for stream_in!");
@@ -308,7 +308,7 @@ static int wrapper_open_input_stream(unused_audio_hw_device *dev,
 
         if (logwrapped == 1){
 			ALOGI("Wrapped an input stream: rate %d, channel_mask: %x, format: %d, addr: %p/%p",
-                  config->sample_rate, config->channel_mask, config->format, *stream_in, lp_stream_in);
+                  config->sample_rate, config->channel_mask, config->format, *stream_in, kk_stream_in);
 		}
         n_in_streams++;
     }
@@ -320,61 +320,61 @@ static int wrapper_open_input_stream(unused_audio_hw_device *dev,
 /* Output stream */
 
 WRAP_STREAM_LOCKED(write, out, int, -ENODEV, (struct audio_stream_out *stream, const void* buffer, size_t bytes),
-            (lpstream_out, buffer, bytes), ("out_write"))
+            (kkstream_out, buffer, bytes), ("out_write"))
 
 WRAP_STREAM_LOCKED(set_volume, out, int, -ENODEV, (struct audio_stream_out *stream, float left, float right),
-            (lpstream_out, left, right), ("set_out_volume: %f/%f", left, right))
+            (kkstream_out, left, right), ("set_out_volume: %f/%f", left, right))
 
 WRAP_STREAM_LOCKED_COMMON(standby, out, int, -ENODEV, (struct audio_stream *stream),
-            (lpstream), ("out_standby"))
+            (kkstream), ("out_standby"))
 
 WRAP_STREAM_LOCKED_COMMON(set_parameters, out, int, -ENODEV, (struct audio_stream *stream, const char *kv_pairs),
-(lpstream, kv_pairs), ("out_set_parameters: %s", kv_pairs))
+(kkstream, kv_pairs), ("out_set_parameters: %s", kv_pairs))
 
 WRAP_STREAM_LOCKED_COMMON(get_sample_rate, out, uint32_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("out_get_sample_rate"))
+            (kkstream), ("out_get_sample_rate"))
 
 WRAP_STREAM_LOCKED_COMMON(set_sample_rate, out, int, -ENODEV, (struct audio_stream *stream, uint32_t rate),
-            (lpstream, rate), ("out_set_sample_rate: %u", rate))
+            (kkstream, rate), ("out_set_sample_rate: %u", rate))
 
 WRAP_STREAM_LOCKED_COMMON(get_buffer_size, out, size_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("out_get_buffer_size"))
+            (kkstream), ("out_get_buffer_size"))
 
 WRAP_STREAM_LOCKED_COMMON(get_channels, out, audio_channel_mask_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("out_get_channels"))
+            (kkstream), ("out_get_channels"))
 
 WRAP_STREAM_LOCKED_COMMON(get_format, out, audio_format_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("out_get_format"))
+            (kkstream), ("out_get_format"))
 
 WRAP_STREAM_LOCKED_COMMON(set_format, out, int, -ENODEV, (struct audio_stream *stream, audio_format_t format),
-            (lpstream, format), ("out_set_format: %u", format))
+            (kkstream, format), ("out_set_format: %u", format))
 
 WRAP_STREAM_LOCKED_COMMON(dump, out, int, -ENODEV, (const struct audio_stream *stream, int fd),
-            (lpstream, fd), ("out_dump: %d", fd))
+            (kkstream, fd), ("out_dump: %d", fd))
 
 WRAP_STREAM_LOCKED_COMMON(get_device, out, audio_devices_t, 0, (const struct audio_stream *stream),
-            (lpstream), ("out_get_device"))
+            (kkstream), ("out_get_device"))
 
 WRAP_STREAM_LOCKED_COMMON(set_device, out, int, -ENODEV, (struct audio_stream *stream, audio_devices_t device),
-            (lpstream, device), ("out_set_device: %d", device))
+            (kkstream, device), ("out_set_device: %d", device))
 
 WRAP_STREAM_LOCKED_COMMON(get_parameters, out, char*, NULL, (const struct audio_stream *stream, const char *keys),
-            (lpstream, keys), ("out_get_parameters: %s", keys))
+            (kkstream, keys), ("out_get_parameters: %s", keys))
 
 WRAP_STREAM_LOCKED_COMMON(add_audio_effect, out, int, -ENODEV, (const struct audio_stream *stream, effect_handle_t effect),
-            (lpstream, effect), ("out_add_audio_effect"))
+            (kkstream, effect), ("out_add_audio_effect"))
 
 WRAP_STREAM_LOCKED_COMMON(remove_audio_effect, out, int, -ENODEV, (const struct audio_stream *stream, effect_handle_t effect),
-            (lpstream, effect), ("out_remove_audio_effect"))
+            (kkstream, effect), ("out_remove_audio_effect"))
 
 WRAP_STREAM_LOCKED(get_latency, out, uint32_t, 0, (const struct audio_stream_out *stream),
-            (lpstream_out), ("out_get_latency"))
+            (kkstream_out), ("out_get_latency"))
 
 WRAP_STREAM_LOCKED(get_render_position, out, int, -ENODEV, (const struct audio_stream_out *stream, uint32_t *dsp_frames),
-            (lpstream_out, dsp_frames), ("out_get_render_position"))
+            (kkstream_out, dsp_frames), ("out_get_render_position"))
 
 WRAP_STREAM_LOCKED(get_next_write_timestamp, out, int, -ENODEV, (const struct audio_stream_out *stream, int64_t *timestamp),
-            (lpstream_out, timestamp), NULL)
+            (kkstream_out, timestamp), NULL)
 
 int wrapper_get_presentation_position(__attribute__((unused)) const struct audio_stream_out *stream,
                 __attribute__((unused)) uint64_t *frames, __attribute__((unused)) struct timespec *timestamp)
@@ -385,7 +385,7 @@ int wrapper_get_presentation_position(__attribute__((unused)) const struct audio
 static void wrapper_close_output_stream(unused_audio_hw_device *dev,
                             struct audio_stream_out* stream_out)
 {
-    struct lp_audio_stream_out *lp_stream_out = NULL;
+    struct kk_audio_stream_out *kk_stream_out = NULL;
     int i;
 
     pthread_mutex_lock(&out_streams_mutex);
@@ -393,7 +393,7 @@ static void wrapper_close_output_stream(unused_audio_hw_device *dev,
         if (out_streams[i].stream_out == stream_out) {
             WAIT_FOR_FREE(out_streams[i].in_use);
             UNLOCK_FREE(out_streams[i].in_use);
-            lp_stream_out = out_streams[i].lp_stream_out;
+            kk_stream_out = out_streams[i].kk_stream_out;
             free(out_streams[i].stream_out);
             pthread_mutex_destroy(&(out_streams[i].in_use_mutex));
             pthread_cond_destroy(&(out_streams[i].in_use_cond));
@@ -408,9 +408,9 @@ static void wrapper_close_output_stream(unused_audio_hw_device *dev,
         }
     }
 
-    if (lp_stream_out) {
+    if (kk_stream_out) {
         WAIT_FOR_FREE(in_use);
-        lp_hw_dev->close_output_stream(lp_hw_dev, lp_stream_out);
+        kk_hw_dev->close_output_stream(kk_hw_dev, kk_stream_out);
         UNLOCK_FREE(in_use);
     }
 
@@ -425,14 +425,14 @@ static int wrapper_open_output_stream(unused_audio_hw_device *dev,
                                       struct audio_stream_out **stream_out,
                                       __attribute__((unused)) const char *address)
 {
-    struct lp_audio_stream_out *lp_stream_out;
+    struct kk_audio_stream_out *kk_stream_out;
     int ret;
 
     pthread_mutex_lock(&out_streams_mutex);
 
     WAIT_FOR_FREE(in_use);
-    ret = lp_hw_dev->open_output_stream(lp_hw_dev, handle, devices,
-                                          flags, config, &lp_stream_out);
+    ret = kk_hw_dev->open_output_stream(kk_hw_dev, handle, devices,
+                                          flags, config, &kk_stream_out);
     UNLOCK_FREE(in_use);
 
     if (ret == 0) {
@@ -448,7 +448,7 @@ static int wrapper_open_output_stream(unused_audio_hw_device *dev,
         out_streams = new_out_streams;
         memset(&out_streams[n_out_streams], 0, sizeof(struct wrapper_out_stream));
 
-        out_streams[n_out_streams].lp_stream_out = lp_stream_out;
+        out_streams[n_out_streams].kk_stream_out = kk_stream_out;
         out_streams[n_out_streams].stream_out = malloc(sizeof(struct audio_stream_out));
         if (!out_streams[n_out_streams].stream_out) {
             ALOGE("Can't allocate memory for stream_out!");
@@ -491,7 +491,7 @@ static int wrapper_open_output_stream(unused_audio_hw_device *dev,
 
         if (logwrapped == 1) {
 			ALOGI("Wrapped an output stream: rate %d, channel_mask: %x, format: %d, addr: %p/%p",
-                  config->sample_rate, config->channel_mask, config->format, *stream_out, lp_stream_out);
+                  config->sample_rate, config->channel_mask, config->format, *stream_out, kk_stream_out);
 		}
         n_out_streams++;
     }
@@ -503,40 +503,40 @@ static int wrapper_open_output_stream(unused_audio_hw_device *dev,
 /* Generic HAL */
 
 WRAP_HAL_LOCKED(set_master_volume, (unused_audio_hw_device *dev, float volume),
-                (lp_hw_dev, volume), ("set_master_volume: %f", volume))
+                (kk_hw_dev, volume), ("set_master_volume: %f", volume))
 
 WRAP_HAL_LOCKED(set_voice_volume, (unused_audio_hw_device *dev, float volume),
-                (lp_hw_dev, volume), ("set_voice_volume: %f", volume))
+                (kk_hw_dev, volume), ("set_voice_volume: %f", volume))
 
 WRAP_HAL_LOCKED(set_mic_mute, (unused_audio_hw_device *dev, bool state),
-                (lp_hw_dev, state), ("set_mic_mute: %d", state))
+                (kk_hw_dev, state), ("set_mic_mute: %d", state))
 
 WRAP_HAL_LOCKED(set_mode, (unused_audio_hw_device *dev, audio_mode_t mode),
-                (lp_hw_dev, mode), ("set_mode: %d", mode))
+                (kk_hw_dev, mode), ("set_mode: %d", mode))
 
 WRAP_HAL_LOCKED(set_parameters, (unused_audio_hw_device *dev, const char *kv_pairs),
-                (lp_hw_dev, kv_pairs), ("set_parameters: %s", kv_pairs))
+                (kk_hw_dev, kv_pairs), ("set_parameters: %s", kv_pairs))
 
 WRAP_HAL(get_supported_devices, uint32_t, (const unused_audio_hw_device *dev),
-         (lp_hw_dev), ("get_supported_devices"))
+         (kk_hw_dev), ("get_supported_devices"))
 
 WRAP_HAL(init_check, int, (const unused_audio_hw_device *dev),
-         (lp_hw_dev), ("init_check"))
+         (kk_hw_dev), ("init_check"))
 
 WRAP_HAL(get_master_volume, int, (unused_audio_hw_device *dev, float *volume),
-         (lp_hw_dev, volume), ("get_master_volume"))
+         (kk_hw_dev, volume), ("get_master_volume"))
 
 WRAP_HAL(get_mic_mute, int, (const unused_audio_hw_device *dev, bool *state),
-         (lp_hw_dev, state), ("get_mic_mute"))
+         (kk_hw_dev, state), ("get_mic_mute"))
 
 WRAP_HAL(get_parameters, char*, (const unused_audio_hw_device *dev, const char *keys),
-         (lp_hw_dev, keys), ("get_parameters: %s", keys))
+         (kk_hw_dev, keys), ("get_parameters: %s", keys))
 
 WRAP_HAL(get_input_buffer_size, size_t, (const unused_audio_hw_device *dev, const struct audio_config *config),
-         (lp_hw_dev, config), ("get_input_buffer_size"))
+         (kk_hw_dev, config), ("get_input_buffer_size"))
 
 WRAP_HAL(dump, int, (const unused_audio_hw_device *dev, int fd),
-         (lp_hw_dev, fd), ("dump"))
+         (kk_hw_dev, fd), ("dump"))
 
 static int wrapper_close(hw_device_t *device)
 {
@@ -547,12 +547,12 @@ static int wrapper_close(hw_device_t *device)
 
     WAIT_FOR_FREE(in_use);
 
-    ret = lp_hw_dev->common.close(device);
+    ret = kk_hw_dev->common.close(device);
 
     dlclose(dso_handle);
     dso_handle = NULL;
-    free(lp_hw_dev);
-    lp_hw_dev = NULL;
+    free(kk_hw_dev);
+    kk_hw_dev = NULL;
 
     if (out_streams) {
         free(out_streams);
@@ -582,7 +582,7 @@ static int wrapper_open(__attribute__((unused)) const hw_module_t* module,
     int ret;
 
     ALOGI("Initializing wrapper for Yamahas's YMU831 audio-HAL");
-    if (lp_hw_dev) {
+    if (kk_hw_dev) {
         ALOGE("Audio HAL already opened!");
         return -ENODEV;
     }
@@ -605,7 +605,7 @@ static int wrapper_open(__attribute__((unused)) const hw_module_t* module,
 
     hmi->dso = dso_handle;
 
-    ret = audio_hw_device_open(hmi, (struct audio_hw_device**)&lp_hw_dev);
+    ret = audio_hw_device_open(hmi, (struct audio_hw_device**)&kk_hw_dev);
     ALOGE_IF(ret, "%s couldn't open audio module in %s. (%s)", __func__,
                  AUDIO_HARDWARE_MODULE_ID, strerror(-ret));
     if (ret) {
