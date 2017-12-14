@@ -153,9 +153,6 @@ WRAP_STREAM_LOCKED(read, in, ssize_t, -ENODEV, (struct audio_stream_in *stream, 
 WRAP_STREAM_LOCKED(set_gain, in, int, -ENODEV, (struct audio_stream_in *stream, float gain),
             (lpstream_in, gain), ("in_set_gain: %f", gain))
 
-WRAP_STREAM_LOCKED(get_input_frames_lost, in, uint32_t, 0, (struct audio_stream_in *stream),
-            (lpstream_in), ("in_get_input_frames_lost"))
-
 WRAP_STREAM_LOCKED_COMMON(standby, in, int, -ENODEV, (struct audio_stream *stream),
             (lpstream), ("in_standby"))
 
@@ -232,6 +229,11 @@ static void wrapper_close_input_stream(unused_audio_hw_device *dev,
     pthread_mutex_unlock(&in_streams_mutex);
 }
 
+uint32_t wrapper_get_input_frames_lost(__attribute__((unused))struct audio_stream_in *stream)
+{
+        return 0;
+}
+
 static int wrapper_get_capture_position(__attribute__((unused))const struct audio_stream_in *stream,
                                    __attribute__((unused))int64_t *frames, __attribute__((unused))int64_t *time)
 {
@@ -297,7 +299,7 @@ static int wrapper_open_input_stream(unused_audio_hw_device *dev,
 
         (*stream_in)->set_gain = wrapper_in_set_gain;
         (*stream_in)->read = wrapper_in_read;
-        (*stream_in)->get_input_frames_lost = wrapper_in_get_input_frames_lost;
+        (*stream_in)->get_input_frames_lost = wrapper_get_input_frames_lost;
         (*stream_in)->get_capture_position = wrapper_get_capture_position;
 
         in_streams[n_in_streams].in_use = 0;
