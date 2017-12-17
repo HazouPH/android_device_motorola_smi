@@ -114,6 +114,9 @@ TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 BOARD_PROVIDES_LIBRIL := true
 #BOARD_RIL_CLASS := ../../../device/motorola/smi/ril
 
+# CM Hardware
+BOARD_HARDWARE_CLASS := $(LOCAL_PATH)/cmhw
+
 # GPS
 BOARD_HAVE_GPS := true
 

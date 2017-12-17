@@ -186,6 +186,10 @@ on post-fs-data
     # Create directory used by power_supply logger
     mkdir /data/power_supply_logger 0755 mot_pwric mot_pwric
 
+    # KCal permissions
+    chown system system "/sys/devices/platform/SMD QHD Amoled/kcal"
+    chown system system "/sys/devices/platform/SMD QHD Amoled/kcal_min"
+
     # LBS init
     mkdir /data/location 0771 radio radio
     mkdir /data/gki 0770 radio radio
