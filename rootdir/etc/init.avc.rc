@@ -39,9 +39,9 @@ on post-fs
     insmod /system/lib/modules/atomisp.ko
 
     # Audio timeout to do a DAPM powerdown after a stream is closed(). It is used to eliminate pops between different playback streams.
-    chown media system /sys/devices/ipc/msic_audio/Medfield\ Headset/pmdown_time
-    chown media system /sys/devices/ipc/msic_audio/Medfield\ Speaker/pmdown_time
-    chown media system /sys/devices/ipc/msic_audio/Medfield\ Voice/pmdown_time
+    chown media system "/sys/devices/ipc/msic_audio/Medfield Headset/pmdown_time"
+    chown media system "/sys/devices/ipc/msic_audio/Medfield Speaker/pmdown_time"
+    chown media system "/sys/devices/ipc/msic_audio/Medfield Voice/pmdown_time"
 
     # change gpio attribute after loading lm3556.ko
     chmod 0660 /sys/class/gpio/gpio161/value
