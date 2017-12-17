@@ -2,12 +2,6 @@
 #  BLUETOOTH CONFIGURATION - TI SPECIFIC
 ########################################################
 
-on init
-    insmod /system/lib/modules/sdio.ko
-    insmod /system/lib/modules/st_drv.ko
-    mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
-    mkdir /data/misc/hcid 0770 bluetooth bluetooth
-
 on property:bluetooth.uim_service_state=1
     start uim
 
@@ -19,6 +13,8 @@ on post-fs
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
     chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+    mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
+    mkdir /data/misc/hcid 0770 bluetooth bluetooth
     start bd_prov
 
 # uim interfaces
