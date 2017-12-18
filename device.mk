@@ -108,6 +108,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     power.smi
 
+# Lights
+PRODUCT_PACKAGES += \
+    lights.smi
+
 # psb video
 PRODUCT_PACKAGES += \
     msvdx_bin \
