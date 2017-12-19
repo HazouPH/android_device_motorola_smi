@@ -18,6 +18,15 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
+    <!-- Set this to true to enable the platform's auto-power-save modes like doze and
+         app standby.  These are not enabled by default because they require a standard
+         cloud-to-device messaging service for apps to interact correctly with the modes
+         (such as to be able to deliver an instant message to the device even when it is
+         dozing).  This should be enabled if you have such services and expect apps to
+         correctly use them when installed on your device.  Otherwise, keep this disabled
+         so that applications can still use their own mechanisms. -->
+    <bool name="config_enableAutoPowerModes">true</bool>
+
     <!-- This is used by the connectivity manager to decide which networks can coexist
          based on the hardware -->
     <!-- An Array of "[Connection name],[ConnectivityManager.TYPE_xxxx],
