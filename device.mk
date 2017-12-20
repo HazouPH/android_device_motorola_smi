@@ -47,6 +47,10 @@ PRODUCT_PACKAGES += \
     libshim_mmgr \
     libshim_crypto
 
+# Doze
+PRODUCT_PACKAGES += \
+   MotoDoze
+
 # Radio
 PRODUCT_PACKAGES += \
     Stk \
