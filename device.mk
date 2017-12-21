@@ -144,7 +144,6 @@ PRODUCT_PACKAGES += \
     libwrs_omxil_common \
     libwrs_omxil_core_pvwrapped \
     libOMXVideoDecoderAVC \
-    libOMXVideoDecoderAVCSecure \
     libOMXVideoDecoderH263 \
     libOMXVideoDecoderMPEG4 \
     libOMXVideoDecoderPAVC \
@@ -152,6 +151,7 @@ PRODUCT_PACKAGES += \
     libOMXVideoEncoderAVC \
     libOMXVideoEncoderH263 \
     libOMXVideoEncoderMPEG4
+#    libOMXVideoDecoderAVCSecure \
 
 # libwsbm
 PRODUCT_PACKAGES += \
@@ -160,6 +160,9 @@ PRODUCT_PACKAGES += \
 # libdrm
 PRODUCT_PACKAGES += \
     libdrm
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/vendor/lib/mediadrm/libwvdrmengine.so:system/vendor/lib/mediadrm/libwvdrmengine.so
 
 # pvrsrvctl
 PRODUCT_PACKAGES += \
