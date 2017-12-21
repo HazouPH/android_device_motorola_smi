@@ -18,6 +18,6 @@ LOCAL_SHARED_LIBRARIES:=libcutils libc libcrypto libc libstdc++ libm
 include $(BUILD_PREBUILT)
 
 include $(CLEAR_VARS)
-LOCAL_COPY_HEADERS:=include/sepdrm.h include/sepdrm-common.h
+LOCAL_COPY_HEADERS:=include/sepdrm.h include/sepdrm-common.h include/drm_wv_mod_lib_error.h include/drm_wv_mod_lib.h
 LOCAL_COPY_HEADERS_TO:=libsepdrm
 include $(BUILD_COPY_HEADERS)
