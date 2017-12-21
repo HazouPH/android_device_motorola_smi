@@ -89,19 +89,14 @@ vendor/media/PFFprec_600.emd
 # Graphics
 etc/firmware/mp3_dec_1.bin
 etc/firmware/wma9_dec_1.bin
-lib/drm/libmotdrmplugin.so
-lib/libnativedrm1.so
-lib/libmotdrm1.so
 lib/hw/hwcomposer.smi.so
 lib/libpvr2d.so
 lib/libwbxmlparser.so
-vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/egl/libEGL_POWERVR_SGX540_121.so
 vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_121.so
 vendor/lib/egl/libGLESv2_POWERVR_SGX540_121.so
 vendor/lib/hw/gralloc.smi.so
 vendor/lib/hw/memtrack.smi.so
-vendor/lib/libdrmdecrypt.so
 vendor/lib/libglslcompiler.so
 vendor/lib/libIMGegl.so
 vendor/lib/libpvr2d.so
@@ -110,9 +105,6 @@ vendor/lib/libPVRScopeServices.so
 vendor/lib/libsrv_init.so
 vendor/lib/libsrv_um.so
 vendor/lib/libusc.so
-vendor/lib/libwvdrm_L1.so
-vendor/lib/libwvm.so
-vendor/lib/libWVStreamControlAPI_L1.so
 vendor/lib/mediadrm/libwvdrmengine.so
 
 # Camera
