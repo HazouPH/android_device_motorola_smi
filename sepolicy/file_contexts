@@ -25,6 +25,9 @@
 /dev/intel_sst_ctrl			u:object_r:audio_device:s0
 /mnt/asec/media(/.*)?                   u:object_r:media_rw_data_file:s0
 
+# DRM
+/dev/sep_sec_driver			u:object_r:smi_tee_device:s0
+
 # Bluetooth
 /dev/hci_tty				u:object_r:bluetooth_device:s0
 /dev/ttyMFD0				u:object_r:bluetooth_device:s0

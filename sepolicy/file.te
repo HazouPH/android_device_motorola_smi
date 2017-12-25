@@ -6,6 +6,13 @@ type batt_health_sysfs, sysfs_type, fs_type;
 type bluetooth_config_file, file_type, data_file_type;
 type bluetooth_device, dev_type;
 
+# Tee device
+# We need to violate a neverallow for tee_device so redefine it as our
+# own device and take care of it ourselves.  Since Google made this
+# device 0666 on fugu and it appears to have its own access control mechanism,
+# we will grant rights which might otherwise be scary to userspace domains.
+type smi_tee_device, dev_type;
+
 # Houdini
 type cpuinfo_file, file_type;
 
