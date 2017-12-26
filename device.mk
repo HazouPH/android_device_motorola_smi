@@ -49,7 +49,7 @@ PRODUCT_PACKAGES += \
 
 # Doze
 PRODUCT_PACKAGES += \
-   MotoDoze
+   CMActions
 
 # Radio
 PRODUCT_PACKAGES += \
