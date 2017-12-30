@@ -3,8 +3,6 @@ bin/akmd8963
 
 # Bluetooth, gps, fm
 bin/bd_prov
-bin/uim
-vendor/lib/libbt-vendor.so
 
 # Audio
 etc/firmware/vpimg_es305b-BB.bin

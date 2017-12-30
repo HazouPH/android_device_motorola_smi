@@ -3,10 +3,10 @@
 ########################################################
 
 on property:bluetooth.uim_service_state=1
-    start uim
+    start uim-sysfs
 
 on property:bluetooth.uim_service_state=0
-    stop uim
+    stop uim-sysfs
 
 on post-fs
     chmod 0660 /dev/rfkill
@@ -29,7 +29,7 @@ on post-fs
     chmod 0660 /dev/ttyMFD0
     chown bluetooth net_bt_stack /dev/ttyMFD0
 
-service uim /system/bin/uim
+service uim-sysfs /system/bin/uim-sysfs
     class core
     user root
     group bluetooth net_bt_admin

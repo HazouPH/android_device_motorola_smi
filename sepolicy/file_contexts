@@ -32,7 +32,7 @@
 /dev/hci_tty				u:object_r:bluetooth_device:s0
 /dev/ttyMFD0				u:object_r:bluetooth_device:s0
 /system/bin/bd_prov\.sh		        u:object_r:bluetooth_exec:s0
-/system/bin/uim 	             	u:object_r:bluetooth_exec:s0
+/system/bin/uim-sysfs 	             	u:object_r:bluetooth_exec:s0
 
 # Display
 /dev/dri/card0				u:object_r:gpu_device:s0
