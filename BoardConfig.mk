@@ -130,10 +130,8 @@ POWERHAL_MFLD := true
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Charger
+BACKLIGHT_PATH := /sys/class/backlight/psb-bl/brightness
 BOARD_CHARGER_ENABLE_SUSPEND := true
-BOARD_HEALTHD_CUSTOM_CHARGER_RES := $(LOCAL_PATH)/modules/libhealthd/images
-BOARD_HAL_STATIC_LIBRARIES := libhealthd.sc1
-WITH_CM_CHARGER := false
 
 # Houdini: enable ARM codegen for x86
 BUILD_ARM_FOR_X86 := true
