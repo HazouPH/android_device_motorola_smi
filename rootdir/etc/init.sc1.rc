@@ -18,7 +18,13 @@ import init.moto.usb.rc
 # runs after "on early-init" and before "on early-fs"
 # runs in charge-only-mode
 on init
-    export LD_SHIM_LIBS "/system/bin/mmgr|libshim_mmgr.so:/system/lib/libparameter.so|libshim_audio.so:/system/lib/parameter-framework-plugins/Audio/libtinyalsa_custom-subsystem.so|libshim_audio.so:/system/lib/hw/camera.vendor.sc1.so|libshim_camera.so:/system/lib/libsecurity_api.so|libshim_crypto.so:/system/bin/bd_prov|libshim_crypto.so"
+    export LD_SHIM_LIBS \
+    /system/bin/bd_prov|libshim_crypto.so:\
+    /system/bin/mmgr|libshim_mmgr.so:\
+    /system/lib/libparameter.so|libshim_audio.so:\
+    /system/lib/libsecurity_api.so|libshim_crypto.so:\
+    /system/lib/parameter-framework-plugins/Audio/libtinyalsa_custom-subsystem.so|libshim_audio.so:\
+    /system/lib/hw/camera.vendor.sc1.so|libshim_camera.so
 
     write /sys/class/graphics/fbcon/cursor_blink 0
 
