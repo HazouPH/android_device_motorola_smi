@@ -120,7 +120,7 @@ on charger
     # reduce backlight
     write /sys/class/backlight/psb-bl/brightness 50
     #default setting to enable charging in COS
-    setprop sys.usb.config charging
+    setprop sys.usb.config charger
 
 service pvrsrvctl /system/bin/pvrsrvctl.sh
     class core

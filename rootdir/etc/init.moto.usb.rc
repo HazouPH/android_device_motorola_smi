@@ -15,13 +15,6 @@ on boot
     setprop usb.mtp.cdrom 1
     setprop usb.mtp.config mass_storage
 
-on charger
-    write /sys/class/android_usb/android0/iManufacturer ${ro.product.manufacturer}
-    write /sys/class/android_usb/android0/iProduct ${ro.product.model}
-    write /sys/class/android_usb/android0/f_mass_storage/vendor ${ro.product.manufacturer}
-    write /sys/class/android_usb/android0/f_mass_storage/product ${ro.product.model}
-    setprop sys.usb.config charger
-
 # USB MTP configuration
 on property:sys.usb.config=mtp
     stop adbd

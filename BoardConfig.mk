@@ -130,7 +130,6 @@ POWERHAL_MFLD := true
 TARGET_PROVIDES_LIBLIGHT := true
 
 # Charger
-BACKLIGHT_PATH := /sys/class/backlight/psb-bl/brightness
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Houdini: enable ARM codegen for x86

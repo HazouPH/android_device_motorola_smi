@@ -17,21 +17,11 @@ on post-fs-data
     mkdir /data/logs/aplogs 0775 system log
 
 on charger
-    # basic networking for "adb root"
-    ifup lo
-    hostname localhost
-    domainname localdomain
-    mount ext4 /dev/block/mmcblk0p16 /system ro noatime
-    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc
     # intel puts /data/logs on a different partition, we don't
     mkdir /data/logs 0770 system log
     mkdir /data/logs/modemcrash 0775 system log
     mkdir /data/logs/stats 0775 system system
     mkdir /data/logs/gps 0775 system system
-    mkdir /data/logs/aplogs 0775 system log
-    setprop persist.service.apklogfs.enable 1
-    setprop sys.usb.config adb
-    setprop ro.debuggable 1
 
 on property:ro.secure=0
     # Allow dumping of setuid tasks
