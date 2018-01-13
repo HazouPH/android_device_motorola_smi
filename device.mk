@@ -53,7 +53,6 @@ PRODUCT_PACKAGES += \
 
 # Radio
 PRODUCT_PACKAGES += \
-    Stk \
     librapid-ril-core \
     librapid-ril-util
 PRODUCT_COPY_FILES += \
