@@ -118,7 +118,7 @@ typedef struct
 	 * export framebuffer allocations, we may want to patch some of
 	 * the fds to (unused) ints, so we can't leave gaps.
 	 */
-	int aiSyncFD[MAX_SRV_SYNC_OBJS];
+//	int aiSyncFD[MAX_SRV_SYNC_OBJS];
 
 	/* The `fd' field is used to "export" a meminfo to another process.
 	 * Therefore, it is allocated by alloc_device_t, and consumed by
@@ -149,6 +149,7 @@ typedef struct
 	 */
 	int iWidth;
 	int iHeight;
+        int iDontKnow;
 	int iFormat;
 	unsigned int uiBpp;
 }
@@ -251,19 +252,17 @@ typedef struct IMG_gralloc_module_public_t
 
 	/* Custom-blit components in lieu of overlay hardware */
 	int (*Blit)(struct IMG_gralloc_module_public_t const *module,
-				 buffer_handle_t src, buffer_handle_t dest,
-				 int w, int h, int x, int y,
-				 int transform,
-				 int async);
-
-	int (*Blit2)(struct IMG_gralloc_module_public_t const *module,
-				 buffer_handle_t src, buffer_handle_t dest,
-				 int w, int h, int x, int y);
+				buffer_handle_t src,
+				void *dest[MAX_SUB_ALLOCS], int format);
 
 	int (*Blit3)(struct IMG_gralloc_module_public_t const *module,
 				 unsigned long long ui64SrcStamp, int iSrcWidth,
 				 int iSrcHeight, int iSrcFormat, int eSrcRotation,
 				 buffer_handle_t dest, int eDestRotation);
+
+	int (*Blit2)(struct IMG_gralloc_module_public_t const *module,
+				 buffer_handle_t src, buffer_handle_t dest,
+				 int w, int h, int x, int y);
 
 #if defined(SUPPORT_ANDROID_MEMTRACK_HAL)
 	int (*GetMemTrackRecords)(struct IMG_gralloc_module_public_t const *module,
