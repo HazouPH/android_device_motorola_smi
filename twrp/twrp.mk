@@ -14,8 +14,7 @@
 
 RECOVERY_VARIANT := twrp
 
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/twrp/twrp.fstab:recovery/root/etc/twrp.fstab
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/twrp/twrp.fstab
 
 DEVICE_RESOLUTION := 540x960
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
