@@ -202,7 +202,6 @@ static void intel_power_init(struct power_module *module)
 {
     ALOGW("**Intel Power HAL initialisation**\n");
 
-#if NO_TOUCH_BOOST
 #if (POWERHAL_MFLD || POWERHAL_MRFLD)
     sysfs_write(TOUCHBOOST_SYSFS, "1600000");
 #endif
@@ -214,7 +213,7 @@ static void intel_power_init(struct power_module *module)
 #if POWERHAL_CLV
     sysfs_write(TOUCHBOOST_SYSFS, "933000");
 #endif
-#endif
+
 }
 
 static void intel_power_set_interactive(struct power_module *module, int on)
@@ -314,9 +313,7 @@ struct intel_power_module HAL_MODULE_INFO_SYM = {
         },
     init: intel_power_init,
     setInteractive: intel_power_set_interactive,
-#if NO_TOUCH_BOOST
-    //powerHint: intel_power_hint,
-#endif
+    powerHint: intel_power_hint,
     },
         touchboost_disable: 0,
         timer_set: 0,
