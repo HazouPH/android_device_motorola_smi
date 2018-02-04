@@ -1,32 +1,28 @@
 # Enable by default android java wakelock logging
 on init
-#    mkdir /logs
+    mkdir /logs
     symlink /data/logs /logs
     write /proc/sys/kernel/kptr_restrict 2
 
+on early-boot
+    chown system log /logs
+    chmod 0770 /logs
 
 on post-fs-data
     mkdir /data/tombstones 0755 system system
     mkdir /data/system/    0755 system system
-    # intel puts /data/logs on a different partition, we don't
-    mkdir /data/logs 0770 system log
-    mkdir /data/logs/core 0770 root log
-    mkdir /data/logs/modemcrash 0775 system system
-    mkdir /data/logs/stats 0775 system system
-    mkdir /data/logs/gps 0775 system system
-    mkdir /data/logs/aplogs 0775 system log
+    mkdir /data/system/dropbox 0700 system system
+    mkdir /logs/modemcrash 0775 system system
 
 on charger
-    # intel puts /data/logs on a different partition, we don't
-    mkdir /data/logs 0770 system log
-    mkdir /data/logs/modemcrash 0775 system log
-    mkdir /data/logs/stats 0775 system system
-    mkdir /data/logs/gps 0775 system system
+    # basic networking for "adb root"
+    ifup lo
+    hostname localhost
+    domainname localdomain
+    mount ext4 /dev/block/mmcblk0p16 /system ro noatime
+    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc
+    mkdir /logs/modemcrash 0775 system system
 
-on property:ro.secure=0
-    # Allow dumping of setuid tasks
-    write /proc/sys/fs/suid_dumpable 2
+on ramconsole
+    powerctl reboot
 
-on property:ro.debuggable=1
-    # Allow unprivileged users to read the kernel log
-    write /proc/sys/kernel/dmesg_restrict 0

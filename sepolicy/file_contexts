@@ -65,11 +65,7 @@
 /dev/ttyXMM[01]                         u:object_r:radio_device:s0
 /dev/ttyIFX0			        u:object_r:radio_device:s0
 /system/bin/mmgr\.sh                    u:object_r:rild_exec:s0
-
-# Modem creates logs but never rotates them?  Either way, we can't read these
-# logs so they aren't doing us any good so don't make them available to the
-# daemons
-# /data/logs(/.*)?                      u:object_r:radio_log_file:s0
+/logs/modemcrash(/.*)?                  u:object_r:radio_log_file:s0
 
 # wifi
 /config/wifi(/.*)?                      u:object_r:wifi_config_file:s0
