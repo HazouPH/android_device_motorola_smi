@@ -167,6 +167,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/vendor/lib/mediadrm/libwvdrmengine.so:system/vendor/lib/mediadrm/libwvdrmengine.so
 
+PRODUCT_PROPERTY_OVERRIDES += \
+    drm.service.enabled=true \
+    ro.com.widevine.cachesize=16777216
+
 # pvrsrvctl
 PRODUCT_PACKAGES += \
     pvrsrvctl
@@ -247,10 +251,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     panel.physicalWidthmm=52 \
     panel.physicalHeightmm=89 \
     ro.opengles.version=131072 \
-    gsm.net.interface=rmnet0 \
-    ro.secure=0 \
-    ro.adb.secure=0 \
-    ro.debuggable=1
+    gsm.net.interface=rmnet0
 
 # Storage
 PRODUCT_PROPERTY_OVERRIDES += \
