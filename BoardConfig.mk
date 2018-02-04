@@ -62,7 +62,7 @@ BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=260046848 e
 BOARD_KERNEL_CMDLINE += hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1
 BOARD_KERNEL_CMDLINE += androidboot.spid=xxxx:xxxx:xxxx:xxxx:xxxx:xxxx emmc_ipanic.ipanic_part_number=6
 BOARD_KERNEL_CMDLINE += slub_max_order=2 loglevel=7
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
+#BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Storage information
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
