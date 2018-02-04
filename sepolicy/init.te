@@ -7,6 +7,7 @@ allow init socket_device:sock_file { create setattr };
 allow init tmpfs:lnk_file create;
 allow init block_device:blk_file { create write relabelfrom };
 allow init block_device:lnk_file { create write rename };
+allow init socket_device:sock_file unlink;
 
 # Mount on and write to /proc/sys/fs/binfmt_misc.
 allow init proc:dir mounton;
@@ -17,5 +18,10 @@ allow init { domain -lmkd }:process noatsecure;
 
 allow init kernel:system module_request;
 allow init debugfs:file rw_file_perms;
+
+allow init configfs:file getattr;
+
+# Module loading
+allow init system_file:system module_load;
 
 domain_trans(init, rootfs, vold)

@@ -34,4 +34,4 @@ service uim-sysfs /system/bin/uim-sysfs
     user root
     group bluetooth net_bt_admin
     disabled
-    seclabel u:r:bluetooth:s0
+    seclabel u:r:uim:s0

@@ -12,6 +12,8 @@ elif [ "${0}" = "/system/bin/gps_driver.sh" ]; then
 	exec "/system/bin/gps_driver" "${@}"
 elif [ "${0}" = "/system/bin/mmgr.sh" ]; then
 	exec "/system/bin/mmgr" "${@}"
+elif [ "${0}" = "/system/bin/gkisystem.sh" ]; then
+	exec "/system/bin/gkisystem" "${@}"
 fi
 
 exit 1

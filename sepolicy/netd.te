@@ -1,3 +1,4 @@
 allow netd kernel:system module_request;
 allow netd wifi_data_file:dir { create getattr setattr };
 allow netd wifi_data_file:sock_file { create getattr setattr unlink };
+allow netd dhcp_data_file:dir setattr;

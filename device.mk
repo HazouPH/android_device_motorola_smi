@@ -261,9 +261,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/akmd8963.sh \
     $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/batt_health.sh \
     $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/bd_prov.sh \
-    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/pvrsrvctl.sh \
+    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/gkisystem.sh \
     $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/gps_driver.sh \
-    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/mmgr.sh
+    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/mmgr.sh \
+    $(LOCAL_PATH)/prebuilt/bin/execmod-wrapper.sh:system/bin/pvrsrvctl.sh
 
 # FS config
 PRODUCT_PACKAGES += \

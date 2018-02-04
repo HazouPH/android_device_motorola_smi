@@ -1,5 +1,7 @@
 #============= system_server ==============
+allow system_server gkisystem:unix_stream_socket connectto;
 allow system_server gps_data_file:fifo_file rw_file_perms;
+allow system_server gps_data_file:file rw_file_perms;
 allow system_server gps_data_file:dir search;
 allow system_server radio_device:chr_file w_file_perms;
 allow system_server radio_device:dir r_dir_perms;
@@ -11,3 +13,5 @@ allow system_server wifi_config_file:file r_file_perms;
 # This is evil but we cannot constrain it anymore than
 # "any system_file" because the domain rules in external/sepolicy.
 allow system_server system_file:file execmod;
+allow system_server self:capability sys_module;
+allow system_server system_file:system module_load;

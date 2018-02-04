@@ -1,5 +1,6 @@
+allow rild configfs:dir search;
 allow rild device:dir r_dir_perms;
-allow rild device:chr_file { ioctl };
+allow rild radio_device:chr_file rw_file_perms;
 allow rild proc_net:file w_file_perms;
 allow rild radio_cache_file:dir { create_file_perms rw_dir_perms };
 allow rild radio_cache_file:file { create_file_perms rw_file_perms unlink };

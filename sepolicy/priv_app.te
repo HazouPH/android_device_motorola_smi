@@ -1,0 +1,4 @@
+allow priv_app device:dir { read open };
+allow priv_app zygote:dir { search };
+allow priv_app zygote:file r_file_perms;
+allow priv_app system_file:file execmod;

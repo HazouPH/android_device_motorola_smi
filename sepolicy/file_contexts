@@ -2,6 +2,7 @@
 /dev/akm8963    			u:object_r:sensors_device:s0
 /dev/akm8963_dev			u:object_r:sensors_device:s0
 /system/bin/akmd8963\.sh              	u:object_r:akmd8963_exec:s0
+/data/misc/akmd(/.*)?           	u:object_r:akmd8963_data_file:s0
 
 # batt_health
 /data/power_supply_logger(/.*)?    	u:object_r:batt_health_data_file:s0
@@ -11,7 +12,6 @@
 # PDS
 /data/misc/pds(/.*)?            	u:object_r:pds_file:s0
 /pds(/.*)?                         	u:object_r:pds_file:s0
-/dev/block/mmcblk0p12            	u:object_r:pds_block_device:s0
 /dev/block/pds                  	u:object_r:pds_block_device:s0
 /pds/wifi/nvs_map_mac80211.bin          u:object_r:wifi_data_file:s0
 
@@ -29,10 +29,11 @@
 /dev/sep_sec_driver			u:object_r:smi_tee_device:s0
 
 # Bluetooth
-/dev/hci_tty				u:object_r:bluetooth_device:s0
+/dev/hci_tty				u:object_r:hci_attach_dev:s0
+/dev/tifm                       	u:object_r:uim_device:s0
 /dev/ttyMFD0				u:object_r:bluetooth_device:s0
 /system/bin/bd_prov\.sh		        u:object_r:bluetooth_exec:s0
-/system/bin/uim-sysfs 	             	u:object_r:bluetooth_exec:s0
+/system/bin/uim-sysfs 	             	u:object_r:uim_exec:s0
 
 # Display
 /dev/dri/card0				u:object_r:gpu_device:s0
@@ -43,19 +44,21 @@
 /system/etc/firmware/ti-connectivity(/*)? u:object_r:wifi_data_file:s0
 
 # GPS
-/data/location(/*)?			u:object_r:radio_data_file:s0
-/system/bin/TIDrv			u:object_r:gpsd_exec:s0
-/system/etc/location.cfg		u:object_r:system_data_file:s0
-/data/location/GpsIpcDrvSocket		u:object_r:system_data_file:s0
+/data/location(/.*)?			u:object_r:gps_data_file:s0
+/data/location/GpsIpcDrvSocket		u:object_r:gps_socket:s0
+/dev/socket/location_shim		u:object_r:gps_socket:s0
+/dev/socket/gpshal_socket		u:object_r:gps_socket:s0
 /dev/tigps				u:object_r:gps_device:s0
-/system/bin/gps_driver\.sh		u:object_r:gpsd_exec:s0
+/system/bin/gkisystem\.sh		u:object_r:gkisystem_exec:s0
+/system/bin/gps_driver\.sh		u:object_r:gkisystem_exec:s0
+/data/gki(/.*)?                         u:object_r:gps_data_file:s0
 
 # Houdini
 /system/lib/arm/cpuinfo                 u:object_r:cpuinfo_file:s0
 
 # MMGR
 /dev/gsmtty[0-9]*                       u:object_r:radio_device:s0
-/dev/mdm_ctrl[01]                       u:object_r:radio_device:s0
+/dev/mdm_ctrl                           u:object_r:radio_device:s0
 /dev/socket/mmgr                        u:object_r:rild_socket:s0
 /dev/ttyACM[01]                         u:object_r:radio_device:s0
 /dev/ttyMFD1				u:object_r:radio_device:s0
@@ -66,7 +69,17 @@
 # Modem creates logs but never rotates them?  Either way, we can't read these
 # logs so they aren't doing us any good so don't make them available to the
 # daemons
-# /data/logs(/.*)?                        u:object_r:radio_log_file:s0
+# /data/logs(/.*)?                      u:object_r:radio_log_file:s0
 
 # wifi
 /config/wifi(/.*)?                      u:object_r:wifi_config_file:s0
+
+# Block Devices
+/dev/block/mmcblk0p5	                u:object_r:boot_block_device:s0
+/dev/block/mmcblk0p14                   u:object_r:cache_block_device:s0
+/dev/block/mmcblk0p6                    u:object_r:recovery_block_device:s0
+/dev/block/mmcblk0p16                   u:object_r:system_block_device:s0
+/dev/block/mmcblk0p17            	u:object_r:userdata_block_device:s0
+/dev/block/mmcblk0p13                   u:object_r:misc_block_device:s0
+/dev/block/mmcblk0p12            	u:object_r:pds_block_device:s0
+/dev/block/zram0                        u:object_r:swap_block_device:s0

@@ -1,0 +1,13 @@
+# uim
+type uim, domain;
+type uim_exec, exec_type, file_type;
+type uim_device, dev_type;
+
+init_daemon_domain(uim)
+
+allow uim uim_device:chr_file create_file_perms;
+allow uim bluetooth_device:chr_file rw_file_perms;
+allow uim bluetooth_exec:file { entrypoint getattr read };
+allow uim sysfs:file rw_file_perms;
+allow uim sysfs:file { setattr };
+allow uim self:capability { fowner chown dac_override };

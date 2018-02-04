@@ -260,18 +260,18 @@ on property:sys.boot_completed=1
     insmod /system/lib/modules/matrix.ko
     chmod 0640 /dev/matrix
 
-service gkisystem /system/bin/gkisystem
+service gkisystem /system/bin/gkisystem.sh
     class main
     socket location_shim stream 660 radio system
     socket gpshal_socket stream 660 radio system
     group radio mot_accy mot_secclkd
-    seclabel u:r:gpsd:s0
+    seclabel u:r:gkisystem:s0
 
 service locDrv /system/bin/gps_driver.sh
     class main
     user radio
     group radio inet sdcard_rw
-    seclabel u:r:gpsd:s0
+    seclabel u:r:gkisystem:s0
 
 # Magnetometer
 service akmd8963 /system/bin/akmd8963.sh

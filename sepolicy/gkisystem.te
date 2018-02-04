@@ -1,0 +1,47 @@
+# gkisystem - GKISystem GPS daemon
+type gkisystem, domain;
+type gkisystem_exec, exec_type, file_type;
+
+init_daemon_domain(gkisystem)
+net_domain(gkisystem)
+allow gkisystem gps_data_file:dir rw_dir_perms;
+allow gkisystem gps_data_file:notdevfile_class_set create_file_perms;
+# Socket is created by the daemon, not by init, and under /data/gps,
+# not under /dev/socket.
+type_transition gkisystem gps_data_file:sock_file gps_socket;
+allow gkisystem gps_socket:sock_file create_file_perms;
+# XXX Label sysfs files with a specific type?
+allow gkisystem sysfs:file rw_file_perms;
+
+allow gkisystem radio_device:chr_file rw_file_perms;
+allow gkisystem rild_socket:sock_file rw_file_perms;
+unix_socket_connect(gkisystem, rild, rild);
+
+# Allow gkisystem pds files
+allow gkisystem pds_file:dir search;
+allow gkisystem pds_file:file { open read };
+
+# Allow entrypoint and execmod through shell
+allow gkisystem shell_exec:file { entrypoint };
+allow gkisystem system_file:file { execute_no_trans execmod };
+
+# Use sockets provided by system_server via binder or local socket.
+allow gkisystem system_server:unix_stream_socket { read write setopt getattr getopt shutdown };
+
+# TODO: added to match above sysfs rule. Remove me?
+allow gkisystem sysfs_usb:file w_file_perms;
+
+allow gkisystem gps_device:chr_file rw_file_perms;
+
+# Execute the shell or system commands.
+allow gkisystem shell_exec:file rx_file_perms;
+allow gkisystem system_file:file rx_file_perms;
+allow gkisystem toolbox_exec:file rx_file_perms;
+
+# Allow gkisystem mote self capabilities
+allow gkisystem self:capability { dac_override setuid sys_nice };
+neverallow gkisystem self:capability2 ~block_suspend;
+
+binder_use(gkisystem)
+binder_call(gkisystem, system_server)
+wakelock_use(gkisystem)
