@@ -167,6 +167,7 @@ lib/hw/vibrator.smi.so:lib/hw/vibrator.vendor.smi.so
 # Wifi
 etc/firmware/TIInit_10.5.20.bts
 etc/firmware/TIInit_10.6.15.bts
+etc/wifi/TQS.ini
 
 # Touchscreen
 etc/firmware/atmxt-r1.tdat
