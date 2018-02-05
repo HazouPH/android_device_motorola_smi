@@ -53,6 +53,6 @@ TARGET_GLOBAL_LDFLAGS += -Wl,-O1
 MALLOC_SVELTE := true
 
 # Intel ART optimized build flags (needs art-extension)
-VENDOR_ART_PATH := art-extension/art-extension
-BOARD_USES_DLMALLOC_META_CHUNK_FILTER := true
+#VENDOR_ART_PATH := art-extension/art-extension
+#BOARD_USES_DLMALLOC_META_CHUNK_FILTER := true
 #WITH_DEXPREOPT_COMP := true

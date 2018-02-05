@@ -1,0 +1,16 @@
+type wlan_prov, domain;
+type wlan_prov_exec, exec_type, file_type;
+init_daemon_domain(wlan_prov)
+
+# Allow gkisystem pds files
+allow wlan_prov pds_file:dir search;
+allow wlan_prov pds_file:file { open read };
+
+allow wlan_prov proc_net:file r_file_perms;
+allow wlan_prov proc_sysrq:file rw_file_perms;
+allow wlan_prov self:capability { dac_override dac_read_search net_admin sys_boot };
+allow wlan_prov shell_exec:file rx_file_perms;
+allow wlan_prov sysfs:dir r_dir_perms;
+allow wlan_prov sysfs:file rw_file_perms;
+allow wlan_prov wifi_data_file:file r_file_perms;
+
