@@ -51,6 +51,9 @@ on charger
     start console
     start watchdogd
 
+# CPU Frequency Governor
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+
 # runs after "on init" and before "on fs"; doesn't run in charge-only-mode
 on early-fs
     mkdir /pds 0755 root root
