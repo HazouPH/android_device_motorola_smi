@@ -18,6 +18,7 @@ TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
 # We only have 1GB of RAM
 MALLOC_SVELTE := true
+TARGET_GLOBAL_CFLAGS += -march=bonnell
 
 # Intel ART optimized build flags (needs art-extension)
 #VENDOR_ART_PATH := art-extension/art-extension
