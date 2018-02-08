@@ -16,8 +16,13 @@ TARGET_ARCH_VARIANT := atom
 TARGET_BOARD_PLATFORM := sc1
 TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
-# Atom optimizations to improve memory benchmarks.
--include $(LOCAL_PATH)/OptAtom.mk
+# We only have 1GB of RAM
+MALLOC_SVELTE := true
+
+# Intel ART optimized build flags (needs art-extension)
+#VENDOR_ART_PATH := art-extension/art-extension
+#BOARD_USES_DLMALLOC_META_CHUNK_FILTER := true
+#WITH_DEXPREOPT_COMP := true
 
 # Connectivity - Wi-Fi
 USES_TI_MAC80211 := true

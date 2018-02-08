@@ -47,6 +47,9 @@ PRODUCT_PACKAGES += \
     libshim_mmgr \
     libshim_crypto
 
+# We only have 1GB of RAM
+PRODUCT_PROPERTY_OVERRIDES += ro.config.low_ram=true
+
 # Doze
 PRODUCT_PACKAGES += \
    CMActions
