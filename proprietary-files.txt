@@ -103,7 +103,6 @@ vendor/lib/libPVRScopeServices.so
 vendor/lib/libsrv_init.so
 vendor/lib/libsrv_um.so
 vendor/lib/libusc.so
-vendor/lib/mediadrm/libwvdrmengine.so
 
 # Camera
 lib/hw/camera.sc1.so:lib/hw/camera.vendor.sc1.so
