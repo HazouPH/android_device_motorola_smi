@@ -2,3 +2,7 @@ allow untrusted_app system_file:file execmod;
 allow untrusted_app sysfs:file r_file_perms;
 allow untrusted_app cpuinfo_file:file { mounton };
 allow untrusted_app cpuinfo_file:file r_file_perms;
+
+# Zram
+allow untrusted_app sysfs_zram:dir r_dir_perms;
+allow untrusted_app sysfs_zram:file r_file_perms;
