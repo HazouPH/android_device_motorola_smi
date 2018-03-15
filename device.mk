@@ -300,8 +300,11 @@ $(call inherit-product, $(LOCAL_PATH)/modules/nfc/nfc.mk)
 # Shared Transport (BLUETOOTH,FM,GPS)
 $(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
 
-# Prebuilt Chromium (export USE_PREBUILT_CHROMIUM=1) 
-ifeq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)
+# Prebuilt Chromium ("export USE_PREBUILT_CHROMIUM=1" to make prebuilt chromium)
+chromium_prebuilt_stamp := prebuilts/chromium/smi/chromium_prebuilts.mk
+chromium_prebuilt_done := $(wildcard $(chromium_prebuilt_stamp))
+ifneq ($(chromium_prebuilt_done),)
+PRODUCT_PREBUILT_WEBVIEWCHROMIUM := yes
  include prebuilts/chromium/smi/chromium_prebuilts.mk
 endif
 
