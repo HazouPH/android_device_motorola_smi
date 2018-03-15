@@ -298,7 +298,7 @@ PRODUCT_PACKAGES += \
 $(call inherit-product, $(LOCAL_PATH)/modules/nfc/nfc.mk)
 
 # Shared Transport (BLUETOOTH,FM,GPS)
-#$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
+$(call inherit-product-if-exists, hardware/ti/wpan/ti-wpan-products.mk)
 
 # Prebuilt Chromium (export USE_PREBUILT_CHROMIUM=1) 
 ifeq ($(PRODUCT_PREBUILT_WEBVIEWCHROMIUM),yes)

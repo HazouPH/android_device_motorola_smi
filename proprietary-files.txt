@@ -1,10 +1,8 @@
 # Sensor
 bin/akmd8963
 
-# Bluetooth, gps, fm
+# Bluetooth
 bin/bd_prov
-bin/uim
-vendor/lib/libbt-vendor.so
 
 # Sound
 bin/remote-process

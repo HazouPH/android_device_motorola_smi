@@ -27,10 +27,10 @@ on property:sys.boot_completed=1
     setprop ril.coredumpwarning.enable 1
 
 on property:bluetooth.uim_service_state=1
-    start uim
+    start uim-sysfs
 
 on property:bluetooth.uim_service_state=0
-    stop uim
+    stop uim-sysfs
 
 on boot
     chmod 0660 /dev/rfkill
@@ -100,7 +100,7 @@ service ril-daemon /system/bin/rild -l /system/lib/librapid-ril-core.so -- -a /d
     user root
     group radio cache inet misc audio mot_tpapi
 
-service uim /system/bin/uim
+service uim-sysfs /system/bin/uim-sysfs
     class core
     user root
     group bluetooth net_bt_admin
