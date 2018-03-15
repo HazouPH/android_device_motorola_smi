@@ -73,6 +73,9 @@ BOARD_KERNEL_CMDLINE := init=/init pci=noearly console=logk0 vmalloc=260046848 e
 BOARD_KERNEL_CMDLINE += hsu_dma=7 kmemleak=off androidboot.bootmedia=sdcard androidboot.hardware=sc1
 BOARD_KERNEL_CMDLINE += androidboot.spid=xxxx:xxxx:xxxx:xxxx:xxxx:xxxx emmc_ipanic.ipanic_part_number=6
 BOARD_KERNEL_CMDLINE += slub_max_order=2 loglevel=7
+TARGET_KERNEL_CUSTOM_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilt/linux-x86/toolchain/x86_64-linux-android-4.9/bin
+KERNEL_TOOLCHAIN_PREFIX := x86_64-linux-android-
+
 
 # Storage information
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR := true
