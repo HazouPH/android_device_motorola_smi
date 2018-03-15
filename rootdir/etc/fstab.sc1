@@ -5,8 +5,10 @@
 
 /dev/block/mmcblk0p16 /system ext4 ro,noatime wait
 /dev/block/mmcblk0p14 /cache ext4 nosuid,nodev,noatime,nodelalloc,barrier=1,data=ordered wait,check
+/dev/block/mmcblk0p14 /cache f2fs rw,discard,nosuid,nodev,noatime,nodiratime,inline_xattr wait
 #/dev/block/panic /panic raw defaults wait
 /dev/block/mmcblk0p17 /data ext4 nosuid,nodev,noatime,nodelalloc,barrier=1,data=ordered wait,check,encryptable=footer
+/dev/block/mmcblk0p17 /data f2fs rw,discard,nosuid,nodev,noatime,nodiratime,inline_xattr wait,nonremovable,encryptable=footer
 /dev/block/mmcblk0p12 /pds ext4 nosuid,nodev,noatime,nodelalloc,barrier=1,data=ordered wait,check
 
 # zram
