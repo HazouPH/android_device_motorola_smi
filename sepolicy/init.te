@@ -1,0 +1,2 @@
+# Loading modules, script module loading in kernel
+allow init self:system module_load;
