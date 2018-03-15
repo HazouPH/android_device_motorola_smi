@@ -1,6 +1,11 @@
 on boot
+    # Flash storage isn't a good entropy source, and only causes
+    # locking overhead in the kernel. Turn it off.
+    write /sys/block/mmcblk0/queue/add_random 0
+    write /sys/block/mmcblk1/queue/add_random 0
+
     # KSM tuning
-     write /sys/kernel/mm/ksm/deferred_timer 1
+    write /sys/kernel/mm/ksm/deferred_timer 1
     write /sys/kernel/mm/ksm/pages_to_scan 100
     write /sys/kernel/mm/ksm/sleep_millisecs 2000
     write /sys/kernel/mm/ksm/run 1
