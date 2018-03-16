@@ -52,7 +52,7 @@ on init
 #   "on post-fs-data", "on early-boot", and "on boot" in charge-only-mode
 on charger
     mount ext4 /dev/block/mmcblk0p16 /system ro noatime
-    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc
+    mount -t auto /dev/block/mmcblk0p17 /data
 
     start console
     start watchdogd
