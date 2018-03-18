@@ -4,8 +4,6 @@ on init
 
     chown system system /sys/class/rfkill/rfkill0/state
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    insmod /system/lib/modules/sdio.ko
-    insmod /system/lib/modules/st_drv.ko
     chown root radio /dev/ttyGTM*
     chmod 0660 /dev/ttyGTM*
     setprop gsm.firmware.upload ok
@@ -23,7 +21,6 @@ on init
     chown root system /sys/devices/pci0000:00/0000:00:05.1/power/control
 
 on property:sys.boot_completed=1
-    insmod /system/lib/modules/ipv6.ko
     setprop ril.coredumpwarning.enable 1
 
 on property:bluetooth.uim_service_state=1

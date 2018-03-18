@@ -7,12 +7,6 @@ on property:dev.bootcomplete=1
 on boot
     setprop wifi.interface wlan0
     setprop ap.interface wlan1
-    # Load wifi drivers
-    insmod /system/lib/modules/compat.ko
-    insmod /system/lib/modules/cfg80211.ko
-    insmod /system/lib/modules/mac80211.ko
-    insmod /system/lib/modules/wl12xx.ko
-    insmod /system/lib/modules/wl12xx_sdio.ko
 
 service wlan_prov /system/bin/wlan_prov
     class main
