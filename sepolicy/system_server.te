@@ -14,4 +14,3 @@ allow system_server wifi_config_file:file r_file_perms;
 # "any system_file" because the domain rules in external/sepolicy.
 allow system_server system_file:file execmod;
 allow system_server self:capability sys_module;
-allow system_server system_file:system module_load;

@@ -16,12 +16,8 @@ allow init binfmt_miscfs:file w_file_perms;
 # Allow shimlibs
 allow init { domain -lmkd }:process noatsecure;
 
-allow init kernel:system module_request;
 allow init debugfs:file rw_file_perms;
 
 allow init configfs:file getattr;
-
-# Module loading
-allow init system_file:system module_load;
 
 domain_trans(init, rootfs, vold)

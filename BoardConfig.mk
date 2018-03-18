@@ -37,19 +37,6 @@ CONFIG_HS20                      := true
 BOARD_GLOBAL_CFLAGS              += -DUSES_TI_MAC80211
 endif
 
-TARGET_MODULES_SOURCE ?= hardware/ti/wlan-intel/wl12xx-compat
-
-WIFI_MODULES:
-	make clean -C $(TARGET_MODULES_SOURCE)
-	make -j8 CONFIG_DEBUG_SECTION_MISMATCH=y -C $(TARGET_MODULES_SOURCE) KERNEL_DIR=$(KERNEL_OUT) KLIB=$(KERNEL_OUT) KLIB_BUILD=$(KERNEL_OUT) ARCH=$(TARGET_ARCH) $(KERNEL_CROSS_COMPILE)
-	mv $(TARGET_MODULES_SOURCE)/{compat/compat,net/mac80211/mac80211,net/wireless/cfg80211,drivers/net/wireless/wl12xx/wl12xx,drivers/net/wireless/wl12xx/wl12xx_sdio}.ko $(KERNEL_MODULES_OUT)
-	$(KERNEL_TOOLCHAIN_PREFIX)strip --strip-unneeded $(KERNEL_MODULES_OUT)/{compat,cfg80211,mac80211,wl12xx,wl12xx_sdio}.ko
-
-TARGET_KERNEL_MODULES := WIFI_MODULES
-
-# Lineage target to build standard modules
-TARGET_KERNEL_MODULES += INSTALLED_KERNEL_MODULES
-
 # bootstub as 2nd bootloader
 TARGET_BOOTLOADER_IS_2ND := true
 

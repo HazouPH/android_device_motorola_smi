@@ -12,32 +12,7 @@ on init
     setprop audiocomms.XMM.secondaryChannel ""
     setprop audiocomms.modemLib "libmamgr-xmm.so"
 
-on charger
-    #Loading camera, sensor modules
-    insmod /system/lib/modules/videobuf-core.ko
-    insmod /system/lib/modules/videobuf-dma-contig.ko
-    insmod /system/lib/modules/videobuf-vmalloc.ko
-    insmod /system/lib/modules/videobuf2-core.ko
-    insmod /system/lib/modules/videobuf2-memops.ko
-    insmod /system/lib/modules/mt9e013.ko
-    insmod /system/lib/modules/mt9m114.ko
-    insmod /system/lib/modules/ov7736.ko
-    insmod /system/lib/modules/lm3554.ko
-    insmod /system/lib/modules/atomisp.ko
-
 on post-fs
-    # Loading camera, sensor modules
-    insmod /system/lib/modules/videobuf-core.ko
-    insmod /system/lib/modules/videobuf-dma-contig.ko
-    insmod /system/lib/modules/videobuf-vmalloc.ko
-    insmod /system/lib/modules/videobuf2-core.ko
-    insmod /system/lib/modules/videobuf2-memops.ko
-    insmod /system/lib/modules/mt9e013.ko
-    insmod /system/lib/modules/lc898211.ko
-    insmod /system/lib/modules/ov7736.ko
-    insmod /system/lib/modules/lm3556.ko
-    insmod /system/lib/modules/atomisp.ko
-
     # Audio timeout to do a DAPM powerdown after a stream is closed(). It is used to eliminate pops between different playback streams.
     chown media system "/sys/devices/ipc/msic_audio/Medfield Headset/pmdown_time"
     chown media system "/sys/devices/ipc/msic_audio/Medfield Speaker/pmdown_time"
