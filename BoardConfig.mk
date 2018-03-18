@@ -141,8 +141,7 @@ BOARD_SEPOLICY_DIRS += \
     device/motorola/smi/sepolicy
 
 BOARD_SEPOLICY_UNION += \
-    domain.te \
     file_contexts \
-    init.te \
+    domain.te \
     init_shell.te \
     netd.te
