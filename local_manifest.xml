@@ -6,7 +6,7 @@
   <project path="device/motorola/smi" name="HazouPH/android_device_motorola_smi" revision="cm-11.0"/>
   <project path="device/motorola/smi-patches" name="HazouPH/smi_patches" revision="cm-11.0"/>
   <project path="hardware/ti/wlan-intel" name="HazouPH/android_hardware_ti_wlan" revision="master"/>
-  <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" revision="cm-11.0"/>
+  <project path="kernel/motorola/smi" name="HazouPH/android_kernel_motorola_smi" revision="master"/>
   <project path="vendor/motorola/smi" name="HazouPH/android_vendor_motorola_smi" revision="cm-11.0"/>
   <project path="vendor/intel/houdini" name="HazouPH/android_vendor_intel_houdini" revision="master"/>
 
