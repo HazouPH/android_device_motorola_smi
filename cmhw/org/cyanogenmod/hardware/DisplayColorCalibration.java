@@ -30,9 +30,8 @@ public class DisplayColorCalibration {
 
     private static final String TAG = "DisplayColorCalibration";
 
-    private static final String COLOR_FILE = "/sys/devices/platform/SMD QHD Amoled/kcal";
-    private static final String KCAL_MIN_FILE = "/sys/devices/platform/SMD QHD Amoled/kcal_min";
-    private static final String BRIGHTNESS_FILE = "/sys/class/backlight/psb-bl/brightness";
+    private static final String COLOR_FILE = "/sys/devices/platform/kcal_ctrl.0/kcal";
+    private static final String KCAL_MIN_FILE = "/sys/devices/platform/kcal_ctrl.0/kcal_min";
 
     private static final boolean sUseGPUMode;
 
@@ -77,14 +76,9 @@ public class DisplayColorCalibration {
                 sCurColors[1], sCurColors[2]);
     }
 
-    public static String getCurBrightness()  {
-        return FileUtils.readOneLine(BRIGHTNESS_FILE);
-    }
-
     public static boolean setColors(String colors) {
         if (!sUseGPUMode) {
-            FileUtils.writeLine(COLOR_FILE, colors);
-            return FileUtils.writeLine(BRIGHTNESS_FILE, getCurBrightness()); // Re-set Brightness!
+            return FileUtils.writeLine(COLOR_FILE, colors);
         }
 
         float[] mat = toColorMatrix(colors);
