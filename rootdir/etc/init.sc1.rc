@@ -51,19 +51,26 @@ on init
 # init does not automatically run "on early-fs", "on fs", "on post-fs",
 #   "on post-fs-data", "on early-boot", and "on boot" in charge-only-mode
 on charger
-    mount ext4 /dev/block/mmcblk0p16 /system ro noatime
-    mount -t auto /dev/block/mmcblk0p17 /data
+    trigger early-fs
+    trigger fs
+    trigger post-fs
+    trigger start-charging
 
+on start-charging
     start console
     start watchdogd
     exec /system/bin/charge_only_mode
 
 # CPU Frequency Governor
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu1/online 0
 
 # runs after "on init" and before "on fs"; doesn't run in charge-only-mode
 on early-fs
     mkdir /pds 0755 root root
+
+on fs
+    setprop ro.crypto.fuse_sdcard true
 
 # runs after "on fs" and before "on post-fs-data"
 # /system, /cache, and /pds should be mounted at this point
@@ -255,9 +262,6 @@ on boot
 
     # Setup folder for aplogd
     mkdir /data/aplogd 0750 log log
-
-on fs
-    setprop ro.crypto.fuse_sdcard true
 
 on property:sys.boot_completed=1
     # Insert matrix for PnP measurements

@@ -63,9 +63,7 @@ on post-fs-data
     # Set indication (checked by vold) that we have finished this action
     setprop vold.post_fs_data_done 1
 
-on charger
-    # /system is not already mounted under COS
-    mount ext4 /dev/block/mmcblk0p16 /system ro noatime
+on start-charging
     start pvrsrvctl
     # reduce backlight
     write /sys/class/backlight/psb-bl/brightness 50
