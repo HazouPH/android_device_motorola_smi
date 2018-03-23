@@ -45,15 +45,18 @@ on init
 # init does not automatically run "on early-fs", "on fs", "on post-fs",
 #   "on post-fs-data", "on early-boot", and "on boot" in charge-only-mode
 on charger
-    mount ext4 /dev/block/mmcblk0p16 /system ro noatime
-    mount ext4 /dev/block/mmcblk0p17 /data nosuid nodev noatime barrier=1,data=ordered,noauto_da_alloc
-    mount f2fs /dev/block/mmcblk0p17 /data nosuid nodev noatime inline_xattr
+    trigger early-fs
+    trigger fs
+    trigger post-fs
+    trigger start-charging
 
+on start-charging
     start console
     start watchdogd
 
 # CPU Frequency Governor
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
+    write /sys/devices/system/cpu/cpu1/online 0
 
 # runs after "on init" and before "on fs"; doesn't run in charge-only-mode
 on early-fs
