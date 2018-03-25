@@ -179,10 +179,8 @@ PRODUCT_PACKAGES += \
     pvrsrvctl
 
 # Motorola AGPS
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/framework/com.motorola.android.location.jar:system/framework/com.motorola.android.location.jar
-PRODUCT_PROPERTY_OVERRIDES += \
-    persist.motoagps.enable=true
+PRODUCT_SYSTEM_SERVER_JARS += \
+    com.motorola.android.location
 
 # Vibrator
 PRODUCT_PACKAGES += \

@@ -68,5 +68,15 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_ETC)/firmware
 LOCAL_SRC_FILES := etc/firmware/topazsc_fw.bin
 include $(BUILD_PREBUILT)
 
+include $(CLEAR_VARS)
+LOCAL_MODULE := com.motorola.android.location
+LOCAL_MODULE_OWNER := motorola
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE_CLASS := JAVA_LIBRARIES
+LOCAL_MODULE_PATH := $(TARGET_OUT_JAVA_LIBRARIES)
+LOCAL_SRC_FILES := framework/com.motorola.android.location.jar
+LOCAL_MODULE_SUFFIX := .jar
+include $(BUILD_PREBUILT)
+
 include $(call first-makefiles-under,$(LOCAL_PATH))
 include $(shell find $(LOCAL_PATH) -mindepth 2 -name "Android.mk")
