@@ -88,7 +88,6 @@ vendor/media/PFFprec_600.emd
 etc/firmware/mp3_dec_1.bin
 etc/firmware/wma9_dec_1.bin
 lib/hw/hwcomposer.smi.so
-lib/libpvr2d.so
 lib/libwbxmlparser.so
 vendor/lib/egl/libEGL_POWERVR_SGX540_121.so
 vendor/lib/egl/libGLESv1_CM_POWERVR_SGX540_121.so
@@ -97,7 +96,6 @@ vendor/lib/hw/gralloc.smi.so
 vendor/lib/hw/memtrack.smi.so
 vendor/lib/libglslcompiler.so
 vendor/lib/libIMGegl.so
-vendor/lib/libpvr2d.so
 vendor/lib/libpvrANDROID_WSEGL.so
 vendor/lib/libPVRScopeServices.so
 vendor/lib/libsrv_init.so
@@ -142,7 +140,6 @@ etc/firmware/fw_sst_082f.bin
 etc/firmware/fw_sst_08e7.bin
 etc/telephony/mmgr.conf
 lib/libglib-2.0.so
-lib/libmmgrcli.so
 lib/libpn544_fw.so:lib/libpn544_fw.bak
 lib/libsecurity_api.so
 

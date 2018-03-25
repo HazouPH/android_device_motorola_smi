@@ -57,7 +57,8 @@ PRODUCT_PACKAGES += \
 # Radio
 PRODUCT_PACKAGES += \
     librapid-ril-core \
-    librapid-ril-util
+    librapid-ril-util \
+    libmmgrcli
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/prebuilt/etc/telephony/repository.txt:system/etc/telephony/repository.txt
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -124,7 +125,8 @@ PRODUCT_PACKAGES += \
     msvdx_fw_mfld_DE2.0.bin \
     topazsc_bin \
     topazsc_fw.bin\
-    pvr_drv_video
+    pvr_drv_video \
+    libpvr2d
 
 # libva
 PRODUCT_PACKAGES += \
