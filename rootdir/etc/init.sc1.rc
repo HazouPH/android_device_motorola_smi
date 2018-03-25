@@ -197,8 +197,12 @@ on post-fs-data
     mkdir /data/power_supply_logger 0755 mot_pwric mot_pwric
 
     # KCal permissions
-    chown system system "/sys/devices/platform/SMD QHD Amoled/kcal"
-    chown system system "/sys/devices/platform/SMD QHD Amoled/kcal_min"
+    chown root system /sys/devices/platform/kcal_ctrl.0/kcal
+    chown root system /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
+    chmod 0664 /sys/devices/platform/kcal_ctrl.0/kcal
+    chmod 0664 /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
+    restorecon /sys/devices/platform/kcal_ctrl.0/kcal
+    restorecon /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
 
     # LBS init
     mkdir /data/location 0771 radio radio
