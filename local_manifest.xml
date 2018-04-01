@@ -36,6 +36,6 @@
   <project path="external/ffmpeg" name="LineageOS/android_external_ffmpeg" revision="cm-14.1"/>
   <project path="external/stagefright-plugins" name="HazouPH/android_external_stagefright-plugins" revision="cm-11.0-ffmpeg3.0"/>
   <project path="frameworks/rs" name="HazouPH/android_frameworks_rs" revision="cm-11.0IA"/>
-  <project path="prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9" name="LineageOS/android_prebuilts_gcc_linux-x86_x86_x86_64-linux-android-4.9" groups="pdk,linux,x86" clone-depth="1" />
+  <project path="prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9" name="LineageOS/android_prebuilts_gcc_linux-x86_x86_x86_64-linux-android-4.9" groups="pdk,linux,x86" clone-depth="1" revision="cm-14.1"/>
 
 </manifest>
