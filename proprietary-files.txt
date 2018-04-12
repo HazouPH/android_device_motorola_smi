@@ -138,7 +138,6 @@ etc/gps.conf
 etc/gps/ti/GPSCConfigFile.cfg
 etc/gps/ti/patch-X.0.ce
 etc/gps/ti/pathconfigfile.txt
-etc/location.cfg
 lib/hw/gps.smi.so
 lib/libgki.so
 lib/libgpsTI.so

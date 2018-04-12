@@ -143,9 +143,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libdrm
 
-# AGPS
+# GPS/AGPS
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/prebuilt/framework/com.motorola.android.location.jar:system/framework/com.motorola.android.location.jar
+    $(LOCAL_PATH)/prebuilt/framework/com.motorola.android.location.jar:system/framework/com.motorola.android.location.jar \
+    $(LOCAL_PATH)/prebuilt/etc/location.cfg:system/etc/location.cfg
 
 # Misc
 PRODUCT_PACKAGES += \
