@@ -25,12 +25,22 @@
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
+# Inherit some common Lineage stuff.
+$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+
 # Inherit from smi device
 $(call inherit-product, device/motorola/smi/device.mk)
 
+PRODUCT_RUNTIMES := runtime_libart_default
+
+# Boot animation
+TARGET_SCREEN_HEIGHT := 960
+TARGET_SCREEN_WIDTH := 480	#Real=540 (Fix bootanimation)
+
 # Set those variables here to overwrite the inherited values.
 PRODUCT_DEVICE := smi
-PRODUCT_NAME := full_smi
+PRODUCT_NAME := lineage_smi
 PRODUCT_BRAND := Motorola
 PRODUCT_MODEL := XT890
+PRODUCT_RELEASE_NAME := Razr I
 PRODUCT_MANUFACTURER := Motorola
