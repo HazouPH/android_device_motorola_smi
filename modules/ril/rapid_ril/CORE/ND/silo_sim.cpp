@@ -326,8 +326,8 @@ Error:
 void CSilo_SIM::ParsePduForRefresh(const char* pszPdu)
 {
     RIL_LOG_INFO("CSilo_SIM::ParsePduForRefresh() - Enter\r\n");
-    char* pRefresh = NULL;
-    char* pFileTag = NULL;
+    const char* pRefresh = NULL;
+    const char* pFileTag = NULL;
     char szFileTag1[] = "92";
     char szFileTag2[] = "12";
     char szFileTagLength[3] = {0};

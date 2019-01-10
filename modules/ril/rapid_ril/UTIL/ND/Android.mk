@@ -12,7 +12,7 @@ LOCAL_SRC_FILES:= \
     base64.c
 
 LOCAL_SHARED_LIBRARIES := \
-    libutils libcutils libmmgrcli
+    libutils libcutils libmmgrcli liblog
 
 LOCAL_C_INCLUDES :=  \
     $(LOCAL_PATH)/../../INC \

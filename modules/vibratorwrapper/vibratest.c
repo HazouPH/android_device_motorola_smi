@@ -76,6 +76,7 @@ main (void)
     vibratorOff();
     vibratorExists();
     vibratorOn(1000);
+    sleep(2);
     return 0;
 }
 

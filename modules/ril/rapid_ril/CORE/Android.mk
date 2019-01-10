@@ -66,7 +66,7 @@ LOCAL_SRC_FILES:= \
     cbs_info.cpp \
     ND/hardwareconfig.cpp
 
-LOCAL_SHARED_LIBRARIES := libcutils libutils libmmgrcli librilutils
+LOCAL_SHARED_LIBRARIES := libcutils libutils libmmgrcli librilutils liblog
 
 # Activating this macro enables PIN retry count feature
 ifeq ($(strip $(M2_PIN_RETRIES_FEATURE_ENABLED)),true)

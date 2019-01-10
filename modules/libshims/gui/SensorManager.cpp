@@ -26,11 +26,11 @@
 #include <binder/IBinder.h>
 #include <binder/IServiceManager.h>
 
-#include <gui/ISensorServer.h>
-#include <gui/ISensorEventConnection.h>
-#include "gui/Sensor.h"
+#include <sensor/ISensorServer.h>
+#include <sensor/ISensorEventConnection.h>
+#include "sensor/Sensor.h"
 #include "gui/SensorManager.h"
-#include <gui/SensorEventQueue.h>
+#include <sensor/SensorEventQueue.h>
 
 // ----------------------------------------------------------------------------
 namespace android {

@@ -13,15 +13,15 @@ LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
 
-#include $(CLEAR_VARS)
-#
-#LOCAL_SRC_FILES := \
-#    vibratest.c
+include $(CLEAR_VARS)
 
-#LOCAL_SHARED_LIBRARIES := \
-#    libhardware liblog libutils
+LOCAL_SRC_FILES := \
+    vibratest.c
 
-#LOCAL_MODULE := vibratest
-#LOCAL_MODULE_TAGS := optional
+LOCAL_SHARED_LIBRARIES := \
+    libhardware liblog libutils
 
-#include $(BUILD_EXECUTABLE)
+LOCAL_MODULE := vibratest
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_EXECUTABLE)

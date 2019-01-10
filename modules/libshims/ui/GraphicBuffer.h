@@ -25,6 +25,8 @@
 #include <ui/Rect.h>
 #include <utils/Flattenable.h>
 #include <utils/RefBase.h>
+#include <hardware/gralloc.h>
+#include <cutils/atomic.h>
 
 
 struct ANativeWindowBuffer;

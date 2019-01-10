@@ -20,9 +20,10 @@ LOCAL_SRC_FILES := \
     ui/GraphicBufferAllocator.cpp \
     ui/GraphicBuffer.cpp \
     ui/GraphicBufferMapper.cpp \
-    surface-control.cpp
+    atomic.c \
+    #surface-control.cpp
 
-LOCAL_SHARED_LIBRARIES := liblog libcutils libhardware libui libgui libbinder libutils libsync
+LOCAL_SHARED_LIBRARIES := liblog libcutils libhardware libui libgui libbinder libutils libsync libsensor
 LOCAL_MODULE := libshim_camera
 LOCAL_MODULE_CLASS := SHARED_LIBRARIES
 
@@ -47,6 +48,18 @@ LOCAL_SRC_FILES := \
      crypto_malloc.c
 
 LOCAL_MODULE := libshim_crypto
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_SHARED_LIBRARY)
+
+# atomic
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := \
+     atomic.c
+
+LOCAL_MODULE := libshim_atomic
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)

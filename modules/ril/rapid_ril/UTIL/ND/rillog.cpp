@@ -90,6 +90,10 @@ void CRilLog::Init(int subscriptionID)
     {
         m_uiFlags = E_RIL_CRITICAL_LOG;
     }
+    m_uiFlags |= E_RIL_VERBOSE_LOG;
+    m_uiFlags |= E_RIL_INFO_LOG;
+    m_uiFlags |= E_RIL_WARNING_LOG;
+    m_uiFlags |= E_RIL_CRITICAL_LOG;
 
     m_bInitialized = TRUE;
 }

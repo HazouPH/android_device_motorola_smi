@@ -24,6 +24,10 @@ BOARD_GLOBAL_CFLAGS += -march=bonnell
 #VENDOR_ART_PATH := art-extension/art-extension
 #BOARD_USES_DLMALLOC_META_CHUNK_FILTER := true
 #WITH_DEXPREOPT_COMP := true
+WITH_DEXPREOPT := true
+
+# USB
+TARGET_USES_LEGACY_ADB_INTERFACE := true
 
 # Connectivity - Wi-Fi
 USES_TI_MAC80211 := true
@@ -38,7 +42,7 @@ BOARD_GLOBAL_CFLAGS              += -DUSES_TI_MAC80211
 endif
 
 # bootstub as 2nd bootloader
-TARGET_BOOTLOADER_IS_2ND := true
+TARGET_BOOTLOADER_IS_2ND := false
 
 # Kernel build (source:github.com/oxavelar)
 BOARD_KERNEL_BASE := 0x000400
@@ -95,6 +99,7 @@ BOARD_USES_WRS_OMXIL_CORE := true
 BOARD_USES_MRST_OMX := true
 USE_INTEL_SECURE_AVC := true
 BOARD_GLOBAL_CFLAGS += -DASUS_ZENFONE2_LP_BLOBS
+TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS := 0x200000U
 
 # Camera
 BOARD_GLOBAL_CFLAGS += -DCAMERA_VENDOR_L_COMPAT
@@ -122,6 +127,16 @@ BOARD_CHARGER_ENABLE_SUSPEND := true
 # Houdini: enable ARM codegen for x86
 BUILD_ARM_FOR_X86 := true
 
+# SHIM
+TARGET_LD_SHIM_LIBS := \
+    /system/bin/bd_prov|libshim_crypto.so:\
+    /system/bin/mmgr|libshim_mmgr.so:\
+    /system/lib/libparameter.so|libshim_audio.so:\
+    /system/lib/libsecurity_api.so|libshim_crypto.so:\
+    /system/lib/parameter-framework-plugins/Audio/libtinyalsa_custom-subsystem.so|libshim_audio.so:\
+    /system/lib/hw/camera.vendor.sc1.so|libshim_camera.so:\
+    /system/lib/hw/hwcomposer.smi.so|libshim_atomic.so
+
 # Recovery configuration global
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 BOARD_HAS_NO_SELECT_BUTTON := true
@@ -135,7 +150,3 @@ BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 ifeq ($(WITH_TWRP),true)
 -include $(LOCAL_PATH)/twrp/twrp.mk
 endif
-
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/motorola/smi/sepolicy

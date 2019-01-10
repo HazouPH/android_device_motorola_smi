@@ -1638,7 +1638,7 @@ BOOL CSilo_Network::ParseXCSG(CResponse* const pResponse, const char*& pszPointe
     RIL_LOG_VERBOSE("CSilo_Network::ParseXCSG() - Enter\r\n");
 
     const char* pszLineEnd;
-    char* pszDummy;
+    const char* pszDummy;
     BOOL bRet = FALSE;
     bool isUnsolicited = true;
     int nParams = 1;

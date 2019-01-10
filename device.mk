@@ -38,7 +38,21 @@ PRODUCT_PACKAGES += \
     libaudioutils \
     libtinyalsa \
     libremote-processor \
-    remote-process
+    remote-process \
+    android.hardware.audio@2.0-impl
+
+# Bluetooth HAL
+PRODUCT_PACKAGES += \
+    android.hardware.bluetooth@1.0-impl
+
+# Keymaster HAL
+PRODUCT_PACKAGES += \
+    android.hardware.keymaster@3.0-impl \
+    android.hardware.keymaster@3.0-service
+
+# Sensor HAL
+PRODUCT_PACKAGES += \
+    android.hardware.sensors@1.0-impl
 
 # MM Compability
 PRODUCT_PACKAGES += \
@@ -103,7 +117,8 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     camera.sc1 \
     libintelmetadatabuffer \
-    Snap
+    Snap \
+    camera.device@1.0-impl
 
 # Newer camera API isn't supported.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -113,11 +128,19 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Power
 PRODUCT_PACKAGES += \
-    power.smi
+    power.smi \
+    android.hardware.power@1.0-impl
 
 # Lights
 PRODUCT_PACKAGES += \
-    lights.smi
+    lights.smi \
+    android.hardware.light@2.0-impl
+
+# grafics HAL
+PRODUCT_PACKAGES += \
+    android.hardware.graphics.composer@2.1-impl \
+    android.hardware.graphics.mapper@2.0-impl \
+    android.hardware.graphics.allocator@2.0-impl
 
 # psb video
 PRODUCT_PACKAGES += \
@@ -186,7 +209,8 @@ PRODUCT_SYSTEM_SERVER_JARS += \
 
 # Vibrator
 PRODUCT_PACKAGES += \
-    vibrator.sc1
+    vibrator.sc1 \
+    android.hardware.vibrator@1.0-impl
 
 # Misc
 PRODUCT_PACKAGES += \

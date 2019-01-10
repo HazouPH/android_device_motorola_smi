@@ -1,0 +1,15 @@
+cc_library_static {
+    name: "multihal-smi",
+    vendor: true,
+    srcs: [
+        "multihal.cpp",
+        "SensorEventQueue.cpp"
+    ],
+    shared_libs: [
+        "liblog",
+        "libcutils",
+        "libutils",
+        "libdl"
+    ],
+    export_include_dirs: ["."],
+}
