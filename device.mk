@@ -39,11 +39,12 @@ PRODUCT_PACKAGES += \
     libtinyalsa \
     libremote-processor \
     remote-process \
-    android.hardware.audio@2.0-impl
+    android.hardware.audio@2.0-impl \
+    android.hardware.audio.effect@2.0
 
 # Bluetooth HAL
 PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl
+    android.hardware.bluetooth@1.0-service.smi
 
 # Keymaster HAL
 PRODUCT_PACKAGES += \
@@ -52,7 +53,11 @@ PRODUCT_PACKAGES += \
 
 # Sensor HAL
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl
+    android.hardware.sensors@1.0-impl \
+    sensors.smi
+
+PRODUCT_COPY_FILES += \
+    device/motorola/smi/modules/sensors/_hals.conf:system/vendor/etc/sensors/_hals.conf
 
 # MM Compability
 PRODUCT_PACKAGES += \
@@ -60,6 +65,10 @@ PRODUCT_PACKAGES += \
     libshim_camera \
     libshim_mmgr \
     libshim_crypto
+
+#PIE Compability
+PRODUCT_PACKAGES += \
+    libshim_atomic
 
 # We only have 1GB of RAM
 PRODUCT_PROPERTY_OVERRIDES += ro.config.low_ram=true
@@ -118,7 +127,7 @@ PRODUCT_PACKAGES += \
     camera.sc1 \
     libintelmetadatabuffer \
     Snap \
-    camera.device@1.0-impl
+    android.hardware.camera.provider@2.4-impl
 
 # Newer camera API isn't supported.
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -140,7 +149,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.graphics.allocator@2.0-impl
+    android.hardware.graphics.allocator@2.0-impl \
+    android.hardware.graphics.allocator@2.0-service
 
 # psb video
 PRODUCT_PACKAGES += \

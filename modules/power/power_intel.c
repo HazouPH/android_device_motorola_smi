@@ -228,14 +228,6 @@ static void intel_power_set_interactive(struct power_module *module, int on)
 
     free_dir_list(device_list, entries);
 #endif
-    ALOGE("intel_power_set_interactive\n");
-    if(on) {
-        FILE *state = fopen("/sys/power/state", "w");
-        if(state) {
-            fprintf(state, "on");
-            fclose(state);
-        }
-    }
 }
 
 static void intel_power_hint(struct power_module *module, power_hint_t hint,

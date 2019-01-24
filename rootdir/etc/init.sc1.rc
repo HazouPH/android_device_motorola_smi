@@ -263,23 +263,21 @@ on property:sys.boot_completed=1
 
 service gkisystem /system/bin/gkisystem.sh
     class main
+    disabled
     socket location_shim stream 660 radio system
     socket gpshal_socket stream 660 radio system
     group radio mot_accy mot_secclkd
-    seclabel u:r:gkisystem:s0
 
 service locDrv /system/bin/gps_driver.sh
     class main
     user radio
     group radio inet sdcard_rw
-    seclabel u:r:gkisystem:s0
 
 # Magnetometer
 service akmd8963 /system/bin/akmd8963.sh
     class main
     user compass
     group compass misc input
-    seclabel u:r:akmd8963:s0
 
 # Properties, events trigging service
 
@@ -287,7 +285,6 @@ service batt_health /system/bin/batt_health.sh
     class main
     group mot_pwric
     oneshot
-    seclabel u:r:batt_health:s0
 
 # From init.rc in stock, these redefine service definitions
 
