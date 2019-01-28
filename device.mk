@@ -40,7 +40,7 @@ PRODUCT_PACKAGES += \
     libremote-processor \
     remote-process \
     android.hardware.audio@2.0-impl \
-    android.hardware.audio.effect@2.0
+    android.hardware.audio.effect@2.0-impl
 
 # Bluetooth HAL
 PRODUCT_PACKAGES += \
