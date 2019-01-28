@@ -379,7 +379,7 @@ WRAP_STREAM_LOCKED(get_next_write_timestamp, out, int, -ENODEV, (const struct au
 int wrapper_get_presentation_position(__attribute__((unused)) const struct audio_stream_out *stream,
                 __attribute__((unused)) uint64_t *frames, __attribute__((unused)) struct timespec *timestamp)
 {
-        return -1;
+        return -ENOSYS;
 }
 
 static void wrapper_close_output_stream(unused_audio_hw_device *dev,

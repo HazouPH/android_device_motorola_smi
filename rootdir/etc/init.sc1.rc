@@ -292,7 +292,7 @@ service audioserver /system/bin/audioserver
     class main
     user audioserver
     # media gid needed for /dev/fm (radio) and for /data/misc/media (tee)
-    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct qcom_diag radio system wakelock
+    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct radio system wakelock
     ioprio rt 4
     writepid /dev/cpuset/foreground/tasks /dev/stune/foreground/tasks
 
