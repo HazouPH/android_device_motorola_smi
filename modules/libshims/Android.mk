@@ -63,3 +63,17 @@ LOCAL_MODULE := libshim_atomic
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
+
+# houdini
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES := \
+     houdini.c
+
+LOCAL_LDFLAGS += -Wl,--version-script=$(LOCAL_PATH)/houdini.map
+
+LOCAL_MODULE := libshim_houdini
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_SHARED_LIBRARY)

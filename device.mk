@@ -236,12 +236,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(call find-copy-subdir-files,*,$(LOCAL_PATH)/houdini/system,system)
 
+PRODUCT_PACKAGES += \
+    libnb \
+    libshim_houdini
+
 # Houdini (arm native bridge)
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.enable.native.bridge.exec=1
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    ro.dalvik.vm.native.bridge=libhoudini.so
+    ro.dalvik.vm.native.bridge=libnb.so
 
 # Dalvik
 PRODUCT_PROPERTY_OVERRIDES += \

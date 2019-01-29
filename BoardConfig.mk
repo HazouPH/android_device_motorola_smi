@@ -135,7 +135,8 @@ TARGET_LD_SHIM_LIBS := \
     /system/lib/libsecurity_api.so|libshim_crypto.so:\
     /system/lib/parameter-framework-plugins/Audio/libtinyalsa_custom-subsystem.so|libshim_audio.so:\
     /system/lib/hw/camera.vendor.sc1.so|libshim_camera.so:\
-    /system/lib/hw/hwcomposer.smi.so|libshim_atomic.so
+    /system/lib/hw/hwcomposer.smi.so|libshim_atomic.so:\
+    /system/lib/libhoudini.so|libshim_houdini.so
 
 # Recovery configuration global
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"

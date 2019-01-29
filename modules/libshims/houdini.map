@@ -1,0 +1,4 @@
+LIBC_PRIVATE {
+  global:
+    android_get_application_target_sdk_version;
+};
