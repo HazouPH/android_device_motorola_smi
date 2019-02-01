@@ -195,6 +195,8 @@ struct sensors_poll_context_t {
      */
     sensors_poll_device_1 proxy_device; // must be first
 
+    bool sensor_enabled = 0;
+
     void addSubHwDevice(struct hw_device_t*);
 
     int activate(int handle, int enabled);
@@ -286,6 +288,7 @@ const char *apiNumToStr(int version) {
 int sensors_poll_context_t::activate(int handle, int enabled) {
     int retval = -EINVAL;
     ALOGV("activate");
+    sensor_enabled = enabled;
     int local_handle = get_local_handle(handle);
     sensors_poll_device_t* v0 = this->get_v0_device_by_handle(handle);
     if (local_handle >= 0 && v0) {
@@ -384,7 +387,7 @@ int sensors_poll_context_t::batch(int handle, int flags, int64_t period_ns, int6
     if (local_handle >= 0 && v1) {
         if (halIsAPILevelCompliant(this, handle, SENSORS_DEVICE_API_VERSION_1_1)) {
             retval = v1->batch(v1, local_handle, flags, period_ns, timeout);
-        } else {
+        } else if (!sensor_enabled) {
             // NOTE: unlike setDelay(), batch() can be called when the
             // sensor is disabled.
 
