@@ -230,7 +230,9 @@ PRODUCT_PACKAGES += \
     tcpdump \
     libcorkscrew \
     imgdiff \
-    com.android.future.usb.accessory
+    com.android.future.usb.accessory \
+    android.hardware.memtrack@1.0-impl \
+    android.hardware.usb@1.0-service
 
 # Houdini (arm native bridge)
 PRODUCT_COPY_FILES += \
