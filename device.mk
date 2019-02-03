@@ -213,6 +213,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PACKAGES += \
     pvrsrvctl
 
+# GPS
+PRODUCT_PACKAGES += \
+    android.hardware.gnss@1.0-impl \
+    libshim_gps
+
 # Motorola AGPS
 PRODUCT_SYSTEM_SERVER_JARS += \
     com.motorola.android.location
