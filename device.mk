@@ -53,11 +53,7 @@ PRODUCT_PACKAGES += \
 
 # Sensor HAL
 PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl \
-    sensors.smi
-
-PRODUCT_COPY_FILES += \
-    device/motorola/smi/modules/sensors/_hals.conf:system/vendor/etc/sensors/_hals.conf
+    android.hardware.sensors@1.0-impl.smi
 
 # MM Compability
 PRODUCT_PACKAGES += \

@@ -147,7 +147,7 @@ lib/libsecurity_api.so
 lib/parameter-framework-plugins/Fs/libfs-subsystem.so
 
 # HW
-lib/hw/sensors.vendor.smi.so
+lib/hw/sensors.smi.so
 
 # Thermal
 etc/thermal_sensor_config.xml

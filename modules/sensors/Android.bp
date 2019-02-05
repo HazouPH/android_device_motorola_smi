@@ -1,15 +1,21 @@
-cc_library_static {
-    name: "multihal-smi",
-    vendor: true,
-    srcs: [
-        "multihal.cpp",
-        "SensorEventQueue.cpp"
-    ],
+cc_library_shared {
+    name: "android.hardware.sensors@1.0-impl.smi",
+    defaults: ["hidl_defaults"],
+    proprietary: true,
+    relative_install_path: "hw",
+    cflags: ["-Wno-unused-parameter"],
+    srcs: ["Sensors.cpp"],
     shared_libs: [
         "liblog",
         "libcutils",
+        "libhardware",
+        "libbase",
         "libutils",
-        "libdl"
+        "libhidlbase",
+        "libhidltransport",
+        "android.hardware.sensors@1.0",
     ],
-    export_include_dirs: ["."],
+    static_libs: [
+        "android.hardware.sensors@1.0-convert",
+    ],
 }
