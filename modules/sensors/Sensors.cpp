@@ -150,9 +150,11 @@ Return<void> Sensors::poll(int32_t maxCount, poll_cb _hidl_cb) {
         } else {
             int bufferSize = maxCount <= kPollMaxBufferSize ? maxCount : kPollMaxBufferSize;
             data.reset(new sensors_event_t[bufferSize]);
-            err = mSensorDevice->poll(
-                    mSensorDevice,
-                    data.get(), bufferSize);
+            do {
+                err = mSensorDevice->poll(
+                        mSensorDevice,
+                        data.get(), bufferSize);
+            } while (err == -EINTR);
         }
     }
 
