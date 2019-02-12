@@ -138,6 +138,9 @@ TARGET_LD_SHIM_LIBS := \
     /system/lib/hw/hwcomposer.smi.so|libshim_atomic.so:\
     /system/lib/libhoudini.so|libshim_houdini.so
 
+# HIDL
+DEVICE_MANIFEST_FILE := $(LOCAL_PATH)/manifest.xml
+
 # Recovery configuration global
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 BOARD_HAS_NO_SELECT_BUTTON := true
