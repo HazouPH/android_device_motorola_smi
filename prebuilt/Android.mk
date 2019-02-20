@@ -78,21 +78,5 @@ LOCAL_SRC_FILES := framework/com.motorola.android.location.jar
 LOCAL_MODULE_SUFFIX := .jar
 include $(BUILD_PREBUILT)
 
-include $(CLEAR_VARS)
-LOCAL_MODULE := libsrv_init
-LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/vendor/lib/libsrv_init.so
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_MODULE_SUFFIX := .so
-include $(BUILD_PREBUILT)
-
-include $(CLEAR_VARS)
-LOCAL_MODULE := libsrv_um
-LOCAL_SRC_FILES := $(VENDOR_PREBUILT_DIR)/vendor/lib/libsrv_um.so
-LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE_CLASS := SHARED_LIBRARIES
-LOCAL_MODULE_SUFFIX := .so
-include $(BUILD_PREBUILT)
-
 include $(call first-makefiles-under,$(LOCAL_PATH))
 include $(shell find $(LOCAL_PATH) -mindepth 2 -name "Android.mk")
