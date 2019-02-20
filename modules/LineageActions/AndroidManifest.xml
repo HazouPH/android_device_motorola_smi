@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.lineageos.settings.device"
+    android:sharedUserId="android.uid.system">
+
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <protected-broadcast android:name="com.android.systemui.doze.pulse" />
+
+    <application
+        android:label="@string/device_settings_app_name"
+        android:persistent="true">
+
+        <receiver android:name=".LineageActionsReceiver">
+            <intent-filter>
+                <action android:name="lineageos.intent.action.UPDATE_PREFERENCE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".LineageActionsService"
+                 android:permission="LineageActionsService">
+        </service>
+
+        <activity
+            android:name=".GesturePreferenceActivity"
+            android:label="@string/ambient_display_title"
+            android:theme="@style/LineageActions">
+            <intent-filter>
+                <action android:name="org.lineageos.settings.device.DOZE_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="org.lineageos.settings.summary.receiver"
+                android:value="org.lineageos.settings.device.LineageActionsReceiver" />
+            <meta-data
+                android:name="org.lineageos.settings.summary.key"
+                android:value="doze_device_settings" />
+        </activity>
+
+    </application>
+</manifest>
