@@ -218,6 +218,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_SYSTEM_SERVER_JARS += \
     com.motorola.android.location
 
+PRODUCT_PACKAGES += \
+    com.motorola.android.location
+
 # Vibrator
 PRODUCT_PACKAGES += \
     vibrator.sc1 \
