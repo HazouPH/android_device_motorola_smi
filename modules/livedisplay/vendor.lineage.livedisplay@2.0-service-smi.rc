@@ -1,0 +1,4 @@
+service vendor.livedisplay-hal-2-0-smi /vendor/bin/hw/vendor.lineage.livedisplay@2.0-service-smi
+    class hal
+    user system
+    group system

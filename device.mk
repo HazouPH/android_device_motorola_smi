@@ -226,6 +226,10 @@ PRODUCT_PACKAGES += \
     vibrator.sc1 \
     android.hardware.vibrator@1.0-impl
 
+# Livedisplay
+PRODUCT_PACKAGES += \
+    vendor.lineage.livedisplay@2.0-service-smi
+
 # Misc
 PRODUCT_PACKAGES += \
     curl \
