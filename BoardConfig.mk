@@ -20,10 +20,6 @@ TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 MALLOC_SVELTE := true
 BOARD_GLOBAL_CFLAGS += -march=bonnell
 
-# Intel ART optimized build flags (needs art-extension)
-#VENDOR_ART_PATH := art-extension/art-extension
-#BOARD_USES_DLMALLOC_META_CHUNK_FILTER := true
-#WITH_DEXPREOPT_COMP := true
 WITH_DEXPREOPT := true
 
 # USB
@@ -40,9 +36,6 @@ BOARD_HOSTAPD_DRIVER             := NL80211
 CONFIG_HS20                      := true
 BOARD_GLOBAL_CFLAGS              += -DUSES_TI_MAC80211
 endif
-
-# bootstub as 2nd bootloader
-TARGET_BOOTLOADER_IS_2ND := false
 
 # Kernel build (source:github.com/oxavelar)
 BOARD_KERNEL_BASE := 0x000400
