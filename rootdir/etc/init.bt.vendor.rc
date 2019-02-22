@@ -13,7 +13,6 @@ on post-fs
     chmod 0660 /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
     chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
-    mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
     mkdir /data/misc/hcid 0770 bluetooth bluetooth
     start bd_prov
 
