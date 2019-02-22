@@ -17,7 +17,7 @@
 
 # Bluetooth device
 /dev/hci_tty              0666   bluetooth  bluetooth
-/dev/ttyMFD0              0660   bluetooth  net_bt_stack
+/dev/ttyMFD0              0660   bluetooth  bluetooth
 /dev/tigps                0666   root       radio
 /dev/tifm                 0660   bluetooth  bluetooth
 /dev/pn544                0660   nfc        nfc
