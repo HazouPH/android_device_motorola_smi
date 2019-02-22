@@ -11,23 +11,23 @@ on property:bluetooth.uim_service_state=0
 on post-fs
     chmod 0660 /dev/rfkill
     chmod 0660 /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/state
-    chown bluetooth net_bt_stack /sys/class/rfkill/rfkill0/type
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/state
+    chown bluetooth bluetooth /sys/class/rfkill/rfkill0/type
     mkdir /data/misc/bluetoothd 0770 bluetooth bluetooth
     mkdir /data/misc/hcid 0770 bluetooth bluetooth
     start bd_prov
 
 # uim interfaces
     chmod 0660 /sys/devices/platform/kim/install
-    chown bluetooth net_bt_stack /sys/devices/platform/kim/install
+    chown bluetooth bluetooth /sys/devices/platform/kim/install
     chmod 0660 /sys/devices/platform/kim/dev_name
-    chown bluetooth net_bt_stack /sys/devices/platform/kim/dev_name
+    chown bluetooth bluetooth /sys/devices/platform/kim/dev_name
     chmod 0660 /sys/devices/platform/kim/baud_rate
-    chown bluetooth net_bt_stack /sys/devices/platform/kim/baud_rate
+    chown bluetooth bluetooth /sys/devices/platform/kim/baud_rate
     chmod 0660 /sys/devices/platform/kim/flow_cntrl
-    chown bluetooth net_bt_stack /sys/devices/platform/kim/flow_cntrl
+    chown bluetooth bluetooth /sys/devices/platform/kim/flow_cntrl
     chmod 0660 /dev/ttyMFD0
-    chown bluetooth net_bt_stack /dev/ttyMFD0
+    chown bluetooth bluetooth /dev/ttyMFD0
 
 service uim-sysfs /system/bin/uim-sysfs
     class core
