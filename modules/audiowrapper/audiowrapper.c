@@ -231,7 +231,7 @@ static void wrapper_close_input_stream(unused_audio_hw_device *dev,
 
 uint32_t wrapper_get_input_frames_lost(__attribute__((unused))struct audio_stream_in *stream)
 {
-    return -ENOSYS;
+    return 0;
 }
 
 static int wrapper_get_capture_position(__attribute__((unused))const struct audio_stream_in *stream,
