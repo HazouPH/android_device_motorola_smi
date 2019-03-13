@@ -35,6 +35,8 @@
 #include <camera/Camera.h>
 #include <camera/CameraParameters2.h>
 
+extern "C" void android_set_application_target_sdk_version(uint32_t target);
+
 using namespace android;
 
 static Mutex gCameraWrapperLock;
@@ -523,6 +525,8 @@ static int camera_device_open(const hw_module_t* module, const char* name,
     int cameraid;
     wrapper_camera_device_t* camera_device = NULL;
     camera_device_ops_t* camera_ops = NULL;
+
+    android_set_application_target_sdk_version(__ANDROID_API_K__);
 
     Mutex::Autolock lock(gCameraWrapperLock);
 
