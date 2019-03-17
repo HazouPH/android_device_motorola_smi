@@ -206,8 +206,6 @@ static int camera_store_meta_data_in_buffers(struct camera_device * device, int 
 
     ALOGV("%s->%08X->%08X", __FUNCTION__, (void*)device, (void*)(((wrapper_camera_device_t*)device)->vendor));
 
-    if (enable)
-        return INVALID_OPERATION;
     return VENDOR_CALL(device, store_meta_data_in_buffers, enable);
 }
 
@@ -417,15 +415,6 @@ static char* camera_get_parameters(struct camera_device * device)
     //only use working preview sizes
     if(!strcmp(params.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES), "1024x576,800x600,720x480,720x408,640x480,640x360,352x288,320x240,176x144")) {
         params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES, "800x600,720x480,720x408,640x480,640x360,352x288,320x240,176x144");
-    }
-
-    //only use working video sizes
-    if(!strcmp(params.get(android::CameraParameters::KEY_SUPPORTED_VIDEO_SIZES), "1920x1088,1920x1080,1280x720,720x480,640x480,352x288,320x240,176x144")) {
-        params.set(android::CameraParameters::KEY_SUPPORTED_VIDEO_SIZES, "1280x720,640x480,352x288,320x240");
-    }
-    //video sizes for front facing cam
-    else if(!strcmp(params.get(android::CameraParameters::KEY_SUPPORTED_VIDEO_SIZES), "640x480,320x240,176x144")) {
-        params.set(android::CameraParameters::KEY_SUPPORTED_VIDEO_SIZES, "640x480");
     }
 
     android::String8 strParams = params.flatten();
