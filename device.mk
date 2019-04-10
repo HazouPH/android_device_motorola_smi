@@ -288,6 +288,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     softap.interface=wlan0 \
     ap.interface=wlan1 \
     ro.disableWifiApFirmwareReload=true
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/vendor/etc/wifi/wpa_supplicant.conf:system/vendor/etc/wifi/wpa_supplicant.conf
 
 # Misc
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
