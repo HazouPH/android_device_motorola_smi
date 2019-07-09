@@ -238,7 +238,7 @@ PRODUCT_PACKAGES += \
     imgdiff \
     com.android.future.usb.accessory \
     android.hardware.memtrack@1.0-impl \
-    android.hardware.usb@1.0-service
+    android.hardware.usb@1.0-service.basic
 
 # Houdini (arm native bridge)
 PRODUCT_COPY_FILES += \
