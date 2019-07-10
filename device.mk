@@ -136,8 +136,7 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    lights.smi \
-    android.hardware.light@2.0-impl
+    android.hardware.light@2.0-service.smi
 
 # grafics HAL
 PRODUCT_PACKAGES += \

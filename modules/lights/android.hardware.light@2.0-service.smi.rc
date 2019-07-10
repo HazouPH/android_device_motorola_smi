@@ -1,0 +1,10 @@
+on init
+    chown system system /sys/class/backlight/psb-bl/brightness
+    chmod 0664 /sys/class/backlight/psb-bl/brightness
+    chown system system /sys/class/leds/rgb/control
+
+service vendor.light-hal-2-0 /vendor/bin/hw/android.hardware.light@2.0-service.smi
+    class hal
+    user system
+    group system
+    shutdown critical
