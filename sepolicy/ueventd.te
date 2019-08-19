@@ -7,5 +7,3 @@ allow ueventd unlabeled:file { getattr open read };
 allow ueventd gps_device:chr_file { create setattr };
 allow ueventd wifi_data_file:file { open read getattr };
 allow ueventd wifi_data_file:dir search;
-allow ueventd sysfs_cpu:dir { getattr open read relabelto };
-allow ueventd sysfs_cpu:file relabelto;

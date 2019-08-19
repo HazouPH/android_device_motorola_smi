@@ -1,6 +1,5 @@
 allow system_app system_file:file execmod;
 allow system_app sysfs:dir { open read };
-allow system_app sysfs_cpu:dir { open read };
 allow system_app vendor_file:file execmod;
 allow system_app wificond:binder call;
 allow system_app proc_pagetypeinfo:file read;

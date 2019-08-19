@@ -5,7 +5,6 @@ allow mediacodec init:unix_stream_socket connectto;
 allow mediacodec property_socket:sock_file write;
 allow mediacodec sysfs:file { getattr open read };
 allow mediacodec vendor_file:file execmod;
-allow mediacodec sysfs_cpu:file { getattr open read };
 allow mediacodec camera_device:chr_file { getattr ioctl open read write };
 
 #cam has to be in same process as mediacodec, because of old binary blobs

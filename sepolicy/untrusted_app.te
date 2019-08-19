@@ -6,18 +6,8 @@ allow untrusted_app proc_version:file { getattr };
 allow untrusted_app sysfs:file { getattr };
 allow untrusted_app system_data_file:file open;
 allow untrusted_app vendor_file:file execmod;
-allow untrusted_app sysfs_cpu:dir { getattr open read };
-allow untrusted_app sysfs_cpu:file { getattr open read };
 allow untrusted_app vendor_file:file execmod;
-allow untrusted_app_25 system_data_file:file { open execute };
 allow untrusted_app_25 cpuinfo_file:file { open read };
-allow untrusted_app_25 sysfs_cpu:dir getattr;
-allow untrusted_app_25 vendor_file:file execmod;
-allow untrusted_app_25 system_file:file execmod;
-allow untrusted_app_27 sysfs_cpu:dir getattr;
-allow untrusted_app_27 system_data_file:file { execute open };
-allow untrusted_app_27 vendor_file:file execmod;
-allow untrusted_app_27 system_file:file execmod;
 
 # Zram
 allow untrusted_app sysfs_zram:dir r_dir_perms;

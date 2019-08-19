@@ -12,7 +12,6 @@ allow init device:chr_file ioctl;
 allow init self:netlink_kobject_uevent_socket read;
 allow init bluetooth:process { noatsecure rlimitinh siginh };
 allow init sysfs:file { setattr };
-allow init sysfs_cpu:file { read open setattr };
 allow init sysfs_fbcon:file { write };
 allow init sysfs_gpio:file { open write };
 allow init proc_filesystems:file getattr;

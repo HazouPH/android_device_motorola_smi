@@ -1,8 +1,8 @@
 # gkisystem - GKISystem GPS daemon
 type gkisystem, domain;
 type gkisystem_exec, exec_type, file_type;
-type gps_data_file, file_type;
-type gps_socket, file_type;
+type gps_data_file, file_type, data_file_type, core_data_file_type;
+type gps_socket, file_type, data_file_type, core_data_file_type;
 type gps_device, file_type;
 
 init_daemon_domain(gkisystem)
@@ -15,8 +15,6 @@ type_transition gkisystem gps_data_file:sock_file gps_socket;
 allow gkisystem gps_socket:sock_file create_file_perms;
 # XXX Label sysfs files with a specific type?
 allow gkisystem sysfs:file rw_file_perms;
-allow gkisystem sysfs_cpu:dir search;
-allow gkisystem sysfs_cpu:file { getattr open read };
 allow gkisystem self:capability kill;
 allow gkisystem self:capability sys_resource;
 allow gkisystem devpts:chr_file { getattr read write };

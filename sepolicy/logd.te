@@ -1,2 +1,0 @@
-allow logd sysfs_cpu:file { getattr open read };
-allow logd sysfs_cpu:dir search;

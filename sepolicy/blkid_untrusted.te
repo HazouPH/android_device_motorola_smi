@@ -1,3 +1,1 @@
 allow blkid_untrusted proc_filesystems:file { getattr read open };
-allow blkid_untrusted sysfs:file { open read };
-allow blkid_untrusted sysfs_cpu:file { open read };

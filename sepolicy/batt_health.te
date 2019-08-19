@@ -12,7 +12,6 @@ allow batt_health self:netlink_kobject_uevent_socket read;
 allow batt_health self:netlink_kobject_uevent_socket { bind create setopt };
 allow batt_health shell_exec:file rx_file_perms;
 allow batt_health system_file:file {rx_file_perms execmod};
-allow batt_health sysfs_cpu:file { open read getattr };
 
 # batt_health needs to access /sys/devices/platform/msm_ssbi.0/pm8921-core which is used by others
 allow batt_health sysfs:file rw_file_perms;

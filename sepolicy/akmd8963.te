@@ -1,7 +1,7 @@
 # AKMD8963 Sensor daemon
 type akmd8963, domain;
 type akmd8963_exec, exec_type, file_type;
-type akmd8963_data_file, file_type, data_file_type;
+type akmd8963_data_file, file_type, data_file_type, core_data_file_type;
 init_daemon_domain(akmd8963)
 
 file_type_auto_trans(akmd8963, system_data_file, akmd8963_data_file)
@@ -12,5 +12,4 @@ allow akmd8963 akmd8963_data_file:file rw_file_perms;
 allow akmd8963 shell_exec:file rx_file_perms;
 allow akmd8963 system_file:file {rx_file_perms execmod};
 allow akmd8963 self:process execmem;
-allow akmd8963 sysfs_cpu:file { getattr open read };
 allow akmd8963 system_data_file:file { getattr open read };

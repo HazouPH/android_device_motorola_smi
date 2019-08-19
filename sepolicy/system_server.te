@@ -14,7 +14,6 @@ allow system_server proc:file { getattr open read };
 allow system_server gps_socket:sock_file write;
 allow system_server sensors_device:chr_file { ioctl open read };
 allow system_server vendor_file:file execmod;
-allow system_server sysfs_cpu:file write;
 allow system_server crash_dump:process getpgid;
 allow system_server unlabeled:file unlink;
 allow system_server sysfs_init_access:file write;

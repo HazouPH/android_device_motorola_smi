@@ -1,2 +1,0 @@
-allow tombstoned sysfs:file { getattr open read };
-allow tombstoned sysfs_cpu:file { open read };

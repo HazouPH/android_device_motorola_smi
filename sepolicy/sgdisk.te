@@ -1,2 +1,0 @@
-allow sgdisk sysfs:file { getattr open read };
-allow sgdisk sysfs_cpu:file { getattr open read };

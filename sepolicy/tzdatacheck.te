@@ -1,2 +1,0 @@
-allow tzdatacheck sysfs_cpu:dir search;
-allow tzdatacheck sysfs_cpu:file { getattr open read };

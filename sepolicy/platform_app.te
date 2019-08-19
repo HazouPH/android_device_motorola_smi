@@ -2,4 +2,3 @@ allow platform_app system_file:file execmod;
 allow platform_app device:chr_file { ioctl };
 allow platform_app sysfs:dir { open read };
 allow platform_app vendor_file:file execmod;
-allow platform_app sysfs_cpu:dir { open read };

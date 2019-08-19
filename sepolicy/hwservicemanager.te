@@ -1,3 +1,0 @@
-allow hwservicemanager sysfs:file { getattr open read };
-allow hwservicemanager sysfs_cpu:dir search;
-allow hwservicemanager sysfs_cpu:file { getattr open read };

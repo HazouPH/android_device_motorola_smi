@@ -1,8 +1,5 @@
 # This sucks but needed for camera
 allow zygote system_file:file execmod;
 allow zygote ota_data_file:dir search;
-allow zygote sysfs:dir { open read };
-allow zygote sysfs:file { getattr open read };
 allow zygote vendor_file:file execmod;
-allow zygote sysfs_cpu:dir { open read search };
-allow zygote sysfs_cpu:file { getattr open read };
+allow zygote self:capability sys_resource;

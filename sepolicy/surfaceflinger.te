@@ -1,5 +1,4 @@
 allow surfaceflinger self:process execmem;
 allow surfaceflinger device:chr_file { getattr ioctl };
 allow surfaceflinger system_file:file execmod;
-allow surfaceflinger sysfs_cpu:file { getattr open read };
 allow surfaceflinger vendor_file:file execmod;

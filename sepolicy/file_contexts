@@ -88,7 +88,6 @@
 # Zram
 /sys/devices/virtual/block/zram0(/.*)?                                        u:object_r:sysfs_zram:s0
 
-/sys/devices/system/cpu(/.*)?               u:object_r:sysfs_cpu:s0
 /sys/class/graphics/fbcon(/.*)?             u:object_r:sysfs_fbcon:s0
 /sys/devices/virtual/graphics/fbcon(/.*)?   u:object_r:sysfs_fbcon:s0
 /sys/class/gpio(/.*)?                       u:object_r:sysfs_gpio:s0
@@ -114,3 +113,5 @@
 /system/vendor/bin/hw/vendor\.lineage\.livedisplay@2\.0-service-smi       u:object_r:hal_lineage_livedisplay_smi_exec:s0
 
 /system/vendor/lib/hw/gralloc.smi.so                                      u:object_r:vendor_file:s0
+
+/system/vendor/lib/egl/lib(.*)                                            u:object_r:vendor_file:s0
