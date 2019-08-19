@@ -1,6 +1,7 @@
 service watchdogd /sbin/watchdogd 60 20
     class core
     oneshot
+    user system
     seclabel u:r:watchdogd:s0
 
 # Reset the watchdog counter once boot is completed

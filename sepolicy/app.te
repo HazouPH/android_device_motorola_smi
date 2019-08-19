@@ -1,0 +1,3 @@
+allow appdomain vendor_file:file execmod;
+allow appdomain system_file:file execmod;
+allow appdomain system_data_file:file execute;

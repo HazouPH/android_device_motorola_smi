@@ -1,0 +1,5 @@
+allow cameraserver sysfs:file { getattr open read };
+allow cameraserver sysfs_cpu:dir search;
+allow cameraserver sysfs_cpu:file { getattr open read };
+allow cameraserver system_file:file execmod;
+allow cameraserver vendor_file:file execmod;

@@ -1,0 +1,1 @@
+allow servicemanager sysfs_cpu:file { getattr open read };

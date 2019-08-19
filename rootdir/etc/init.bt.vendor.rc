@@ -32,5 +32,6 @@ on post-fs
 service uim-sysfs /system/bin/uim-sysfs
     class core
     user root
-    group bluetooth net_bt_admin
+    group bluetooth net_bt_admin radio
     disabled
+    seclabel u:r:uim:s0

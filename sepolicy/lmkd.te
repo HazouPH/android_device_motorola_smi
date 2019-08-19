@@ -1,0 +1,3 @@
+allow lmkd sysfs:file { open write };
+allow lmkd sysfs_init_access:file { open write };
+allow lmkd sysfs_init_access:dir search;

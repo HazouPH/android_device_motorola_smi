@@ -1,3 +1,5 @@
+type wpa, domain;
+
 allow wpa wifi_config_file:dir rw_dir_perms;
 allow wpa wifi_config_file:file r_file_perms;
 allow wpa wifi_data_file:sock_file { create getattr setattr unlink };

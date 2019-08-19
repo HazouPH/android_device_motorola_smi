@@ -1,0 +1,2 @@
+allow mediadrmserver sysfs_cpu:dir search;
+allow mediadrmserver sysfs_cpu:file { getattr open read };

@@ -1,0 +1,1 @@
+allow bootstat sysfs_cpu:file read;

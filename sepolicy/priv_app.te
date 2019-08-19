@@ -1,4 +1,7 @@
 allow priv_app device:dir { read open };
 allow priv_app zygote:dir { search };
-allow priv_app zygote:file r_file_perms;
 allow priv_app system_file:file execmod;
+allow priv_app device:chr_file { ioctl };
+allow platform_app sysfs_cpu:dir { open read };
+allow priv_app sysfs_block:lnk_file read;
+allow priv_app vendor_file:file execmod;

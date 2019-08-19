@@ -1,0 +1,1 @@
+#allow statsd sysfs_cpu:file { getattr open read };

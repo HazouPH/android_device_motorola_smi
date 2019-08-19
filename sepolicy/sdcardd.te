@@ -1,0 +1,2 @@
+allow sdcardd sysfs:file { getattr open read };
+allow sdcardd sysfs_cpu:file { getattr open read };

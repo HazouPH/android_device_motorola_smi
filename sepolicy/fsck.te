@@ -1,1 +1,3 @@
 allow fsck block_device:blk_file { ioctl };
+allow fsck sysfs_cpu:dir search;
+allow fsck sysfs_cpu:file { open read getattr };

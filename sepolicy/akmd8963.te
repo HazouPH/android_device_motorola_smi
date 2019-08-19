@@ -12,3 +12,5 @@ allow akmd8963 akmd8963_data_file:file rw_file_perms;
 allow akmd8963 shell_exec:file rx_file_perms;
 allow akmd8963 system_file:file {rx_file_perms execmod};
 allow akmd8963 self:process execmem;
+allow akmd8963 sysfs_cpu:file { getattr open read };
+allow akmd8963 system_data_file:file { getattr open read };

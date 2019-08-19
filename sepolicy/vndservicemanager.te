@@ -1,0 +1,1 @@
+allow vndservicemanager sysfs_cpu:file { getattr open read };

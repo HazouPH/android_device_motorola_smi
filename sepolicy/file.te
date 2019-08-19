@@ -26,3 +26,16 @@ type radio_sysfs_file, fs_type, sysfs_type;
 
 # WiFi
 type wifi_config_file, file_type, data_file_type;
+
+type adb_device, dev_type;
+
+type sysfs_cpu, file_type;
+type sysfs_fbcon, fs_type, sysfs_type;
+type sysfs_gpio, fs_type, sysfs_type;
+type sysfs_block, fs_type, sysfs_type;
+type sysfs_pci, fs_type, sysfs_type;
+type sysfs_init_access, fs_type, sysfs_type;
+
+allow domain sysfs_cpu:file { getattr open read };
+allow domain sysfs_cpu:dir { search open read };
+allow sysfs_cpu sysfs:filesystem associate;

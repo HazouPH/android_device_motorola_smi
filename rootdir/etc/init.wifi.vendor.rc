@@ -14,7 +14,7 @@ on property:dev.bootcomplete=1
 service wlan_prov /system/bin/wlan_prov
     class main
     user root
-    group system wifi
+    group system wifi shell
     disabled
     oneshot
     seclabel u:r:wlan_prov:s0

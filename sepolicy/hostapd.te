@@ -1,1 +1,2 @@
+type hostapd, domain;
 allow hostapd wifi_data_file:sock_file rw_file_perms;

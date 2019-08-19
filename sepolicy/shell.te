@@ -1,0 +1,1 @@
+allow shell vendor_file:file execmod;

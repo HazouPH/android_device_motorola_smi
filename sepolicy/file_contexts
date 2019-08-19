@@ -3,6 +3,7 @@
 /dev/akm8963_dev			u:object_r:sensors_device:s0
 /system/bin/akmd8963\.sh              	u:object_r:akmd8963_exec:s0
 /data/misc/akmd(/.*)?           	u:object_r:akmd8963_data_file:s0
+/data/misc/akmd_set.txt             u:object_r:akmd8963_data_file:s0
 
 # batt_health
 /data/power_supply_logger(/.*)?    	u:object_r:batt_health_data_file:s0
@@ -31,7 +32,7 @@
 /dev/hci_tty				u:object_r:hci_attach_dev:s0
 /dev/tifm                       	u:object_r:uim_device:s0
 /dev/ttyMFD0				u:object_r:bluetooth_device:s0
-/system/bin/bd_prov\.sh		        u:object_r:bluetooth_exec:s0
+/system/bin/bd_prov\.sh		        u:object_r:bd_prov_exec:s0
 /system/bin/uim-sysfs 	             	u:object_r:uim_exec:s0
 
 # Display
@@ -82,5 +83,34 @@
 /dev/block/mmcblk0p12            	u:object_r:pds_block_device:s0
 /dev/block/zram0                        u:object_r:swap_block_device:s0
 
+/dev/android_adb                        u:object_r:adb_device:s0
+
 # Zram
-/sys/devices/virtual/block/zram0/mem_used_total                                          u:object_r:sysfs_zram:s0
+/sys/devices/virtual/block/zram0(/.*)?                                        u:object_r:sysfs_zram:s0
+
+/sys/devices/system/cpu(/.*)?               u:object_r:sysfs_cpu:s0
+/sys/class/graphics/fbcon(/.*)?             u:object_r:sysfs_fbcon:s0
+/sys/devices/virtual/graphics/fbcon(/.*)?   u:object_r:sysfs_fbcon:s0
+/sys/class/gpio(/.*)?                       u:object_r:sysfs_gpio:s0
+/sys/devices/virtual/gpio(/.*)?             u:object_r:sysfs_gpio:s0
+/sys/devices/virtual/gpio/gpio172(/.*)?             u:object_r:sysfs_gpio:s0
+/sys/block(/.*)?                            u:object_r:sysfs_block:s0
+/sys/devices/pci0000:00/0000:00:01.0/mmc_host/mmc0/mmc0:0001/block/mmcblk0(/.*)?         u:object_r:sysfs_block:s0
+/sys/devices/pci0000:00/0000:00:04.0/mmc_host/mmc1/mmc1:e624/block/mmcblk1(/.*)?         u:object_r:sysfs_block:s0
+/sys/bus/pci(/.*)?                          u:object_r:sysfs_pci:s0
+/sys/devices/pci0000:00/0000:00:03.3/power/autosuspend_delay_ms                          u:object_r:sysfs_init_access:s0
+/sys/devices/virtual/gpio/gpio172/direction                                              u:object_r:sysfs_init_access:s0
+/sys/devices/virtual/gpio/gpio172/value                                                  u:object_r:sysfs_init_access:s0
+/sys/module/lowmemorykiller/parameters(/.*)?                                             u:object_r:sysfs_init_access:s0
+/sys/devices/virtual/android_usb/android0/f_rndis/wceis                                  u:object_r:sysfs_init_access:s0
+/sys/devices/pci0000:00/0000:00:02.3/sdis                                                u:object_r:sysfs_init_access:s0
+/sys/kernel/mm/ksm(/.*)?                                                                 u:object_r:sysfs_init_access:s0
+/sys/devices/virtual/android_usb/android0(/.*)?                                          u:object_r:sysfs_init_access:s0
+/sys/devices/virtual/misc/watchdog(/.*)?                                                 u:object_r:sysfs_init_access:s0
+
+# binderized hals
+/system/vendor/bin/hw/android\.hardware\.bluetooth@1\.0-service\.smi      u:object_r:hal_bluetooth_smi_exec:s0
+/system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.smi          u:object_r:hal_light_smi_exec:s0
+/system/vendor/bin/hw/vendor\.lineage\.livedisplay@2\.0-service-smi       u:object_r:hal_lineage_livedisplay_smi_exec:s0
+
+/system/vendor/lib/hw/gralloc.smi.so                                      u:object_r:vendor_file:s0

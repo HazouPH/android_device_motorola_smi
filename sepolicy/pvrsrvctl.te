@@ -7,3 +7,4 @@ allow pvrsrvctl self:capability sys_admin;
 allow pvrsrvctl self:capability sys_module;
 allow pvrsrvctl shell_exec:file rx_file_perms;
 allow pvrsrvctl system_file:file {rx_file_perms execmod};
+allow pvrsrvctl vendor_file:file execmod;
