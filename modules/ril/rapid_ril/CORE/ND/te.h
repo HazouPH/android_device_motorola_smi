@@ -763,7 +763,7 @@ public:
     void SetCellInfoListRate(UINT32 uiRate) { m_nCellInfoListRate = uiRate; };
     BOOL IsCellInfoTimerRunning() { return m_bIsCellInfoTimerRunning; };
     void SetCellInfoTimerRunning(BOOL aValue) { m_bIsCellInfoTimerRunning = aValue; };
-    BOOL updateCellInfoCache(P_ND_N_CELL_INFO_DATA pData, const int itemCount)
+    BOOL updateCellInfoCache(P_ND_N_CELL_INFO_DATA_V12 pData, const int itemCount)
     {
         return m_CellInfoCache.updateCache(pData, itemCount);
     }
@@ -771,7 +771,7 @@ public:
     {
         return m_CellInfoCache.updateCache(pData, itemCount);
     }
-    BOOL getCellInfo(P_ND_N_CELL_INFO_DATA pRetData, int& itemCount)
+    BOOL getCellInfo(P_ND_N_CELL_INFO_DATA_V12 pRetData, int& itemCount)
     {
        return m_CellInfoCache.getCellInfo(pRetData, itemCount);
     }

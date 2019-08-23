@@ -1402,7 +1402,7 @@ BOOL CSilo_Network::ParseXCSQ(CResponse* const pResponse, const char*& rszPointe
     char szBackup[MAX_NETWORK_DATA_SIZE] = {0};
     int rssi = RSSI_UNKNOWN;
     int ber = BER_UNKNOWN;
-    RIL_SignalStrength_v6* pSigStrData = NULL;
+    RIL_SignalStrength_v8* pSigStrData = NULL;
 
     if (NULL == pResponse)
     {
@@ -1412,14 +1412,14 @@ BOOL CSilo_Network::ParseXCSQ(CResponse* const pResponse, const char*& rszPointe
 
     pResponse->SetUnsolicitedFlag(TRUE);
 
-    pSigStrData = (RIL_SignalStrength_v6*)malloc(sizeof(RIL_SignalStrength_v6));
+    pSigStrData = (RIL_SignalStrength_v8*)malloc(sizeof(RIL_SignalStrength_v8));
     if (NULL == pSigStrData)
     {
         RIL_LOG_CRITICAL("CSilo_Network::ParseXCSQ() -"
-                " Could not allocate memory for RIL_SignalStrength_v6.\r\n");
+                " Could not allocate memory for RIL_SignalStrength_v8.\r\n");
         goto Error;
     }
-    memset(pSigStrData, 0x00, sizeof(RIL_SignalStrength_v6));
+    memset(pSigStrData, 0x00, sizeof(RIL_SignalStrength_v8));
 
     if (!FindAndSkipRspEnd(rszPointer, m_szNewLine, pszDummy))
     {
@@ -1461,7 +1461,7 @@ BOOL CSilo_Network::ParseXCSQ(CResponse* const pResponse, const char*& rszPointe
 
     pResponse->SetResultCode(RIL_UNSOL_SIGNAL_STRENGTH);
 
-    if (!pResponse->SetData((void*)pSigStrData, sizeof(RIL_SignalStrength_v6), FALSE))
+    if (!pResponse->SetData((void*)pSigStrData, sizeof(RIL_SignalStrength_v8), FALSE))
     {
         goto Error;
     }

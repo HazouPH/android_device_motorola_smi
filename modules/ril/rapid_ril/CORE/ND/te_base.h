@@ -717,7 +717,7 @@ public:
                                                            UINT32 uiDataSize);
     virtual RIL_RESULT_CODE ParseCellInfoList(RESPONSE_DATA& rRspData, BOOL isUnsol = FALSE);
 
-    virtual RIL_RESULT_CODE ParseCellInfo(P_ND_N_CELL_INFO_DATA pCellData,
+    virtual RIL_RESULT_CODE ParseCellInfo(P_ND_N_CELL_INFO_DATA_V12 pCellData,
                                                            const char* pszRsp,
                                                            UINT32 uiIndex,
                                                            UINT32 uiMode);
@@ -1070,7 +1070,7 @@ protected:
     virtual BOOL GetSetInitialAttachApnReqData(REQUEST_DATA& rReqData);
 
 private:
-    RIL_SignalStrength_v6* ParseQuerySignalStrength(RESPONSE_DATA& rRspData);
+    RIL_SignalStrength_v8* ParseQuerySignalStrength(RESPONSE_DATA& rRspData);
 
     /*
      * Wait for the modem power off event which will be triggered on MODEM_DOWN

@@ -16,26 +16,28 @@
 #include "rillog.h"
 #include "rril.h"
 
-BOOL operator==(const RIL_CellIdentityGsm& lhs, const RIL_CellIdentityGsm& rhs)
+BOOL operator==(const RIL_CellIdentityGsm_v12& lhs, const RIL_CellIdentityGsm_v12& rhs)
 {
-    return (lhs.mnc == rhs.mnc && lhs.mcc == rhs.mcc && lhs.lac == rhs.lac && lhs.cid == rhs.cid);
+    return (lhs.mnc == rhs.mnc && lhs.mcc == rhs.mcc && lhs.lac == rhs.lac && lhs.cid == rhs.cid
+            && lhs.arfcn == rhs.arfcn && lhs.bsic == rhs.bsic);
 }
 
-BOOL operator==(const RIL_CellIdentityWcdma& lhs, const RIL_CellIdentityWcdma& rhs)
+BOOL operator==(const RIL_CellIdentityWcdma_v12& lhs, const RIL_CellIdentityWcdma_v12& rhs)
 {
     return (lhs.mnc == rhs.mnc && lhs.mcc == rhs.mcc && lhs.lac == rhs.lac
-            && lhs.cid == rhs.cid && lhs.psc == rhs.psc);
+            && lhs.cid == rhs.cid && lhs.psc == rhs.psc && lhs.uarfcn == rhs.uarfcn);
 }
 
-BOOL operator==(const RIL_CellIdentityLte& lhs, const RIL_CellIdentityLte& rhs)
+BOOL operator==(const RIL_CellIdentityLte_v12& lhs, const RIL_CellIdentityLte_v12& rhs)
 {
     return (lhs.mnc == rhs.mnc && lhs.mcc == rhs.mcc && lhs.ci == rhs.ci
-            && lhs.pci == rhs.pci && lhs.tac == rhs.tac);
+            && lhs.pci == rhs.pci && lhs.tac == rhs.tac && lhs.earfcn == rhs.earfcn);
 }
 
-BOOL operator==(const RIL_GW_SignalStrength& lhs, const RIL_GW_SignalStrength& rhs)
+BOOL operator==(const RIL_GSM_SignalStrength_v12& lhs, const RIL_GSM_SignalStrength_v12& rhs)
 {
-    return (lhs.signalStrength == rhs.signalStrength && lhs.bitErrorRate == rhs.bitErrorRate);
+    return (lhs.signalStrength == rhs.signalStrength && lhs.bitErrorRate == rhs.bitErrorRate
+            && lhs.timingAdvance == rhs.timingAdvance);
 }
 
 BOOL operator==(const RIL_SignalStrengthWcdma& lhs, const RIL_SignalStrengthWcdma& rhs)
@@ -50,7 +52,7 @@ BOOL operator==(const RIL_LTE_SignalStrength_v8& lhs, const RIL_LTE_SignalStreng
             && lhs.cqi == rhs.cqi && lhs.timingAdvance == rhs.timingAdvance);
 }
 
-BOOL operator==(const RIL_CellInfo& lhs, const RIL_CellInfo& rhs)
+BOOL operator==(const RIL_CellInfo_v12& lhs, const RIL_CellInfo_v12& rhs)
 {
      // Check whether cell info type is the same.
      // if yes, based on the type, check the values
@@ -135,7 +137,7 @@ BOOL operator==(const RIL_CellInfo_v2& lhs, const RIL_CellInfo_v2& rhs)
 
 CellInfoCache::CellInfoCache()
 {
-    memset(&m_sCellInfo, 0, sizeof(S_ND_N_CELL_INFO_DATA));
+    memset(&m_sCellInfo, 0, sizeof(S_ND_N_CELL_INFO_DATA_V12));
     memset(&m_sCellInfov2, 0, sizeof(S_ND_N_CELL_INFO_DATA_V2));
     m_cacheSize = 0;
     m_pCacheLock = new CMutex();
@@ -146,7 +148,7 @@ CellInfoCache::~CellInfoCache()
     delete m_pCacheLock;
 }
 
-BOOL CellInfoCache::getCellInfo(P_ND_N_CELL_INFO_DATA pRetData, int& itemCount)
+BOOL CellInfoCache::getCellInfo(P_ND_N_CELL_INFO_DATA_V12 pRetData, int& itemCount)
 {
     if (pRetData == NULL)
     {
@@ -163,7 +165,7 @@ BOOL CellInfoCache::getCellInfo(P_ND_N_CELL_INFO_DATA pRetData, int& itemCount)
     return TRUE;
 }
 
-int CellInfoCache::checkCache(const RIL_CellInfo& pData)
+int CellInfoCache::checkCache(const RIL_CellInfo_v12& pData)
 {
     RIL_LOG_VERBOSE("CellInfoCache::checkCache() %d\r\n", m_cacheSize);
     for (int i = 0; i < m_cacheSize; i++)
@@ -177,7 +179,7 @@ int CellInfoCache::checkCache(const RIL_CellInfo& pData)
     return -1;
 }
 
-BOOL CellInfoCache::updateCache(const P_ND_N_CELL_INFO_DATA pData, const int itemCount)
+BOOL CellInfoCache::updateCache(const P_ND_N_CELL_INFO_DATA_V12 pData, const int itemCount)
 {
     BOOL ret = FALSE;
 
@@ -214,7 +216,7 @@ BOOL CellInfoCache::updateCache(const P_ND_N_CELL_INFO_DATA pData, const int ite
         // Access mutex
         CMutex::Lock(m_pCacheLock);
         m_cacheSize = itemCount;
-        memset(&m_sCellInfo, 0, sizeof(S_ND_N_CELL_INFO_DATA));
+        memset(&m_sCellInfo, 0, sizeof(S_ND_N_CELL_INFO_DATA_V12));
         for (int i = 0; i < m_cacheSize; i++)
         {
             m_sCellInfo.aRilCellInfo[i] = pData->aRilCellInfo[i];

@@ -6905,7 +6905,7 @@ RIL_RESULT_CODE CTE_XMM6260::CoreGetCellInfoList(REQUEST_DATA& rReqData,
     return res;
 }
 
-RIL_RESULT_CODE CTE_XMM6260::ParseCellInfo(P_ND_N_CELL_INFO_DATA pCellData,
+RIL_RESULT_CODE CTE_XMM6260::ParseCellInfo(P_ND_N_CELL_INFO_DATA_V12 pCellData,
                                                     const char* pszRsp,
                                                     UINT32 uiIndex,
                                                     UINT32 uiMode)
@@ -6981,17 +6981,20 @@ RIL_RESULT_CODE CTE_XMM6260::ParseCellInfo(P_ND_N_CELL_INFO_DATA pCellData,
                         " mode 0, could not extract RSSI value\r\n");
                 goto Error;
             }
-            RIL_CellInfo& info = pCellData->aRilCellInfo[uiIndex];
+            RIL_CellInfo_v12& info = pCellData->aRilCellInfo[uiIndex];
             info.registered = 1;
             info.cellInfoType = RIL_CELL_INFO_TYPE_GSM;
             info.timeStampType = RIL_TIMESTAMP_TYPE_JAVA_RIL;
             info.timeStamp = ril_nano_time();
             info.CellInfo.gsm.signalStrengthGsm.signalStrength = (int)(uiRSSI / 2);
             info.CellInfo.gsm.signalStrengthGsm.bitErrorRate = 0;
+            info.CellInfo.gsm.signalStrengthGsm.timingAdvance = INT_MAX;
             info.CellInfo.gsm.cellIdentityGsm.lac = uiLAC;
             info.CellInfo.gsm.cellIdentityGsm.cid = uiCI;
             info.CellInfo.gsm.cellIdentityGsm.mnc = uiMnc;
             info.CellInfo.gsm.cellIdentityGsm.mcc = uiMcc;
+            info.CellInfo.gsm.cellIdentityGsm.arfcn = INT_MAX;
+            info.CellInfo.gsm.cellIdentityGsm.bsic = 0xFF;
             RIL_LOG_INFO("CTE_XMM6260::ParseCellInfo() -"
                     " mode 0 GSM LAC,CID MNC MCC index=[%d] cid=[%d] lac[%d] mnc[%d] mcc[%d]\r\n",
                     uiIndex, info.CellInfo.gsm.cellIdentityGsm.cid,
@@ -7030,17 +7033,20 @@ RIL_RESULT_CODE CTE_XMM6260::ParseCellInfo(P_ND_N_CELL_INFO_DATA pCellData,
                 goto Error;
             }
 
-            RIL_CellInfo& info = pCellData->aRilCellInfo[uiIndex];
+            RIL_CellInfo_v12& info = pCellData->aRilCellInfo[uiIndex];
             info.registered = 0;
             info.cellInfoType = RIL_CELL_INFO_TYPE_GSM;
             info.CellInfo.gsm.signalStrengthGsm.signalStrength = (int)(uiRSSI / 2);
             info.CellInfo.gsm.signalStrengthGsm.bitErrorRate = 0;
+            info.CellInfo.gsm.signalStrengthGsm.timingAdvance = INT_MAX;
             info.timeStampType = RIL_TIMESTAMP_TYPE_JAVA_RIL;
             info.timeStamp = ril_nano_time();
             info.CellInfo.gsm.cellIdentityGsm.lac = uiLAC;
             info.CellInfo.gsm.cellIdentityGsm.cid = uiCI;
             info.CellInfo.gsm.cellIdentityGsm.mnc = INT_MAX;
             info.CellInfo.gsm.cellIdentityGsm.mcc = INT_MAX;
+            info.CellInfo.gsm.cellIdentityGsm.arfcn = INT_MAX;
+            info.CellInfo.gsm.cellIdentityGsm.bsic = 0xFF;
             RIL_LOG_INFO("CTE_XMM6260::ParseCellInfo() -"
                     " mode 0 GSM LAC,CID MCC MNC index=[%d] cid=[%d] lac[%d] mnc[%d] mcc[%d]\r\n",
                     uiIndex, info.CellInfo.gsm.cellIdentityGsm.cid,
@@ -7128,7 +7134,7 @@ RIL_RESULT_CODE CTE_XMM6260::ParseCellInfo(P_ND_N_CELL_INFO_DATA pCellData,
                     goto Error;
                 }
 
-                RIL_CellInfo& info = pCellData->aRilCellInfo[uiIndex];
+                RIL_CellInfo_v12& info = pCellData->aRilCellInfo[uiIndex];
                 info.registered = 1;
                 info.cellInfoType = RIL_CELL_INFO_TYPE_WCDMA;
                 info.timeStampType = RIL_TIMESTAMP_TYPE_JAVA_RIL;
@@ -7143,6 +7149,7 @@ RIL_RESULT_CODE CTE_XMM6260::ParseCellInfo(P_ND_N_CELL_INFO_DATA pCellData,
                 info.CellInfo.wcdma.cellIdentityWcdma.psc = uiScramblingCode;
                 info.CellInfo.wcdma.cellIdentityWcdma.mnc = uiMnc;
                 info.CellInfo.wcdma.cellIdentityWcdma.mcc = uiMcc;
+                info.CellInfo.wcdma.cellIdentityWcdma.uarfcn = INT_MAX;
                 RIL_LOG_INFO("CTE_XMM6260::ParseCellInfo() -"
                         " mode 2 UMTS LAC,CID MCC MNC, ScrCode"
                         " index=[%d]  cid=[%d] lac[%d] mnc[%d] mcc[%d] scrCode[%d]\r\n",
@@ -7209,7 +7216,7 @@ RIL_RESULT_CODE CTE_XMM6260::ParseCellInfo(P_ND_N_CELL_INFO_DATA pCellData,
                 goto Error;
             }
 
-            RIL_CellInfo& info = pCellData->aRilCellInfo[uiIndex];
+            RIL_CellInfo_v12& info = pCellData->aRilCellInfo[uiIndex];
             info.cellInfoType = RIL_CELL_INFO_TYPE_WCDMA;
             info.registered = 0;
             info.timeStampType = RIL_TIMESTAMP_TYPE_JAVA_RIL;
@@ -7221,6 +7228,7 @@ RIL_RESULT_CODE CTE_XMM6260::ParseCellInfo(P_ND_N_CELL_INFO_DATA pCellData,
             info.CellInfo.wcdma.cellIdentityWcdma.psc = uiScramblingCode;
             info.CellInfo.wcdma.cellIdentityWcdma.mnc = INT_MAX;
             info.CellInfo.wcdma.cellIdentityWcdma.mcc = INT_MAX;
+            info.CellInfo.wcdma.cellIdentityWcdma.uarfcn = INT_MAX;
             RIL_LOG_INFO("CTE_XMM6260::ParseCellInfo() -"
                     " mode 2/3 UMTS LAC,CID MCC MNC, ScrCode"
                     " index=[%d]  cid=[%d] lac[%d] mnc[%d] mcc[%d] scrCode[%d]\r\n",

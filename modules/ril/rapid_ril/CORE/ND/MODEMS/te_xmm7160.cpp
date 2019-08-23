@@ -2975,13 +2975,13 @@ RIL_RESULT_CODE CTE_XMM7160::CoreGetCellInfoList(REQUEST_DATA& rReqData,
 }
 
 void CTE_XMM7160::ConvertCellInfoForVanillaAOSP(P_ND_N_CELL_INFO_DATA_V2 pOldData,
-        P_ND_N_CELL_INFO_DATA pNewData, int nCellInfos)
+        P_ND_N_CELL_INFO_DATA_V12 pNewData, int nCellInfos)
 {
 
     for (int i=0; i < nCellInfos; i++)
     {
         RIL_CellInfo_v2& oldInfo = pOldData->aRilCellInfo[i];
-        RIL_CellInfo& newInfo = pNewData->aRilCellInfo[i];
+        RIL_CellInfo_v12& newInfo = pNewData->aRilCellInfo[i];
         newInfo.registered = oldInfo.registered;
         newInfo.timeStampType = oldInfo.timeStampType;
         newInfo.timeStamp = oldInfo.timeStamp;
@@ -2992,23 +2992,23 @@ void CTE_XMM7160::ConvertCellInfoForVanillaAOSP(P_ND_N_CELL_INFO_DATA_V2 pOldDat
             case RIL_CELL_INFO_TYPE_GSM_V2:
                 newInfo.cellInfoType = RIL_CELL_INFO_TYPE_GSM;
                 newInfo.CellInfo.gsm.signalStrengthGsm
-                        = *((RIL_GW_SignalStrength*) &oldInfo.CellInfo.gsm.signalStrengthGsm);
+                        = *((RIL_GSM_SignalStrength_v12*) &oldInfo.CellInfo.gsm.signalStrengthGsm);
                 newInfo.CellInfo.gsm.cellIdentityGsm
-                        = *((RIL_CellIdentityGsm*) &oldInfo.CellInfo.gsm.cellIdentityGsm);
+                        = *((RIL_CellIdentityGsm_v12*) &oldInfo.CellInfo.gsm.cellIdentityGsm);
             break;
             case RIL_CELL_INFO_TYPE_WCDMA_V2:
                 newInfo.cellInfoType = RIL_CELL_INFO_TYPE_WCDMA;
                 newInfo.CellInfo.wcdma.signalStrengthWcdma
                         = *((RIL_SignalStrengthWcdma*) &oldInfo.CellInfo.wcdma.signalStrengthWcdma);
                 newInfo.CellInfo.wcdma.cellIdentityWcdma
-                        = *((RIL_CellIdentityWcdma*) &oldInfo.CellInfo.wcdma.cellIdentityWcdma);
+                        = *((RIL_CellIdentityWcdma_v12*) &oldInfo.CellInfo.wcdma.cellIdentityWcdma);
             break;
             case RIL_CELL_INFO_TYPE_LTE_V2:
                 newInfo.cellInfoType = RIL_CELL_INFO_TYPE_LTE;
                 newInfo.CellInfo.lte.signalStrengthLte
                         = *((RIL_LTE_SignalStrength_v8*) &oldInfo.CellInfo.lte.signalStrengthLte);
                 newInfo.CellInfo.lte.cellIdentityLte
-                        = *((RIL_CellIdentityLte*) &oldInfo.CellInfo.lte.cellIdentityLte);
+                        = *((RIL_CellIdentityLte_v12*) &oldInfo.CellInfo.lte.cellIdentityLte);
             break;
         }
     }
@@ -3028,26 +3028,26 @@ RIL_RESULT_CODE CTE_XMM7160::ParseCellInfoList(RESPONSE_DATA& rRspData, BOOL isU
         if (nCellInfos > 0 && NULL != pCellData)
         {
 #if !defined(USE_PATCHED_AOSP)
-            P_ND_N_CELL_INFO_DATA pNewCellData
-                    = (P_ND_N_CELL_INFO_DATA) malloc(sizeof(S_ND_N_CELL_INFO_DATA));
+            P_ND_N_CELL_INFO_DATA_V12 pNewCellData
+                    = (P_ND_N_CELL_INFO_DATA_V12) malloc(sizeof(S_ND_N_CELL_INFO_DATA_V12));
             if (NULL == pNewCellData)
             {
                 RIL_LOG_CRITICAL("CTE_XMM7160::ParseCellInfoList() -"
-                        " Could not allocate memory for a S_ND_N_CELL_INFO_DATA struct.\r\n");
+                        " Could not allocate memory for a S_ND_N_CELL_INFO_DATA_V12 struct.\r\n");
                 goto Error;
             }
-            memset(pNewCellData, 0, sizeof(S_ND_N_CELL_INFO_DATA));
+            memset(pNewCellData, 0, sizeof(S_ND_N_CELL_INFO_DATA_V12));
             ConvertCellInfoForVanillaAOSP((P_ND_N_CELL_INFO_DATA_V2)pCellData,
                     pNewCellData, nCellInfos);
             free(pCellData);
             pCellData = pNewCellData;
             pNewCellData = NULL;
-            rRspData.uiDataSize = nCellInfos * sizeof(RIL_CellInfo);
+            rRspData.uiDataSize = nCellInfos * sizeof(RIL_CellInfo_v12);
 
 #else
             rRspData.uiDataSize = nCellInfos * sizeof(RIL_CellInfo_v2);
 #endif
-            rRspData.pData = (void*)((P_ND_N_CELL_INFO_DATA)pCellData)->aRilCellInfo;
+            rRspData.pData = (void*)((P_ND_N_CELL_INFO_DATA_V12)pCellData)->aRilCellInfo;
         }
         else
         {
@@ -3072,23 +3072,23 @@ RIL_RESULT_CODE CTE_XMM7160::ParseCellInfoList(RESPONSE_DATA& rRspData, BOOL isU
             {
 
 #if !defined(USE_PATCHED_AOSP)
-                P_ND_N_CELL_INFO_DATA pNewCellData
-                        = (P_ND_N_CELL_INFO_DATA) malloc(sizeof(S_ND_N_CELL_INFO_DATA));
+                P_ND_N_CELL_INFO_DATA_V12 pNewCellData
+                        = (P_ND_N_CELL_INFO_DATA_V12) malloc(sizeof(S_ND_N_CELL_INFO_DATA_V12));
                 if (NULL == pNewCellData)
                 {
                     RIL_LOG_CRITICAL("CTE_XMM7160::ParseCellInfoList() -"
-                            " Could not allocate memory for a S_ND_N_CELL_INFO_DATA struct.\r\n");
+                            " Could not allocate memory for a S_ND_N_CELL_INFO_DATA_V12 struct.\r\n");
                     goto Error;
                 }
-                memset(pNewCellData, 0, sizeof(S_ND_N_CELL_INFO_DATA));
+                memset(pNewCellData, 0, sizeof(S_ND_N_CELL_INFO_DATA_V12));
                 ConvertCellInfoForVanillaAOSP((P_ND_N_CELL_INFO_DATA_V2)pCellData,
                         pNewCellData, nCellInfos);
                 free(pCellData);
                 pCellData = (void*)pNewCellData;
                 pNewCellData = NULL;
                 RIL_onUnsolicitedResponse(RIL_UNSOL_CELL_INFO_LIST,
-                        (void*)((P_ND_N_CELL_INFO_DATA)pCellData)->aRilCellInfo,
-                        sizeof(RIL_CellInfo) * nCellInfos);
+                        (void*)((P_ND_N_CELL_INFO_DATA_V12)pCellData)->aRilCellInfo,
+                        sizeof(RIL_CellInfo_v12) * nCellInfos);
 
 #else
                 RIL_onUnsolicitedResponse(RIL_UNSOL_CELL_INFO_LIST,
