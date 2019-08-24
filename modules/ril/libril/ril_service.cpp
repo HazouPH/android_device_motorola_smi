@@ -1049,8 +1049,11 @@ Return<void> RadioImpl::getOperator(int32_t serial) {
     return Void();
 }
 
+static bool radio_is_on = false;
+
 Return<void> RadioImpl::setRadioPower(int32_t serial, bool on) {
     RLOGD("setRadioPower: serial %d on %d", serial, on);
+    radio_is_on = on;
     dispatchInts(serial, mSlotId, RIL_REQUEST_RADIO_POWER, 1, BOOL_TO_INT(on));
     return Void();
 }
@@ -3050,6 +3053,32 @@ int radio::getIccCardStatusResponse(int slotId,
     return 0;
 }
 
+/**
+ * To be called from dispatch thread
+ * Issue a single local request, ensuring that the response
+ * is not sent back up to the command process
+ */
+static void
+issueLocalRequest(int request, void *data, int len, int slotId) {
+    RequestInfo *pRI;
+
+    pRI = android::addRequestToList(0xffffffff, slotId, request);
+    pRI->local = 1;
+
+    RLOGD("C[locl]> %s", requestToString(request));
+
+    CALL_ONREQUEST(request, data, len, pRI, pRI->socket_id);
+}
+
+static void enableNetworkSelectionAutomatic() {
+    RLOGI("Localy enabling NETWORK_SELECTION_AUTOMATIC");
+#if SIM_COUNT >= 2
+#error "This code only works for single SIM"
+#else
+    issueLocalRequest(RIL_REQUEST_SET_NETWORK_SELECTION_AUTOMATIC, NULL, 0, RIL_SOCKET_1);
+#endif
+}
+
 int radio::supplyIccPinForAppResponse(int slotId,
                                      int responseType, int serial, RIL_Errno e,
                                      void *response, size_t responseLen) {
@@ -3058,6 +3087,7 @@ int radio::supplyIccPinForAppResponse(int slotId,
 #endif
 
     if (radioService[slotId]->mRadioResponse != NULL) {
+        enableNetworkSelectionAutomatic();
         RadioResponseInfo responseInfo = {};
         int ret = responseIntOrEmpty(responseInfo, serial, responseType, e, response, responseLen);
         Return<void> retStatus = radioService[slotId]->mRadioResponse->
@@ -3942,6 +3972,9 @@ int radio::setRadioPowerResponse(int slotId,
     RLOGD("setRadioPowerResponse: serial %d", serial);
 
     if (radioService[slotId]->mRadioResponse != NULL) {
+        if (radio_is_on) {
+            enableNetworkSelectionAutomatic();
+        }
         RadioResponseInfo responseInfo = {};
         populateResponseInfo(responseInfo, serial, responseType, e);
         Return<void> retStatus = radioService[slotId]->mRadioResponse->setRadioPowerResponse(
