@@ -111,6 +111,7 @@
 /system/vendor/bin/hw/android\.hardware\.bluetooth@1\.0-service\.smi      u:object_r:hal_bluetooth_smi_exec:s0
 /system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.smi          u:object_r:hal_light_smi_exec:s0
 /system/vendor/bin/hw/vendor\.lineage\.livedisplay@2\.0-service-smi       u:object_r:hal_lineage_livedisplay_smi_exec:s0
+/system/vendor/bin/hw/android\.hardware\.graphics.allocator@2\.0-service\.smi      u:object_r:hal_graphics_allocator_smi_exec:s0
 
 /system/vendor/lib/hw/gralloc.smi.so                                      u:object_r:vendor_file:s0
 
