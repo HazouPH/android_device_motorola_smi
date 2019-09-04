@@ -133,7 +133,7 @@ class Gralloc0HalImpl : public Hal {
         const native_handle_t* buffer = nullptr;
         int stride = 0;
         int result = mDevice->alloc(mDevice, info.width, info.height, static_cast<int>(info.format),
-                                    info.usage, &buffer, &stride);
+                                    info.usage & ~(GRALLOC_USAGE_CURSOR), &buffer, &stride);
         switch (result) {
             case 0:
                 *outBuffer = buffer;
