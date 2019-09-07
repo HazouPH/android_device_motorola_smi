@@ -294,10 +294,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     panel.physicalWidthmm=52 \
     panel.physicalHeightmm=89 \
     ro.opengles.version=131072 \
-    gsm.net.interface=rmnet0 \
-    ro.secure=0 \
-    ro.adb.secure=0 \
-    ro.debuggable=1
+    gsm.net.interface=rmnet0
 
 # Storage
 PRODUCT_PROPERTY_OVERRIDES += \
