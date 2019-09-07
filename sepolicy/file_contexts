@@ -12,6 +12,7 @@
 
 # PDS
 /data/misc/pds(/.*)?            	u:object_r:pds_file:s0
+/cache/misc/pds(/.*)?            	u:object_r:pds_file:s0
 /pds(/.*)?                         	u:object_r:pds_file:s0
 /dev/block/pds                  	u:object_r:pds_block_device:s0
 
