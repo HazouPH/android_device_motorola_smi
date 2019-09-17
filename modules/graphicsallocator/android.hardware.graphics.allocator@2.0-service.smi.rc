@@ -4,3 +4,4 @@ service vendor.gralloc-2-0 /vendor/bin/hw/android.hardware.graphics.allocator@2.
     group graphics drmrpc
     capabilities SYS_NICE
     onrestart restart surfaceflinger
+    override
