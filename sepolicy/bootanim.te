@@ -1,2 +1,5 @@
 allow bootanim proc_net:file { getattr open read };
 allow bootanim system_file:file execmod;
+allow bootanim sysfs:file { getattr open read };
+allow bootanim vendor_file:file execmod;
+allow bootanim vendor_file:file execmod;

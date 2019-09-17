@@ -4,6 +4,7 @@ allow mediaserver media_rw_data_file:dir rw_dir_perms;
 allow mediaserver media_rw_data_file:file { create_file_perms rw_file_perms };
 allow mediaserver radio_device:chr_file rw_file_perms;
 allow mediaserver camera_prop:property_service set;
+allow mediaserver vendor_file:file execmod;
 
 # This is evil but we cannot constrain it anymore than
 # "any system_file" because the domain rules in external/sepolicy.

@@ -1,2 +1,20 @@
 allow mediacodec system_file:file execmod;
 allow mediacodec graphics_device:dir search;
+allow mediacodec camera_prop:property_service set;
+allow mediacodec init:unix_stream_socket connectto;
+allow mediacodec property_socket:sock_file write;
+allow mediacodec sysfs:file { getattr open read };
+allow mediacodec vendor_file:file execmod;
+allow mediacodec camera_device:chr_file { getattr ioctl open read write };
+
+#cam has to be in same process as mediacodec, because of old binary blobs
+hal_server_domain(mediacodec, hal_camera)
+
+#type mediacodec_cam, domain;
+#type mediacodec_cam_exec, exec_type, file_type;
+
+#hal_server_domain(mediacodec_cam, hal_camera)
+#hal_server_domain(mediacodec_cam, hal_codec2)
+#hal_server_domain(mediacodec_cam, hal_omx)
+
+#init_daemon_domain(mediacodec_cam)

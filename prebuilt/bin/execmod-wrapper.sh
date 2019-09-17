@@ -13,6 +13,7 @@ elif [ "${0}" = "/system/bin/gps_driver.sh" ]; then
 elif [ "${0}" = "/system/bin/mmgr.sh" ]; then
 	exec "/system/bin/mmgr" "${@}"
 elif [ "${0}" = "/system/bin/gkisystem.sh" ]; then
+	export LD_PRELOAD=/system/lib/libshim_gps.so
 	exec "/system/bin/gkisystem" "${@}"
 fi
 

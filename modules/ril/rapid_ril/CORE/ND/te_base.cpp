@@ -1914,17 +1914,17 @@ RIL_RESULT_CODE CTEBase::ParseSignalStrength(RESPONSE_DATA& rRspData)
 
     RIL_RESULT_CODE res = RRIL_RESULT_ERROR;
 
-    RIL_SignalStrength_v6* pSigStrData = ParseQuerySignalStrength(rRspData);
+    RIL_SignalStrength_v8* pSigStrData = ParseQuerySignalStrength(rRspData);
     if (NULL == pSigStrData)
     {
         RIL_LOG_CRITICAL("CTEBase::ParseSignalStrength() -"
-                " Could not allocate memory for RIL_SignalStrength_v6.\r\n");
+                " Could not allocate memory for RIL_SignalStrength_v8.\r\n");
         goto Error;
     }
 
 
     rRspData.pData   = (void*)pSigStrData;
-    rRspData.uiDataSize  = sizeof(RIL_SignalStrength_v6);
+    rRspData.uiDataSize  = sizeof(RIL_SignalStrength_v8);
 
     res = RRIL_RESULT_OK;
 
@@ -8713,7 +8713,7 @@ RIL_RESULT_CODE CTEBase::CoreGetCellInfoList(REQUEST_DATA& /*rReqData*/,
     return res;
 }
 
-RIL_RESULT_CODE CTEBase::ParseCellInfo(P_ND_N_CELL_INFO_DATA /*pCellData*/,
+RIL_RESULT_CODE CTEBase::ParseCellInfo(P_ND_N_CELL_INFO_DATA_V12 /*pCellData*/,
                                                     const char* /*pszRsp*/,
                                                     UINT32 /*uiIndex*/,
                                                     UINT32 /*uiMode*/)
@@ -8736,16 +8736,16 @@ RIL_RESULT_CODE CTEBase::ParseCellInfoList(RESPONSE_DATA& rRspData, BOOL isUnsol
     UINT32 uiMode = 0;
     const char* pszRsp = rRspData.szResponse;
 
-    P_ND_N_CELL_INFO_DATA pCellData = NULL;
+    P_ND_N_CELL_INFO_DATA_V12 pCellData = NULL;
 
-    pCellData = (P_ND_N_CELL_INFO_DATA)malloc(sizeof(S_ND_N_CELL_INFO_DATA));
+    pCellData = (P_ND_N_CELL_INFO_DATA_V12)malloc(sizeof(S_ND_N_CELL_INFO_DATA_V12));
     if (NULL == pCellData)
     {
         RIL_LOG_CRITICAL("CTEBase::ParseCellInfoList() -"
-                " Could not allocate memory for a S_ND_N_CELL_INFO_DATA struct.\r\n");
+                " Could not allocate memory for a S_ND_N_CELL_INFO_DATA_V12 struct.\r\n");
         goto Error;
     }
-    memset(pCellData, 0, sizeof(S_ND_N_CELL_INFO_DATA));
+    memset(pCellData, 0, sizeof(S_ND_N_CELL_INFO_DATA_V12));
 
 
     // Loop on +XCELLINFO until no more entries are found
@@ -8798,7 +8798,7 @@ RIL_RESULT_CODE CTEBase::ParseCellInfoList(RESPONSE_DATA& rRspData, BOOL isUnsol
         if (uiIndex > 0)
         {
             rRspData.pData  = (void*)pCellData;
-            rRspData.uiDataSize = uiIndex * sizeof(RIL_CellInfo);
+            rRspData.uiDataSize = uiIndex * sizeof(RIL_CellInfo_v12);
         }
         else
         {
@@ -8821,7 +8821,7 @@ RIL_RESULT_CODE CTEBase::ParseCellInfoList(RESPONSE_DATA& rRspData, BOOL isUnsol
                     && requestedRate > 0 && requestedRate < INT32_MAX)
             {
                 RIL_onUnsolicitedResponse(RIL_UNSOL_CELL_INFO_LIST,
-                        (void*)pCellData->aRilCellInfo, (sizeof(RIL_CellInfo) * uiIndex));
+                        (void*)pCellData->aRilCellInfo, (sizeof(RIL_CellInfo_v12) * uiIndex));
             }
         }
         else
@@ -9684,7 +9684,7 @@ void CTEBase::HandleShutdownReq(int requestId)
     RIL_LOG_VERBOSE("CTEBase::HandleShutdownReq() - Exit\r\n");
 }
 
-RIL_SignalStrength_v6* CTEBase::ParseQuerySignalStrength(RESPONSE_DATA& rRspData)
+RIL_SignalStrength_v8* CTEBase::ParseQuerySignalStrength(RESPONSE_DATA& rRspData)
 {
     RIL_LOG_VERBOSE("CTEBase::ParseQuerySignalStrength() - Enter\r\n");
     RIL_RESULT_CODE res = RRIL_RESULT_ERROR;
@@ -9692,17 +9692,17 @@ RIL_SignalStrength_v6* CTEBase::ParseQuerySignalStrength(RESPONSE_DATA& rRspData
     int rssi = RSSI_UNKNOWN;
     int ber = BER_UNKNOWN;
 
-    RIL_SignalStrength_v6* pSigStrData;
+    RIL_SignalStrength_v8* pSigStrData;
 
-    pSigStrData = (RIL_SignalStrength_v6*)malloc(sizeof(RIL_SignalStrength_v6));
+    pSigStrData = (RIL_SignalStrength_v8*)malloc(sizeof(RIL_SignalStrength_v8));
     if (NULL == pSigStrData)
     {
         RIL_LOG_CRITICAL("CTEBase::ParseQuerySignalStrength() -"
-                " Could not allocate memory for RIL_SignalStrength_v6.\r\n");
+                " Could not allocate memory for RIL_SignalStrength_v8.\r\n");
         goto Error;
     }
 
-    memset(pSigStrData, 0x00, sizeof(RIL_SignalStrength_v6));
+    memset(pSigStrData, 0x00, sizeof(RIL_SignalStrength_v8));
 
     // Parse "<prefix>+CSQ: <rssi>,<ber><postfix>"
     if (!SkipRspStart(pszRsp, m_szNewLine, pszRsp) ||
@@ -9790,18 +9790,18 @@ RIL_RESULT_CODE CTEBase::ParseUnsolicitedSignalStrength(RESPONSE_DATA& rRspData)
 
     RIL_RESULT_CODE res = RRIL_RESULT_ERROR;
 
-    RIL_SignalStrength_v6* pSigStrData = ParseQuerySignalStrength(rRspData);
+    RIL_SignalStrength_v8* pSigStrData = ParseQuerySignalStrength(rRspData);
     if (NULL == pSigStrData)
     {
         RIL_LOG_CRITICAL("CTEBase::ParseUnsolicitedSignalStrength() -"
-                " Could not allocate memory for RIL_SignalStrength_v6.\r\n");
+                " Could not allocate memory for RIL_SignalStrength_v8.\r\n");
         goto Error;
     }
 
     res = RRIL_RESULT_OK;
 
     RIL_onUnsolicitedResponse(RIL_UNSOL_SIGNAL_STRENGTH, (void*)pSigStrData,
-            sizeof(RIL_SignalStrength_v6));
+            sizeof(RIL_SignalStrength_v8));
 
 Error:
     free(pSigStrData);

@@ -127,6 +127,7 @@ service pvrsrvctl /system/bin/pvrsrvctl.sh
     oneshot
     user root
     group graphics readproc
+    seclabel u:r:pvrsrvctl:s0
 
 service charger_app /charger
     class charger

@@ -1,1 +1,2 @@
 allow mediaextractor system_file:file execmod;
+allow mediaextractor sysfs:file { getattr open read };

@@ -147,8 +147,8 @@ typedef struct
 
 typedef struct
 {
-    RIL_CellInfo      aRilCellInfo[RRIL_MAX_CELL_ID_COUNT];
-} S_ND_N_CELL_INFO_DATA, *P_ND_N_CELL_INFO_DATA;
+    RIL_CellInfo_v12      aRilCellInfo[RRIL_MAX_CELL_ID_COUNT];
+} S_ND_N_CELL_INFO_DATA_V12, *P_ND_N_CELL_INFO_DATA_V12;
 
 typedef struct
 {

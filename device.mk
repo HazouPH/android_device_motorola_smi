@@ -127,9 +127,7 @@ PRODUCT_PACKAGES += \
 
 # Newer camera API isn't supported.
 PRODUCT_PROPERTY_OVERRIDES += \
-    camera2.portability.force_api=1 \
-    media.stagefright.legacyencoder=true \
-    media.stagefright.less-secure=true
+	camera2.portability.force_api=1
 
 # Power
 PRODUCT_PACKAGES += \
@@ -138,15 +136,13 @@ PRODUCT_PACKAGES += \
 
 # Lights
 PRODUCT_PACKAGES += \
-    lights.smi \
-    android.hardware.light@2.0-impl
+    android.hardware.light@2.0-service.smi
 
 # grafics HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.graphics.allocator@2.0-impl \
-    android.hardware.graphics.allocator@2.0-service
+    android.hardware.graphics.allocator@2.0-service.smi
 
 # psb video
 PRODUCT_PACKAGES += \
@@ -240,7 +236,7 @@ PRODUCT_PACKAGES += \
     imgdiff \
     com.android.future.usb.accessory \
     android.hardware.memtrack@1.0-impl \
-    android.hardware.usb@1.0-service
+    android.hardware.usb@1.0-service.basic
 
 # Houdini (arm native bridge)
 PRODUCT_COPY_FILES += \
@@ -290,16 +286,15 @@ PRODUCT_PROPERTY_OVERRIDES += \
     softap.interface=wlan0 \
     ap.interface=wlan1 \
     ro.disableWifiApFirmwareReload=true
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/prebuilt/vendor/etc/wifi/wpa_supplicant.conf:system/vendor/etc/wifi/wpa_supplicant.conf
 
 # Misc
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     panel.physicalWidthmm=52 \
     panel.physicalHeightmm=89 \
     ro.opengles.version=131072 \
-    gsm.net.interface=rmnet0 \
-    ro.secure=0 \
-    ro.adb.secure=0 \
-    ro.debuggable=1
+    gsm.net.interface=rmnet0
 
 # Storage
 PRODUCT_PROPERTY_OVERRIDES += \

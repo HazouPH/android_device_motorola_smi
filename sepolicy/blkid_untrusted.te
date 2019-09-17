@@ -1,0 +1,1 @@
+allow blkid_untrusted proc_filesystems:file { getattr read open };

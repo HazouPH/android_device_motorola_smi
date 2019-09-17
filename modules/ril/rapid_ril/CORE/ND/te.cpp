@@ -6601,13 +6601,13 @@ RIL_RESULT_CODE CTE::RequestGetCellInfoList(RIL_Token rilToken, void* pData, siz
     if (RRIL_RESULT_OK_IMMEDIATE == res)
     {
         int itemCount = 0;
-        S_ND_N_CELL_INFO_DATA cellData;
+        S_ND_N_CELL_INFO_DATA_V12 cellData;
 
-        memset(&cellData, 0, sizeof(S_ND_N_CELL_INFO_DATA));
+        memset(&cellData, 0, sizeof(S_ND_N_CELL_INFO_DATA_V12));
         getCellInfo(&cellData, itemCount);
 
         RIL_onRequestComplete(rilToken, RIL_E_SUCCESS, &cellData.aRilCellInfo,
-                itemCount * sizeof(RIL_CellInfo));
+                itemCount * sizeof(RIL_CellInfo_v12));
 
         res = RRIL_RESULT_OK;
     }

@@ -219,7 +219,7 @@ protected:
 private:
 
     void ConvertCellInfoForVanillaAOSP(P_ND_N_CELL_INFO_DATA_V2 pOldData,
-            P_ND_N_CELL_INFO_DATA pNewData, int nCellInfos);
+            P_ND_N_CELL_INFO_DATA_V12 pNewData, int nCellInfos);
     RIL_RESULT_CODE ParseXTAMR(const char* pszRsp, RESPONSE_DATA& rspData);
     RIL_RESULT_CODE ParseXTSM(const char* pszRsp, RESPONSE_DATA& rspData);
 

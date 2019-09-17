@@ -1,0 +1,1 @@
+allow shared_relro system_data_file:file { execute open };

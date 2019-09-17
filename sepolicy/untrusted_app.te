@@ -1,7 +1,13 @@
 allow untrusted_app system_file:file execmod;
-allow untrusted_app sysfs:file r_file_perms;
 allow untrusted_app cpuinfo_file:file { mounton };
 allow untrusted_app cpuinfo_file:file r_file_perms;
+allow untrusted_app sysfs:dir { open read };
+allow untrusted_app proc_version:file { getattr };
+allow untrusted_app sysfs:file { getattr };
+allow untrusted_app system_data_file:file open;
+allow untrusted_app vendor_file:file execmod;
+allow untrusted_app vendor_file:file execmod;
+allow untrusted_app_25 cpuinfo_file:file { open read };
 
 # Zram
 allow untrusted_app sysfs_zram:dir r_dir_perms;

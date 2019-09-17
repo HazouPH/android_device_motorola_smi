@@ -6,4 +6,4 @@ service bd_prov /system/bin/bd_prov.sh
     group system bluetooth
     disabled
     oneshot
-    seclabel u:r:bluetooth:s0
+    seclabel u:r:bd_prov:s0

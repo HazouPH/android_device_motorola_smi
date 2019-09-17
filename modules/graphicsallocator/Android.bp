@@ -1,0 +1,24 @@
+cc_binary {
+    name: "android.hardware.graphics.allocator@2.0-service.smi",
+    defaults: ["hidl_defaults"],
+    proprietary: true,
+    relative_install_path: "hw",
+    srcs: ["service.cpp"],
+    init_rc: ["android.hardware.graphics.allocator@2.0-service.smi.rc"],
+
+    header_libs: [
+        "android.hardware.graphics.allocator@2.0-hal",
+        "android.hardware.graphics.mapper@2.0-passthrough_headers",
+    ],
+    shared_libs: [
+        "android.hardware.graphics.allocator@2.0",
+        "libbase",
+        "libcutils",
+        "libhardware",
+        "libhidlbase",
+        "libhidltransport",
+        "libhwbinder",
+        "liblog",
+        "libutils",
+    ],
+}

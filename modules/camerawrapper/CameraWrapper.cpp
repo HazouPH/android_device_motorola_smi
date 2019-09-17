@@ -35,6 +35,8 @@
 #include <camera/Camera.h>
 #include <camera/CameraParameters2.h>
 
+extern "C" void android_set_application_target_sdk_version(uint32_t target);
+
 using namespace android;
 
 static Mutex gCameraWrapperLock;
@@ -412,7 +414,7 @@ static char* camera_get_parameters(struct camera_device * device)
 
     //only use working preview sizes
     if(!strcmp(params.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES), "1024x576,800x600,720x480,720x408,640x480,640x360,352x288,320x240,176x144")) {
-        params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES, "1024x576,720x408,640x480,640x360");
+        params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_SIZES, "800x600,720x480,720x408,640x480,640x360,352x288,320x240,176x144");
     }
 
     android::String8 strParams = params.flatten();
@@ -512,6 +514,8 @@ static int camera_device_open(const hw_module_t* module, const char* name,
     int cameraid;
     wrapper_camera_device_t* camera_device = NULL;
     camera_device_ops_t* camera_ops = NULL;
+
+    android_set_application_target_sdk_version(__ANDROID_API_K__);
 
     Mutex::Autolock lock(gCameraWrapperLock);
 

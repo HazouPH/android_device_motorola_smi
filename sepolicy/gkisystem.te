@@ -1,6 +1,9 @@
 # gkisystem - GKISystem GPS daemon
 type gkisystem, domain;
 type gkisystem_exec, exec_type, file_type;
+type gps_data_file, file_type, data_file_type, core_data_file_type;
+type gps_socket, file_type, data_file_type, core_data_file_type;
+type gps_device, file_type;
 
 init_daemon_domain(gkisystem)
 net_domain(gkisystem)
@@ -12,6 +15,10 @@ type_transition gkisystem gps_data_file:sock_file gps_socket;
 allow gkisystem gps_socket:sock_file create_file_perms;
 # XXX Label sysfs files with a specific type?
 allow gkisystem sysfs:file rw_file_perms;
+allow gkisystem self:capability kill;
+allow gkisystem self:capability sys_resource;
+allow gkisystem devpts:chr_file { getattr read write };
+allow gkisystem shell_data_file:dir { getattr };
 
 allow gkisystem radio_device:chr_file rw_file_perms;
 allow gkisystem rild_socket:sock_file rw_file_perms;
@@ -39,7 +46,7 @@ allow gkisystem system_file:file rx_file_perms;
 allow gkisystem toolbox_exec:file rx_file_perms;
 
 # Allow gkisystem mote self capabilities
-allow gkisystem self:capability { dac_override setuid sys_nice };
+allow gkisystem self:capability { setuid sys_nice };
 neverallow gkisystem self:capability2 ~block_suspend;
 
 binder_use(gkisystem)

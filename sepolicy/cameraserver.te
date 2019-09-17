@@ -1,0 +1,2 @@
+allow cameraserver system_file:file execmod;
+allow cameraserver vendor_file:file execmod;

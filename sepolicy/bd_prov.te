@@ -1,0 +1,13 @@
+# bd_prov
+type bd_prov, domain;
+type bd_prov_exec, exec_type, file_type;
+
+init_daemon_domain(bd_prov)
+
+allow bd_prov bluetooth_prop:property_service set;
+allow bd_prov shell_exec:file { getattr read };
+allow bd_prov smi_tee_device:chr_file { open read write };
+allow bd_prov sysfs:file { open read };
+allow bd_prov system_file:file execute_no_trans;
+allow bd_prov property_socket:sock_file write;
+allow bd_prov init:unix_stream_socket connectto;

@@ -1,5 +1,5 @@
 # batt_health
-type batt_health_data_file, file_type;
+type batt_health_data_file, file_type, data_file_type, core_data_file_type;
 type batt_health_sysfs, sysfs_type, fs_type;
 
 # Bluetooth
@@ -17,7 +17,7 @@ type smi_tee_device, dev_type;
 type cpuinfo_file, file_type;
 
 # PDS files
-type pds_file, file_type;
+type pds_file, file_type, data_file_type, core_data_file_type;
 
 # Radio
 type radio_cache_file, file_type, data_file_type;
@@ -26,3 +26,11 @@ type radio_sysfs_file, fs_type, sysfs_type;
 
 # WiFi
 type wifi_config_file, file_type, data_file_type;
+
+type adb_device, dev_type;
+
+type sysfs_fbcon, fs_type, sysfs_type;
+type sysfs_gpio, fs_type, sysfs_type;
+type sysfs_block, fs_type, sysfs_type;
+type sysfs_pci, fs_type, sysfs_type;
+type sysfs_init_access, fs_type, sysfs_type;

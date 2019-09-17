@@ -8,9 +8,14 @@ allow wlan_prov pds_file:file { open read };
 
 allow wlan_prov proc_net:file r_file_perms;
 allow wlan_prov proc_sysrq:file rw_file_perms;
-allow wlan_prov self:capability { dac_override dac_read_search net_admin sys_boot };
+allow wlan_prov self:capability { net_admin sys_boot };
 allow wlan_prov shell_exec:file rx_file_perms;
 allow wlan_prov sysfs:dir r_dir_perms;
 allow wlan_prov sysfs:file rw_file_perms;
 allow wlan_prov wifi_data_file:file r_file_perms;
-
+allow wlan_prov property_socket:sock_file write;
+allow wlan_prov wlan_prov_exec:file execute_no_trans;
+allow wlan_prov init:unix_stream_socket connectto;
+allow wlan_prov self:netlink_socket { setopt create bind };
+allow wlan_prov devpts:chr_file { read write };
+allow wlan_prov powerctl_prop:property_service set;

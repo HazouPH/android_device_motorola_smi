@@ -8,6 +8,7 @@ allow audioserver rootfs:lnk_file r_file_perms;
 allow audioserver sysfs:file rw_file_perms;
 allow audioserver system_file:file execmod;
 allow audioserver tmpfs:dir search;
+allow audioserver asec_apk_file:file { getattr open read write };
 
 # Use sockets received over binder from various services.
 allow audioserver system_server:unix_stream_socket rw_socket_perms;

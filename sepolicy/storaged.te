@@ -1,0 +1,4 @@
+#type storaged, domain, coredomain, mlstrustedsubject;
+allow mlstrustedsubject sysfs_block:dir search;
+allow mlstrustedsubject sysfs_block:lnk_file read;
+allow mlstrustedsubject sysfs_block:file { getattr open read };

@@ -1,3 +1,5 @@
 # This sucks but needed for camera
 allow zygote system_file:file execmod;
 allow zygote ota_data_file:dir search;
+allow zygote vendor_file:file execmod;
+allow zygote self:capability sys_resource;

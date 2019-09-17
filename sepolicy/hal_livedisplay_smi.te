@@ -1,0 +1,7 @@
+type hal_lineage_livedisplay_smi, domain;
+hal_server_domain(hal_lineage_livedisplay_smi, hal_lineage_livedisplay)
+
+type hal_lineage_livedisplay_smi_exec, exec_type, vendor_file_type, file_type;
+init_daemon_domain(hal_lineage_livedisplay_smi)
+
+allow hal_lineage_livedisplay_smi sysfs:file { getattr open read write };

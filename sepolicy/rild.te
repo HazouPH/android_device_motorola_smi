@@ -14,3 +14,5 @@ allow rild rild_socket:sock_file rw_file_perms;
 allow rild system_data_file:dir { write };
 allow rild shell_exec:file rx_file_perms;
 allow rild system_file:file {rx_file_perms execmod};
+allow rild self:capability { sys_nice };
+allow rild sysfs:file write;

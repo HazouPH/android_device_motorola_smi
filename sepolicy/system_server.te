@@ -5,10 +5,18 @@ allow system_server gps_data_file:file rw_file_perms;
 allow system_server gps_data_file:dir search;
 allow system_server radio_device:chr_file w_file_perms;
 allow system_server radio_device:dir r_dir_perms;
-allow system_server shell_exec:file { execute execute_no_trans getattr open read };
+allow system_server shell_exec:file { execute getattr open read };
 allow system_server socket_device:sock_file write;
 allow system_server wifi_config_file:dir r_dir_perms;
 allow system_server wifi_config_file:file r_file_perms;
+allow system_server device:chr_file ioctl;
+allow system_server proc:file { getattr open read };
+allow system_server gps_socket:sock_file write;
+allow system_server sensors_device:chr_file { ioctl open read };
+allow system_server vendor_file:file execmod;
+allow system_server crash_dump:process getpgid;
+allow system_server unlabeled:file unlink;
+allow system_server sysfs_init_access:file write;
 
 # This is evil but we cannot constrain it anymore than
 # "any system_file" because the domain rules in external/sepolicy.

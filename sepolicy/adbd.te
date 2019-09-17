@@ -1,0 +1,3 @@
+allow adbd sysfs:file { getattr open read };
+allow adbd adb_device:chr_file { open read write };
+allow adbd ctl_start_prop:property_service set;

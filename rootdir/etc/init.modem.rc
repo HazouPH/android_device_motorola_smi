@@ -49,7 +49,7 @@ service ril-daemon /system/vendor/bin/hw/rild -l /system/lib/librapid-ril-core.s
 #service ril-daemon /system/bin/rild #Rapid ril MM
     class late_start
     user root
-    group radio cache inet misc audio log mot_tpapi qcom_diag readproc wakelock
+    group radio cache inet misc audio log readproc wakelock
 
 #on property:persist.radio.airplane_mode_on=0
 #   stop ril-daemon

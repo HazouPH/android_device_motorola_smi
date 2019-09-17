@@ -1,0 +1,4 @@
+allow fsck_untrusted media_rw_data_file:dir getattr;
+allow fsck_untrusted mnt_media_rw_file:dir search;
+allow fsck_untrusted proc_swaps:file { getattr open read };
+allow fsck_untrusted tmpfs:dir search;

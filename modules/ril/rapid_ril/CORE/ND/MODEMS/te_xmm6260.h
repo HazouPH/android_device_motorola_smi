@@ -181,7 +181,7 @@ public:
                                                            void* pData,
                                                            UINT32 uiDataSize);
 
-    virtual RIL_RESULT_CODE ParseCellInfo(P_ND_N_CELL_INFO_DATA pCellData,
+    virtual RIL_RESULT_CODE ParseCellInfo(P_ND_N_CELL_INFO_DATA_V12 pCellData,
                                                            const char* pszRsp,
                                                            UINT32 uiIndex,
                                                            UINT32 uiMode);

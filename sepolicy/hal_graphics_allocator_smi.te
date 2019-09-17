@@ -1,0 +1,10 @@
+type hal_graphics_allocator_smi, domain;
+type hal_graphics_allocator_smi_exec, exec_type, file_type;
+
+hal_server_domain(hal_graphics_allocator_smi, hal_graphics_allocator)
+
+init_daemon_domain(hal_graphics_allocator_smi)
+
+allow hal_graphics_allocator_smi device:chr_file { ioctl };
+allow hal_graphics_allocator_smi system_file:file execmod;
+allow hal_graphics_allocator_smi vendor_file:file execmod;
