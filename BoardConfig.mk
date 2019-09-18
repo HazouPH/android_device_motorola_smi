@@ -1,4 +1,3 @@
-include $(GENERIC_X86_CONFIG_MK)
 LOCAL_PATH := device/motorola/smi
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
@@ -7,20 +6,24 @@ TARGET_NO_RADIOIMAGE := true
 
 # Board configuration
 TARGET_BOOTLOADER_BOARD_NAME := smi
+TARGET_BOARD_PLATFORM := sc1
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+TARGET_CPU_SMP := true
+
 TARGET_CPU_ABI := x86
+TARGET_ARCH := x86
+TARGET_ARCH_VARIANT := atom
+
 TARGET_CPU_ABI2 := armeabi-v7a
 TARGET_CPU_ABI_LIST := x86,armeabi-v7a,armeabi
 TARGET_CPU_ABI_LIST_32_BIT := x86,armeabi-v7a,armeabi
-TARGET_ARCH := x86
-TARGET_ARCH_VARIANT := atom
-TARGET_BOARD_PLATFORM := sc1
-TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
 
 # We only have 1GB of RAM
 MALLOC_SVELTE := true
-BOARD_GLOBAL_CFLAGS += -march=bonnell
 
-WITH_DEXPREOPT := true
+# Intel ART optimized build flags (needs art-extension)
+VENDOR_ART_PATH := vendor/intel/art-extension
+include $(LOCAL_PATH)/OptAtom.mk
 
 # USB
 TARGET_USES_LEGACY_ADB_INTERFACE := true
